@@ -1,34 +1,20 @@
-'use client'
-
-import { usePathname } from 'next/navigation'
-import Link from "next/link";
+import { FloatingNav } from "@/components/ui/FloatingNav";
 
 const links = [
-	{ href: "/projects", label: "projects" },
-	{ href: "/about", label: "about" },
-	{ href: "/contact", label: "contact" },
-	{ href: "/skills", label: "skills" },
+	{ link: "/", name: "Home" },
+	{ link: "/projects", name: "Projects" },
+	{ link: "/about", name: "About me" },
+	{ link: "/contact", name: "Contact" },
+	{ link: "/blog", name: "Blogs" },
 ];
 
 const Navbar = () => {
-	const pathname = usePathname()
 	return (
-		<nav className="bg-base-300 py-4">
-			<div className="navbar px-8 mx-auto max-w-6xl flex-col sm:flex-row">
-				<Link href="/">
-					Vivek Patel
-				</Link>
-				<ul className="menu menu-horizontal md:ml-8">
-					{links.map(({ href, label }) => (
-						<li key={`${href}${label}`}>
-							<Link href={href} className={`${pathname === href ? 'active' : ''}`} >
-								{label}
-							</Link>
-						</li>
-					))}
-				</ul>
-			</div>
-		</nav >
+		<nav>
+			<FloatingNav
+				navItems={links}
+			/>
+		</nav>
 
 	)
 }
