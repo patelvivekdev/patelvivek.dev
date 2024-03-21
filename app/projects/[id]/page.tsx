@@ -1,6 +1,10 @@
-const Project = () => {
+const Project = ({ params }: {
+  params: {
+    id: string
+  }
+}) => {
   return (
-	<div>Project page</div>
+    <div>Project page - {params.id}</div>
   )
 }
 

@@ -2,8 +2,8 @@ import { FloatingNav } from "@/components/ui/FloatingNav";
 
 const links = [
 	{ link: "/", name: "Home" },
-	{ link: "/projects", name: "Projects" },
 	{ link: "/about", name: "About me" },
+	{ link: "/projects", name: "Projects" },
 	{ link: "/contact", name: "Contact" },
 	{ link: "/blog", name: "Blogs" },
 ];
