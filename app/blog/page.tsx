@@ -8,7 +8,9 @@ export const metadata: Metadata = {
 
 const BlogPage = () => {
 	return (
-		<div>BlogPage</div>
+		<div className='h-screen flex flex-col items-center mt-40'>
+			<h1 className='text-4xl' >Blog Page</h1>
+		</div>
 	)
 }
 

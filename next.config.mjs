@@ -8,6 +8,9 @@ const nextConfig = {
 				port: '',
 				pathname: '/static/media/**',
 			},
+			{
+				hostname: 'firebasestorage.googleapis.com',
+			},
 		],
 	},
 }

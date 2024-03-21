@@ -7,11 +7,11 @@ export const metadata: Metadata = {
 }
 
 
-
-
 const ContactPage = () => {
 	return (
-		<div>ContactPage</div>
+		<div className='h-screen flex flex-col items-center mt-40'>
+			<h1 className='text-4xl' >Contact Page</h1>
+		</div>
 	)
 }
 

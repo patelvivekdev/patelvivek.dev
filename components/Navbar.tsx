@@ -4,8 +4,8 @@ const links = [
 	{ link: "/", name: "Home" },
 	{ link: "/about", name: "About me" },
 	{ link: "/projects", name: "Projects" },
-	{ link: "/contact", name: "Contact" },
 	{ link: "/blog", name: "Blogs" },
+	{ link: "/contact", name: "Contact" },
 ];
 
 const Navbar = () => {
