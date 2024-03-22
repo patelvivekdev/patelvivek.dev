@@ -8,7 +8,6 @@ export function ThemeToggle() {
 	useEffect(() => {
 		setLoaded(true);
 	}, [setLoaded]);
-	console.log("theme", theme);
 	return (
 		<button
 			aria-label="Toggle Dark Mode"
