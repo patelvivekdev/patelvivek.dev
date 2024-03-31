@@ -1,4 +1,5 @@
-import type {Config} from 'tailwindcss'
+import type { Config } from 'tailwindcss'
+const { fontFamily } = require("tailwindcss/defaultTheme")
 const svgToDataUri = require('mini-svg-data-uri')
 
 const colors = require('tailwindcss/colors')
@@ -6,7 +7,7 @@ const {
 	default: flattenColorPalette,
 } = require('tailwindcss/lib/util/flattenColorPalette')
 
-function addVariablesForColors({addBase, theme}: any) {
+function addVariablesForColors({ addBase, theme }: any) {
 	let allColors = flattenColorPalette(theme('colors'))
 	let newVars = Object.fromEntries(
 		Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
@@ -17,7 +18,7 @@ function addVariablesForColors({addBase, theme}: any) {
 	})
 }
 
-function addSvgPatterns({matchUtilities, theme}: any) {
+function addSvgPatterns({ matchUtilities, theme }: any) {
 	matchUtilities(
 		{
 			'bg-grid': (value: any) => ({
@@ -36,7 +37,7 @@ function addSvgPatterns({matchUtilities, theme}: any) {
 				)}")`,
 			}),
 		},
-		{values: flattenColorPalette(theme('backgroundColor')), type: 'color'}
+		{ values: flattenColorPalette(theme('backgroundColor')), type: 'color' }
 	)
 }
 
@@ -47,6 +48,13 @@ const config: Config = {
 		'./components/**/*.{js,ts,jsx,tsx,mdx}',
 		'./app/**/*.{js,ts,jsx,tsx,mdx}',
 	],
+	theme: {
+		extend: {
+			fontFamily: {
+				sans: ["var(--font-sans)", ...fontFamily.sans],
+			},
+		},
+	},
 	plugins: [addVariablesForColors, addSvgPatterns],
 }
 export default config
