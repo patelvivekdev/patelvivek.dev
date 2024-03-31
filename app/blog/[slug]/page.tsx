@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { unstable_noStore as noStore } from 'next/cache';
 
 export async function generateMetadata({
-  params,
 }): Promise<Metadata | undefined> {
   return {
     title: "Page Title",
@@ -12,7 +11,7 @@ export async function generateMetadata({
   };
 }
 
-export default function Blog({ params }) {
+export default function Blog( ) {
     let post = "test"
 
     if (!post) {
