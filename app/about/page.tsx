@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import Image from "next/image";
+import Me from "@/public/me.jpg";
 
 export const metadata: Metadata = {
   title: "About Me",
@@ -50,7 +51,7 @@ const AboutPage = () => {
         <div className="mx-auto p-10 text-center">
           <Image
             className="rounded [box-shadow:15px_-15px_0_-3px_#0284c7,_15px_-15px_#64ffda]"
-            src="/me.jpg"
+            src={Me}
             width={300}
             height={300}
             alt="Picture of the author"

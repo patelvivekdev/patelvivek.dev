@@ -21,8 +21,8 @@ const Card = ({
           <Image
             src={image.src}
             alt={image.alt}
-            width={800}
-            height={533}
+            width={500}
+            height={500}
             className="rounded-t-2xl"
             priority={true}
           />

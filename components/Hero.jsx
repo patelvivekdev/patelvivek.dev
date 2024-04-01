@@ -6,14 +6,7 @@ export default function Hero() {
   return (
     <>
       <div className="mt-32 sm:mt-40">
-        <motion.div
-          initial={{ opacity: 0.3 }}
-          whileInView={{ opacity: 1 }}
-          transition={{
-            delay: 0.3,
-            duration: 1,
-            ease: "easeInOut",
-          }}
+        <div
           style={{
             backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
           }}
@@ -23,15 +16,8 @@ export default function Hero() {
 					w-1/2
 					dark:bg-gradient-conic dark:from-white/65 dark:via-transparent dark:to-transparent dark:text-white dark:[--conic-position:from_70deg_at_center_top] 
 					bg-gradient-conic from-black via-transparent to-transparent text-black [--conic-position:from_70deg_at_center_top]"
-        ></motion.div>
-        <motion.div
-          initial={{ opacity: 0.3 }}
-          whileInView={{ opacity: 1 }}
-          transition={{
-            delay: 0.3,
-            duration: 1,
-            ease: "easeInOut",
-          }}
+        ></div>
+        <div
           style={{
             backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
           }}
@@ -40,18 +26,9 @@ export default function Hero() {
 		  			w-1/2 
 					dark:bg-gradient-conic dark:from-transparent dark:via-transparent dark:to-white/65 dark:text-white dark:[--conic-position:from_290deg_at_center_top]
 					bg-gradient-conic from-transparent via-transparent to-black text-black [--conic-position:from_290deg_at_center_top]"
-        ></motion.div>
+        ></div>
       </div>
-      <motion.h1
-        initial={{ opacity: 0.3, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          delay: 0.3,
-          duration: 0.8,
-          ease: "easeInOut",
-        }}
-        className="mt-3 sm:mt-8 z-50 py-4 text-center font-medium tracking-tight"
-      >
+      <h1 className="mt-3 sm:mt-8 z-50 py-4 text-center font-medium tracking-tight">
         <span className="flex flex-col items-center justify-center">
           <p className="text-xl sm:text-3xl md:text-4xl lg:text-7xl ">
             <span className="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 bg-clip-text text-transparent">
@@ -67,7 +44,7 @@ export default function Hero() {
             </span>
           </p>
         </span>
-      </motion.h1>
+      </h1>
     </>
   );
 }
