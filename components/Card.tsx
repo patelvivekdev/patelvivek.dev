@@ -3,12 +3,12 @@ import Image from "next/image";
 const Card = ({
   title,
   description,
-  image,
   tags,
+  image,
 }: {
   title: string;
   description: string;
-  image: {
+  image?: {
     src: string;
     alt: string;
   } | null;
