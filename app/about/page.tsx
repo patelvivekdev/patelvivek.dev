@@ -14,31 +14,32 @@ const AboutPage = () => {
       <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className=" flex flex-col lg:col-span-2 mx-auto p-10 gap-4 w-full">
           <h2 className="text-3xl font-bold">
-            I'm passionate about{" "}
+            I&rsquo;m passionate about{" "}
             <strong className="text-c">web development</strong>, armed with a
-            background in Computer Engineering. Currently, I'm immersed in the
-            world of web development at Conestoga College, where I'm expanding
-            my skills and crafting captivating web applications.
+            background in Computer Engineering. Currently, I&rsquo;m immersed in
+            the world of web development at Conestoga College, where I&rsquo;m
+            expanding my skills and crafting captivating web applications.
           </h2>
           <h2 className="text-2xl font-bold">
-            Beyond the screen, I'm an avid{" "}
-            <strong className="text-c">photographer</strong>, capturing life's
-            beautiful moments through my lens. I also love exploring the great
-            outdoors, seeking inspiration in nature's wonders.
+            Beyond the screen, I&rsquo;m an avid{" "}
+            <strong className="text-c">photographer</strong>, capturing
+            life&rsquo;s beautiful moments through my lens. I also love
+            exploring the great outdoors, seeking inspiration in nature&rsquo;s
+            wonders.
           </h2>
           <h2 className="text-2xl font-bold">
-            I'm a versatile web developer with expertise in a wide range of
-            technologies. My skills include building interactive web
+            I&rsquo;m a versatile web developer with expertise in a wide range
+            of technologies. My skills include building interactive web
             applications using technologies like{" "}
             <strong className="text-c">React</strong>,
             <strong className="text-c">Angular</strong>, and{" "}
             <strong className="text-c">Node.js</strong>. I have experience with
             databases like <strong className="text-c">MongoDB</strong>,{" "}
             <strong className="text-c">MySQL</strong>, and{" "}
-            <strong className="text-c">PostgreSQL</strong>, and I'm proficient
-            in programming languages such as{" "}
+            <strong className="text-c">PostgreSQL</strong>, and I&rsquo;m
+            proficient in programming languages such as{" "}
             <strong className="text-c">Python</strong>
-            and <strong className="text-c">JavaScript</strong>. I'm also
+            and <strong className="text-c">JavaScript</strong>. I&rsquo;m also
             well-versed in version control with{" "}
             <strong className="text-c">Git</strong> and{" "}
             <strong className="text-c">GitHub</strong>. My passion for coding

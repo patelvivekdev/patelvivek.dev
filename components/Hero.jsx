@@ -55,7 +55,7 @@ export default function Hero() {
         <span className="flex flex-col items-center justify-center">
           <p className="text-xl sm:text-3xl md:text-4xl lg:text-7xl ">
             <span className="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 bg-clip-text text-transparent">
-              Hey, I'm Vivek Patel
+              Hey, I&rsquo;m Vivek Patel
             </span>
             <span>👋</span>
           </p>
