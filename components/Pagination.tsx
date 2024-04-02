@@ -116,7 +116,7 @@ function PaginationArrow({
   return isDisabled ? (
     <div className={className}>{icon}</div>
   ) : (
-    <Link className={className} href={href}>
+    <Link className={className} href={href} scroll={false}>
       {icon}
     </Link>
   );
