@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import BlogPost from "@/components/BlogPost";
 import Search from "@/components/Search";
 import Pagination from "@/components/Pagination";
+import { getBlogPosts } from '@/app/data';
 
 export const metadata: Metadata = {
   title: "All Blogs",
@@ -20,111 +21,114 @@ const BlogPage = ({
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
-  const blogs = [
-    {
-      title: "First blog",
-      summary: "This is the first blog",
-      slug: "first-blog",
-    },
-    {
-      title: "Second blog",
-      summary: "This is the Second blog",
-      slug: "second-blog",
-    },
-    {
-      title: "Third blog",
-      summary: "This is the Third blog",
-      slug: "third-blog",
-    },
-    {
-      title: "Fourth blog",
-      summary: "This is the Fourth blog",
-      slug: "fourth-blog",
-    },
-    {
-      title: "Fifth blog",
-      summary: "This is the Fifth blog",
-      slug: "fifth-blog",
-    },
-    {
-      title: "Sixth blog",
-      summary: "This is the Sixth blog",
-      slug: "sixth-blog",
-    },
-    {
-      title: "Seventh blog",
-      summary: "This is the Seventh blog",
-      slug: "seventh-blog",
-    },
-    {
-      title: "Eighth blog",
-      summary: "This is the Eighth blog",
-      slug: "eighth-blog",
-    },
-    {
-      title: "Ninth blog",
-      summary: "This is the Ninth blog",
-      slug: "ninth-blog",
-    },
-    {
-      title: "Tenth blog",
-      summary: "This is the Tenth blog",
-      slug: "tenth-blog",
-    },
-    {
-      title: "Eleventh blog",
-      summary: "This is the Eleventh blog",
-      slug: "eleventh-blog",
-    },
-    {
-      title: "Twelveth blog",
-      summary: "This is the Twelveth blog",
-      slug: "twelveth-blog",
-    },
-    {
-      title: "Thirteenth blog",
-      summary: "This is the Thirteenth blog",
-      slug: "thirteenth-blog",
-    },
-    {
-      title: "Fourteenth blog",
-      summary: "This is the Fourteenth blog",
-      slug: "fourteenth-blog",
-    },
-    {
-      title: "Fifteenth blog",
-      summary: "This is the Fifteenth blog",
-      slug: "fifteenth-blog",
-    },
-    {
-      title: "Sixteenth blog",
-      summary: "This is the Sixteenth blog",
-      slug: "sixteenth-blog",
-    },
-    {
-      title: "Seventeenth blog",
-      summary: "This is the Seventeenth blog",
-      slug: "seventeenth-blog",
-    },
-    {
-      title: "Eighteenth blog",
-      summary: "This is the Eighteenth blog",
-      slug: "eighteenth-blog",
-    },
-    {
-      title: "Nineteenth blog",
-      summary: "This is the Nineteenth blog",
-      slug: "nineteenth-blog",
-    },
-    {
-      title: "Twentieth blog",
-      summary: "This is the Twentieth blog",
-      slug: "twentieth-blog",
-    },
-  ];
+  let allBlogs = getBlogPosts();
 
-  const filteredBlogs = blogs.filter((blog) =>
-    blog.title.toLowerCase().includes(query.toLowerCase())
+
+  // const blogs = [
+  //   {
+  //     title: "First blog",
+  //     summary: "This is the first blog",
+  //     slug: "first-blog",
+  //   },
+  //   {
+  //     title: "Second blog",
+  //     summary: "This is the Second blog",
+  //     slug: "second-blog",
+  //   },
+  //   {
+  //     title: "Third blog",
+  //     summary: "This is the Third blog",
+  //     slug: "third-blog",
+  //   },
+  //   {
+  //     title: "Fourth blog",
+  //     summary: "This is the Fourth blog",
+  //     slug: "fourth-blog",
+  //   },
+  //   {
+  //     title: "Fifth blog",
+  //     summary: "This is the Fifth blog",
+  //     slug: "fifth-blog",
+  //   },
+  //   {
+  //     title: "Sixth blog",
+  //     summary: "This is the Sixth blog",
+  //     slug: "sixth-blog",
+  //   },
+  //   {
+  //     title: "Seventh blog",
+  //     summary: "This is the Seventh blog",
+  //     slug: "seventh-blog",
+  //   },
+  //   {
+  //     title: "Eighth blog",
+  //     summary: "This is the Eighth blog",
+  //     slug: "eighth-blog",
+  //   },
+  //   {
+  //     title: "Ninth blog",
+  //     summary: "This is the Ninth blog",
+  //     slug: "ninth-blog",
+  //   },
+  //   {
+  //     title: "Tenth blog",
+  //     summary: "This is the Tenth blog",
+  //     slug: "tenth-blog",
+  //   },
+  //   {
+  //     title: "Eleventh blog",
+  //     summary: "This is the Eleventh blog",
+  //     slug: "eleventh-blog",
+  //   },
+  //   {
+  //     title: "Twelveth blog",
+  //     summary: "This is the Twelveth blog",
+  //     slug: "twelveth-blog",
+  //   },
+  //   {
+  //     title: "Thirteenth blog",
+  //     summary: "This is the Thirteenth blog",
+  //     slug: "thirteenth-blog",
+  //   },
+  //   {
+  //     title: "Fourteenth blog",
+  //     summary: "This is the Fourteenth blog",
+  //     slug: "fourteenth-blog",
+  //   },
+  //   {
+  //     title: "Fifteenth blog",
+  //     summary: "This is the Fifteenth blog",
+  //     slug: "fifteenth-blog",
+  //   },
+  //   {
+  //     title: "Sixteenth blog",
+  //     summary: "This is the Sixteenth blog",
+  //     slug: "sixteenth-blog",
+  //   },
+  //   {
+  //     title: "Seventeenth blog",
+  //     summary: "This is the Seventeenth blog",
+  //     slug: "seventeenth-blog",
+  //   },
+  //   {
+  //     title: "Eighteenth blog",
+  //     summary: "This is the Eighteenth blog",
+  //     slug: "eighteenth-blog",
+  //   },
+  //   {
+  //     title: "Nineteenth blog",
+  //     summary: "This is the Nineteenth blog",
+  //     slug: "nineteenth-blog",
+  //   },
+  //   {
+  //     title: "Twentieth blog",
+  //     summary: "This is the Twentieth blog",
+  //     slug: "twentieth-blog",
+  //   },
+  // ];
+
+  const filteredBlogs = allBlogs.filter((blog) =>
+    blog.metadata.title.toLowerCase().includes(query.toLowerCase())
   );
 
   const blogsPerPage = 5;
@@ -134,7 +138,7 @@ const BlogPage = ({
   if (query) {
     totalPages = Math.ceil(filteredBlogs.length / blogsPerPage);
   } else {
-    totalPages = Math.ceil(blogs.length / blogsPerPage);
+    totalPages = Math.ceil(allBlogs.length / blogsPerPage);
   }
 
   filteredBlogs.splice(0, (currentPage - 1) * blogsPerPage);
@@ -161,7 +165,7 @@ const BlogPage = ({
         <Search placeholder="Search blog title" />
         {/* if query display fileterdblog else show all blog */}
         {filteredBlogs.length > 0 ? (
-          filteredBlogs.map((blog) => <BlogPost key={blog.slug} {...blog} />)
+          filteredBlogs.map((blog) => <BlogPost key={blog.slug} title={blog.metadata.title} summary={blog.metadata.summary} slug={blog.slug} />)
         ) : (
           <p className="text-center text-xl bg-gradient-to-b from-blue-600 via-green-500 to-indigo-400 bg-clip-text text-transparent">
             No blogs found

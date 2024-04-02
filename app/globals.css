@@ -10,3 +10,17 @@ body {
 .text-c{
 	color:#22d2a0
 }
+
+/* styles.css */
+:root {
+	--sh-class: #2d5e9d;
+	--sh-identifier: #354150;
+	--sh-sign: #8996a3;
+	--sh-property: #0550ae;
+	--sh-entity: #249a97;
+	--sh-jsxliterals: #6266d1;
+	--sh-string: #00a99a;
+	--sh-keyword: #f47067;
+	--sh-comment: #a19595;
+  }
+  

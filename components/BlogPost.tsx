@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { getViewsCount } from "@/app/data";
+import { Skeleton } from "@/components/ui/skeleton"
+
 
 const BlogPost = ({
   title,
@@ -26,7 +28,7 @@ const BlogPost = ({
 
 async function Views({ slug }: { slug: string }) {
   let views = await getViewsCount(slug);
-  return <>{`${views ? views : "--"} views`}</>;
+  return <p>{`${views ? views : "--"} views`}</p>;
 }
 
 export default BlogPost;
@@ -49,11 +51,11 @@ function InternalBlogPost({
         <h4 className="mb-2 w-full font-medium text-neutral-900 dark:text-neutral-100">
           {title}
         </h4>
-        <p className="text-gray-500 text-left md:text-right w-32 mb-4 md:mb-0">
-          <Suspense fallback={<p className="h-6" />}>
+        <div className="text-gray-500 text-left md:text-right w-32 mb-4 md:mb-0">
+          <Suspense fallback={<Skeleton className="h-4 bg-slate-300 dark:bg-slate-100 rounded-full" />}>
             <Views slug={slug} />
           </Suspense>
-        </p>
+        </div>
       </div>
       <p className="text-gray-600 dark:text-gray-400">{summary}</p>
     </Link>

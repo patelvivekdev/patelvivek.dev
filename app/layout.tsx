@@ -14,6 +14,7 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://patelvivek.dev'),
   title: "Patel Vivek",
   description: "Personal website of Patel Vivek.",
 };
