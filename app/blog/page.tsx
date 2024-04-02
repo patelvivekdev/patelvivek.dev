@@ -1,6 +1,7 @@
+import type { Metadata } from "next";
 import BlogPost from "@/components/BlogPost";
 import Search from "@/components/Search";
-import type { Metadata } from "next";
+import Pagination from "@/components/Pagination";
 
 export const metadata: Metadata = {
   title: "All Blogs",
@@ -35,20 +36,120 @@ const BlogPage = ({
       summary: "This is the Third blog",
       slug: "third-blog",
     },
+    {
+      title: "Fourth blog",
+      summary: "This is the Fourth blog",
+      slug: "fourth-blog",
+    },
+    {
+      title: "Fifth blog",
+      summary: "This is the Fifth blog",
+      slug: "fifth-blog",
+    },
+    {
+      title: "Sixth blog",
+      summary: "This is the Sixth blog",
+      slug: "sixth-blog",
+    },
+    {
+      title: "Seventh blog",
+      summary: "This is the Seventh blog",
+      slug: "seventh-blog",
+    },
+    {
+      title: "Eighth blog",
+      summary: "This is the Eighth blog",
+      slug: "eighth-blog",
+    },
+    {
+      title: "Ninth blog",
+      summary: "This is the Ninth blog",
+      slug: "ninth-blog",
+    },
+    {
+      title: "Tenth blog",
+      summary: "This is the Tenth blog",
+      slug: "tenth-blog",
+    },
+    {
+      title: "Eleventh blog",
+      summary: "This is the Eleventh blog",
+      slug: "eleventh-blog",
+    },
+    {
+      title: "Twelveth blog",
+      summary: "This is the Twelveth blog",
+      slug: "twelveth-blog",
+    },
+    {
+      title: "Thirteenth blog",
+      summary: "This is the Thirteenth blog",
+      slug: "thirteenth-blog",
+    },
+    {
+      title: "Fourteenth blog",
+      summary: "This is the Fourteenth blog",
+      slug: "fourteenth-blog",
+    },
+    {
+      title: "Fifteenth blog",
+      summary: "This is the Fifteenth blog",
+      slug: "fifteenth-blog",
+    },
+    {
+      title: "Sixteenth blog",
+      summary: "This is the Sixteenth blog",
+      slug: "sixteenth-blog",
+    },
+    {
+      title: "Seventeenth blog",
+      summary: "This is the Seventeenth blog",
+      slug: "seventeenth-blog",
+    },
+    {
+      title: "Eighteenth blog",
+      summary: "This is the Eighteenth blog",
+      slug: "eighteenth-blog",
+    },
+    {
+      title: "Nineteenth blog",
+      summary: "This is the Nineteenth blog",
+      slug: "nineteenth-blog",
+    },
+    {
+      title: "Twentieth blog",
+      summary: "This is the Twentieth blog",
+      slug: "twentieth-blog",
+    },
   ];
 
   const filteredBlogs = blogs.filter((blog) =>
     blog.title.toLowerCase().includes(query.toLowerCase())
   );
 
+  const blogsPerPage = 5;
+  let totalPages = 0;
+  let filteredBlogsLength = filteredBlogs.length;
+
+  if (query) {
+    totalPages = Math.ceil(filteredBlogs.length / blogsPerPage);
+  } else {
+    totalPages = Math.ceil(blogs.length / blogsPerPage);
+  }
+
+  filteredBlogs.splice(0, (currentPage - 1) * blogsPerPage);
+  filteredBlogs.splice(blogsPerPage, filteredBlogs.length);
+
   return (
-    <div className="h-screen flex flex-col items-center mt-40">
+    <div className="flex flex-col items-center mt-40">
+      {/* add hidden div to set height of screen */}
       <h3 className="font-bold text-2xl md:text-4xl tracking-tight text-center text-black dark:text-white">
         {/* if query Display the number of blogs found */}
         {query ? (
           <span>
-            {filteredBlogs.length} blog{filteredBlogs.length === 1 ? "" : "s"}{" "}
-            found
+            {filteredBlogsLength} blog{filteredBlogs.length === 1 ? "" : "s"}{" "}
+            found for query
+            <span className="text-c"> {query}</span>
           </span>
         ) : (
           "All Blogs"
@@ -62,10 +163,45 @@ const BlogPage = ({
         {filteredBlogs.length > 0 ? (
           filteredBlogs.map((blog) => <BlogPost key={blog.slug} {...blog} />)
         ) : (
-          <p className="text-center text-lg text-gray-600 dark:text-gray-400">
+          <p className="text-center text-xl bg-gradient-to-b from-blue-600 via-green-500 to-indigo-400 bg-clip-text text-transparent">
             No blogs found
           </p>
         )}
+        {/* if totalPages > 0 */}
+        {totalPages > 1 && (
+          <div className="mt-5 flex w-full justify-center">
+            <Pagination totalPages={totalPages} />
+          </div>
+        )}
+      </div>
+      {/* External Blog I have write */}
+      <div className="w-4/5 grid grid-cols-1 sm:grid-cols-2 gap-4 p-5 sm:p-10">
+        <div>
+          <h3 className="font-bold text-2xl md:text-4xl tracking-tight text-center bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 bg-clip-text text-transparent">
+            Medium
+            <hr />
+          </h3>
+          {/* Medium */}
+          <BlogPost
+            title="Read my blogs on Medium"
+            summary="Occasionally I write on Medium"
+            slug="https://patelvivekdotdev.medium.com/"
+            external
+          />
+        </div>
+        <div>
+          <h3 className="font-bold text-2xl md:text-4xl tracking-tight text-center bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 bg-clip-text text-transparent">
+            Dev.to
+            <hr />
+          </h3>
+          {/* Dev.to */}
+          <BlogPost
+            title="Read my blogs on Dev.to"
+            summary="A small guide to get started with Dev.to"
+            slug="https://dev.to/vivek-0206"
+            external
+          />
+        </div>
       </div>
     </div>
   );
