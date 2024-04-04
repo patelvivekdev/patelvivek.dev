@@ -14,6 +14,7 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://patelvivek.dev'),
   title: "Patel Vivek",
   description: "Personal website of Patel Vivek.",
 };
@@ -31,7 +32,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="system">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
           <Navbar />
           <main>
             {children}

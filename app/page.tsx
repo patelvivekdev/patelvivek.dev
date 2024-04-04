@@ -11,35 +11,23 @@ export default function Home() {
         Latest Project
         <hr />
       </h3>
-      <div className="w-4/5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-5 sm:p-10 justify-center">
+      <div className="w-4/5 grid grid-cols-1 gap-4 p-5 sm:p-10">
         <ProjectCard
           title="First project"
           description="This is the first project"
           link="projects/first-project"
-          image={{
-            src: "https://firebasestorage.googleapis.com/v0/b/vivek-0206.appspot.com/o/images%2Fdefault.png?alt=media&token=d917a346-35fd-4e33-ac34-3c725b6f2769",
-            alt: "Market-hub logo",
-          }}
           tags={["tag1", "tag2", "tag3"]}
         />
         <ProjectCard
           title="Second project"
           description="This is the Second project"
           link="projects/second-project"
-          image={{
-            src: "https://firebasestorage.googleapis.com/v0/b/vivek-0206.appspot.com/o/images%2Fdefault.png?alt=media&token=d917a346-35fd-4e33-ac34-3c725b6f2769",
-            alt: "Market-hub logo",
-          }}
           tags={["tag1", "tag2", "tag3"]}
         />
         <ProjectCard
           title="First project"
           description="This is the first project"
           link="projects/third-project"
-          image={{
-            src: "https://firebasestorage.googleapis.com/v0/b/vivek-0206.appspot.com/o/images%2Fdefault.png?alt=media&token=d917a346-35fd-4e33-ac34-3c725b6f2769",
-            alt: "Market-hub logo",
-          }}
           tags={["tag1", "tag2", "tag3"]}
         />
       </div>
@@ -62,7 +50,7 @@ export default function Home() {
         <BlogPost
           title="Third blog"
           summary="This is the Third blog"
-          slug="thord-blog"
+          slug="third-blog"
         />
       </div>
     </div>

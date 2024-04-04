@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 
 export function ThemeToggle() {
-	const { theme, setTheme } = useTheme()
+	const { resolvedTheme, setTheme } = useTheme()
 	const [loaded, setLoaded] = useState(false);
 	useEffect(() => {
 		setLoaded(true);
@@ -13,7 +13,7 @@ export function ThemeToggle() {
 			aria-label="Toggle Dark Mode"
 			type="button"
 			className="rounded-xl z-50 fixed right-4 md:right-10 bottom-10 bg-black/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5  hover:bg-black/50 backdrop-blur transition  dark:bg-zinc-900/90 dark:ring-sky-500 dark:hover:ring-white/20"
-			onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+			onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +24,7 @@ export function ThemeToggle() {
 			>
 				{
 					loaded ? (
-						theme === "dark" ? (
+						resolvedTheme === "dark" ? (
 							<path
 								strokeLinecap="round"
 								strokeLinejoin="round"
