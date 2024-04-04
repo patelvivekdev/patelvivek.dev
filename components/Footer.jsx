@@ -11,7 +11,8 @@ const Footer = () => {
 		<footer className='border-t-2'>
 			<div className="flex justify-around items-center py-4">
 				<div>
-					<p className="text-sm font-semibold">© {year} Vivek Patel</p>
+					<p className="text-sm font-semibold">© {year} Vivek Patel | </p>
+					<p>Made with Next js and ❤️</p>
 				</div>
 				<div>
 					<Link href="/about" className="text-sm font-semibold">
