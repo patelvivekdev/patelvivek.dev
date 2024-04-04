@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
                     flexDirection: 'column',
                     alignItems: 'flex-start',
                     justifyContent: 'center',
-                    backgroundImage: 'url(https://leerob.io/og-bg.png)',
+                    backgroundImage: 'url(https://patelvivek.dev/og-bg.png)',
                 }}
             >
                 <div
@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
                         marginLeft: 190,
                         marginRight: 190,
                         display: 'flex',
-                        fontSize: 130,
+                        fontSize: 100,
                         letterSpacing: '-0.05em',
                         fontStyle: 'normal',
                         color: 'white',
