@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { HoverEffect } from "@/components/ui/card-hover-effect";
+import ProjectCard from "@/components/ProjectCard";
+
 
 export const metadata: Metadata = {
   title: "All Projects",
@@ -10,77 +11,47 @@ export const metadata: Metadata = {
 const ProjectPage = () => {
   const projects = [
     {
-      id: 1,
-      title: "Project 1",
-      description: "This is the first project.",
+      slug: "market-hub",
+      title: "Market-hub",
+      description: "Market-hub is a MERN-powered platform for buying and selling computer items. Vendors can easily manage their products, while users enjoy a smooth shopping experience. It's a user-friendly solution for tech enthusiasts and sellers alike.",
       image: {
         src: "https://firebasestorage.googleapis.com/v0/b/vivek-0206.appspot.com/o/images%2Fdefault.png?alt=media&token=d917a346-35fd-4e33-ac34-3c725b6f2769",
         alt: "Market-hub logo",
       },
-      link: "/projects/1",
-      tags: ["tag1", "tag2", "tag3"],
+      link: "projects/market-hub",
+      tags: ["MERN", "React", "Nodejs", "Express", "MongoDB", "FullStack"]
     },
     {
-      id: 2,
-      title: "Project 2",
-      description: "This is the second project.",
+      slug: "acme-auth",
+      title: "Acme Auth",
+      description: "Acme Auth is a learning project focused on integrating third-party authentication APIs. It covers registration, login, logout, password recovery, and email verification. With a responsive design and efficient routing, it showcases modern web development practices using Next.js server actions and Tailwind CSS.",
       image: {
         src: "https://firebasestorage.googleapis.com/v0/b/vivek-0206.appspot.com/o/images%2Fdefault.png?alt=media&token=d917a346-35fd-4e33-ac34-3c725b6f2769",
-        alt: "Market-hub logo",
+        alt: "Acme Auth logo",
       },
-      link: "/projects/2",
-      tags: ["tag1", "tag2", "tag3"],
-    },
-    {
-      id: 3,
-      title: "Project 3",
-      description: "This is the third project.",
-      image: {
-        src: "https://firebasestorage.googleapis.com/v0/b/vivek-0206.appspot.com/o/images%2Fdefault.png?alt=media&token=d917a346-35fd-4e33-ac34-3c725b6f2769",
-        alt: "Market-hub logo",
-      },
-      link: "/projects/3",
-      tags: ["tag1", "tag2", "tag3"],
-    },
-    {
-      id: 4,
-      title: "Project 4",
-      description: "This is the fourth project.",
-      image: {
-        src: "https://firebasestorage.googleapis.com/v0/b/vivek-0206.appspot.com/o/images%2Fdefault.png?alt=media&token=d917a346-35fd-4e33-ac34-3c725b6f2769",
-        alt: "Market-hub logo",
-      },
-      link: "/projects/4",
-      tags: ["tag1", "tag2", "tag3"],
-    },
-    {
-      id: 5,
-      title: "Project 5",
-      description: "This is the fourth project.",
-      image: {
-        src: "https://firebasestorage.googleapis.com/v0/b/vivek-0206.appspot.com/o/images%2Fdefault.png?alt=media&token=d917a346-35fd-4e33-ac34-3c725b6f2769",
-        alt: "Market-hub logo",
-      },
-      link: "/projects/5",
-      tags: ["tag1", "tag2", "tag3"],
-    },
-    {
-      id: 6,
-      title: "Project 6",
-      description: "This is the fourth project.",
-      image: {
-        src: "https://firebasestorage.googleapis.com/v0/b/vivek-0206.appspot.com/o/images%2Fdefault.png?alt=media&token=d917a346-35fd-4e33-ac34-3c725b6f2769",
-        alt: "Market-hub logo",
-      },
-      link: "/projects/6",
-      tags: ["tag1", "tag2", "tag3"],
+      link: "projects/acme-auth",
+      tags: ["Nextjs", "React", "AppRouter", "ShadcnUI", "TailwindCSS", "Authentication", "FreeAPI", "RESTAPI", "ServerActions", "TypeScript"]
     },
   ];
 
+
   return (
-    <div className="flex flex-col items-center mt-40">
+    <div className="mx-auto w-5/6 flex flex-col items-center mt-40">
       <h1 className="text-4xl">Projects</h1>
-      <HoverEffect items={projects} />
+      <p className="text-lg mt-4 mb-8">
+        Here are some of the projects I have worked on.
+      </p>
+      <div className="grid grid-cols-1 gap-4 p-5 sm:p-10">
+        {projects.map((project) => (
+          <ProjectCard
+            key={project.slug}
+            title={project.title}
+            description={project.description}
+            link={project.link}
+            tags={project.tags}
+          />
+        ))}
+      </div>
     </div>
   );
 };

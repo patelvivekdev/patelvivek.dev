@@ -8,19 +8,21 @@ const BlogPost = ({
   title,
   summary,
   slug,
+  publishedAt,
   external,
 }: {
   title: string;
   summary: string;
   slug: string;
   external?: boolean;
+  publishedAt?: string;
 }) => {
   return (
     <>
       {external ? (
-        <ExternalBlogPost title={title} summary={summary} slug={slug} />
+        <ExternalBlogPost title={title} summary={summary} slug={slug} publishedAt={publishedAt} />
       ) : (
-        <InternalBlogPost title={title} summary={summary} slug={slug} />
+        <InternalBlogPost title={title} summary={summary} slug={slug} publishedAt={publishedAt} />
       )}
     </>
   );
@@ -37,10 +39,12 @@ function InternalBlogPost({
   title,
   summary,
   slug,
+  publishedAt,
 }: {
   title: string;
   summary: string;
   slug: string;
+  publishedAt?: string;
 }) {
   return (
     <Link
@@ -57,6 +61,9 @@ function InternalBlogPost({
           </Suspense>
         </div>
       </div>
+      <p className="text-sm text-gray-400 dark:text-gray-500">
+        {publishedAt}
+      </p>
       <p className="text-gray-600 dark:text-gray-400">{summary}</p>
     </Link>
   );
@@ -66,10 +73,12 @@ function ExternalBlogPost({
   title,
   summary,
   slug,
+  publishedAt,
 }: {
   title: string;
   summary: string;
   slug: string;
+  publishedAt?: string;
 }) {
   return (
     <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4 hover:bg-gray-100 dark:hover:bg-gray-700">

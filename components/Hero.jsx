@@ -29,14 +29,14 @@ export default function Hero() {
       <h1 className="mt-3 sm:mt-8 z-50 py-4 text-center font-medium tracking-tight">
         <span className="flex flex-col items-center justify-center">
           <p className="text-xl sm:text-3xl md:text-4xl lg:text-7xl ">
-            <span className="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 bg-clip-text text-transparent">
+            <span className="dark:text-zinc-100 text-zinc-200">
               Hey, I&rsquo;m Vivek Patel
             </span>
             <span>👋</span>
           </p>
           <p className="text-lg sm:text-2xl md:text-3xl lg:text-5xl">
             <span>
-              <span className="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 bg-clip-text text-transparent">
+              <span className="dark:text-zinc-100 text-zinc-200">
                 A web developer who loves photography.
               </span>
             </span>
