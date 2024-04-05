@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense, cache } from "react";
 import { notFound } from "next/navigation";
 import { CustomMDX } from "@/components/mdx";
-import { getBlogPosts } from "@/app/data";
+import getBlogs, { getBlog } from '@/lib/get-blogs'
 import { getViewsCount } from "@/app/data";
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -12,7 +12,8 @@ import { unstable_noStore as noStore } from "next/cache";
 export async function generateMetadata({
   params,
 }: { params: any }): Promise<Metadata | undefined> {
-  let post = getBlogPosts().find((post) => post.slug === params.slug);
+  const posts = await getBlogs()
+  let post = posts.find((post) => post.slug === params.slug);
   if (!post) {
     return;
   }
@@ -54,10 +55,8 @@ export async function generateMetadata({
 
 function formatDate(date: string) {
   noStore();
+  // date format: April 2, 2024
   let currentDate = new Date();
-  if (!date.includes("T")) {
-    date = `${date}T00:00:00`;
-  }
   let targetDate = new Date(date);
 
   let yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
@@ -90,11 +89,12 @@ async function Views({ slug }: { slug: string }) {
   return <p>{`${views ? views : "--"} views`}</p>;
 }
 
-export default function Blog({ params }: { params: any }) {
-  let post = getBlogPosts().find((post) => post.slug === params.slug);
+export default async function Blog({ params }: { params: any }) {
 
-  if (!post) {
-    notFound();
+  const blog = await getBlog(params.slug);
+
+  if (!blog) {
+    return notFound();
   }
 
   return (
@@ -107,14 +107,14 @@ export default function Blog({ params }: { params: any }) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "BlogPosting",
-              headline: post.metadata.title,
-              datePublished: post.metadata.publishedAt,
-              dateModified: post.metadata.publishedAt,
-              description: post.metadata.summary,
-              image: post.metadata.image
-                ? `https://patelvivek.dev${post.metadata.image}`
-                : `https://patelvivek.dev/og?title=${post.metadata.title}`,
-              url: `https://patelvivek.dev/blog/${post.slug}`,
+              headline: blog.metadata.title,
+              datePublished: blog.metadata.publishedAt,
+              dateModified: blog.metadata.publishedAt,
+              description: blog.metadata.summary,
+              image: blog.metadata.image
+                ? `https://patelvivek.dev${blog.metadata.image}`
+                : `https://patelvivek.dev/og?title=${blog.metadata.title}`,
+              url: `https://patelvivek.dev/blog/${blog.slug}`,
               author: {
                 "@type": "Person",
                 name: "Vivek Patel",
@@ -123,21 +123,22 @@ export default function Blog({ params }: { params: any }) {
           }}
         />
         <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
-          {post.metadata.title}
+          {blog.metadata.title}
         </h1>
         <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
           <Suspense fallback={<Skeleton className="h-4 w-12 bg-slate-300 dark:bg-slate-100 rounded-full" />}>
             <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              {formatDate(post.metadata.publishedAt)}
+              {formatDate(blog.metadata.publishedAt)}
             </p>
           </Suspense>
           <Suspense fallback={<Skeleton className="h-4 w-12 bg-slate-300 dark:bg-slate-100 rounded-full" />}>
-            <Views slug={post.slug} />
-
+            <Views slug={blog.slug} />
           </Suspense>
         </div>
         <article className="prose prose-quoteless prose-neutral dark:prose-invert">
-          <CustomMDX source={post.content} />
+          <CustomMDX>
+            {blog.content}
+          </CustomMDX>
         </article>
       </section>
     </div>

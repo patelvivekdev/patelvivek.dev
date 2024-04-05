@@ -10,19 +10,21 @@ const BlogPost = ({
   slug,
   publishedAt,
   external,
+  tags,
 }: {
   title: string;
   summary: string;
   slug: string;
   external?: boolean;
   publishedAt?: string;
+  tags?: string;
 }) => {
   return (
     <>
       {external ? (
-        <ExternalBlogPost title={title} summary={summary} slug={slug} publishedAt={publishedAt} />
+        <ExternalBlogPost title={title} summary={summary} slug={slug} publishedAt={publishedAt} tags={tags} />
       ) : (
-        <InternalBlogPost title={title} summary={summary} slug={slug} publishedAt={publishedAt} />
+        <InternalBlogPost title={title} summary={summary} slug={slug} publishedAt={publishedAt} tags={tags} />
       )}
     </>
   );
@@ -40,17 +42,24 @@ function InternalBlogPost({
   summary,
   slug,
   publishedAt,
+  tags,
 }: {
   title: string;
   summary: string;
   slug: string;
   publishedAt?: string;
+  tags?: string;
 }) {
+
+  // here tags is string, so we need to convert it to array
+  let newTags = tags?.split(',');
+
   return (
     <Link
       href={`/blog/${slug}`}
       className="rounded-md p-4 bg-gray-100 dark:bg-zinc-800 dark:border-zinc-700 border border-gray-200 hover:border-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 dark:hover:border-zinc-600"
     >
+
       <div className="flex flex-col md:flex-row justify-between">
         <h4 className="mb-2 w-full font-medium text-neutral-900 dark:text-neutral-100">
           {title}
@@ -61,10 +70,24 @@ function InternalBlogPost({
           </Suspense>
         </div>
       </div>
-      <p className="text-sm text-gray-400 dark:text-gray-500">
-        {publishedAt}
-      </p>
-      <p className="text-gray-600 dark:text-gray-400">{summary}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2  items-center">
+        <div>
+          <p className="text-sm text-gray-400 dark:text-gray-500">
+            {publishedAt}
+          </p>
+          <p className="text-gray-600 dark:text-gray-400">{summary}</p>
+        </div>
+        <span className="mr-2 text-sm flex flex-row flex-wrap justify-center sm:justify-end gap-2 font-semibold text-gray-900 dark:text-white">
+          {newTags?.map((tag) => (
+            <span
+              key={tag}
+              className="inline-block px-3 py-1 mr-2 text-sm font-semibold text-black bg-sky-700 rounded-lg dark:bg-sky-700 dark:text-white"
+            >
+              {tag.toUpperCase()}
+            </span>
+          ))}
+        </span>
+      </div>
     </Link>
   );
 }
@@ -74,11 +97,13 @@ function ExternalBlogPost({
   summary,
   slug,
   publishedAt,
+  tags,
 }: {
   title: string;
   summary: string;
   slug: string;
   publishedAt?: string;
+  tags?: string;
 }) {
   return (
     <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4 hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -86,6 +111,9 @@ function ExternalBlogPost({
         <h3 className="text-xl font-semibold text-black dark:text-white">
           {title}
         </h3>
+        <p className="text-sm text-gray-400 dark:text-gray-500">
+          {publishedAt}
+        </p>
         <p className="text-gray-500 dark:text-gray-400">{summary}</p>
       </a>
     </div>
