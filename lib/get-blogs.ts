@@ -33,7 +33,7 @@ export const getBlogs = cache(async () => {
 
 export async function getBlog(slug: string) {
   const blogs = await getBlogs();
-  const blog = blogs.find((blog) => blog.slug === slug);
+  const blog = blogs.find((blog) => blog?.slug === slug);
   return blog;
 }
 

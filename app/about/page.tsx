@@ -39,8 +39,8 @@ const AboutPage = () => {
             <strong className="text-c">MySQL</strong>, and{" "}
             <strong className="text-c">PostgreSQL</strong>, and I&rsquo;m
             proficient in programming languages such as{" "}
-            <strong className="text-c">Python</strong> {" "}
-            and <strong className="text-c">JavaScript</strong>. I&rsquo;m also
+            <strong className="text-c">Python</strong> and{" "}
+            <strong className="text-c">JavaScript</strong>. I&rsquo;m also
             well-versed in version control with{" "}
             <strong className="text-c">Git</strong> and{" "}
             <strong className="text-c">GitHub</strong>. My passion for coding
@@ -57,12 +57,14 @@ const AboutPage = () => {
             alt="Picture of the author"
             priority={true}
           />
-          <Button
-            variant="outline"
-            className="mt-4 hover:bg-teal-500 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-          >
-            Download CV
-          </Button>
+          <a href="https://docs.google.com/document/d/15IjjdYF3EHWjILCojA5dOHLi1mW7dZLliq8mRrNmCJk/edit?usp=sharing">
+            <Button
+              variant="outline"
+              className="mt-4 hover:bg-teal-500 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+            >
+              Download CV
+            </Button>
+          </a>
         </div>
       </div>
     </div>
