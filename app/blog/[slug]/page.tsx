@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
-import { Suspense, cache } from "react";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { CustomMDX } from "@/components/mdx";
-import getBlogs, { getBlog } from '@/lib/get-blogs'
+import { getBlog } from '@/lib/get-blogs'
 import { getViewsCount } from "@/app/data";
 import { Skeleton } from "@/components/ui/skeleton"
-
 
 import { unstable_noStore as noStore } from "next/cache";
 
 export async function generateMetadata({
   params,
 }: { params: any }): Promise<Metadata | undefined> {
-  const posts = await getBlogs()
-  let post = posts.find((post) => post.slug === params.slug);
-  if (!post) {
-    return;
+  const blog = await getBlog(params.slug);
+
+  if (!blog) {
+    return notFound();
   }
 
   let {
@@ -23,7 +22,7 @@ export async function generateMetadata({
     publishedAt: publishedTime,
     summary: description,
     image,
-  } = post.metadata;
+  } = blog.metadata;
 
   let ogImage = image
     ? `https://patelvivek.dev${image}`
@@ -37,7 +36,7 @@ export async function generateMetadata({
       description,
       type: 'article',
       publishedTime,
-      url: `https://patelvivek.dev/blog/${post.slug}`,
+      url: `https://patelvivek.dev/blog/${blog.slug}`,
       images: [
         {
           url: ogImage,
@@ -98,7 +97,7 @@ export default async function Blog({ params }: { params: any }) {
   }
 
   return (
-    <div className="mt-40 flex justify-center">
+    <div className="mt-40 w-4/5 mx-auto">
       <section>
         <script
           type="application/ld+json"
@@ -135,6 +134,7 @@ export default async function Blog({ params }: { params: any }) {
             <Views slug={blog.slug} />
           </Suspense>
         </div>
+        <hr />
         <article className="prose prose-quoteless prose-neutral dark:prose-invert">
           <CustomMDX>
             {blog.content}

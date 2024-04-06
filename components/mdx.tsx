@@ -27,7 +27,7 @@ const CustomLink = ({ children, ...props }: {
     );
   }
 
-  return <a target="_blank" rel="noopener noreferrer" {...props} />;
+  return <a target="_blank" rel="noopener noreferrer" {...props} > {children} </a>
 };
 
 function Callout(props: any) {
