@@ -64,7 +64,7 @@ export default async function Home() {
         )}
       </div>
 
-      <Link href="/blogs" >
+      <Link href="/blog" >
         <Button variant="outline" className="text-lg mb-5 font-semibold text-gray-900 border-gray-800  hover:bg-gray-600 hover:text-gray-300 dark:border-white dark:text-white dark:hover:bg-gray-200 dark:hover:text-gray-600 cursor-pointer">
           View all blogs &rarr;
         </Button>

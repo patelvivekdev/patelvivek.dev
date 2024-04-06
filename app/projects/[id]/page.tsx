@@ -77,7 +77,7 @@ export default async function Project({ params }: { params: any }) {
         </div>
         <hr />
         <article className="my-10 mx-auto max-w-none prose md:prose-lg lg:prose-xl prose-zinc dark:prose-invert prose-a:no-underline prose-a:text-blue-500">
-          <Suspense fallback={<Skeleton />}>
+          <Suspense fallback={<Skeleton className="h-4 w-12 bg-slate-300 dark:bg-slate-100 rounded-full" />}>
             <CustomMDX>
               {project.content}
             </CustomMDX>
