@@ -1,27 +1,25 @@
-import Link from 'next/link'
-import { ThemeToggle } from './ThemeToggle'
-
-
+import Link from 'next/link';
+import { ThemeToggle } from './ThemeToggle';
 
 const Footer = () => {
-	// find the current year
-	const year = new Date().getFullYear()
+  // find the current year
+  const year = new Date().getFullYear();
 
-	return (
-		<footer className='border-t-2'>
-			<div className="flex justify-around items-center py-4">
-				<div>
-					<p className="text-sm font-semibold">© {year} Vivek Patel | Made with Next js and ❤️</p>
-				</div>
-				{/* <div>
+  return (
+    <footer className='border-t-2'>
+      <div className='flex items-center justify-around py-4'>
+        <div>
+          <p className='text-sm font-semibold'>© {year} Vivek Patel | Made with Next js and ❤️</p>
+        </div>
+        {/* <div>
 					<Link href="/about" className="text-sm font-semibold">
 						About
 					</Link>
 				</div> */}
-			</div>
-			<ThemeToggle />
-		</footer>
-	)
-}
+      </div>
+      <ThemeToggle />
+    </footer>
+  );
+};
 
-export default Footer
+export default Footer;
