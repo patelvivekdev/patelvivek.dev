@@ -3,15 +3,17 @@ import matter from "gray-matter";
 import fs from "fs/promises";
 import { cache } from "react";
 
+const BLOGS_FOLDER = path.join(process.cwd(), "blogs");
+
 export const getBlogs = cache(async () => {
-  const posts = await fs.readdir("./blog/");
+  const posts = await fs.readdir(BLOGS_FOLDER);
 
   const blogs = posts
     .filter(
       (file) => path.extname(file) === ".md" || path.extname(file) === ".mdx"
     )
     .map(async (file) => {
-      const filePath = path.join("./blog/", file);
+      const filePath = path.join(BLOGS_FOLDER, file);
       const fileContent = await fs.readFile(filePath, "utf-8");
       const { data, content } = matter(fileContent);
 
