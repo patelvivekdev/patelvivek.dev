@@ -22,6 +22,14 @@ const BlogPage = async ({
   const currentPage = Number(searchParams?.page) || 1;
 
   let allBlogs = await getBlogs();
+
+  // sort by date
+  allBlogs = allBlogs.sort((a, b) => {
+    const dateA = new Date(a.metadata.publishedAt);
+    const dateB = new Date(b.metadata.publishedAt);
+    return dateB.getTime() - dateA.getTime();
+  });
+
   // let allBlogs = getBlogPosts();
 
   // // Get all tags

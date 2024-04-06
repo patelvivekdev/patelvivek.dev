@@ -37,14 +37,15 @@ export async function getLatestBlogs() {
   const blogs = await getBlogs();
 
   // Sort by date
-  const sortedBlogs = blogs.sort((a, b) => {
-    return (
-      new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
-    );
+  const allBlogs = blogs.sort((a, b) => {
+    const dateA = new Date(a.metadata.publishedAt);
+    const dateB = new Date(b.metadata.publishedAt);
+    return dateB.getTime() - dateA.getTime();
   });
 
+
   // Return the latest 3 blogs
-  return sortedBlogs.slice(0, 3);
+  return allBlogs.slice(0, 3);
 }
 
 export default getBlogs;

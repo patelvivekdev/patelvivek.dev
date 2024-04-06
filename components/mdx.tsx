@@ -2,7 +2,6 @@ import Link from "next/link";
 import NextImage from "next/image";
 import { MDXComponents } from 'mdx/types'
 import remarkGfm from "remark-gfm";
-import remarkFrontmatter from "remark-frontmatter";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 // @ts-expect-error no types
@@ -48,7 +47,7 @@ const mdxComponents: MDXComponents = {
   h1: ({ className, ...props }) => (
     <h1
       className={cn(
-        "mt-2 scroll-m-20 text-4xl font-bold tracking-tight text-black dark:text-white",
+        "my-2 scroll-m-20 text-4xl font-bold tracking-tight text-black dark:text-white",
         className
       )}
       {...props}
@@ -57,7 +56,7 @@ const mdxComponents: MDXComponents = {
   h2: ({ className, ...props }) => (
     <h2
       className={cn(
-        " mt-10 scroll-m-20 border-b border-b-gray-400 pb-1 text-3xl font-semibold tracking-tight text-black first:mt-0 dark:border-b-gray-700 dark:text-white",
+        " my-5 scroll-m-20 border-b border-b-gray-400 pb-1 text-3xl font-semibold tracking-tight text-black first:mt-0 dark:border-b-gray-700 dark:text-white",
         className
       )}
       {...props}
@@ -66,7 +65,7 @@ const mdxComponents: MDXComponents = {
   h3: ({ className, ...props }) => (
     <h3
       className={cn(
-        "mt-8 scroll-m-20 text-2xl font-semibold tracking-tight text-black dark:text-white",
+        "my-4 scroll-m-20 text-2xl font-semibold tracking-tight text-black dark:text-white",
         className
       )}
       {...props}
@@ -75,7 +74,7 @@ const mdxComponents: MDXComponents = {
   h4: ({ className, ...props }) => (
     <h4
       className={cn(
-        "mt-8 scroll-m-20 text-xl font-semibold tracking-tight text-black dark:text-white",
+        "my-4 scroll-m-20 text-xl font-semibold tracking-tight text-black dark:text-white",
         className
       )}
       {...props}
@@ -84,7 +83,7 @@ const mdxComponents: MDXComponents = {
   h5: ({ className, ...props }) => (
     <h5
       className={cn(
-        "mt-8 scroll-m-20 text-lg font-semibold tracking-tight text-black dark:text-white",
+        "my-4 scroll-m-20 text-lg font-semibold tracking-tight text-black dark:text-white",
         className
       )}
       {...props}
@@ -93,15 +92,9 @@ const mdxComponents: MDXComponents = {
   h6: ({ className, ...props }) => (
     <h6
       className={cn(
-        "mt-8 scroll-m-20 text-base font-semibold tracking-tight text-black dark:text-white",
+        "my-4 scroll-m-20 text-base font-semibold tracking-tight text-black dark:text-white",
         className
       )}
-      {...props}
-    />
-  ),
-  p: ({ className, ...props }) => (
-    <p
-      className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}
       {...props}
     />
   ),
