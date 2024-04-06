@@ -3,11 +3,12 @@ import Hero from "@/components/Hero";
 import ProjectCard from "@/components/ProjectCard";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { getBlogPosts } from '@/app/data';
+import { getLatestBlogs } from "@/lib/get-blogs";
 
 
-export default function Home() {
-  let allBlogs = getBlogPosts();
+export default async function Home() {
+  const blogs = await getLatestBlogs()
+
   return (
     <div className="w-full dark:bg-[#111010] bg-white  dark:bg-dot-white/[0.5] bg-dot-black/[0.8] relative flex flex-col gap-3 sm:gap-5 items-center">
       {/* <div className="absolute pointer-events-none inset-0 flex items-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_70%,black)]"></div> */}
@@ -43,18 +44,27 @@ export default function Home() {
         <hr />
       </h3>
       <div className="w-4/5 grid grid-cols-1 gap-4 p-5 sm:p-10">
-        {allBlogs.map((blog) => (
-          <BlogPost
-            key={blog.slug}
-            title={blog.metadata.title}
-            summary={blog.metadata.summary}
-            publishedAt={blog.metadata.publishedAt}
-            slug={blog.slug}
-          />
-        ))}
+        {/* Show no blogs if there are no blogs */}
+
+        {blogs.length === 0 ? (
+          <p className="text-center text-xl bg-gradient-to-b from-blue-600 via-green-500 to-indigo-400 bg-clip-text text-transparent">
+            No blogs found
+          </p>
+        ) : (
+          blogs.map((blog) => (
+            <BlogPost
+              key={blog.slug}
+              title={blog.metadata.title}
+              summary={blog.metadata.summary}
+              publishedAt={blog.metadata.publishedAt}
+              slug={blog.slug}
+              tags={blog.metadata.tags}
+            />
+          ))
+        )}
       </div>
 
-      <Link href="/blogs" >
+      <Link href="/blog" >
         <Button variant="outline" className="text-lg mb-5 font-semibold text-gray-900 border-gray-800  hover:bg-gray-600 hover:text-gray-300 dark:border-white dark:text-white dark:hover:bg-gray-200 dark:hover:text-gray-600 cursor-pointer">
           View all blogs &rarr;
         </Button>

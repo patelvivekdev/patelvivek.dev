@@ -55,6 +55,6 @@ const config: Config = {
 			},
 		},
 	},
-	plugins: [addVariablesForColors, addSvgPatterns],
+	plugins: [require('@tailwindcss/typography'),addVariablesForColors, addSvgPatterns],
 }
 export default config
