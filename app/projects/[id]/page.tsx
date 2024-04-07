@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { getProject } from '@/lib/get-projects';
+import getProjects, { getProject } from '@/lib/get-projects';
 import { CustomMDX } from '@/components/mdx';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatDate } from '@/lib/utils';
@@ -9,6 +9,7 @@ import { formatDate } from '@/lib/utils';
 import { Calendar } from 'lucide-react';
 
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
+  getProjects();
   const project = await getProject(params.id);
 
   if (!project) {

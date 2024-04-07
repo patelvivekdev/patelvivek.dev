@@ -20,6 +20,7 @@ const BlogPage = async ({
 }) => {
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
+  getBlogs();
 
   let allBlogs = await getBlogs();
 
