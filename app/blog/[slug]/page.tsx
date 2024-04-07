@@ -61,22 +61,18 @@ export default async function Blog({ params }: { params: any }) {
       <section>
         <h1 className='title text-2xl font-medium tracking-tighter'>{blog.metadata.title}</h1>
         <div className='mb-8 mt-2 flex items-center justify-between text-sm'>
-          <Suspense fallback={<Skeleton className='h-4 w-12 rounded-full bg-slate-300 dark:bg-slate-100' />}>
-            <p className='text-sm text-neutral-600 dark:text-neutral-400'>
-              <span className='flex flex-row items-center gap-2'>
-                <Calendar /> {formatDate(blog.metadata.publishedAt)}
-              </span>
-            </p>
-          </Suspense>
+          <p className='text-sm text-neutral-600 dark:text-neutral-400'>
+            <span className='flex flex-row items-center gap-2'>
+              <Calendar /> {formatDate(blog.metadata.publishedAt)}
+            </span>
+          </p>
           <Suspense fallback={<Skeleton className='h-4 w-12 rounded-full bg-slate-300 dark:bg-slate-100' />}>
             <Views slug={blog.slug} />
           </Suspense>
         </div>
         <hr />
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl prose-a:text-blue-500 prose-a:no-underline'>
-          <Suspense fallback={<Skeleton />}>
-            <CustomMDX>{blog.content}</CustomMDX>
-          </Suspense>
+          <CustomMDX>{blog.content}</CustomMDX>
         </article>
       </section>
     </div>

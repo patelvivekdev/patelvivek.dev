@@ -3,7 +3,6 @@ export default function robots() {
     rules: [
       {
         userAgent: '*',
-        allow: ['/'],
       },
     ],
     sitemap: 'https://patelvivek.dev/sitemap.xml',
