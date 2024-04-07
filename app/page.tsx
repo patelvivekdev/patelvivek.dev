@@ -9,10 +9,10 @@ export default async function Home() {
   const blogs = await getLatestBlogs();
 
   return (
-    <div className='relative flex w-full  flex-col items-center gap-3 bg-white bg-dot-black/[0.8] dark:bg-[#111010] dark:bg-dot-white/[0.5] sm:gap-5'>
+    <div className='relative flex w-full  text-[#31363F] dark:text-[#EEEEEE]  flex-col items-center gap-3 bg-dot-black/[0.8] dark:bg-dot-white/[0.5] sm:gap-5'>
       {/* <div className="absolute pointer-events-none inset-0 flex items-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_70%,black)]"></div> */}
       <Hero />
-      <h3 className='text-center text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl'>
+      <h3 className='text-center text-2xl font-bold tracking-tight md:text-4xl'>
         Latest Project
         <hr />
       </h3>
@@ -44,7 +44,10 @@ export default async function Home() {
       <Link href='/projects'>
         <Button
           variant='outline'
-          className='mb-5 cursor-pointer border-gray-800 text-lg font-semibold  text-gray-900 hover:bg-gray-600 hover:text-gray-300 dark:border-white dark:text-white dark:hover:bg-gray-200 dark:hover:text-gray-600'
+          className='
+          mb-5 cursor-pointer text-lg font-semibold 
+          border-gray-500  bg-gray-300 text-gray-800 hover:bg-gray-600 hover:text-gray-300 
+          dark:border-gray-500 dark:bg-gray-400 dark:text-black dark:hover:bg-gray-200'
         >
           View all projects &rarr;
         </Button>
@@ -79,9 +82,12 @@ export default async function Home() {
       <Link href='/blog'>
         <Button
           variant='outline'
-          className='mb-5 cursor-pointer border-gray-800 text-lg font-semibold  text-gray-900 hover:bg-gray-600 hover:text-gray-300 dark:border-white dark:text-white dark:hover:bg-gray-200 dark:hover:text-gray-600'
+          className='
+          mb-5 cursor-pointer text-lg font-semibold 
+          border-gray-500  bg-gray-300 text-gray-800 hover:bg-gray-600 hover:text-gray-300 
+          dark:border-gray-500 dark:bg-gray-400 dark:text-black dark:hover:bg-gray-200'
         >
-          View all blogs &rarr;
+          View all Blogs &rarr;
         </Button>
       </Link>
     </div>

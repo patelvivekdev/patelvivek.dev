@@ -37,14 +37,16 @@ const AboutPage = () => {
           </h2>
         </div>
         <div className='mx-auto p-10 text-center'>
-          <Image
-            className='rounded [box-shadow:15px_-15px_0_-3px_#0284c7,_15px_-15px_#64ffda]'
-            src={Me}
-            width={300}
-            height={300}
-            alt='Picture of the author'
-            priority={true}
-          />
+          <div className='mb-10 transform sm:rotate-6'>
+            <Image
+              className='rounded shadow-2xl shadow-zinc-500 dark:shadow-indigo-500'
+              src={Me}
+              width={300}
+              height={300}
+              alt='Picture of the author'
+              priority={true}
+            />
+          </div>
           <a href='https://docs.google.com/document/d/15IjjdYF3EHWjILCojA5dOHLi1mW7dZLliq8mRrNmCJk/edit?usp=sharing'>
             <Button
               variant='outline'

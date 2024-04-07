@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={cn('mx-auto min-h-screen font-sans antialiased', fontSans.variable)}>
+      <body className={cn('mx-auto min-h-screen font-sans antialiased bg-EEEEEE dark:bg-[#222831] ', fontSans.variable)}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem={true}>
           <Navbar />
           <main>

@@ -106,7 +106,7 @@ function ExternalBlogPost({
   tags?: string;
 }) {
   return (
-    <div className='rounded-lg bg-white p-4 shadow-lg hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700'>
+    <div className='rounded-md border border-gray-300 bg-gray-200 p-4 hover:border-gray-300 hover:bg-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600 dark:hover:bg-slate-700'>
       <a href={slug} target='_blank' rel='noopener noreferrer'>
         <h3 className='text-xl font-semibold text-black dark:text-white'>{title}</h3>
         <p className='text-sm text-gray-400 dark:text-gray-500'>{publishedAt}</p>
