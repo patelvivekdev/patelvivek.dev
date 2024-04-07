@@ -1,44 +1,40 @@
-import React from "react";
+import React from 'react';
 
 export default function Hero() {
   return (
     <>
-      <div className="mt-32 sm:mt-40">
+      <div className='mt-32 sm:mt-40'>
         <div
           style={{
             backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
           }}
-          className="
-					absolute inset-auto right-1/2 overflow-visible 
-					h-28 sm:h-36 md:h-40 lg:h-56
-					w-1/2
-					dark:bg-gradient-conic dark:from-white/65 dark:via-transparent dark:to-transparent dark:text-white dark:[--conic-position:from_70deg_at_center_top] 
-					bg-gradient-conic from-black via-transparent to-transparent text-black [--conic-position:from_70deg_at_center_top]"
+          className='
+					dark:bg-gradient-conic bg-gradient-conic absolute inset-auto 
+					right-1/2 h-28 w-1/2 overflow-visible
+					from-black
+					via-transparent to-transparent text-black [--conic-position:from_70deg_at_center_top] dark:from-white/65 dark:via-transparent 
+					dark:to-transparent dark:text-white dark:[--conic-position:from_70deg_at_center_top] sm:h-36 md:h-40 lg:h-56'
         ></div>
         <div
           style={{
             backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
           }}
-          className="absolute inset-auto left-1/2
-		  			h-28 sm:h-36 md:h-40 lg:h-56
-		  			w-1/2 
-					dark:bg-gradient-conic dark:from-transparent dark:via-transparent dark:to-white/65 dark:text-white dark:[--conic-position:from_290deg_at_center_top]
-					bg-gradient-conic from-transparent via-transparent to-black text-black [--conic-position:from_290deg_at_center_top]"
+          className='dark:bg-gradient-conic bg-gradient-conic absolute
+		  			inset-auto left-1/2 h-28 w-1/2
+		  			from-transparent 
+					via-transparent to-black text-black [--conic-position:from_290deg_at_center_top] dark:from-transparent dark:via-transparent
+					dark:to-white/65 dark:text-white dark:[--conic-position:from_290deg_at_center_top] sm:h-36 md:h-40 lg:h-56'
         ></div>
       </div>
-      <h1 className="mt-3 sm:mt-8 z-50 py-4 text-center font-medium tracking-tight">
-        <span className="flex flex-col items-center justify-center">
-          <p className="text-xl sm:text-3xl md:text-4xl lg:text-7xl ">
-            <span className="dark:text-zinc-100 text-zinc-200">
-              Hey, I&rsquo;m Vivek Patel
-            </span>
+      <h1 className='z-50 mt-3 py-4 text-center font-medium tracking-tight sm:mt-8'>
+        <span className='flex flex-col items-center justify-center'>
+          <p className='text-xl sm:text-3xl md:text-4xl lg:text-7xl '>
+            <span className='text-zinc-200 dark:text-zinc-100'>Hey, I&rsquo;m Vivek Patel</span>
             <span>👋</span>
           </p>
-          <p className="text-lg sm:text-2xl md:text-3xl lg:text-5xl">
+          <p className='text-lg sm:text-2xl md:text-3xl lg:text-5xl'>
             <span>
-              <span className="dark:text-zinc-100 text-zinc-200">
-                A web developer who loves photography.
-              </span>
+              <span className='text-zinc-200 dark:text-zinc-100'>A web developer who loves photography.</span>
             </span>
           </p>
         </span>

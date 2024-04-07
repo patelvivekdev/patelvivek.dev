@@ -1,26 +1,24 @@
-import path from "path";
-import matter from "gray-matter";
-import fs from "fs/promises";
-import { cache } from "react";
+import path from 'path';
+import matter from 'gray-matter';
+import fs from 'fs/promises';
+import { cache } from 'react';
 
-const BLOGS_FOLDER = path.join(process.cwd(), "blogs");
+const BLOGS_FOLDER = path.join(process.cwd(), 'blogs');
 
 export const getBlogs = cache(async () => {
   const posts = await fs.readdir(BLOGS_FOLDER);
 
   const blogs = posts
-    .filter(
-      (file) => path.extname(file) === ".md" || path.extname(file) === ".mdx"
-    )
+    .filter((file) => path.extname(file) === '.md' || path.extname(file) === '.mdx')
     .map(async (file) => {
       const filePath = path.join(BLOGS_FOLDER, file);
-      const fileContent = await fs.readFile(filePath, "utf-8");
+      const fileContent = await fs.readFile(filePath, 'utf-8');
       const { data, content } = matter(fileContent);
 
       return {
         metadata: data,
         content,
-        slug: file.replace(/\.mdx?$/, ""),
+        slug: file.replace(/\.mdx?$/, ''),
       };
     });
 
@@ -42,7 +40,6 @@ export async function getLatestBlogs() {
     const dateB = new Date(b.metadata.publishedAt);
     return dateB.getTime() - dateA.getTime();
   });
-
 
   // Return the latest 3 blogs
   return allBlogs.slice(0, 3);

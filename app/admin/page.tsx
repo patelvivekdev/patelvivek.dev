@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
-import { auth } from "@/app/auth";
-import { redirect } from "next/navigation";
+import type { Metadata } from 'next';
+import { auth } from '@/app/auth';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: "Admin",
-  description: "Manage blog and projects",
+  title: 'Admin',
+  description: 'Manage blog and projects',
 };
 
 export default async function Adminpage() {
   let session = await auth();
-  if (session?.user?.email !== "me@patelvivek.dev") {
-    redirect("/");
+  if (session?.user?.email !== 'me@patelvivek.dev') {
+    redirect('/');
   }
 
   return (
