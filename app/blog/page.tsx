@@ -107,6 +107,7 @@ const BlogPage = async ({
             summary='How to create an End-to-End deep learning solution from data gathering to deploy the model into Heroku.'
             slug='https://towardsdatascience.com/end-to-end-cnn-using-tensorflow-4c7d9af3ca4c'
             publishedAt='Dec 4, 2020'
+            views={2506}
             external
           />
           <BlogPost
@@ -114,6 +115,7 @@ const BlogPage = async ({
             summary='How cool if you convert that notebook into a blog within less than 5 min?'
             slug='https://medium.com/analytics-vidhya/convert-your-jupyter-notebook-to-github-pages-with-github-action-fa2ce9b4182a'
             publishedAt='Oct 24, 2020'
+            views={3453}
             external
           />
           <BlogPost
@@ -121,6 +123,7 @@ const BlogPage = async ({
             summary='How to create an End-to-End deep learning solution from data gathering to deploy the model into Heroku.'
             slug='https://medium.com/nerd-for-tech/end-to-end-mask-detection-24fb44a52523'
             publishedAt='Nov 22, 2020'
+            views={458}
             external
           />
           <BlogPost
@@ -128,6 +131,7 @@ const BlogPage = async ({
             summary='Practical machine learning.'
             slug='https://patelvivekdotdev.medium.com/hands-on-practice-on-machine-learning-9782bfc66ce4'
             publishedAt='Oct 21, 2020'
+            views={137}
             external
           />
         </div>
