@@ -4,9 +4,11 @@ import ProjectCard from '@/components/ProjectCard';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { getLatestBlogs } from '@/lib/get-blogs';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export default async function Home() {
   const blogs = await getLatestBlogs();
+  noStore();
 
   return (
     <div className='relative flex w-full  text-[#31363F] dark:text-[#EEEEEE]  flex-col items-center gap-3 bg-dot-black/[0.8] dark:bg-dot-white/[0.5] sm:gap-5'>

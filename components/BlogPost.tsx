@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { getViewsCount } from '@/app/data';
 import { Skeleton } from '@/components/ui/skeleton';
+import ViewCounter from '@/app/blog/views';
+import { getViewsCount } from '@/lib/get-views';
 
 const BlogPost = ({
   title,
@@ -31,14 +32,9 @@ const BlogPost = ({
   );
 };
 
-async function Views({ slug }: { slug: string }) {
-  let views = await getViewsCount(slug);
-  return <p>{`${views ? views : '--'} views`}</p>;
-}
-
 export default BlogPost;
 
-function InternalBlogPost({
+async function InternalBlogPost({
   title,
   summary,
   slug,
@@ -93,6 +89,11 @@ function InternalBlogPost({
       </div>
     </Link>
   );
+}
+
+async function Views({ slug }: { slug: string }) {
+  let views = await getViewsCount();
+  return <ViewCounter allViews={views} slug={slug} />;
 }
 
 function ExternalBlogPost({
