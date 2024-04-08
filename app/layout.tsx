@@ -15,8 +15,31 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://patelvivek.dev'),
-  title: 'Patel Vivek',
-  description: 'Personal website of Patel Vivek.',
+  title: 'Vivek Patel',
+  description: 'Personal website of Vivek Patel.',
+  openGraph: {
+    title: 'Vivek Patel',
+    description: 'Full Stack Developer, writer, and photographer.',
+    url: 'https://patelvivek.dev',
+    siteName: 'Vivek Patel',
+    locale: 'en_US',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  twitter: {
+    title: 'Vivek Patel',
+    card: 'summary_large_image',
+  },
 };
 
 export default function RootLayout({
@@ -29,11 +52,9 @@ export default function RootLayout({
       <body className={cn('mx-auto min-h-screen font-sans antialiased bg-EEEEEE dark:bg-[#222831] ', fontSans.variable)}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem={true}>
           <Navbar />
-          <main>
-            {children}
-            <Analytics />
-            <SpeedInsights />
-          </main>
+          <main>{children}</main>
+          <Analytics />
+          <SpeedInsights />
           <Footer />
         </ThemeProvider>
       </body>

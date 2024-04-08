@@ -10,6 +10,7 @@ const BlogPost = ({
   publishedAt,
   external,
   tags,
+  views,
 }: {
   title: string;
   summary: string;
@@ -17,11 +18,12 @@ const BlogPost = ({
   external?: boolean;
   publishedAt?: string;
   tags?: string;
+  views?: number;
 }) => {
   return (
     <>
       {external ? (
-        <ExternalBlogPost title={title} summary={summary} slug={slug} publishedAt={publishedAt} tags={tags} />
+        <ExternalBlogPost title={title} summary={summary} slug={slug} publishedAt={publishedAt} tags={tags} views={views} />
       ) : (
         <InternalBlogPost title={title} summary={summary} slug={slug} publishedAt={publishedAt} tags={tags} />
       )}
@@ -99,19 +101,45 @@ function ExternalBlogPost({
   slug,
   publishedAt,
   tags,
+  views,
 }: {
   title: string;
   summary: string;
   slug: string;
   publishedAt?: string;
   tags?: string;
+  views?: number;
 }) {
   return (
     <div className='rounded-md border border-gray-300 bg-gray-200 p-4 hover:border-gray-300 hover:bg-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600 dark:hover:bg-slate-700'>
       <a href={slug} target='_blank' rel='noopener noreferrer'>
-        <h3 className='text-xl font-semibold text-black dark:text-white'>{title}</h3>
-        <p className='text-sm text-gray-400 dark:text-gray-500'>{publishedAt}</p>
-        <p className='text-gray-500 dark:text-gray-400'>{summary}</p>
+        <div className='flex flex-row justify-between'>
+          <h4 className='mb-2 w-full font-medium text-neutral-900 dark:text-neutral-100'>{title}</h4>
+          <div className='mb-4 hidden w-32 text-right text-gray-500 sm:block md:mb-0'>
+            <p>{`${views ? views : '--'} views`}</p>
+          </div>
+        </div>
+        <div className='grid grid-cols-1 items-center gap-2  sm:grid-cols-2'>
+          <div>
+            <div className='flex flex-row justify-between'>
+              <p className='text-sm text-gray-400 dark:text-gray-500'>{publishedAt}</p>
+              <div className='mb-4 w-32 text-right text-gray-500 sm:hidden md:mb-0'>
+                <p>{`${views ? views : '--'} views`}</p>
+              </div>
+            </div>
+            <p className='text-gray-600 dark:text-gray-400'>{summary}</p>
+          </div>
+          <span className='mr-2 flex flex-row flex-wrap justify-center gap-2 text-sm font-semibold text-gray-900 dark:text-white sm:justify-end'>
+            {tags?.split(',').map((tag) => (
+              <span
+                key={tag}
+                className='mr-2 inline-block rounded-lg bg-sky-700 px-3 py-1 text-sm font-semibold text-black dark:bg-sky-700 dark:text-white'
+              >
+                {tag.toUpperCase()}
+              </span>
+            ))}
+          </span>
+        </div>
       </a>
     </div>
   );
