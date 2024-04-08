@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
+import { Suspense, cache } from 'react';
 import { notFound } from 'next/navigation';
 import { CustomMDX } from '@/components/mdx';
 import { getBlog } from '@/lib/get-blogs';
-import { getViewsCount } from '@/app/data';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatDate } from '@/lib/utils';
-
 import { Calendar } from 'lucide-react';
+import ViewCounter from '@/app/blog/views';
+import { getViewsCount } from '@/lib/get-views';
+import { increment } from '@/app/actions';
 
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
   const blog = await getBlog(params.slug);
@@ -44,13 +45,9 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
   };
 }
 
-async function Views({ slug }: { slug: string }) {
-  let views = await getViewsCount(slug);
-  return <p>{`${views ? views : '--'} views`}</p>;
-}
-
 export default async function Blog({ params }: { params: any }) {
   const blog = await getBlog(params.slug);
+  const allViews = await getViewsCount();
 
   if (!blog) {
     return notFound();
@@ -77,4 +74,13 @@ export default async function Blog({ params }: { params: any }) {
       </section>
     </div>
   );
+}
+
+let incrementViews = cache(increment);
+
+async function Views({ slug }: { slug: string }) {
+  let views = await getViewsCount();
+  incrementViews(slug);
+
+  return <ViewCounter allViews={views} slug={slug} />;
 }
