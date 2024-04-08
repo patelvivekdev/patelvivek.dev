@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import ProjectCard from '@/components/ProjectCard';
 
 export const metadata: Metadata = {
-  title: 'All Projects',
-  description: 'All projects I have worked on.',
-  keywords: 'projects, work, portfolio',
+  title: 'My Web Development Projects',
+  description: 'Explore my portfolio of React, Next.js, and web development projects. See my skills in action.',
+  keywords: 'React, Next.js, Projects, work, portfolio, web development, Vivek Patel',
 };
 
 const ProjectPage = () => {
@@ -48,8 +48,8 @@ const ProjectPage = () => {
 
   return (
     <div className='mx-auto mt-40 flex w-5/6 flex-col items-center'>
-      <h1 className='text-4xl'>Projects</h1>
-      <p className='mb-8 mt-4 text-lg'>Here are some of the projects I have worked on.</p>
+      <h1 className='text-4xl font-bold text-blue-600 text-center'>About Me</h1>
+      <h3 className='mb-8 mt-4 text-lg'>Here are some of the projects I have worked on.</h3>
       <div className='grid grid-cols-1 gap-4 p-5 sm:p-10'>
         {projects.map((project) => (
           <ProjectCard

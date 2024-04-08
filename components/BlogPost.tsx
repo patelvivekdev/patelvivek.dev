@@ -51,8 +51,7 @@ async function InternalBlogPost({
   let newTags = tags?.split(',');
 
   return (
-    <Link
-      prefetch={true}
+    <a
       href={`/blog/${slug}`}
       className='rounded-md border border-gray-200 bg-gray-100 p-4 hover:border-gray-300 hover:bg-gray-200 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:border-zinc-600 dark:hover:bg-zinc-700'
     >
@@ -87,7 +86,7 @@ async function InternalBlogPost({
           ))}
         </span>
       </div>
-    </Link>
+    </a>
   );
 }
 
