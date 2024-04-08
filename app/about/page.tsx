@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 const AboutPage = () => {
   return (
     <div className='mx-auto mt-40 h-full w-4/5'>
+      <h1 className='text-4xl font-bold text-blue-600 text-center'>About Me</h1>
       <div className='mt-5 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>
         <div className='mx-auto flex w-full flex-col gap-6 p-10 lg:col-span-2'>
           <h2 className='text-4xl font-bold text-blue-600'>
@@ -24,17 +25,9 @@ const AboutPage = () => {
             beautiful moments through my lens. I also love exploring the great outdoors, seeking inspiration in nature&rsquo;s
             wonders.
           </h2>
-          <h2 className='text-3xl font-medium text-blue-500'>
-            I&rsquo;m a versatile web developer with expertise in a wide range of technologies. My skills include building
-            interactive web applications using technologies like <strong className='text-c'>React</strong>,{' '}
-            <strong className='text-c'>Next JS</strong>, and <strong className='text-c'>Node.js</strong>. I have experience with
-            databases like <strong className='text-c'>MongoDB</strong>, <strong className='text-c'>MySQL</strong>, and{' '}
-            <strong className='text-c'>PostgreSQL</strong>, and I&rsquo;m proficient in programming languages such as{' '}
-            <strong className='text-c'>Python</strong> and <strong className='text-c'>JavaScript</strong>. I&rsquo;m also
-            well-versed in version control with <strong className='text-c'>Git</strong> and{' '}
-            <strong className='text-c'>GitHub</strong>. My passion for coding drives me to continually explore and master new
-            technologies, making me a valuable asset in the world of web development.
-          </h2>
+          {/* <h2 className='text-3xl font-medium text-blue-500'>
+          I'm a passionate web developer specializing in building dynamic, user-centric applications using React, Next.js, and Node.js. With proficiency in databases like MongoDB, MySQL, and PostgreSQL, along with Python and JavaScript, I consistently deliver robust solutions. My dedication to continuous learning and mastery of new technologies ensures I stay at the forefront of web development.
+          </h2> */}
         </div>
         <div className='mx-auto p-10 text-center'>
           <div className='mb-10 transform sm:rotate-6'>

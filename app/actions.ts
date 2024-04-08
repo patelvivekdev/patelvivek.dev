@@ -4,6 +4,7 @@ import supabase from '@/lib/supabase/private';
 
 export async function increment(slug: string) {
   noStore();
+  console.log('slug', slug);
 
   const { data, error } = await supabase.rpc('increment', { blog_slug: slug });
 

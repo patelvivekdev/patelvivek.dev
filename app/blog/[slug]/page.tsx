@@ -17,13 +17,16 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
     return notFound();
   }
 
-  let { title, publishedAt: publishedTime, summary: description, image } = blog.metadata;
+  let { title, publishedAt: publishedTime, summary: description, image, tags } = blog.metadata;
+
+  tags = tags ? tags.split(',') : [];
 
   let ogImage = image ? `https://patelvivek.dev${image}` : `https://patelvivek.dev/og?title=${title}`;
 
   return {
     title,
     description,
+    keywords: tags,
     openGraph: {
       title,
       description,
@@ -47,7 +50,6 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
 
 export default async function Blog({ params }: { params: any }) {
   const blog = await getBlog(params.slug);
-  const allViews = await getViewsCount();
 
   if (!blog) {
     return notFound();
@@ -56,7 +58,12 @@ export default async function Blog({ params }: { params: any }) {
   return (
     <div className='mx-auto mt-40 w-4/5'>
       <section>
-        <h1 className='title text-2xl font-medium tracking-tighter'>{blog.metadata.title}</h1>
+        <h1 className='title text-center sm:text-start text-2xl font-medium tracking-tighter'>{blog.metadata.title}</h1>
+        <div className='mb-4 mt-2 flex items-center justify-between text-sm'>
+          <p className='text-sm text-neutral-600 dark:text-neutral-400'>
+            <span className='flex flex-row items-center gap-2'>{blog.metadata.summary}</span>
+          </p>
+        </div>
         <div className='mb-8 mt-2 flex items-center justify-between text-sm'>
           <p className='text-sm text-neutral-600 dark:text-neutral-400'>
             <span className='flex flex-row items-center gap-2'>
@@ -68,7 +75,7 @@ export default async function Blog({ params }: { params: any }) {
           </Suspense>
         </div>
         <hr />
-        <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl prose-a:text-blue-500 prose-a:no-underline'>
+        <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl prose-a:text-white prose-a:no-underline'>
           <CustomMDX>{blog.content}</CustomMDX>
         </article>
       </section>

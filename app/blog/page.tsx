@@ -5,9 +5,9 @@ import Pagination from '@/components/Pagination';
 import { getBlogs } from '@/lib/get-blogs';
 
 export const metadata: Metadata = {
-  title: 'All Blogs',
-  description: 'All blogs I have written.',
-  keywords: 'blogs, writing, articles',
+  title: 'Read all the blogs I have written',
+  description: 'Get practical tips and insights on React, Next.js, and modern web development techniques from my blog.',
+  keywords: 'blogs, writing, articles, nextjs, react, javascript, web development, modern web development',
 };
 
 const BlogPage = async ({
@@ -20,8 +20,8 @@ const BlogPage = async ({
 }) => {
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
-  getBlogs();
 
+  getBlogs();
   let allBlogs = await getBlogs();
 
   // sort by date
@@ -30,13 +30,6 @@ const BlogPage = async ({
     const dateB = new Date(b.metadata.publishedAt);
     return dateB.getTime() - dateA.getTime();
   });
-
-  // let allBlogs = getBlogPosts();
-
-  // // Get all tags
-  // // Here tags are stings separated by comma, so we need to convert it to array
-  // // then we need to flat the array and remove duplicates
-  // let tags = Array.from(new Set(allBlogs.map((blog) => blog.metadata.tags?.split(',')).flat()));
 
   const filteredBlogs = allBlogs.filter((blog) => blog.metadata.title.toLowerCase().includes(query.toLowerCase()));
 
