@@ -17,7 +17,7 @@ const CustomLink = ({ children, ...props }: { children: any; [x: string]: any })
 
   if (isInternalLink) {
     return (
-      <Link href={href} {...props}>
+      <Link href={href} {...props} className="rounded-md px-6 py-3 bg-black text-gray-50 text-sm border border-gray-100 dark:border dark:border-gray-100" >
         {children}
       </Link>
     );
