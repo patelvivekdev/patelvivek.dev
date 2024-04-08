@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
     return {};
   }
 
-  let { title, publishedAt: publishedTime, summary: description, image } = project.metadata;
+  let { title, publishedAt: publishedTime, description: description, image } = project.metadata;
 
   let ogImage = image ? `https://patelvivek.dev${image}` : `https://patelvivek.dev/og?title=${title}`;
 
