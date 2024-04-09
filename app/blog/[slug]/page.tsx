@@ -48,6 +48,11 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
   };
 }
 
+// function to convert date from April 6, 2024 dateTime - 2024-04-06T08:00:00+08:00
+function getDateTime(date: string) {
+  return new Date(date);
+}
+
 export default async function Blog({ params }: { params: any }) {
   const blog = await getBlog(params.slug);
 
@@ -66,8 +71,8 @@ export default async function Blog({ params }: { params: any }) {
               '@context': 'https://schema.org',
               '@type': 'BlogPosting',
               headline: blog.metadata.title,
-              datePublished: blog.metadata.publishedAt,
-              dateModified: blog.metadata.publishedAt,
+              datePublished: getDateTime(blog.metadata.publishedAt),
+              dateModified: getDateTime(blog.metadata.updatedAt),
               description: blog.metadata.summary,
               image: blog.metadata.image
                 ? `https://patelvivek.dev${blog.metadata.image}`
