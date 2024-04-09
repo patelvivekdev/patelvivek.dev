@@ -18,7 +18,7 @@ export default async function sitemap() {
       : new Date().toISOString().split('T')[0],
   }));
 
-  const routes = ['', '/about', '/projects', '/blog'].map((route) => ({
+  const routes = ['', '/about', '/projects', '/blog', '/contact'].map((route) => ({
     url: `https://patelvivek.dev${route}`,
     lastModified: new Date().toISOString().split('T')[0],
   }));
