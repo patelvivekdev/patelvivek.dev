@@ -88,12 +88,12 @@ export default async function Blog({ params }: { params: any }) {
         />
         <h1 className='title text-center sm:text-start text-2xl font-medium tracking-tighter'>{blog.metadata.title}</h1>
         <div className='mb-4 mt-2 flex items-center justify-between text-sm'>
-          <p className='text-sm text-neutral-600 dark:text-neutral-400'>
+          <p className='text-base text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>{blog.metadata.summary}</span>
           </p>
         </div>
         <div className='mb-8 mt-2 flex items-center justify-between text-sm'>
-          <p className='text-sm text-neutral-600 dark:text-neutral-400'>
+          <p className='text-base text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>
               <Calendar /> {formatDate(blog.metadata.publishedAt)}
             </span>
@@ -103,7 +103,7 @@ export default async function Blog({ params }: { params: any }) {
           </Suspense>
         </div>
         <hr />
-        <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl prose-a:text-black dark:prose-a:text-white prose-a:no-underline'>
+        <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
           <CustomMDX>{blog.content}</CustomMDX>
         </article>
       </section>

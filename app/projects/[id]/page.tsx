@@ -58,19 +58,19 @@ export default async function Project({ params }: { params: any }) {
       <section>
         <h1 className='title text-center sm:text-start text-2xl font-medium tracking-tighter'>{project.metadata.title}</h1>
         <div className='mb-4 mt-2 flex items-center justify-between text-sm'>
-          <p className='text-sm text-neutral-600 dark:text-neutral-400'>
+          <p className='text-sm text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>{project.metadata.description}</span>
           </p>
         </div>
         <div className='mb-8 mt-2 flex items-center justify-between text-sm'>
-          <p className='text-sm text-neutral-600 dark:text-neutral-400'>
+          <p className='text-sm text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>
               <Calendar /> {formatDate(project.metadata.publishedAt)}
             </span>
           </p>
         </div>
         <hr />
-        <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl prose-a:text-black dark:prose-a:text-white prose-a:no-underline'>
+        <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
           <CustomMDX>{project.content}</CustomMDX>
         </article>
       </section>
