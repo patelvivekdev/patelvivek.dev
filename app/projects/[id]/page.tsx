@@ -70,7 +70,7 @@ export default async function Project({ params }: { params: any }) {
           </p>
         </div>
         <hr />
-        <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl prose-a:text-white prose-a:no-underline'>
+        <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl prose-a:text-black dark:prose-a:text-white prose-a:no-underline'>
           <CustomMDX>{project.content}</CustomMDX>
         </article>
       </section>
