@@ -58,6 +58,29 @@ export default async function Blog({ params }: { params: any }) {
   return (
     <div className='mx-auto mt-40 w-4/5'>
       <section>
+        <script
+          type='application/ld+json'
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BlogPosting',
+              headline: blog.metadata.title,
+              datePublished: blog.metadata.publishedAt,
+              dateModified: blog.metadata.publishedAt,
+              description: blog.metadata.summary,
+              image: blog.metadata.image
+                ? `https://patelvivek.dev${blog.metadata.image}`
+                : `https://patelvivek.dev/og?title=${blog.metadata.title}`,
+              url: `https://patelvivek.dev/blog/${blog.slug}`,
+              author: {
+                '@type': 'Person',
+                name: 'Vivek Patel',
+                url: 'https://patelvivek.dev/about',
+              },
+            }),
+          }}
+        />
         <h1 className='title text-center sm:text-start text-2xl font-medium tracking-tighter'>{blog.metadata.title}</h1>
         <div className='mb-4 mt-2 flex items-center justify-between text-sm'>
           <p className='text-sm text-neutral-600 dark:text-neutral-400'>
