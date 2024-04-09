@@ -18,7 +18,7 @@ const BlogPage = async ({
     page?: string;
   };
 }) => {
-  const query = searchParams?.query || '';
+  const query = searchParams?.query?.trim() || '';
   const currentPage = Number(searchParams?.page) || 1;
 
   getBlogs();
@@ -33,7 +33,7 @@ const BlogPage = async ({
 
   const filteredBlogs = allBlogs.filter((blog) => blog.metadata.title.toLowerCase().includes(query.toLowerCase()));
 
-  const blogsPerPage = 5;
+  const blogsPerPage = 2;
   let totalPages = 0;
   let filteredBlogsLength = filteredBlogs.length;
 
@@ -101,6 +101,7 @@ const BlogPage = async ({
             slug='https://towardsdatascience.com/end-to-end-cnn-using-tensorflow-4c7d9af3ca4c'
             publishedAt='Dec 4, 2020'
             views={2506}
+            tags='machine learning, deep learning'
             external
           />
           <BlogPost
@@ -109,9 +110,10 @@ const BlogPage = async ({
             slug='https://medium.com/analytics-vidhya/convert-your-jupyter-notebook-to-github-pages-with-github-action-fa2ce9b4182a'
             publishedAt='Oct 24, 2020'
             views={3453}
+            tags='github, github action, jupyter notebook'
             external
           />
-          <BlogPost
+          {/* <BlogPost
             title='End to end Mask detection'
             summary='How to create an End-to-End deep learning solution from data gathering to deploy the model into Heroku.'
             slug='https://medium.com/nerd-for-tech/end-to-end-mask-detection-24fb44a52523'
@@ -126,7 +128,7 @@ const BlogPage = async ({
             publishedAt='Oct 21, 2020'
             views={137}
             external
-          />
+          /> */}
         </div>
       </div>
     </div>

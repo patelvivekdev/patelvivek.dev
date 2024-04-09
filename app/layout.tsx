@@ -7,6 +7,7 @@ import { Inter as FontSans } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Toaster } from 'react-hot-toast';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -56,6 +57,7 @@ export default function RootLayout({
           <Analytics />
           <SpeedInsights />
           <Footer />
+          <Toaster position='top-right' />
         </ThemeProvider>
       </body>
     </html>

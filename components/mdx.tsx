@@ -11,18 +11,6 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { highlight } from 'sugar-high';
 import { cn } from '@/lib/utils';
 
-function Button({ text, url }: { text: string; url: string }) {
-  return (
-    <a
-      href={url}
-      style={{ color: '#ffffff', textDecoration: 'none' }}
-      className='mr-2 inline-block rounded-md px-6 py-3 bg-black text-gray-50 text-sm border border-gray-100 dark:border dark:border-gray-100'
-    >
-      {text}
-    </a>
-  );
-}
-
 const CustomLink = ({ children, ...props }: { children: any; [x: string]: any }) => {
   const href = props.href;
   const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'));
@@ -105,7 +93,6 @@ const mdxComponents: MDXComponents = {
   ),
   a: CustomLink as any,
   Link: CustomLink as any,
-  Button,
   Callout,
   code: Code as React.ComponentType<any>, // Add type assertion here
   img: NextImage as React.ComponentType<any>, // Add type assertion here

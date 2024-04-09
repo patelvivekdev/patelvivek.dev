@@ -25,15 +25,12 @@ export default function ProjectCard({
           <div className='flex flex-col justify-between'>
             <div>
               <h4 className='mb-2 w-full text-xl font-bold text-neutral-900 dark:text-neutral-100'>{title}</h4>
-              <p className='text-lg text-gray-600 dark:text-gray-400'>{description}</p>
+              <p className='text-lg text-gray-700 dark:text-gray-300'>{description}</p>
             </div>
           </div>
-          <span className='mr-2 flex flex-row flex-wrap justify-center gap-2 text-sm font-semibold text-gray-900 dark:text-white sm:justify-end'>
+          <span className='flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
             {tags.map((tag) => (
-              <span
-                key={tag}
-                className='mr-2 inline-block rounded-lg bg-sky-700 px-3 py-1 text-sm font-semibold text-black dark:bg-sky-700 dark:text-white'
-              >
+              <span key={tag} className='mr-2 inline-block rounded-lg bg-sky-700 px-3 py-1 text-sm font-semibold text-white'>
                 {tag.toUpperCase()}
               </span>
             ))}
