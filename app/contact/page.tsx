@@ -18,27 +18,36 @@ const ContactPage = () => {
         <div className='flex justify-center flex-col gap-4'>
           <div className='flex flex-col gap-5'>
             <p className='text-xl'>
-              <span className='text-blue-600 font-bold'>Name:</span> Vivek Patel
+              <span className='text-blue-600 font-bold'>Name: </span> Vivek Patel
             </p>
             <p className='text-xl'>
-              <span className='text-blue-600 font-bold'>Email:</span> me@patelvive.dev
+              <span className='text-blue-600 font-bold'>Email: </span> me@patelvivek.dev
             </p>
             <p className='text-xl'>
-              <span className='text-blue-600 font-bold'>Phone:</span> +1 519 731 9008
+              <span className='text-blue-600 font-bold'>Phone: </span> +1 519 731 9008
             </p>
             <p className='text-xl'>
-              <span className='text-blue-600 font-bold'>Address:</span> Kitchener, ON, Canada
+              <span className='text-blue-600 font-bold'>Address: </span> Kitchener, ON, Canada
             </p>
           </div>
           <div className='flex flex-col gap-5'>
             <p className='text-xl'>
-              <span className='text-blue-600 font-bold'>LinkedIn:</span> https://www.linkedin.com/in/vivekp0206
+              <span className='text-blue-600 font-bold'>LinkedIn: </span>
+              <a href='https://www.linkedin.com/in/patelvivekdev' target='_blank' rel='noopener noreferrer'>
+                Linkedin/patelvivekdev
+              </a>
             </p>
             <p className='text-xl'>
-              <span className='text-blue-600 font-bold'>GitHub:</span> https://github.com/Vivek-0206
+              <span className='text-blue-600 font-bold'>GitHub: </span>
+              <a href='https://github.com/patelvivekdev' target='_blank' rel='noopener noreferrer'>
+                Github/patelvivekdev
+              </a>
             </p>
             <p className='text-xl'>
-              <span className='text-blue-600 font-bold'>Twitter:</span> https://twitter.com/Vivek0206_
+              <span className='text-blue-600 font-bold'>Twitter: </span>
+              <a href='https://www.twitter.com/patelvivekdev' target='_blank' rel='noopener noreferrer'>
+                Twitter/patelvivekdev
+              </a>
             </p>
           </div>
         </div>

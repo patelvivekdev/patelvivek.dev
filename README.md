@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## patelvivek.dev
 
-## Getting Started
+> A personal portfolio website built with Next.js and Tailwind CSS.
 
-First, run the development server:
+## Features
+
+- **Next.js** - React framework
+- **Tailwind CSS** - Utility-first CSS framework
+- **TypeScript** - Typed JavaScript
+- **Dark Mode** - Toggle between light and dark mode
+- **SEO** - Metadata and Open Graph tags
+- **MDX** - Blog posts written with MDX
+- **Syntax Highlighting** - Code blocks with sugar-high
+- **Table of Contents** - Auto-generated for blog posts
+
+## Installation
+
+1. Install the dependencies:
+
+```bash
+# Using npm
+npm install
+
+# Using Yarn
+yarn install
+
+# Using PNPM
+pnpm install
+
+# Using Bun
+bun install
+
+```
+
+2. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Build for production:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<!-- <div align="center">
+    <img src="https://img.shields.io/github/license/patelvivekdev/patelvivek.dev?style=for-the-badge" alt="License" />
+    <img src="https://img.shields.io/github/stars/patelvivekdev/patelvivek.dev?style=for-the-badge" alt="Stars" />
+    <img src="https://img.shields.io/github/forks/patelvivekdev/patelvivek.dev?style=for-the-badge" alt="Forks" />
+    <img src="https://img.shields.io/github/issues/patelvivekdev/patelvivek.dev?style=for-the-badge" alt="Issues" />
+</div> -->
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<div align="center">
+    Made with ❤️ by Vivek Patel
+</div>
