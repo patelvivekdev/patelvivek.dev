@@ -15,7 +15,7 @@ const ProjectPage = () => {
       description:
         "Market-hub is a MERN-powered platform for buying and selling computer items. Vendors can easily manage their products, while users enjoy a smooth shopping experience. It's a user-friendly solution for tech enthusiasts and sellers alike.",
       image: {
-        src: 'https://firebasestorage.googleapis.com/v0/b/vivek-0206.appspot.com/o/images%2Fdefault.png?alt=media&token=d917a346-35fd-4e33-ac34-3c725b6f2769',
+        src: 'https://firebasestorage.googleapis.com/v0/b/patelvivekdev.appspot.com/o/images%2Fdefault.png?alt=media&token=d917a346-35fd-4e33-ac34-3c725b6f2769',
         alt: 'Market-hub logo',
       },
       link: 'projects/market-hub',
@@ -27,7 +27,7 @@ const ProjectPage = () => {
       description:
         'Acme Auth is a learning project focused on integrating third-party authentication APIs. It covers registration, login, logout, password recovery, and email verification. With a responsive design and efficient routing, it showcases modern web development practices using Next.js server actions and Tailwind CSS.',
       image: {
-        src: 'https://firebasestorage.googleapis.com/v0/b/vivek-0206.appspot.com/o/images%2Fdefault.png?alt=media&token=d917a346-35fd-4e33-ac34-3c725b6f2769',
+        src: 'https://firebasestorage.googleapis.com/v0/b/patelvivekdev.appspot.com/o/images%2Fdefault.png?alt=media&token=d917a346-35fd-4e33-ac34-3c725b6f2769',
         alt: 'Acme Auth logo',
       },
       link: 'projects/acme-auth',

@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    ppr: true,
+  },
   images: {
     remotePatterns: [
       {
@@ -13,6 +16,7 @@ const nextConfig = {
       },
     ],
   },
+  transpilePackages: ['next-mdx-remote'],
   async redirects() {
     return [
       {

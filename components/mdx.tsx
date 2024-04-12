@@ -47,40 +47,28 @@ function Code({ children, ...props }: { children: any; [x: string]: any }) {
 
 const mdxComponents: MDXComponents = {
   h1: ({ className, ...props }) => (
-    <h1 className={cn('my-2 scroll-m-20 text-4xl font-bold tracking-tight text-black dark:text-white', className)} {...props} />
+    <h1 className={cn('my-2 scroll-m-20 text-4xl font-bold text-black dark:text-white', className)} {...props} />
   ),
   h2: ({ className, ...props }) => (
     <h2
       className={cn(
-        ' my-5 scroll-m-20 border-b border-b-gray-400 pb-1 text-3xl font-semibold tracking-tight text-black first:mt-0 dark:border-b-gray-700 dark:text-white',
+        ' my-5 scroll-m-20 border-b border-b-gray-400 pb-1 !text-3xl font-semibold text-black first:mt-0 dark:border-b-gray-500 dark:text-white',
         className,
       )}
       {...props}
     />
   ),
   h3: ({ className, ...props }) => (
-    <h3
-      className={cn('my-4 scroll-m-20 text-2xl font-semibold tracking-tight text-black dark:text-white', className)}
-      {...props}
-    />
+    <h3 className={cn('my-4 scroll-m-20 !text-2xl font-semibold text-black dark:text-white', className)} {...props} />
   ),
   h4: ({ className, ...props }) => (
-    <h4
-      className={cn('my-4 scroll-m-20 text-xl font-semibold tracking-tight text-black dark:text-white', className)}
-      {...props}
-    />
+    <h4 className={cn('my-4 scroll-m-20 !text-xl font-semibold text-black dark:text-white', className)} {...props} />
   ),
   h5: ({ className, ...props }) => (
-    <h5
-      className={cn('my-4 scroll-m-20 text-lg font-semibold tracking-tight text-black dark:text-white', className)}
-      {...props}
-    />
+    <h5 className={cn('my-4 scroll-m-20 !text-lg font-semibold text-black dark:text-white', className)} {...props} />
   ),
   h6: ({ className, ...props }) => (
-    <h6
-      className={cn('my-4 scroll-m-20 text-base font-semibold tracking-tight text-black dark:text-white', className)}
-      {...props}
-    />
+    <h6 className={cn('my-4 scroll-m-20 !text-base font-semibold text-black dark:text-white', className)} {...props} />
   ),
   ul: ({ className, ...props }) => <ul className={cn('my-6 ml-6 list-disc', className)} {...props} />,
   ol: ({ className, ...props }) => <ol className={cn('my-6 ml-6 list-decimal', className)} {...props} />,
@@ -98,7 +86,7 @@ const mdxComponents: MDXComponents = {
   img: NextImage as React.ComponentType<any>, // Add type assertion here
 };
 
-export function CustomMDX({ children }: { children: string }) {
+export function CustomMDX({ children, components }: { children: string; components: MDXComponents }) {
   return (
     <MDXRemote
       source={children}
@@ -116,7 +104,7 @@ export function CustomMDX({ children }: { children: string }) {
           rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
         },
       }}
-      components={mdxComponents}
+      components={{ ...mdxComponents, ...(components || {}) }}
     />
   );
 }

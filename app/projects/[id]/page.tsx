@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
+import { Calendar } from 'lucide-react';
+import Image from 'next/image';
 import getProjects, { getProject } from '@/lib/get-projects';
 import { CustomMDX } from '@/components/mdx';
-import { Skeleton } from '@/components/ui/skeleton';
 import { formatDate } from '@/lib/utils';
-
-import { Calendar } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
   getProjects();
@@ -56,14 +55,14 @@ export default async function Project({ params }: { params: any }) {
   return (
     <div className='mx-auto mt-40 w-4/5'>
       <section>
-        <h1 className='title text-center sm:text-start text-2xl font-medium tracking-tighter'>{project.metadata.title}</h1>
-        <div className='mb-4 mt-2 flex items-center justify-between text-sm'>
-          <p className='text-sm text-neutral-700 dark:text-neutral-300'>
+        <h1 className='text-start text-2xl sm:text-4xl font-bold'>{project.metadata.title}</h1>
+        <div className='mb-4 mt-2 flex items-center justify-between'>
+          <p className='text-lg font-normal text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>{project.metadata.description}</span>
           </p>
         </div>
-        <div className='mb-8 mt-2 flex items-center justify-between text-sm'>
-          <p className='text-sm text-neutral-700 dark:text-neutral-300'>
+        <div className='mb-8 mt-2 flex items-center justify-between'>
+          <p className='text-base text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>
               <Calendar /> {formatDate(project.metadata.publishedAt)}
             </span>
@@ -71,9 +70,26 @@ export default async function Project({ params }: { params: any }) {
         </div>
         <hr />
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
-          <CustomMDX>{project.content}</CustomMDX>
+          <CustomMDX
+            components={{
+              RoundedImage: RoundedImage,
+            }}
+          >
+            {project.content}
+          </CustomMDX>
         </article>
       </section>
     </div>
+  );
+}
+
+function RoundedImage(props: any) {
+  return (
+    <Image
+      alt={props.alt}
+      className='rounded-lg shadow-lg dark:shadow-white shadow-slate-800 mx-auto'
+      {...props}
+      priority={true}
+    />
   );
 }

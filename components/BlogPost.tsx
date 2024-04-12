@@ -51,12 +51,13 @@ async function InternalBlogPost({
   let newTags = tags?.split(',');
 
   return (
-    <a
-      href={`/blog/${slug}`}
-      className='rounded-md border border-gray-200 bg-gray-100 p-4 hover:border-gray-300 hover:bg-gray-200 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:border-zinc-600 dark:hover:bg-zinc-700'
-    >
+    <div className='rounded-md border border-gray-200 bg-gray-100 p-4 hover:border-gray-300 hover:bg-gray-200 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:border-zinc-600 dark:hover:bg-zinc-700'>
       <div className='flex flex-row justify-between'>
-        <h4 className='mb-2 w-full font-medium text-neutral-900 dark:text-neutral-100'>{title}</h4>
+        <h2 className='mb-2 w-full text-lg sm:text-xl font-medium text-neutral-900 dark:text-neutral-100'>
+          <a href={`/blog/${slug}`} className='hover:text-sky-700 dark:hover:text-sky-300'>
+            {title}
+          </a>
+        </h2>
         <div className='mb-4 hidden w-32 text-right  sm:block md:mb-0'>
           <Suspense fallback={<p>--- Views</p>}>
             <Views slug={slug} />
@@ -66,7 +67,7 @@ async function InternalBlogPost({
       <div className='grid grid-cols-1 items-center gap-2  sm:grid-cols-2'>
         <div>
           <div className='flex flex-row justify-between'>
-            <p className='text-base text-gray-700 dark:text-gray-300'>{publishedAt}</p>
+            <p className='text-sm text-gray-700 dark:text-gray-300'>{publishedAt}</p>
             <div className='mb-4 w-32 text-right text-base sm:hidden md:mb-0'>
               <Suspense fallback={<p>--- Views</p>}>
                 <Views slug={slug} />
@@ -83,7 +84,7 @@ async function InternalBlogPost({
           ))}
         </span>
       </div>
-    </a>
+    </div>
   );
 }
 
@@ -109,32 +110,34 @@ function ExternalBlogPost({
 }) {
   return (
     <div className='rounded-md border border-gray-300 bg-gray-200 p-4 hover:border-gray-300 hover:bg-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600 dark:hover:bg-slate-700'>
-      <a href={slug} target='_blank' rel='noopener noreferrer'>
-        <div className='flex flex-row justify-between'>
-          <h4 className='mb-2 w-full font-medium text-neutral-900 dark:text-neutral-100'>{title}</h4>
-          <div className='mb-4 hidden w-32 text-right text-base text-gray-700 dark:text-gray-200/75 sm:block md:mb-0'>
-            <p>{`${views ? views : '---'} views`}</p>
-          </div>
+      <div className='flex flex-row justify-between'>
+        <h4 className='mb-2 w-full text-lg sm:text-xl font-medium text-neutral-900 dark:text-neutral-100'>
+          <a href={slug} target='_blank' rel='noopener noreferrer' className='hover:text-sky-700 dark:hover:text-sky-300'>
+            {title}
+          </a>
+        </h4>
+        <div className='mb-4 hidden w-32 text-right text-base text-gray-700 dark:text-gray-200/75 sm:block md:mb-0'>
+          <p>{`${views ? views : '---'} views`}</p>
         </div>
-        <div className='grid grid-cols-1 items-center gap-2  sm:grid-cols-2'>
-          <div>
-            <div className='flex flex-row justify-between'>
-              <p className='text-base text-gray-700 dark:text-gray-200/75'>{publishedAt}</p>
-              <div className='mb-4 w-32 text-base text-right text-gray-700 dark:text-gray-200/75 sm:hidden md:mb-0'>
-                <p>{`${views ? views : '---'} views`}</p>
-              </div>
+      </div>
+      <div className='grid grid-cols-1 items-center gap-2  sm:grid-cols-2'>
+        <div>
+          <div className='flex flex-row justify-between'>
+            <p className='text-sm text-gray-700 dark:text-gray-200/75'>{publishedAt}</p>
+            <div className='mb-4 w-32 text-base text-right text-gray-700 dark:text-gray-200/75 sm:hidden md:mb-0'>
+              <p>{`${views ? views : '---'} views`}</p>
             </div>
-            <p className=' text-base text-gray-700 dark:text-gray-200/75'>{summary}</p>
           </div>
-          <span className='mr-2 flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
-            {tags?.split(',').map((tag) => (
-              <span key={tag} className='mr-2 inline-block rounded-lg bg-zinc-300 px-3 py-1 text-sm font-semibold text-black'>
-                {tag.toUpperCase()}
-              </span>
-            ))}
-          </span>
+          <p className=' text-base text-gray-700 dark:text-gray-200/75'>{summary}</p>
         </div>
-      </a>
+        <span className='mr-2 flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
+          {tags?.split(',').map((tag) => (
+            <span key={tag} className='mr-2 inline-block rounded-lg bg-zinc-300 px-3 py-1 text-sm font-semibold text-black'>
+              {tag.toUpperCase()}
+            </span>
+          ))}
+        </span>
+      </div>
     </div>
   );
 }
