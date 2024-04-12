@@ -23,5 +23,30 @@ export default async function sitemap() {
     lastModified: new Date().toISOString().split('T')[0],
   }));
 
-  return [...routes, ...blogs, ...allProjects];
+  // Other pages for which you want to create sitemap
+  const staticPaths = [
+    '/home',
+    '/Project',
+    '/PhotoGallery',
+    '/resume',
+    '/blog/first-blog',
+    '/blog/second-blog',
+    '/blog/third-blog',
+    '/projects/1',
+    '/projects/2',
+    '/projects/3',
+    '/projects/first-project',
+    '/projects/second-project',
+    '/projects/third-project',
+    '/Vivek-Resume.pdf',
+    '/rss',
+    '/feed',
+    '/atom',
+  ];
+  const staticPages = staticPaths.map((page) => ({
+    url: `https://patelvivek.dev${page}`,
+    lastModified: new Date().toISOString().split('T')[0],
+  }));
+
+  return [...routes, ...blogs, ...allProjects, ...staticPages];
 }
