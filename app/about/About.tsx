@@ -19,7 +19,7 @@ const content = [
           quality={100}
           priority={true}
           className='h-full w-full object-cover'
-          alt='linear board demo'
+          alt='Picture of Vivek Patel'
         />
       </div>
     ),
@@ -30,7 +30,7 @@ const content = [
       "Beyond the screen, I'm an avid photographer, capturing the life's beautiful moments through my lens. I also love exploring the great outdoors, seeking inspiration in nature&rsquo;s wonders.",
     content: (
       <div className='h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white'>
-        About Me
+        Hobbies
       </div>
     ),
   },
@@ -46,10 +46,17 @@ const content = [
   },
   {
     title: 'Resume',
-    description: 'check out my resume',
+    description: (
+      <>
+        <p>check out my resume</p>
+        <Link className='border px-3 py-2 text-center block md:hidden bg-slate-600 rounded-lg text-white' href='/resume'>
+          Resume
+        </Link>
+      </>
+    ),
     content: (
       <div className='h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white'>
-        <Link className='border p-5 bg-slate-600 rounded-lg text-white' href='/resume'>
+        <Link className='border px-3 py-2 bg-slate-600 rounded-lg text-white' href='/resume'>
           Resume
         </Link>
       </div>

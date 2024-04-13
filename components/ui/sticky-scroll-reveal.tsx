@@ -10,7 +10,7 @@ export const StickyScroll = ({
 }: {
   content: {
     title: string;
-    description: string;
+    description: React.ReactNode | any;
     content?: React.ReactNode | any;
   }[];
   contentClassName?: string;
@@ -35,8 +35,6 @@ export const StickyScroll = ({
     setActiveCard(closestBreakpointIndex);
   });
 
-  console.log('activeCard', activeCard);
-
   return (
     <div className='my-32 grid grid-cols-1 sm:grid-cols-3'>
       <div className='sm:col-span-2 flex flex-col items-start mx-auto px-4' ref={ref}>
@@ -49,28 +47,28 @@ export const StickyScroll = ({
               animate={{
                 opacity: activeCard === index ? 1 : 0.3,
               }}
-              className='text-2xl font-bold text-slate-100'
+              className='text-2xl font-bold dark:text-slate-100 text-gray-800 mb-4'
             >
               {item.title}
             </motion.h2>
-            <motion.p
+            <motion.div
               initial={{
                 opacity: activeCard === index ? 1 : 0.3,
               }}
               animate={{
                 opacity: activeCard === index ? 1 : 0.3,
               }}
-              className='text-kg text-slate-300 max-w-sm mt-10'
+              className='text-lg dark:text-slate-100 text-gray-800 mb-4  max-w-xs lg:max-w-md  mt-10'
             >
               {item.description}
-            </motion.p>
+            </motion.div>
           </div>
         ))}
         <div className='h-20' />
       </div>
       <div
         className={cn(
-          'hidden lg:block h-64 w-84 rounded-md bg-white sticky top-32 right-32 shadow-2xl shadow-zinc-500 dark:shadow-indigo-500',
+          'hidden md:block h-64 w-84 rounded-md sticky top-32 sm:right-16 md:right-20 lg:right-28 shadow-2xl shadow-zinc-500 dark:shadow-indigo-500',
           contentClassName,
         )}
       >
