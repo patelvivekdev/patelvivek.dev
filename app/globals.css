@@ -23,3 +23,13 @@ body {
   --sh-keyword: #f47067;
   --sh-comment: #a19595;
 }
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: #f47067;
+  transform-origin: 0%;
+}
