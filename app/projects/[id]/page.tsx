@@ -6,6 +6,7 @@ import getProjects, { getProject } from '@/lib/get-projects';
 import { CustomMDX } from '@/components/mdx';
 import { formatDate } from '@/lib/utils';
 import { cn } from '@/lib/utils';
+import Progress from '@/components/ui/progress';
 
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
   getProjects();
@@ -54,6 +55,7 @@ export default async function Project({ params }: { params: any }) {
   }
   return (
     <div className='mx-auto mt-40 w-4/5'>
+      <Progress />
       <section>
         <h1 className='text-start text-2xl sm:text-4xl font-bold'>{project.metadata.title}</h1>
         <div className='mb-4 mt-2 flex items-center justify-between'>

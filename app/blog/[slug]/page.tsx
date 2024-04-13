@@ -10,6 +10,7 @@ import ViewCounter from '@/app/blog/views';
 import { getViewsCount } from '@/lib/get-views';
 import { increment } from '@/app/actions';
 import Image from 'next/image';
+import Progress from '../../../components/ui/progress';
 
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
   const blog = await getBlog(params.slug);
@@ -63,6 +64,7 @@ export default async function Blog({ params }: { params: any }) {
 
   return (
     <div className='mx-auto mt-40 w-4/5'>
+      <Progress />
       <section>
         <script
           type='application/ld+json'
