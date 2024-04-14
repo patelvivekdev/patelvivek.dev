@@ -1,0 +1,47 @@
+---
+title: 'A Deep Dive To Next.js 14 Server Actions'
+summary: 'Harness the power of Next.js 14 Server Actions for streamlined data fetching and mutations in your Nextjs applications.'
+slug: 'server-actions'
+publishedAt: 'April 13, 2024'
+tags: 'NextJs, React, Server Actions, Data Fetching, Mutations, Server Components, JavaScript, TypeScript'
+toc: true
+published: false
+---
+
+### Table of Contents
+
+## Introduction
+
+If you've ever built web applications that involve **forms** , **real-time updates** , or **complex data interactions**, you know the struggle can be real. Traditionally, these features often required setting up separate `API` endpoints and managing intricate client-side state. Next.js 14 Server Actions come to the rescue! They provide a smooth solution, allowing you to execute server-side logic directly from your React components, just like calling a regular function.
+
+Let's explore how Server Actions can supercharge your development workflow and make your apps feel more responsive and interactive.
+
+## Setup NextJs
+
+`Prerequisites: Nodejs, Database(Supabase)`
+
+Create a new Next app with :
+
+```bash
+npx create-next-app server-actions
+```
+
+we also use [shadcn ui](https://ui.shadcn.com/docs/installation/next). It is a collection of re-usable components.
+
+```bash
+npx shadcn-ui@latest init
+```
+
+For the database we use [Supabase](https://supabase.com/). It is an open source Firebase alternative.
+
+```bash
+npm install @supabase/supabase-js
+```
+
+## Links
+
+- [Next.js 14 Server Actions](https://nextjs.org/docs/app/api-reference/functions/server-actions)
+- [React server actions](https://react.dev/reference/react/use-server#usage)
+- [React Form](https://react.dev/reference/react-dom/components/form#handle-form-submission-with-a-server-action)
+- [Supabase](https://supabase.com/)
+- [shadcn ui](https://ui.shadcn.com/docs/installation/next)

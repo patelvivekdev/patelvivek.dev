@@ -102,7 +102,7 @@ export default async function Blog({ params }: { params: any }) {
             </span>
           </p>
           <Suspense fallback={<p>---</p>}>
-            <Views slug={blog.slug} />
+            <Views slug={blog.slug} published={blog.metadata.published} />
           </Suspense>
         </div>
         <hr />
@@ -122,9 +122,11 @@ export default async function Blog({ params }: { params: any }) {
 
 let incrementViews = cache(increment);
 
-async function Views({ slug }: { slug: string }) {
+async function Views({ slug, published }: { slug: string; published: boolean }) {
   let views = await getViewsCount();
-  incrementViews(slug);
+  if (published) {
+    incrementViews(slug);
+  }
 
   return <ViewCounter allViews={views} slug={slug} />;
 }
