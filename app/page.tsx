@@ -73,6 +73,7 @@ export default async function Home() {
               summary={blog.metadata.summary}
               publishedAt={blog.metadata.publishedAt}
               slug={blog.slug}
+              readingTime={blog.readingTime}
               tags={blog.metadata.tags}
             />
           ))

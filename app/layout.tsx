@@ -16,7 +16,10 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://patelvivek.dev'),
-  title: 'Vivek Patel',
+  title: {
+    default: 'Vivek Patel',
+    template: '%s | Vivek Patel',
+  },
   description: 'Personal website of Vivek Patel.',
   openGraph: {
     title: 'Vivek Patel',

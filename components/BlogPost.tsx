@@ -9,6 +9,7 @@ const BlogPost = ({
   summary,
   slug,
   publishedAt,
+  readingTime,
   external,
   tags,
   views,
@@ -17,6 +18,7 @@ const BlogPost = ({
   summary: string;
   slug: string;
   external?: boolean;
+  readingTime: string;
   publishedAt?: string;
   tags?: string;
   views?: number;
@@ -24,9 +26,24 @@ const BlogPost = ({
   return (
     <>
       {external ? (
-        <ExternalBlogPost title={title} summary={summary} slug={slug} publishedAt={publishedAt} tags={tags} views={views} />
+        <ExternalBlogPost
+          title={title}
+          summary={summary}
+          slug={slug}
+          publishedAt={publishedAt}
+          tags={tags}
+          views={views}
+          readingTime={readingTime}
+        />
       ) : (
-        <InternalBlogPost title={title} summary={summary} slug={slug} publishedAt={publishedAt} tags={tags} />
+        <InternalBlogPost
+          title={title}
+          summary={summary}
+          slug={slug}
+          publishedAt={publishedAt}
+          tags={tags}
+          readingTime={readingTime}
+        />
       )}
     </>
   );
@@ -38,12 +55,14 @@ async function InternalBlogPost({
   title,
   summary,
   slug,
+  readingTime,
   publishedAt,
   tags,
 }: {
   title: string;
   summary: string;
   slug: string;
+  readingTime: string;
   publishedAt?: string;
   tags?: string;
 }) {
@@ -53,7 +72,7 @@ async function InternalBlogPost({
   return (
     <div className='rounded-md border border-gray-200 bg-gray-100 p-4 hover:border-gray-300 hover:bg-gray-200 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:border-zinc-600 dark:hover:bg-zinc-700'>
       <div className='flex flex-row justify-between'>
-        <h2 className='mb-2 w-full text-lg sm:text-xl font-medium text-neutral-900 dark:text-neutral-100'>
+        <h2 className='mb-2 w-full text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-100'>
           <a href={`/blog/${slug}`} className='hover:text-sky-700 dark:hover:text-sky-300'>
             {title}
           </a>
@@ -64,17 +83,19 @@ async function InternalBlogPost({
           </Suspense>
         </div>
       </div>
-      <div className='grid grid-cols-1 items-center gap-2  sm:grid-cols-2'>
-        <div>
-          <div className='flex flex-row justify-between'>
-            <p className='text-sm text-gray-700 dark:text-gray-300'>{publishedAt}</p>
-            <div className='mb-4 w-32 text-right text-base sm:hidden md:mb-0'>
+      <div className='grid grid-cols-1 items-center gap-2 sm:grid-cols-2'>
+        <div className='space-y-2'>
+          <div className='flex flex-col justify-between gap-2'>
+            <p className='text-base font-medium text-gray-700 dark:text-gray-300'>
+              {publishedAt} | {readingTime}
+            </p>
+            <div className='mb-4 w-32 text-base sm:hidden md:mb-0'>
               <Suspense fallback={<p>--- Views</p>}>
                 <Views slug={slug} />
               </Suspense>
             </div>
           </div>
-          <p className='text-base text-gray-700 dark:text-gray-300'>{summary}</p>
+          <p className='text-base font-semibold text-gray-700 dark:text-gray-300'>{summary}</p>
         </div>
         <span className='flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
           {newTags?.map((tag) => (
@@ -97,6 +118,7 @@ function ExternalBlogPost({
   title,
   summary,
   slug,
+  readingTime,
   publishedAt,
   tags,
   views,
@@ -104,6 +126,7 @@ function ExternalBlogPost({
   title: string;
   summary: string;
   slug: string;
+  readingTime: string;
   publishedAt?: string;
   tags?: string;
   views?: number;
@@ -111,7 +134,7 @@ function ExternalBlogPost({
   return (
     <div className='rounded-md border border-gray-300 bg-gray-200 p-4 hover:border-gray-300 hover:bg-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600 dark:hover:bg-slate-700'>
       <div className='flex flex-row justify-between'>
-        <h4 className='mb-2 w-full text-lg sm:text-xl font-medium text-neutral-900 dark:text-neutral-100'>
+        <h4 className='mb-2 w-full text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-100'>
           <a href={slug} target='_blank' rel='noopener noreferrer' className='hover:text-sky-700 dark:hover:text-sky-300'>
             {title}
           </a>
@@ -121,14 +144,16 @@ function ExternalBlogPost({
         </div>
       </div>
       <div className='grid grid-cols-1 items-center gap-2  sm:grid-cols-2'>
-        <div>
-          <div className='flex flex-row justify-between'>
-            <p className='text-sm text-gray-700 dark:text-gray-200/75'>{publishedAt}</p>
-            <div className='mb-4 w-32 text-base text-right text-gray-700 dark:text-gray-200/75 sm:hidden md:mb-0'>
+        <div className='space-y-2'>
+          <div className='flex flex-col justify-between gap-2'>
+            <p className='text-base font-medium text-gray-700 dark:text-gray-200/75'>
+              {publishedAt} | {readingTime}
+            </p>
+            <div className='mb-4 w-32 text-base text-gray-700 dark:text-gray-200/75 sm:hidden md:mb-0'>
               <p>{`${views ? views : '---'} views`}</p>
             </div>
           </div>
-          <p className=' text-base text-gray-700 dark:text-gray-200/75'>{summary}</p>
+          <p className=' text-base font-medium text-gray-700 dark:text-gray-200/75'>{summary}</p>
         </div>
         <span className='mr-2 flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
           {tags?.split(',').map((tag) => (
