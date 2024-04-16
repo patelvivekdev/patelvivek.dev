@@ -2,6 +2,15 @@ import path from 'path';
 import matter from 'gray-matter';
 import fs from 'fs/promises';
 import { cache } from 'react';
+import readingDuration from 'reading-duration';
+
+export const getReadingTime = (content: string) => {
+  const readingTime = readingDuration(content, {
+    wordsPerMinute: 100,
+    emoji: 'open_book',
+  });
+  return readingTime;
+};
 
 const BLOGS_FOLDER = path.join(process.cwd(), 'blogs');
 
@@ -14,9 +23,11 @@ export const getBlogs = cache(async () => {
       const filePath = path.join(BLOGS_FOLDER, file);
       const fileContent = await fs.readFile(filePath, 'utf-8');
       const { data, content } = matter(fileContent);
+      const readingTime = getReadingTime(content);
 
       return {
         metadata: data,
+        readingTime: readingTime,
         content,
         slug: file.replace(/\.mdx?$/, ''),
       };

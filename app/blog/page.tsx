@@ -24,6 +24,9 @@ const BlogPage = async ({
   getBlogs();
   let allBlogs = await getBlogs();
 
+  // remove blog that have publisged is false
+  allBlogs = allBlogs.filter((blog) => blog.metadata.published);
+
   // sort by date
   allBlogs = allBlogs.sort((a, b) => {
     const dateA = new Date(a.metadata.publishedAt);
@@ -73,6 +76,7 @@ const BlogPage = async ({
                 title={blog.metadata.title}
                 summary={blog.metadata.summary}
                 slug={blog.slug}
+                readingTime={blog.readingTime}
                 publishedAt={blog.metadata.publishedAt}
                 tags={blog.metadata.tags}
               />
@@ -101,6 +105,7 @@ const BlogPage = async ({
             slug='https://towardsdatascience.com/end-to-end-cnn-using-tensorflow-4c7d9af3ca4c'
             publishedAt='Dec 4, 2020'
             views={2506}
+            readingTime={'📖 8 min read'}
             tags='machine learning, deep learning'
             external
           />
@@ -110,6 +115,7 @@ const BlogPage = async ({
             slug='https://medium.com/analytics-vidhya/convert-your-jupyter-notebook-to-github-pages-with-github-action-fa2ce9b4182a'
             publishedAt='Oct 24, 2020'
             views={3453}
+            readingTime={'📖 3 min read'}
             tags='github, github action, jupyter notebook'
             external
           />
