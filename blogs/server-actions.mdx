@@ -16,32 +16,479 @@ If you've ever built web applications that involve **forms** , **real-time updat
 
 Let's explore how Server Actions can supercharge your development workflow and make your apps feel more responsive and interactive.
 
-## Setup NextJs
+## Setup
 
-`Prerequisites: Nodejs, Database(Supabase)`
+`Prerequisites: Nodejs v18 / Bun`
 
-Create a new Next app with :
+### Create a new Next app with
+
+Learn more about options at [NextJs](https://nextjs.org/docs/getting-started/installation)
 
 ```bash
-npx create-next-app server-actions
+npx create-next-app@latest server-actions
 ```
 
-we also use [shadcn ui](https://ui.shadcn.com/docs/installation/next). It is a collection of re-usable components.
+### Styling
+
+We use tailwindcss it's already setup if you select yes while creating NextJs application.
+
+We also use [shadcn ui](https://ui.shadcn.com/docs/installation/next) along with tailwindcss. Shadcn is a collection of re-usable components.
 
 ```bash
 npx shadcn-ui@latest init
 ```
 
+These are the components we well be using in this demo.
+
+```bash
+npx shadcn-ui@latest add avatar
+npx shadcn-ui@latest add button
+npx shadcn-ui@latest add card
+npx shadcn-ui@latest add dialog
+npx shadcn-ui@latest add input
+npx shadcn-ui@latest add label
+npx shadcn-ui@latest add switch
+```
+
+### Database, Authentication And Storage
+
 For the database we use [Supabase](https://supabase.com/). It is an open source Firebase alternative.
 
 ```bash
-npm install @supabase/supabase-js
+npm install @supabase/supabase-js @auth/supabase-adapter
+```
+
+- Create a account on supabase it is free.
+- Create a new Project.
+  <img
+    className='mx-auto rounded border border-zinc-600 shadow hover:border-black'
+    src='/blog/server-actions/supabase-new-project.png'
+    alt='Setup project on supabase'
+    width={500}
+    height={500}
+  />
+- Create a new table. You can use the table editor or sql editor.
+  <img
+    className='mx-auto rounded border border-zinc-600 shadow hover:border-black'
+    src='/blog/server-actions/supabase-new-table.png'
+    alt='Create todo table on supabase'
+    width={500}
+    height={500}
+  />
+- Make sure to add api keys from supabase to .env.local
+
+```.env
+# .env.local
+
+SUPABASE_URL=_Project_URL
+SUPABASE_SERVICE_ROLE_KEY=_SUPABASE_SERVICE_ROLE_KEY
+```
+
+For auth we will use [authjs](https://authjs.dev/) . It is updated version of [NextAuth](https://next-auth.js.org/).
+
+```
+npm install next-auth@beta
+```
+
+Follow this guide to setup [supabase](https://authjs.dev/getting-started/adapters/supabase) adapter for auth.
+
+> Make sure to Expose the NextAuth schema in Supabase [Api settings](https://app.supabase.com/project/_/settings/api)
+
+Create file name `/lib/supabase/private.ts`
+
+In this file we will be creating a supabase client and call that clients wherever we need.
+
+```jsx
+// /lib/supabase/private.ts
+
+import { createClient } from '@supabase/supabase-js';
+
+if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  throw new Error('Missing env vars SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
+}
+
+const privateClient = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+
+export const nextAuthClient = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
+  db: { schema: 'next_auth' },
+});
+
+export default privateClient;
+```
+
+As we have added all the required elements. We well add some others as required.
+
+## Start with Authentication
+
+### Setup OAuth app
+
+**1.Github**
+
+Follow this [github guide](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) for creating Oauth
+
+```env
+CALLBACK ENV = https://example.com/api/auth/callback/github
+```
+
+After creating Oauth in github copy `API` keys from github as it required by AuthJs.
+
+Along this api key you have to get AUTH_SECRET, which you can generate from this:
+
+```bash
+npx auth secret
+```
+
+Add all the key to you .env.local.
+
+```.env
+# .env.local
+
+AUTH_SECRET=
+
+AUTH_GITHUB_ID=
+AUTH_GITHUB_SECRET=
+```
+
+**2.Google**
+
+[Google OAuth documentation](https://developers.google.com/identity/protocols/oauth2)
+
+```env
+CALLBACK ENV = https://example.com/api/auth/callback/google
+```
+
+```.env
+# .env.local
+
+AUTH_GOOGLE_ID=
+AUTH_GOOGLE_SECRET=
+```
+
+### Auth.ts
+
+Crate auth.ts in route of your project.
+
+```jsx
+// app.ts
+
+import NextAuth from 'next-auth';
+import { SupabaseAdapter } from '@auth/supabase-adapter';
+import GitHub from 'next-auth/providers/github';
+import Google from "next-auth/providers/google"
+import type { NextAuthConfig } from 'next-auth';
+
+export const config = {
+  providers: [GitHub,Google],
+  adapter: SupabaseAdapter({
+    url: process.env.SUPABASE_URL as string,
+    secret: process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+  })
+} satisfies NextAuthConfig;
+
+export const { handlers, auth } = NextAuth(config);
+
+```
+
+Here we are using supabase adapter and our choice of providers for auth. You can add more providers from [AuthJs Providers](https://authjs.dev/getting-started#official-providers).
+
+If you adding more provider make sure to add Oauth API keys in the .env.
+
+### Adding API route
+
+create file in `/api/auth/[...nextauth]/route.ts`
+
+```
+// /api/auth/[...nextauth]/route.ts
+
+import { handlers } from '@/app/auth'; // check your auth.ts route
+export const { GET, POST } = handlers;
+```
+
+Crate a file name as `middleware.ts`
+
+Make sure to add this as same level as App or inside src if you use src as your root.
+
+```ts
+// middleware.ts
+
+export { auth as middleware } from '@/app/auth';
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * Feel free to modify this pattern to include more paths.
+     */
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
+};
+```
+
+### Create Navbar
+
+Create navbar where we will show Sign In button.
+
+Inside components create file `Navbar.tsx`.
+
+```jsx
+// Navbar.tsx
+
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { SignIn, SignOut } from './auth-components';
+import { auth } from '@/app/auth';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
+export default async function Navbar() {
+  const session = await auth();
+
+  return (
+    <nav className='fixed inset-x-0 top-0 z-50 bg-white shadow-sm dark:bg-gray-950/90'>
+      <div className='w-full max-w-7xl mx-auto px-4'>
+        <div className='flex justify-between h-14 items-center'>
+          <Link className='flex items-center' href='/'>
+            <Button size='sm'>
+              <span>/</span>
+            </Button>
+          </Link>
+          <nav className='flex items-center gap-2 sm:gap-4'>
+            <Link href='/todos'>
+              <Button size='sm'>Todos</Button>
+            </Link>
+            {!session?.user ? (
+              <SignIn size='sm' />
+            ) : (
+              <>
+                <Link href='/profile'>
+                  <Button size='sm'>Profile</Button>
+                </Link>
+                <SignOut size='sm' variant='destructive' />
+                <Avatar className='w-10 h-10 rounded-full border border-red-500'>
+                  {session.user.image && (
+                    <AvatarImage
+                      src={session.user.image ?? 'https://source.boringavatars.com/beam/120'}
+                      alt={session.user.name ?? ''}
+                    />
+                  )}
+                  <AvatarFallback>{session.user.email}</AvatarFallback>
+                </Avatar>
+              </>
+            )}
+          </nav>
+        </div>
+      </div>
+    </nav>
+  );
+}
+```
+
+Now navbar is by default server component, so we can call supabase auth and check if user is authenticated.
+
+> I am hopping that if you learning about server actions, you already know the server and client components.
+> If not then it's good idea to just learn about them from NextJs official tutorial [Learn NextJS](https://nextjs.org/learn/dashboard-app).
+
+With session we will conditionally render different button.
+
+You can check that now our authentication system is working, we are able to login with github as well google.
+
+> If you find any difficulty or have some error you can react out to [me](/contact) or check my source code.
+>
+> In development if your Oauth is not redirect back to application add `AUTH_REDIRECT_PROXY_URL` in env
+
+```
+# .env.local
+
+AUTH_REDIRECT_PROXY_URL = <DOMAIN>/api/auth #only add in dev
+```
+
+You can check that our user are now stored in supabase as well.
+
+## Todo
+
+Now our first part is done, we will working on todo application.
+
+We will learn how to use server actions in CRUD (Create, Read, Update, Delete).
+
+### Todo Homepage
+
+Let's create a new page as 'todos/page.tsx'
+
+```jsx
+// app/todos/page.tsx
+
+import AddTodo from './AddForm';
+import TodoList from './TodoList';
+import { auth } from '@/app/auth';
+import { SignIn } from '@/components/auth-components';
+
+export default async function Todo() {
+  const session = await auth();
+  if (!session?.user)
+    return (
+      <div className='flex h-screen w-4/5 mx-auto flex-col items-center gap-10 justify-center'>
+        <h1 className='text-3xl'>You must login to perform this action.</h1>
+        <SignIn />
+      </div>
+    );
+
+  return (
+    <div className='flex h-screen w-4/5 mx-auto flex-col items-center gap-10 justify-center'>
+      <AddTodo user={session?.user} />
+      <TodoList user={session?.user} />
+    </div>
+  );
+}
+```
+
+As this route is protected, we will check with session if user is authenticated or not.
+
+### Create Add Todo Form
+
+```
+// todos/AddForm.tsx
+
+import { SubmitButton } from '@/components/submit-button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { addTodo } from '@/app/actions';
+import { User } from 'next-auth';
+
+export default function AddTodo({ user }: { user: User }) {
+
+return (
+    <div className='flex items-center justify-center'>
+      <div className='mx-auto grid w-[350px] gap-6'>
+        <div className='grid gap-2 text-center'>
+          <h1 className='text-3xl font-bold'>Add Todo</h1>
+        </div>
+        <form>
+            <div className='grid gap-2'>
+              <Label htmlFor='title'>Todo</Label>
+              <Input id='title' type='text' placeholder='Write your task here' name='title' required />
+            </div>
+            <SubmitButton name='Add Todo' variant='outline' className='' />
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+```
+
+This is simple form with `shadcn` Components.
+
+now we create our actions you can create inside this component our you can create separate file.
+
+At start of file use `'use server'`.
+
+Create actions.ts
+
+```ts
+// app/actions.ts
+
+'use server';
+import supabase from '@/lib/supabase/private';
+
+export async function addTodo(email: string, prevState: any, formData: FormData) {
+  try {
+    const { data, error } = await supabase.from('todos').upsert({
+      title: formData.get('title'),
+      email: email,
+    });
+
+    if (error) {
+      console.log('Error', error);
+      return {
+        type: 'error',
+        message: 'Database Error: Failed to add todo.',
+      };
+    }
+    revalidatePath('/todos');
+    return {
+      type: 'success',
+      message: `${validatedFields.data.title} added successfully.`,
+      resetKey: Date.now().toString(),
+    };
+  } catch (error: any) {
+    console.log('Error', error.message);
+    return {
+      type: 'error',
+      message: 'Database Error: Failed to add todo.',
+    };
+  }
+}
+```
+
+Now add this action to our form
+
+```
+// todos/AddForm.tsx
+import { useFormState } from 'react-dom';
+
+
+export default function AddTodo({ user }: { user: User }) {
+
+  const addTodoWithEmail = addTodo.bind(null, user?.email as string);
+
+  const [state, formAction] = useFormState<any>(addTodoWithEmail as any, initialState);
+
+  .
+  .
+  .
+
+}
+```
+
+Here we are bind user email with action. alternative way to do this is add another hidden input and get email value from formData.
+
+You can also see that I am using `useFormState`, it is new hooke in [react-dom](https://react.dev/reference/react-dom/hooks/useFormState).
+
+> As per react `useFormState` is a Hook that allows you to update state based on the result of a form action.
+> As of now React is also changing this hook if you are interested check this [pr](https://github.com/facebook/react/pull/28491).
+
+This means that when we want to send any other state in our case we will send error message or success message along with boolean to our component.
+This will help us to validate user input.
+
+We also using one more hook from react-dom named as `useFormStatus`
+
+```
+// components/submit-button.tsx
+'use client';
+
+import { useFormStatus } from 'react-dom';
+import { Button } from '@/components/ui/button';
+
+export function SubmitButton({
+  name,
+  className,
+  variant,
+}: {
+  name: string;
+  className: string;
+  variant: 'link' | 'outline' | 'default' | 'destructive' | 'secondary' | 'ghost' | null | undefined;
+}) {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button type='submit' disabled={pending} className={className} variant={variant}>
+      {pending ? 'Submitting...' : name}
+    </Button>
+  );
+}
+
 ```
 
 ## Links
 
+- [Github Repo](https://github.com/patelvivekdev/server-actions/)
+- [Live Demo](https://server-actions-patelvivekdev.vercel.app/)
 - [Next.js 14 Server Actions](https://nextjs.org/docs/app/api-reference/functions/server-actions)
 - [React server actions](https://react.dev/reference/react/use-server#usage)
 - [React Form](https://react.dev/reference/react-dom/components/form#handle-form-submission-with-a-server-action)
 - [Supabase](https://supabase.com/)
+- [Next Auth](https://authjs.dev/getting-started/installation)
+- [Supabase Adapter](https://authjs.dev/getting-started/adapters/supabase)
 - [shadcn ui](https://ui.shadcn.com/docs/installation/next)
