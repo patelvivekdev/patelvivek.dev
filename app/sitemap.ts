@@ -2,7 +2,11 @@ import getBlogs from '@/lib/get-blogs';
 import getProjects from '@/lib/get-projects';
 
 export default async function sitemap() {
-  const posts = await getBlogs();
+  let posts = await getBlogs();
+
+  // remove blog that have publisged is false
+  posts = posts.filter((post) => post.metadata.published);
+
   const projects = await getProjects();
   const blogs = posts.map((post) => ({
     url: `https://patelvivek.dev/blog/${post.slug}`,

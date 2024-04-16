@@ -6,7 +6,10 @@ import { Button } from '@/components/ui/button';
 import { getLatestBlogs } from '@/lib/get-blogs';
 
 export default async function Home() {
-  const blogs = await getLatestBlogs();
+  let blogs = await getLatestBlogs();
+
+  // remove blog that have publisged is false
+  blogs = blogs.filter((blog) => blog.metadata.published);
 
   return (
     <div className='relative flex w-full  text-[#31363F] dark:text-[#EEEEEE]  flex-col items-center gap-3 bg-dot-black/[0.8] dark:bg-dot-white/[0.5] sm:gap-5'>
