@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <section className='mt-32 sm:mt-40 w-4/5 mx-auto'>
+    <section className='mt-32 sm:mt-40 w-3/4 mx-auto'>
       <h1 className='font-medium text-2xl mb-8 tracking-tighter'>Oh no! This page does not exist.</h1>
       <p className='text-lg mb-8'>
         The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.

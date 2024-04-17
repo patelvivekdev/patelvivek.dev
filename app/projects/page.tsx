@@ -47,7 +47,7 @@ const ProjectPage = () => {
   ];
 
   return (
-    <div className='mx-auto mt-40 flex w-5/6 flex-col items-center'>
+    <div className='mx-auto mt-40 flex w-3/4 flex-col items-center'>
       <h1 className='text-4xl font-bold text-blue-600 text-center'>All Proejcts</h1>
       <h3 className='mb-8 mt-4 text-lg'>Here are some of the projects I have worked on.</h3>
       <div className='grid grid-cols-1 gap-4 p-5 sm:p-10'>

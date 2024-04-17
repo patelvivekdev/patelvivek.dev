@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const ContactPage = () => {
   return (
-    <div className='mx-auto mt-40 h-full w-4/5'>
+    <div className='mx-auto mt-40 h-full w-3/4'>
       <h1 className='text-4xl font-bold text-blue-600 text-center'>Get in Touch</h1>
       <h2 className='text-2xl text-center font-bold text-gray-800 dark:text-white'>
         {' '}
