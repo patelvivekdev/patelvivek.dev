@@ -65,7 +65,7 @@ const BlogPage = async ({
         <hr />
       </h3>
 
-      <div className='grid w-4/5 grid-cols-1 gap-4 p-5 sm:p-10'>
+      <div className='grid w-3/4 grid-cols-1 gap-4 p-5 sm:p-10'>
         <div className='flex flex-col justify-center gap-4'>
           <Search placeholder='Search blog title' />
           {/* if query display filteredBlogs else show all blog */}

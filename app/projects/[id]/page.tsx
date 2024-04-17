@@ -54,7 +54,7 @@ export default async function Project({ params }: { params: any }) {
     return notFound();
   }
   return (
-    <div className='mx-auto mt-40 w-4/5'>
+    <div className='mx-auto mt-40 w-3/4'>
       <Progress />
       <section>
         <h1 className='text-start text-2xl sm:text-4xl font-bold'>{project.metadata.title}</h1>
