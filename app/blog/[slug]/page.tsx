@@ -63,7 +63,7 @@ export default async function Blog({ params }: { params: any }) {
   }
 
   return (
-    <div className='mx-auto mt-40 w-3/4'>
+    <div className='mx-auto mt-40 w-11/12 sm:w-3/4'>
       <Progress />
       <section>
         <script

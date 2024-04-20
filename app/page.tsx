@@ -19,7 +19,7 @@ export default async function Home() {
         Latest Project
         <hr />
       </h3>
-      <div className='grid w-3/4 grid-cols-1 gap-4 p-5 sm:p-10'>
+      <div className='grid w-11/12 sm:w-3/4 grid-cols-1 gap-4 p-5 sm:p-10'>
         <ProjectCard
           title='Market-hub'
           description="Market-hub is a MERN-powered platform for buying and selling computer items. Vendors can easily manage their products, while users enjoy a smooth shopping experience. It's a user-friendly solution for tech enthusiasts and sellers alike."
@@ -61,7 +61,7 @@ export default async function Home() {
         Recent Blog
         <hr />
       </h3>
-      <div className='grid w-3/4 grid-cols-1 gap-4 p-5 sm:p-10'>
+      <div className='grid w-11/12 sm:w-3/4 grid-cols-1 gap-4 p-5 sm:p-10'>
         {/* Show no blogs if there are no blogs */}
 
         {blogs.length === 0 ? (
