@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Toaster } from 'react-hot-toast';
+import Script from 'next/script';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -53,6 +54,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
+      <head>
+        <Script defer src='https://us.umami.is/script.js' data-website-id='aa7603cb-3e5d-474c-b1a5-f92e18751e5c' />
+      </head>
       <body className={cn('mx-auto min-h-screen font-sans antialiased bg-EEEEEE dark:bg-[#222831] ', fontSans.variable)}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem={true}>
           <Navbar />
