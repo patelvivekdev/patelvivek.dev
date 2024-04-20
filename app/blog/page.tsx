@@ -21,10 +21,8 @@ const BlogPage = async ({
   const query = searchParams?.query?.trim() || '';
   const currentPage = Number(searchParams?.page) || 1;
 
-  getBlogs();
   let allBlogs = await getBlogs();
 
-  // remove blog that have publisged is false
   allBlogs = allBlogs.filter((blog) => blog.metadata.published);
 
   // sort by date
@@ -51,9 +49,7 @@ const BlogPage = async ({
 
   return (
     <div className='mt-40 flex flex-col items-center'>
-      {/* add hidden div to set height of screen */}
       <h3 className='text-center text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl'>
-        {/* if query Display the number of blogs found */}
         {query ? (
           <span>
             {filteredBlogsLength} blog{filteredBlogs.length === 1 ? '' : 's'} found for query

@@ -5,12 +5,15 @@ import Image from 'next/image';
 import getProjects, { getProject } from '@/lib/get-projects';
 import { CustomMDX } from '@/components/mdx';
 import { formatDate } from '@/lib/utils';
-import { cn } from '@/lib/utils';
 import Progress from '@/components/ui/progress';
 
+export async function generateStaticParams() {
+  const posts = await getProjects();
+  return posts.map((project) => ({ slug: project.slug }));
+}
+
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
-  getProjects();
-  const project = await getProject(params.id);
+  const project = await getProject(params.slug);
 
   if (!project) {
     return notFound();
@@ -48,7 +51,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
 }
 
 export default async function Project({ params }: { params: any }) {
-  const project = await getProject(params.id);
+  const project = await getProject(params.slug);
 
   if (!project) {
     return notFound();

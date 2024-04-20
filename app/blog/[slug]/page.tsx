@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Suspense, cache } from 'react';
 import { notFound } from 'next/navigation';
 import { CustomMDX } from '@/components/mdx';
-import { getBlog } from '@/lib/get-blogs';
+import { getBlog, getBlogs } from '@/lib/get-blogs';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatDate } from '@/lib/utils';
 import { Calendar, Import } from 'lucide-react';
@@ -11,6 +11,12 @@ import { getViewsCount } from '@/lib/get-views';
 import { increment } from '@/app/actions';
 import Image from 'next/image';
 import Progress from '../../../components/ui/progress';
+import IncreaseView from './IncresementView';
+
+export async function generateStaticParams() {
+  const posts = await getBlogs();
+  return posts.map((blog) => ({ slug: blog.slug }));
+}
 
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
   const blog = await getBlog(params.slug);
@@ -98,12 +104,13 @@ export default async function Blog({ params }: { params: any }) {
         <div className='mb-8 mt-2 flex items-center justify-between'>
           <p className='text-base text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>
-              <Calendar /> {formatDate(blog.metadata.publishedAt)}
+              <Calendar /> {formatDate(blog.metadata.publishedAt)} | {blog.readingTime}
             </span>
           </p>
           <Suspense fallback={<p>---</p>}>
             <Views slug={blog.slug} published={blog.metadata.published} />
           </Suspense>
+          <IncreaseView slug={blog.slug} published={blog.metadata.published} />
         </div>
         <hr />
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
@@ -124,9 +131,9 @@ let incrementViews = cache(increment);
 
 async function Views({ slug, published }: { slug: string; published: boolean }) {
   let views = await getViewsCount();
-  if (published) {
-    incrementViews(slug);
-  }
+  // if (published) {
+  //   incrementViews(slug);
+  // }
 
   return <ViewCounter allViews={views} slug={slug} />;
 }
