@@ -73,9 +73,9 @@ async function InternalBlogPost({
     <div className='rounded-md border border-gray-200 bg-gray-100 p-4 hover:border-gray-300 hover:bg-gray-200 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:border-zinc-600 dark:hover:bg-zinc-700'>
       <div className='flex flex-row justify-between'>
         <h2 className='mb-2 w-full text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-100'>
-          <a href={`/blog/${slug}`} className='hover:text-sky-700 dark:hover:text-sky-300'>
+          <Link href={`/blog/${slug}`} className='hover:text-sky-700 dark:hover:text-sky-300'>
             {title}
-          </a>
+          </Link>
         </h2>
         <div className='mb-4 hidden w-32 text-right  sm:block md:mb-0'>
           <Suspense fallback={<p>--- Views</p>}>
