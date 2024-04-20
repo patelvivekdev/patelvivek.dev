@@ -98,7 +98,7 @@ export default async function Blog({ params }: { params: any }) {
         <div className='mb-8 mt-2 flex items-center justify-between'>
           <p className='text-base text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>
-              <Calendar /> {formatDate(blog.metadata.publishedAt)}
+              <Calendar /> {formatDate(blog.metadata.publishedAt)} | {blog.readingTime}
             </span>
           </p>
           <Suspense fallback={<p>---</p>}>
