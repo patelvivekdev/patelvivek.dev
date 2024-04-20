@@ -24,12 +24,24 @@ body {
   --sh-comment: #a19595;
 }
 
-.progress-bar {
+/* .progress-bar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 10px;
+  height: 8px;
+  background: ;
+  transform-origin: 0%;
+  box-shadow: 0 0px 36px 5px #589e7c
+}
+
+.progress-bar-light {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
   background: #f47067;
   transform-origin: 0%;
-}
+  box-shadow: 0 0px 36px 5px #b6514a
+} */
