@@ -5,7 +5,7 @@ slug: 'server-actions'
 publishedAt: 'April 13, 2024'
 tags: 'NextJs, React, Server Actions, Data Fetching, Mutations, Server Components, JavaScript, TypeScript'
 toc: true
-published: false
+published: true
 ---
 
 ### Table of Contents
@@ -14,13 +14,17 @@ published: false
 
 If you've ever built web applications that involve **forms** , **real-time updates** , or **complex data interactions**, you know the struggle can be real. Traditionally, these features often required setting up separate `API` endpoints and managing intricate client-side state. Next.js 14 Server Actions come to the rescue! They provide a smooth solution, allowing you to execute server-side logic directly from your React components, just like calling a regular function.
 
+## What are Server Actions?
+
+Server Actions provide a way to associate server-side functions with your React components. Think of them as directly callable API routes that live within your frontend code. This tight integration simplifies data management and leads to more responsive, snappier applications.
+
 Let's explore how Server Actions can supercharge your development workflow and make your apps feel more responsive and interactive.
 
 ## Setup
 
-`Prerequisites: Nodejs v18 / Bun`
+Prerequisites: Node.js v18 or Bun
 
-### Create a new Next app with
+### 1. Create a New Next.js App
 
 Learn more about options at [NextJs](https://nextjs.org/docs/getting-started/installation)
 
@@ -28,11 +32,13 @@ Learn more about options at [NextJs](https://nextjs.org/docs/getting-started/ins
 npx create-next-app@latest server-actions
 ```
 
-### Styling
+> Select the recommend - App router, tailwindcss
+
+### 2. Styling
 
 We use tailwindcss it's already setup if you select yes while creating NextJs application.
 
-We also use [shadcn ui](https://ui.shadcn.com/docs/installation/next) along with tailwindcss. Shadcn is a collection of re-usable components.
+We also use [Shadcn ui](https://ui.shadcn.com/docs/installation/next) along with tailwindcss. Shadcn is a collection of re-usable components.
 
 ```bash
 npx shadcn-ui@latest init
@@ -50,12 +56,14 @@ npx shadcn-ui@latest add label
 npx shadcn-ui@latest add switch
 ```
 
-### Database, Authentication And Storage
+### 3. Database, Storage, and Authentication
 
-For the database we use [Supabase](https://supabase.com/). It is an open source Firebase alternative.
+**Supabase:**
+
+For the database and storage, we will use [Supabase](https://supabase.com/). It is an open source Firebase alternative.
 
 ```bash
-npm install @supabase/supabase-js @auth/supabase-adapter
+npm install @supabase/supabase-js
 ```
 
 - Create a account on supabase it is free.
@@ -84,10 +92,12 @@ SUPABASE_URL=_Project_URL
 SUPABASE_SERVICE_ROLE_KEY=_SUPABASE_SERVICE_ROLE_KEY
 ```
 
-For auth we will use [authjs](https://authjs.dev/) . It is updated version of [NextAuth](https://next-auth.js.org/).
+**Auth.js:**
+
+For authentication we will use [AuthJs](https://authjs.dev/) . It is updated version of [NextAuth](https://next-auth.js.org/).
 
 ```
-npm install next-auth@beta
+npm install next-auth@beta @auth/supabase-adapter
 ```
 
 Follow this guide to setup [supabase](https://authjs.dev/getting-started/adapters/supabase) adapter for auth.
@@ -116,18 +126,16 @@ export const nextAuthClient = createClient(process.env.SUPABASE_URL, process.env
 export default privateClient;
 ```
 
-As we have added all the required elements. We well add some others as required.
-
 ## Start with Authentication
 
-### Setup OAuth app
+### 1.Setup OAuth app
 
-**1.Github**
+**Github**
 
 Follow this [github guide](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) for creating Oauth
 
 ```env
-CALLBACK ENV = https://example.com/api/auth/callback/github
+CALLBACK_ENV https://example.com/api/auth/callback/github
 ```
 
 After creating Oauth in github copy `API` keys from github as it required by AuthJs.
@@ -137,6 +145,10 @@ Along this api key you have to get AUTH_SECRET, which you can generate from this
 ```bash
 npx auth secret
 ```
+
+Or
+
+Visit the [Vercel App](https://generate-secret.vercel.app/32) to generate secret
 
 Add all the key to you .env.local.
 
@@ -149,7 +161,7 @@ AUTH_GITHUB_ID=
 AUTH_GITHUB_SECRET=
 ```
 
-**2.Google**
+**Google**
 
 [Google OAuth documentation](https://developers.google.com/identity/protocols/oauth2)
 
@@ -164,7 +176,7 @@ AUTH_GOOGLE_ID=
 AUTH_GOOGLE_SECRET=
 ```
 
-### Auth.ts
+### 2.Auth.ts
 
 Crate auth.ts in route of your project.
 
@@ -193,7 +205,7 @@ Here we are using supabase adapter and our choice of providers for auth. You can
 
 If you adding more provider make sure to add Oauth API keys in the .env.
 
-### Adding API route
+### 3.Adding API route
 
 create file in `/api/auth/[...nextauth]/route.ts`
 
@@ -227,7 +239,35 @@ export const config = {
 };
 ```
 
-### Create Navbar
+### 4.Create Sign In And Sign Out
+
+Create signIn and signOut button
+
+```jsx
+// components/auth-components.tsx
+'use client';
+
+import { signIn, signOut } from 'next-auth/react';
+import { Button } from './ui/button';
+
+export function SignIn({ provider, ...props }: { provider?: string } & React.ComponentPropsWithRef<typeof Button>) {
+  return (
+      <Button {...props}>Sign In</Button>
+    </form>
+  );
+}
+
+export function SignOut(props: React.ComponentPropsWithRef<typeof Button>) {
+  return (
+    <Button variant='destructive' onClick={() => signOut()} className='w-full' {...props}>
+      Sign Out
+    </Button>
+  );
+}
+
+```
+
+### 5.Create Navbar
 
 Create navbar where we will show Sign In button.
 
@@ -244,7 +284,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export default async function Navbar() {
   const session = await auth();
-
   return (
     <nav className='fixed inset-x-0 top-0 z-50 bg-white shadow-sm dark:bg-gray-950/90'>
       <div className='w-full max-w-7xl mx-auto px-4'>
@@ -306,13 +345,13 @@ AUTH_REDIRECT_PROXY_URL = <DOMAIN>/api/auth #only add in dev
 
 You can check that our user are now stored in supabase as well.
 
-## Todo
+## Building a Todo App with Server Actions
 
 Now our first part is done, we will working on todo application.
 
 We will learn how to use server actions in CRUD (Create, Read, Update, Delete).
 
-### Todo Homepage
+### 1.Todo Homepage
 
 Let's create a new page as 'todos/page.tsx'
 
@@ -343,9 +382,11 @@ export default async function Todo() {
 }
 ```
 
-As this route is protected, we will check with session if user is authenticated or not.
+As this route is protected, we will check if user is authenticated or not with `auth()`
 
-### Create Add Todo Form
+### 2.Add Todo Form
+
+Create new file name `AddForm.tsx`.
 
 ```
 // todos/AddForm.tsx
@@ -380,11 +421,48 @@ return (
 
 This is simple form with `shadcn` Components.
 
-now we create our actions you can create inside this component our you can create separate file.
+We also using one more hook from react-dom named as `useFormStatus`.
 
-At start of file use `'use server'`.
+It helps us to show pending state such as change the button text to `Submitting...` or disabled the button so user do not resubmit the action.
 
-Create actions.ts
+You can learn more about that hook in [React docs](https://react.dev/reference/react-dom/hooks/useFormStatus).
+
+Create new client component.
+
+```
+// components/submit-button.tsx
+'use client';
+
+import { useFormStatus } from 'react-dom';
+import { Button } from '@/components/ui/button';
+
+export function SubmitButton({
+  name,
+  className,
+  variant,
+}: {
+  name: string;
+  className: string;
+  variant: 'link' | 'outline' | 'default' | 'destructive' | 'secondary' | 'ghost' | null | undefined;
+}) {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button type='submit' disabled={pending} className={className} variant={variant}>
+      {pending ? 'Submitting...' : name}
+    </Button>
+  );
+}
+
+```
+
+> INFO: This hook might change in new version of react.
+
+### 3.Create actions.ts
+
+Crate a file name `actions.ts`
+
+At start of file write `'use server'`.
 
 ```ts
 // app/actions.ts
@@ -422,64 +500,674 @@ export async function addTodo(email: string, prevState: any, formData: FormData)
 }
 ```
 
-Now add this action to our form
+This is the server action name `addTodo`.
+
+Here we will get the formData and email of current user.
+
+With the help of supabase client we will update the database.
+
+Depending on the error or success we will send the message back to our component.
+
+### 4.Update the AddForm.tsx
+
+We will add this action to our form with the help of `useFormState`. It is new hook in [react-dom](https://react.dev/reference/react-dom/hooks/useFormState).
+
+> As per react `useFormState` is a Hook that allows you to update state based on the result of a form action.
+> INFO: As of now React is also changing this hook. If you are interested check this github [discussion](https://github.com/facebook/react/pull/28491).
+
+This means that we will get error message or success message along with boolean to from server action.
+
+We will show that message with [react-hot-toast](https://react-hot-toast.com/docs).
+
+Install the react hot toast
+
+```bash
+npm install react-hot-toast
+```
+
+In `layout.tsx`
 
 ```
-// todos/AddForm.tsx
-import { useFormState } from 'react-dom';
+// layout.tsx
 
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { Toaster } from 'react-hot-toast';
+import Navbar from '@/components/Navbar';
 
-export default function AddTodo({ user }: { user: User }) {
+const inter = Inter({ subsets: ['latin'] });
 
-  const addTodoWithEmail = addTodo.bind(null, user?.email as string);
+export const metadata: Metadata = {
+  title: 'Server Actions by patelvivek.dev',
+  description: 'Learn server actions with patelvivek.dev',
+};
 
-  const [state, formAction] = useFormState<any>(addTodoWithEmail as any, initialState);
-
-  .
-  .
-  .
-
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang='en'>
+      <body className={`bg-zinc-500 ${inter.className}`}>
+        <Navbar />
+        {children}
+        <Toaster position='bottom-left' />
+      </body>
+    </html>
+  );
 }
 ```
 
-Here we are bind user email with action. alternative way to do this is add another hidden input and get email value from formData.
+Updated AddFrom.tsx
 
-You can also see that I am using `useFormState`, it is new hooke in [react-dom](https://react.dev/reference/react-dom/hooks/useFormState).
-
-> As per react `useFormState` is a Hook that allows you to update state based on the result of a form action.
-> As of now React is also changing this hook if you are interested check this [pr](https://github.com/facebook/react/pull/28491).
-
-This means that when we want to send any other state in our case we will send error message or success message along with boolean to our component.
-This will help us to validate user input.
-
-We also using one more hook from react-dom named as `useFormStatus`
-
-```
-// components/submit-button.tsx
+```jsx
+// todos/AddForm.tsx
 'use client';
+import { toast } from 'react-hot-toast';
+import { useEffect } from 'react';
+import { useFormState } from 'react-dom';
 
-import { useFormStatus } from 'react-dom';
-import { Button } from '@/components/ui/button';
+import { SubmitButton } from '@/components/submit-button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { addTodo } from '@/app/actions';
+import { User } from 'next-auth';
 
-export function SubmitButton({
-  name,
-  className,
-  variant,
-}: {
-  name: string;
-  className: string;
-  variant: 'link' | 'outline' | 'default' | 'destructive' | 'secondary' | 'ghost' | null | undefined;
-}) {
-  const { pending } = useFormStatus();
+const initialState = {
+  message: '',
+  errors: null,
+};
+
+export default function AddTodo({ user }: { user: User }) {
+  const addTodoWithEmail = addTodo.bind(null, user?.email as string);
+  // Here we are bind user email with action. We can get that email in the server action as a argument.
+
+  const [state, formAction] = useFormState<any>(addTodoWithEmail as any, initialState);
+
+  useEffect(() => {
+    if (state.type === 'success') {
+      toast.success(state.message);
+    }
+    if (state.type === 'redirect') {
+      toast.success(state.message);
+    }
+  }, [state]);
 
   return (
-    <Button type='submit' disabled={pending} className={className} variant={variant}>
-      {pending ? 'Submitting...' : name}
-    </Button>
+    <div className='flex items-center justify-center'>
+      <div className='mx-auto grid w-[350px] gap-6'>
+        <div className='grid gap-2 text-center'>
+          <h1 className='text-3xl font-bold'>Add Todo</h1>
+        </div>
+        <form action={formAction} key={state?.resetKey}>
+          <div className='grid gap-4'>
+            {state?.type === 'error' && (
+              <p className='text-lg mb-2 bg-green-951 text-red-600 border-2 border-gray-300 rounded-md p-2 my-4'>
+                {state.message}
+              </p>
+            )}
+            <div className='grid gap-2'>
+              <Label htmlFor='title'>Todo</Label>
+              <Input id='title' type='text' placeholder='Write your task here' name='title' required />
+              {state?.errors?.title && (
+                <span id='title-error' className='text-red-600 text-sm'>
+                  {state.errors.title.join(',')}
+                </span>
+              )}
+            </div>
+            <SubmitButton name='Add Todo' variant='outline' className='' />
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }
 
 ```
+
+### 5.Add validation
+
+Let's add validation in our form.
+
+We will using [zod](https://zod.dev/) with TypeScript.
+
+Update `action.ts`
+
+```
+import { z } from 'zod';
+
+// =============================== addTodo ===============================
+const addTodoSchema = z.object({
+  title: z.string().min(3, { message: 'Must be 3 or more characters long' }),
+});
+
+export async function addTodo(email: string, prevState: any, formData: FormData) {
+  const validatedFields = addTodoSchema.safeParse({
+    title: formData.get('title'),
+  });
+
+  // Return early if the form data is invalid
+  if (!validatedFields.success) {
+    return {
+      type: 'error',
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to add todo.',
+    };
+  }
+
+  // if not email user is not authenticated
+  if (!email) {
+    return {
+      type: 'redirect',
+      message: 'Please Login again!.',
+    };
+  }
+
+  try {
+    const { data, error } = await supabase.from('todos').upsert({
+      title: validatedFields.data.title,
+      email: email,
+    });
+
+    if (error) {
+      console.log('Error', error);
+      return {
+        type: 'error',
+        message: 'Database Error: Failed to add todo.',
+      };
+    }
+    revalidatePath('/todos');
+    return {
+      type: 'success',
+      message: `${validatedFields.data.title} added successfully.`,
+      resetKey: Date.now().toString(),
+    };
+  } catch (error: any) {
+    console.log('Error', error.message);
+    return {
+      type: 'error',
+      message: 'Database Error: Failed to add todo.',
+    };
+  }
+}
+
+```
+
+After creating schema we will use `safeParse`.
+
+This method returns an object containing either the successfully parsed data or a ZodError instance containing detailed information about the validation problems.
+
+If we get success is false, we will send errors back to component, where we will show the error to user.
+
+### 6.revalidatePath
+
+If you see the above server actions, we used the [revalidatePath](https://nextjs.org/docs/app/api-reference/functions/revalidatePath).
+
+By default next caches every routes, so when we add the todo we want to show to added todo back to the user.
+
+That means we have to delete the old cache and update the ui.
+
+This is what revalidatePath does for us. Learn more about caching in [NextJS](https://nextjs.org/docs/app/building-your-application/caching)
+
+### 7.TodoList
+
+now we will show the list pf todos with some actions button.
+
+**db.ts**
+
+```
+// app/db.ts
+
+import supabase from '@/lib/supabase/private';
+import { User } from 'next-auth';
+
+export async function getTodos(user: User) {
+  let { data: todos, error } = await supabase
+    .from('todos')
+    .select('*')
+
+    // Filters
+    .eq('email', user.email);
+  return todos;
+}
+```
+
+This is the function for getting all the todo from database for current user.
+
+**TodoList.tsx**
+
+```jsx
+// TodoList.tsx
+
+import { getTodos } from '@/app/db';
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import EditForm from './EditForm';
+import DeleteForm from './DeleteForm';
+import ChangeStatus from './ChangeStatus';
+import { User } from 'next-auth';
+
+export default async function TodoList({ user }: { user: User }) {
+  let todos = await getTodos(user);
+
+  // sort todos with id
+  if (todos != null) {
+    todos = todos.sort((a, b) => a.id - b.id);
+  }
+
+  if (todos?.length === 0) {
+    return <h1>No todos yet! Please add with above form.</h1>;
+  }
+
+  return (
+    <div className='flex flex-row flex-wrap gap-4'>
+      {todos?.map((todo) => (
+        <Card key={todo.id}>
+          <CardHeader>
+            <CardTitle>{todo.title}</CardTitle>
+            <CardDescription>Status: {todo.isCompleted ? ' Completed' : ' Not Completed'}</CardDescription>
+          </CardHeader>
+          <CardFooter>
+            <EditForm todo={todo} />
+            <ChangeStatus todo={todo} />
+            <DeleteForm todo={todo} />
+          </CardFooter>
+        </Card>
+      ))}
+    </div>
+  );
+}
+```
+
+We will fetch all the todo and show the every todo in card.
+
+### 8.EditTodo and DeleteTodo
+
+Using same concept from AddForm, we will create EditForm and DeleteForm.
+
+**EditForm**
+
+```
+// EditForm.tsx
+
+'use client';
+import { toast } from 'react-hot-toast';
+import { useEffect, useState } from 'react';
+import { useFormState } from 'react-dom';
+
+import { SubmitButton } from '@/components/submit-button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from '@/components/ui/dialog';
+
+import { editTodo } from '@/app/actions';
+
+const initialState = {
+  message: '',
+  errors: null,
+};
+
+export default function EditForm({ todo }: { todo: any }) {
+  const [open, setOpen] = useState(false);
+  const id: number = todo?.id;
+  const editTodoWithId = editTodo.bind(null, id);
+  const [state, formAction] = useFormState<any>(editTodoWithId as any, initialState);
+
+  useEffect(() => {
+    if (state.type === 'success') {
+      setOpen(false);
+      toast.success(state.message);
+    }
+  }, [state]);
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button>Edit</Button>
+      </DialogTrigger>
+      <DialogContent className='sm:max-w-[425px]'>
+        <DialogHeader>
+          <DialogTitle>Edit Todo</DialogTitle>
+          <DialogDescription>Make changes to your todo here. Click save when you are done.</DialogDescription>
+        </DialogHeader>
+        <form action={formAction} key={state?.resetKey}>
+          <div className='grid gap-4 py-4'>
+            {state?.type === 'error' && (
+              <p className='text-lg mb-2 bg-green-951 text-red-600 border-2 border-gray-300 rounded-md p-2 my-4'>
+                {state.message}
+              </p>
+            )}
+            <div className='grid gap-2'>
+              <Label htmlFor='title'>Todo</Label>
+              <Input id='title' defaultValue={todo.title} type='text' placeholder='Write your task here' name='title' required />
+              {state?.errors?.title && (
+                <span id='title-error' className='text-red-600 text-sm'>
+                  {state.errors.title.join(',')}
+                </span>
+              )}
+            </div>
+            <div className='flex items-center space-x-2'>
+              <Label htmlFor='isCompleted'>Statues</Label>
+              <Switch id='isCompleted' name='isCompleted' defaultChecked={todo.isCompleted} />
+            </div>
+          </div>
+          <DialogFooter>
+            <SubmitButton name='Save changes' variant='default' className='' />
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}
+```
+
+**DeleteForm**
+
+```
+
+// DeleteForm.tsx
+
+'use client';
+import { toast } from 'react-hot-toast';
+import { useEffect } from 'react';
+import { useFormState } from 'react-dom';
+
+import { SubmitButton } from '@/components/submit-button';
+import { deleteTodo } from '@/app/actions';
+
+const initialState = {
+  message: '',
+  errors: null,
+};
+
+export default function DeleteForm({ todo }: { todo: any }) {
+  let deleteTodoWithId = deleteTodo.bind(null, todo.id);
+  const [state, formAction] = useFormState<any>(deleteTodoWithId as any, initialState);
+
+  useEffect(() => {
+    if (state.type === 'success') {
+      toast.success(state.message);
+    }
+
+    if (state.type === 'error') {
+      toast.error(state.message);
+    }
+  }, [state]);
+
+  return (
+    <form action={formAction}>
+      <SubmitButton name='Delete' variant='destructive' className='ml-2' />
+    </form>
+  );
+}
+```
+
+**Actions**
+
+```
+// actions.ts
+
+// =============================== editTodo ===============================
+const editTodoSchema = z.object({
+  title: z.string().min(3, { message: 'Must be 3 or more characters long' }),
+});
+
+export async function editTodo(id: number, prevState: any, formData: FormData) {
+  const isCompleted = formData.get('isCompleted');
+  const validatedFields = editTodoSchema.safeParse({
+    title: formData.get('title'),
+  });
+
+  let status = false;
+  if (isCompleted === 'on') {
+    status = true;
+  }
+
+  // Return early if the form data is invalid
+  if (!validatedFields.success) {
+    return {
+      type: 'error',
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to edit todo.',
+    };
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('todos')
+      .update({ title: validatedFields.data.title, isCompleted: status })
+      .eq('id', id)
+      .select();
+
+    if (error) {
+      console.log('Error', error);
+      return {
+        type: 'error',
+        message: 'Database Error: Failed to edit todo.',
+      };
+    }
+    revalidatePath('/todos');
+    return {
+      type: 'success',
+      message: `${validatedFields.data.title} updated successfully.`,
+      resetKey: Date.now().toString(),
+    };
+  } catch (error: any) {
+    console.log('Error', error.message);
+    return {
+      type: 'error',
+      message: 'Database Error: Failed to edit todo.',
+    };
+  }
+}
+
+// =============================== deleteTodo ===============================
+
+export async function deleteTodo(id: number) {
+  try {
+    const { error } = await supabase.from('todos').delete().eq('id', id);
+
+    if (error) {
+      console.log('Error', error);
+      return {
+        type: 'error',
+        message: 'Database Error: Failed to delete todo.',
+      };
+    }
+    revalidatePath('/todos');
+    return {
+      type: 'success',
+      message: `Todo deleted successfully.`,
+      resetKey: Date.now().toString(),
+    };
+  } catch (error: any) {
+    console.log('Error', error.message);
+    return {
+      type: 'error',
+      message: 'Database Error: Failed to delete todo.',
+    };
+  }
+}
+```
+
+## File Upload with Server Actions
+
+To demonstrate how we can Upload file with server actions, we will change the user avatar.
+
+By default OAuth will save the image url in `users.image`.
+
+For this we will using supabase Storage for saving user avatar, get the url and store url back to `users.image`
+
+### 1.Create a profile page.
+
+```
+// app/profile/page.tsx
+
+import { auth } from '@/app/auth';
+import { SignIn, SignOut } from '@/components/auth-components';
+import ChangeAvatarForm from './ChangeAvatarForm';
+
+export default async function PrivatePage() {
+  const session = await auth();
+  if (!session?.user)
+    return (
+      <div className='flex h-screen w-4/5 mx-auto flex-col items-center gap-10 justify-center'>
+        <h1 className='text-3xl'>You need to login to perfom this action.</h1>
+        <SignIn />
+      </div>
+    );
+
+  return (
+    <div className='mt-20 flex flex-col h-screen justify-center items-center'>
+      <p>Hello {session.user.name}</p>
+      <SignOut className='' />
+
+      <ChangeAvatarForm user={session?.user} />
+    </div>
+  );
+}
+```
+
+### 2.Create A Change Avatar Form
+
+```
+// profile/ChangeAvatarForm.tsx
+
+
+import { auth } from '@/app/auth';
+import { SignIn, SignOut } from '@/components/auth-components';
+import Image from 'next/image';
+import ChangeAvatarForm from './ChangeAvatarForm';
+
+export default async function PrivatePage() {
+  const session = await auth();
+  if (!session?.user)
+    return (
+      <div className='flex h-screen w-4/5 mx-auto flex-col items-center gap-10 justify-center'>
+        <h1 className='text-3xl'>You need to login to perform this action.</h1>
+        <SignIn />
+      </div>
+    );
+
+  return (
+    <div className='mt-20 flex flex-col space-y-5 h-screen justify-center items-center'>
+      <p>Hello {session.user.name}</p>
+      <div className='space-y-5'>
+        <Image src={session.user.image!} alt={session.user.name!} width={100} height={100} />
+        <SignOut />
+      </div>
+
+      <ChangeAvatarForm user={session?.user} />
+    </div>
+  );
+}
+
+```
+
+This is same as AddForm, we will change the input type to `file`.
+
+### 3.Create action
+
+```
+// =============================== Change Avatar ===============================
+export async function changeAvatar(email: string, prevState: any, formData: FormData) {
+  const avatar = formData.get('avatar') as File;
+
+  if (!avatar) {
+    return {
+      type: 'error',
+      message: 'Please select an avatar',
+    };
+  }
+
+  // Only images are allowed
+  if (!avatar.type.includes('image')) {
+    return {
+      type: 'error',
+      message: 'Only images are allowed',
+    };
+  }
+
+  // make sure file is less than 2MB
+  if (avatar.size > 2 * 1024 * 1024) {
+    return {
+      type: 'error',
+      message: 'File size must be less than 2MB',
+    };
+  }
+
+  try {
+    const { data, error } = await supabase.storage.from('profile').upload(`public/${email}/${avatar.name}`, avatar, {
+      upsert: true,
+    });
+    if (error) {
+      console.log('Error', error.message);
+      return {
+        type: 'error',
+        message: `${error.message}`,
+      };
+    }
+    if (data.path) {
+      const { data: avatar } = supabase.storage.from('profile').getPublicUrl(data.path);
+
+      // change the url in User table in next-auth schema
+      const { error: userDataError } = await nextAuthClient.from('users').update({ image: avatar.publicUrl }).eq('email', email);
+
+      if (userDataError) {
+        console.log('Error', userDataError);
+        return {
+          type: 'error',
+          message: `${userDataError.message}`,
+        };
+      }
+
+      revalidatePath('/');
+      revalidatePath('/profile');
+      return {
+        type: 'success',
+        message: 'Avatar changed!',
+        resetKey: Date.now().toString(),
+      };
+    }
+  } catch (error: any) {
+    console.log('error', error);
+    return {
+      type: 'error',
+      message: 'Database Error: Failed to change avatar.',
+    };
+  }
+}
+```
+
+We validate the input such as only images are allowed and max size is 2mb.
+
+In this action, we will upload the file to the supabase storage and get back the url.
+
+Next we update the users table from next-auth schema.
+
+After update we revalidate the cache
+
+```
+  revalidatePath('/');
+  revalidatePath('/profile');
+```
+
+Because we have image in two places we have to revalidate two path.
+
+## Conclusion
+
+Next.js 14 Server Actions offer a powerful and elegant way to manage data interactions in your React applications. By mastering this concept, you'll create more dynamic and performant web experiences for your users.
 
 ## Links
 
@@ -491,4 +1179,4 @@ export function SubmitButton({
 - [Supabase](https://supabase.com/)
 - [Next Auth](https://authjs.dev/getting-started/installation)
 - [Supabase Adapter](https://authjs.dev/getting-started/adapters/supabase)
-- [shadcn ui](https://ui.shadcn.com/docs/installation/next)
+- [Shadcn ui](https://ui.shadcn.com/docs/installation/next)
