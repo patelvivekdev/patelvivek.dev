@@ -9,6 +9,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Toaster } from 'react-hot-toast';
 import Script from 'next/script';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -64,6 +65,7 @@ export default function RootLayout({
           <Analytics />
           <SpeedInsights />
           <Footer />
+          <ScrollToTopButton />
           <Toaster position='top-right' />
         </ThemeProvider>
       </body>
