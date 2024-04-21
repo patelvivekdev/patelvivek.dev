@@ -2,6 +2,7 @@ import matter from 'gray-matter';
 import fs from 'fs';
 import path from 'path';
 import { cache } from 'react';
+import readingDuration from 'reading-duration';
 
 const PROJECTS_FOLDER = path.join(process.cwd(), 'projects');
 
@@ -13,23 +14,33 @@ type Metadata = {
   tags: string;
 };
 
+export const getReadingTime = (content: string) => {
+  const readingTime = readingDuration(content, {
+    wordsPerMinute: 100,
+    emoji: 'open_book',
+  });
+  return readingTime;
+};
+
 function getProjectFiles(dir: string) {
   return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
 }
 
-function readProjectFile(filePath: string) {
-  return fs.readFileSync(filePath, 'utf-8');
-}
+// function readProjectFile(filePath: string) {
+//   return fs.readFileSync(filePath, 'utf-8');
+// }
 
 export const getProjects = cache(() => {
   const projects = getProjectFiles(PROJECTS_FOLDER);
 
   return projects.map((file) => {
     const filePath = path.join(PROJECTS_FOLDER, file);
-    const fileContent = readProjectFile(filePath);
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
     const { data, content } = matter(fileContent);
+    const readingTime = getReadingTime(content);
     return {
       metadata: data as Partial<Metadata>,
+      readingTime: readingTime,
       content,
       slug: file.replace(/\.mdx?$/, ''),
     };
