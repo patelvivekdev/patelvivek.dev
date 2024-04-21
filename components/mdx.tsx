@@ -10,6 +10,7 @@ import remarkToc from 'remark-toc';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { highlight } from 'sugar-high';
 import { cn } from '@/lib/utils';
+import Pre from './pre';
 
 const CustomLink = ({ children, ...props }: { children: any; [x: string]: any }) => {
   const href = props.href;
@@ -84,6 +85,7 @@ const mdxComponents: MDXComponents = {
   Callout,
   code: Code as React.ComponentType<any>, // Add type assertion here
   img: NextImage as React.ComponentType<any>, // Add type assertion here
+  pre: Pre,
 };
 
 export function CustomMDX({ children, components }: { children: string; components: MDXComponents }) {
