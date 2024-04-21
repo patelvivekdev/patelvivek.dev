@@ -8,13 +8,16 @@
     "start": "next start",
     "format": "prettier --write .",
     "lint": "next lint",
+    "analyze": "ANALYZE=true npm run build",
     "prepare": "husky"
   },
   "dependencies": {
     "@fec/remark-a11y-emoji": "^4.0.2",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
-    "@next/mdx": "^14.1.4",
+    "@next/bundle-analyzer": "14.3.0-canary.14",
+    "@next/eslint-plugin-next": "14.3.0-canary.14",
+    "@next/mdx": "14.3.0-canary.14",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-label": "^2.0.2",
