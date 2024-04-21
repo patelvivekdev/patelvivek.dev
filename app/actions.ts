@@ -15,7 +15,7 @@ type Response = {
 export async function increment(slug: string) {
   noStore();
 
-  if (process.env.NODE_ENV !== 'development') {
+  if (process.env.APP_ENV !== 'development') {
     const { error } = await supabase.rpc('increment', { blog_slug: slug });
 
     if (error) {

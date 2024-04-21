@@ -95,6 +95,8 @@ function RoundedImage(props: any) {
       className='rounded-lg shadow-lg dark:shadow-white shadow-slate-800 mx-auto'
       {...props}
       priority={true}
+      width={props.width}
+      height={props.height}
     />
   );
 }
