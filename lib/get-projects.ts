@@ -22,7 +22,6 @@ function readProjectFile(filePath: string) {
 }
 
 export const getProjects = cache(() => {
-  console.log('getProjects');
   const projects = getProjectFiles(PROJECTS_FOLDER);
 
   return projects.map((file) => {
