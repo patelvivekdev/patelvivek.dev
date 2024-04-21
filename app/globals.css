@@ -24,24 +24,17 @@ body {
   --sh-comment: #a19595;
 }
 
-/* .progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 8px;
-  background: ;
-  transform-origin: 0%;
-  box-shadow: 0 0px 36px 5px #589e7c
+.progress {
+  transform-origin: 0 50%;
+  animation: scaleProgress auto linear;
+  animation-timeline: scroll(root);
 }
 
-.progress-bar-light {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 8px;
-  background: #f47067;
-  transform-origin: 0%;
-  box-shadow: 0 0px 36px 5px #b6514a
-} */
+@keyframes scaleProgress {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}

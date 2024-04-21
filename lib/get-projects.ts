@@ -1,35 +1,44 @@
-import path from 'path';
 import matter from 'gray-matter';
-import fs from 'fs/promises';
+import fs from 'fs';
+import path from 'path';
 import { cache } from 'react';
 
 const PROJECTS_FOLDER = path.join(process.cwd(), 'projects');
 
-export const getProjects = cache(async () => {
-  const projects = await fs.readdir(PROJECTS_FOLDER);
+type Metadata = {
+  title: string;
+  publishedAt: string;
+  description: string;
+  image?: string;
+  tags: string;
+};
 
-  const projectsWithMetadata = await Promise.all(
-    projects
-      .filter((file) => path.extname(file) === '.md' || path.extname(file) === '.mdx')
-      .map(async (file) => {
-        const filePath = path.join(PROJECTS_FOLDER, file);
-        const fileContent = await fs.readFile(filePath, 'utf-8');
-        const { data, content } = matter(fileContent);
-        return {
-          metadata: data,
-          content,
-          slug: file.replace(/\.mdx?$/, ''),
-        };
-      }),
-  );
+function getProjectFiles(dir: string) {
+  return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
+}
 
-  return projectsWithMetadata.filter((post) => post !== null);
+function readProjectFile(filePath: string) {
+  return fs.readFileSync(filePath, 'utf-8');
+}
+
+export const getProjects = cache(() => {
+  console.log('getProjects');
+  const projects = getProjectFiles(PROJECTS_FOLDER);
+
+  return projects.map((file) => {
+    const filePath = path.join(PROJECTS_FOLDER, file);
+    const fileContent = readProjectFile(filePath);
+    const { data, content } = matter(fileContent);
+    return {
+      metadata: data as Partial<Metadata>,
+      content,
+      slug: file.replace(/\.mdx?$/, ''),
+    };
+  });
 });
 
-export async function getProject(slug: string) {
-  const projects = await getProjects();
+export function getProject(slug: string) {
+  const projects = getProjects();
   const project = projects.find((post) => post.slug === slug);
   return project;
 }
-
-export default getProjects;

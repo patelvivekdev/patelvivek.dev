@@ -2,18 +2,18 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Calendar } from 'lucide-react';
 import Image from 'next/image';
-import getProjects, { getProject } from '@/lib/get-projects';
+import { getProject } from '@/lib/get-projects';
 import { CustomMDX } from '@/components/mdx';
 import { formatDate } from '@/lib/utils';
 import Progress from '@/components/ui/progress';
 
-export async function generateStaticParams() {
-  const posts = await getProjects();
-  return posts.map((project) => ({ slug: project.slug }));
-}
+// export function generateStaticParams() {
+//   const posts = getProjects();
+//   return posts.map((project) => ({ slug: project.slug }));
+// }
 
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
-  const project = await getProject(params.slug);
+  const project = getProject(params.slug);
 
   if (!project) {
     return notFound();
@@ -21,14 +21,14 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
 
   let { title, publishedAt: publishedTime, description: description, image, tags } = project.metadata;
 
-  tags = tags ? tags.split(',') : [];
+  const newTags = tags ? tags.split(',') : [];
 
   let ogImage = image ? `https://patelvivek.dev${image}` : `https://patelvivek.dev/og?title=${title}`;
 
   return {
     title,
     description,
-    keywords: tags,
+    keywords: newTags,
     openGraph: {
       title,
       description,
@@ -50,8 +50,8 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
   };
 }
 
-export default async function Project({ params }: { params: any }) {
-  const project = await getProject(params.slug);
+export default function Project({ params }: { params: any }) {
+  const project = getProject(params.slug);
 
   if (!project) {
     return notFound();
@@ -69,7 +69,7 @@ export default async function Project({ params }: { params: any }) {
         <div className='mb-8 mt-2 flex items-center justify-between'>
           <p className='text-base text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>
-              <Calendar /> {formatDate(project.metadata.publishedAt)}
+              <Calendar /> {formatDate(project.metadata.publishedAt!)}
             </span>
           </p>
         </div>

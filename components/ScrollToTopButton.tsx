@@ -31,6 +31,7 @@ const ScrollToTopButton = () => {
 
   return (
     <button
+      aria-label='Scroll to top'
       className={`fixed bottom-20 right-4 md:right-10 rounded-full p-2 outline-none transition-opacity duration-200 ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
