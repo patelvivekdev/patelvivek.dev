@@ -1,16 +1,11 @@
-import BlogPost from '@/components/BlogPost';
 import Hero from '@/components/Hero';
 import ProjectCard from '@/components/ProjectCard';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { getLatestBlogs } from '@/lib/get-blogs';
 
-export default async function Home() {
-  let blogs = await getLatestBlogs();
+import RecentBlogs from '@/components/RecentBlogs';
 
-  // remove blog that have publisged is false
-  blogs = blogs.filter((blog) => blog.metadata.published);
-
+export default function Home() {
   return (
     <div className='relative flex w-full  text-[#31363F] dark:text-[#EEEEEE]  flex-col items-center gap-3 bg-dot-black/[0.8] dark:bg-dot-white/[0.5] sm:gap-5'>
       {/* <div className="absolute pointer-events-none inset-0 flex items-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_70%,black)]"></div> */}
@@ -62,25 +57,7 @@ export default async function Home() {
         <hr />
       </h3>
       <div className='grid w-11/12 sm:w-3/4 grid-cols-1 gap-4 p-5 sm:p-10'>
-        {/* Show no blogs if there are no blogs */}
-
-        {blogs.length === 0 ? (
-          <p className='bg-gradient-to-b from-blue-600 via-green-500 to-indigo-400 bg-clip-text text-center text-xl text-transparent'>
-            No blogs found
-          </p>
-        ) : (
-          blogs.map((blog) => (
-            <BlogPost
-              key={blog.slug}
-              title={blog.metadata.title}
-              summary={blog.metadata.summary}
-              publishedAt={blog.metadata.publishedAt}
-              slug={blog.slug}
-              readingTime={blog.readingTime}
-              tags={blog.metadata.tags}
-            />
-          ))
-        )}
+        <RecentBlogs />
       </div>
 
       <Link href='/blog'>
