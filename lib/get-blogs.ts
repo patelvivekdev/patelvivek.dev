@@ -1,8 +1,19 @@
+import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import fs from 'fs/promises';
 import { cache } from 'react';
 import readingDuration from 'reading-duration';
+
+const BLOGS_FOLDER = path.join(process.cwd(), 'blogs');
+
+type Metadata = {
+  title: string;
+  publishedAt: string;
+  summary: string;
+  image?: string;
+  tags: string;
+  published: boolean;
+};
 
 export const getReadingTime = (content: string) => {
   const readingTime = readingDuration(content, {
@@ -12,43 +23,44 @@ export const getReadingTime = (content: string) => {
   return readingTime;
 };
 
-const BLOGS_FOLDER = path.join(process.cwd(), 'blogs');
+function getBlogFiles(dir: string) {
+  return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
+}
 
-export const getBlogs = cache(async () => {
-  const posts = await fs.readdir(BLOGS_FOLDER);
+// function readBlogFile(filePath: string) {
+//   return fs.readFileSync(filePath, 'utf-8');
+// }
 
-  const blogs = posts
-    .filter((file) => path.extname(file) === '.md' || path.extname(file) === '.mdx')
-    .map(async (file) => {
-      const filePath = path.join(BLOGS_FOLDER, file);
-      const fileContent = await fs.readFile(filePath, 'utf-8');
-      const { data, content } = matter(fileContent);
-      const readingTime = getReadingTime(content);
+export const getBlogs = cache(() => {
+  const posts = getBlogFiles(BLOGS_FOLDER);
 
-      return {
-        metadata: data,
-        readingTime: readingTime,
-        content,
-        slug: file.replace(/\.mdx?$/, ''),
-      };
-    });
-
-  return Promise.all(blogs);
+  return posts.map((post) => {
+    const filePath = path.join(BLOGS_FOLDER, post);
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    const { data, content } = matter(fileContent);
+    const readingTime = getReadingTime(content);
+    return {
+      metadata: data as Partial<Metadata>,
+      readingTime: readingTime,
+      content,
+      slug: post.replace(/\.mdx?$/, ''),
+    };
+  });
 });
 
-export async function getBlog(slug: string) {
-  const blogs = await getBlogs();
+export function getBlog(slug: string) {
+  const blogs = getBlogs();
   const blog = blogs.find((blog) => blog.slug === slug);
   return blog;
 }
 
-export async function getLatestBlogs() {
-  const blogs = await getBlogs();
+export function getLatestBlogs() {
+  const blogs = getBlogs();
 
   // Sort by date
   const allBlogs = blogs.sort((a, b) => {
-    const dateA = new Date(a.metadata.publishedAt);
-    const dateB = new Date(b.metadata.publishedAt);
+    const dateA = new Date(a.metadata.publishedAt!);
+    const dateB = new Date(b.metadata.publishedAt!);
     return dateB.getTime() - dateA.getTime();
   });
 

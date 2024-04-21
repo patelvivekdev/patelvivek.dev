@@ -27,14 +27,14 @@ const BlogPage = async ({
 
   // sort by date
   allBlogs = allBlogs.sort((a, b) => {
-    const dateA = new Date(a.metadata.publishedAt);
-    const dateB = new Date(b.metadata.publishedAt);
+    const dateA = new Date(a.metadata.publishedAt!);
+    const dateB = new Date(b.metadata.publishedAt!);
     return dateB.getTime() - dateA.getTime();
   });
 
-  const filteredBlogs = allBlogs.filter((blog) => blog.metadata.title.toLowerCase().includes(query.toLowerCase()));
+  const filteredBlogs = allBlogs.filter((blog) => blog.metadata.title!.toLowerCase().includes(query.toLowerCase()));
 
-  const blogsPerPage = 2;
+  const blogsPerPage = 5;
   let totalPages = 0;
   let filteredBlogsLength = filteredBlogs.length;
 
@@ -69,12 +69,12 @@ const BlogPage = async ({
             filteredBlogs.map((blog) => (
               <BlogPost
                 key={blog.slug}
-                title={blog.metadata.title}
-                summary={blog.metadata.summary}
+                title={blog.metadata.title!}
+                summary={blog.metadata.summary!}
                 slug={blog.slug}
                 readingTime={blog.readingTime}
-                publishedAt={blog.metadata.publishedAt}
-                tags={blog.metadata.tags}
+                publishedAt={blog.metadata.publishedAt!}
+                tags={blog.metadata.tags!}
               />
             ))
           ) : (

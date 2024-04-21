@@ -1,10 +1,10 @@
-import { getLatestBlogs } from '@/lib/get-blogs'; // Adjust path if needed
+import { getLatestBlogs } from '@/lib/get-blogs';
 import BlogPost from '@/components/BlogPost';
 import RecentBlogsSkeleton from '@/components/skeletons/RecentBlogsSkeleton';
 import { Suspense } from 'react';
 
-export default async function RecentBlogs() {
-  let blogs = await getLatestBlogs();
+export default function RecentBlogs() {
+  let blogs = getLatestBlogs();
 
   blogs = blogs.filter((blog) => blog.metadata && blog.metadata.published === true);
 
@@ -18,12 +18,12 @@ export default async function RecentBlogs() {
         blogs.map((blog) => (
           <Suspense key={blog.slug} fallback={<RecentBlogsSkeleton />}>
             <BlogPost
-              title={blog.metadata.title}
-              summary={blog.metadata.summary}
-              publishedAt={blog.metadata.publishedAt}
+              title={blog.metadata.title!}
+              summary={blog.metadata.summary!}
+              publishedAt={blog.metadata.publishedAt!}
               slug={blog.slug}
               readingTime={blog.readingTime}
-              tags={blog.metadata.tags}
+              tags={blog.metadata.tags!}
             />
           </Suspense>
         ))

@@ -1,25 +1,23 @@
 import type { Metadata } from 'next';
-import { Suspense, cache } from 'react';
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { CustomMDX } from '@/components/mdx';
-import { getBlog, getBlogs } from '@/lib/get-blogs';
-import { Skeleton } from '@/components/ui/skeleton';
+import { getBlog } from '@/lib/get-blogs';
 import { formatDate } from '@/lib/utils';
-import { Calendar, Import } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import ViewCounter from '@/app/blog/views';
 import { getViewsCount } from '@/lib/get-views';
-import { increment } from '@/app/actions';
 import Image from 'next/image';
 import Progress from '../../../components/ui/progress';
-import IncreaseView from './IncresementView';
+import IncreaseView from './IncreaseView';
 
-export async function generateStaticParams() {
-  const posts = await getBlogs();
-  return posts.map((blog) => ({ slug: blog.slug }));
-}
+// export async function generateStaticParams() {
+//   const posts = await getBlogs();
+//   return posts.map((blog) => ({ slug: blog.slug }));
+// }
 
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
-  const blog = await getBlog(params.slug);
+  const blog = getBlog(params.slug);
 
   if (!blog) {
     return notFound();
@@ -27,14 +25,14 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
 
   let { title, publishedAt: publishedTime, summary: description, image, tags } = blog.metadata;
 
-  tags = tags ? tags.split(',') : [];
+  const newTags = tags ? tags.split(',') : [];
 
   let ogImage = image ? `https://patelvivek.dev${image}` : `https://patelvivek.dev/og?title=${title}`;
 
   return {
     title,
     description,
-    keywords: tags,
+    keywords: newTags,
     openGraph: {
       title,
       description,
@@ -61,8 +59,8 @@ function getDateTime(date: string) {
   return new Date(date);
 }
 
-export default async function Blog({ params }: { params: any }) {
-  const blog = await getBlog(params.slug);
+export default function Blog({ params }: { params: any }) {
+  const blog = getBlog(params.slug);
 
   if (!blog) {
     return notFound();
@@ -80,9 +78,9 @@ export default async function Blog({ params }: { params: any }) {
               '@context': 'https://schema.org',
               '@type': 'BlogPosting',
               headline: blog.metadata.title,
-              datePublished: getDateTime(blog.metadata.publishedAt),
-              dateModified: getDateTime(blog.metadata.updatedAt),
-              description: blog.metadata.summary,
+              datePublished: getDateTime(blog.metadata.publishedAt!),
+              dateModified: getDateTime(blog.metadata.publishedAt!),
+              description: blog.metadata.summary!,
               image: blog.metadata.image
                 ? `https://patelvivek.dev${blog.metadata.image}`
                 : `https://patelvivek.dev/og?title=${blog.metadata.title}`,
@@ -104,13 +102,13 @@ export default async function Blog({ params }: { params: any }) {
         <div className='mb-8 mt-2 flex items-center justify-between'>
           <p className='text-base text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>
-              <Calendar /> {formatDate(blog.metadata.publishedAt)} | {blog.readingTime}
+              <Calendar /> {formatDate(blog.metadata.publishedAt!)} | {blog.readingTime}
             </span>
           </p>
           <Suspense fallback={<p>---</p>}>
-            <Views slug={blog.slug} published={blog.metadata.published} />
+            <Views slug={blog.slug} />
           </Suspense>
-          <IncreaseView slug={blog.slug} published={blog.metadata.published} />
+          <IncreaseView slug={blog.slug} published={blog.metadata.published!} />
         </div>
         <hr />
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
@@ -127,13 +125,8 @@ export default async function Blog({ params }: { params: any }) {
   );
 }
 
-let incrementViews = cache(increment);
-
-async function Views({ slug, published }: { slug: string; published: boolean }) {
+async function Views({ slug }: { slug: string }) {
   let views = await getViewsCount();
-  // if (published) {
-  //   incrementViews(slug);
-  // }
 
   return <ViewCounter allViews={views} slug={slug} />;
 }
