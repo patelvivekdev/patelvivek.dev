@@ -31,7 +31,7 @@ const Pre = (props: any) => {
     <div ref={textInput} onMouseEnter={onEnter} onMouseLeave={onExit} className='relative'>
       {hovered && (
         <button aria-label='Copy code' type='button' className='absolute right-2 top-2 h-8 w-8' onClick={onCopy}>
-          {copied ? <Clipboard className='text-[#80d1a9]' /> : <Clipboard />}
+          {copied ? <Clipboard className='text-[#80d1a9]' /> : <Clipboard className='text-white' />}
         </button>
       )}
       <pre>{props.children}</pre>
