@@ -11,7 +11,6 @@ body {
   color: #22d2a0;
 }
 
-/* styles.css */
 :root {
   --sh-class: #2d5e9d;
   --sh-identifier: #c2cad3;
@@ -24,7 +23,7 @@ body {
   --sh-comment: #a19595;
 }
 
-pre code {
+/* pre code {
   counter-reset: sh-line-number;
 }
 
@@ -34,7 +33,7 @@ pre code {
   margin-right: 24px;
   text-align: right;
   color: #a4a4a4;
-}
+} */
 
 .progress {
   transform-origin: 0 50%;
@@ -76,4 +75,28 @@ pre code {
 
 .prose *:hover > .anchor {
   @apply visible;
+}
+
+.prose pre {
+  @apply bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900;
+}
+
+.prose code {
+  @apply px-1 py-0.5 rounded-lg;
+}
+
+.prose pre code {
+  @apply p-0;
+  border: initial;
+  line-height: 1.5;
+}
+
+.prose code span {
+  @apply font-medium;
+}
+
+.prose > :first-child {
+  /* Override removing top margin, causing layout shift */
+  margin-top: 1.25em !important;
+  margin-bottom: 1.25em !important;
 }

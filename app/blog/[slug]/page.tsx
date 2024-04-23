@@ -1,15 +1,18 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import { Calendar } from 'lucide-react';
+
 import { CustomMDX } from '@/components/mdx';
 import { getBlog } from '@/lib/get-blogs';
 import { formatDate } from '@/lib/utils';
-import { Calendar } from 'lucide-react';
 import ViewCounter from '@/app/blog/views';
 import { getViewsCount } from '@/lib/get-views';
-import Image from 'next/image';
-import Progress from '../../../components/ui/progress';
+import Progress from '@/components/ui/progress';
 import IncreaseView from './IncreaseView';
+import { Button } from '@/components/ui/button';
 
 // export async function generateStaticParams() {
 //   const posts = await getBlogs();
@@ -93,7 +96,18 @@ export default function Blog({ params }: { params: any }) {
             }),
           }}
         />
-        <h1 className='text-center sm:text-start text-xl sm:text-4xl font-bold'>{blog.metadata.title}</h1>
+        <Link href='/blog'>
+          <Button
+            variant='outline'
+            className='
+          mb-5 cursor-pointer text-lg font-semibold 
+          border-gray-500  bg-gray-300 text-gray-800 hover:bg-gray-600 hover:text-gray-300 
+          dark:border-gray-500 dark:bg-gray-400 dark:text-black dark:hover:bg-gray-200'
+          >
+            &larr; Back to Blogs
+          </Button>
+        </Link>
+        <h1 className='text-start text-xl sm:text-4xl font-bold'>{blog.metadata.title}</h1>
         <div className='mb-4 mt-2 flex items-center justify-between'>
           <p className='text-lg text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>{blog.metadata.summary}</span>
