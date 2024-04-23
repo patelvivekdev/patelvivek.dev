@@ -11,7 +11,7 @@ export default function IncreaseView({ slug, published }: { slug: string; publis
     };
 
     registerView();
-  }, [slug]);
+  }, [slug, published]);
 
   return <></>;
 }

@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Calendar } from 'lucide-react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { getProject } from '@/lib/get-projects';
 import { CustomMDX } from '@/components/mdx';
 import { formatDate } from '@/lib/utils';
 import Progress from '@/components/ui/progress';
+import { Button } from '@/components/ui/button';
 
 // export function generateStaticParams() {
 //   const posts = getProjects();
@@ -60,6 +62,17 @@ export default function Project({ params }: { params: any }) {
     <div className='mx-auto mt-40 w-11/12 sm:w-3/4'>
       <Progress />
       <section>
+        <Link href='/projects'>
+          <Button
+            variant='outline'
+            className='
+          mb-5 cursor-pointer text-lg font-semibold 
+          border-gray-500  bg-gray-300 text-gray-800 hover:bg-gray-600 hover:text-gray-300 
+          dark:border-gray-500 dark:bg-gray-400 dark:text-black dark:hover:bg-gray-200'
+          >
+            &larr; Back to Projects
+          </Button>
+        </Link>
         <h1 className='text-start text-2xl sm:text-4xl font-bold'>{project.metadata.title}</h1>
         <div className='mb-4 mt-2 flex items-center justify-between'>
           <p className='text-lg font-normal text-neutral-700 dark:text-neutral-300'>
