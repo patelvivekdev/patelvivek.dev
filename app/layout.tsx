@@ -58,7 +58,7 @@ export default function RootLayout({
       <head>
         <Script defer src='https://us.umami.is/script.js' data-website-id='aa7603cb-3e5d-474c-b1a5-f92e18751e5c' />
       </head>
-      <body className={cn('mx-auto min-h-screen font-sans antialiased bg-EEEEEE dark:bg-[#222831] ', fontSans.variable)}>
+      <body className={cn('mx-auto min-h-screen font-sans antialiased bg-EEEEEE dark:bg-shark-100 ', fontSans.variable)}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem={true}>
           <Navbar />
           <main>{children}</main>
