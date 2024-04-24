@@ -1,41 +1,5 @@
 import type { Config } from 'tailwindcss';
 const { fontFamily } = require('tailwindcss/defaultTheme');
-const svgToDataUri = require('mini-svg-data-uri');
-
-const colors = require('tailwindcss/colors');
-const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
-
-function addVariablesForColors({ addBase, theme }: any) {
-  let allColors = flattenColorPalette(theme('colors'));
-  let newVars = Object.fromEntries(Object.entries(allColors).map(([key, val]) => [`--${key}`, val]));
-
-  addBase({
-    ':root': newVars,
-  });
-}
-
-function addSvgPatterns({ matchUtilities, theme }: any) {
-  matchUtilities(
-    {
-      'bg-grid': (value: any) => ({
-        backgroundImage: `url("${svgToDataUri(
-          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`,
-        )}")`,
-      }),
-      'bg-grid-small': (value: any) => ({
-        backgroundImage: `url("${svgToDataUri(
-          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="8" height="8" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`,
-        )}")`,
-      }),
-      'bg-dot': (value: any) => ({
-        backgroundImage: `url("${svgToDataUri(
-          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="1.6257413380501518"></circle></svg>`,
-        )}")`,
-      }),
-    },
-    { values: flattenColorPalette(theme('backgroundColor')), type: 'color' },
-  );
-}
 
 const config: Config = {
   darkMode: 'class',
@@ -48,6 +12,80 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        rich_black: {
+          DEFAULT: '#0d1b2a',
+          100: '#030609',
+          200: '#050b11',
+          300: '#08111a',
+          400: '#0b1622',
+          500: '#0d1b2a',
+          600: '#234870',
+          700: '#3875b6',
+          800: '#74a3d4',
+          900: '#bad1ea',
+        },
+        shark: {
+          DEFAULT: '#222831',
+          100: '#07080a',
+          200: '#0d1013',
+          300: '#14181d',
+          400: '#1b1f27',
+          500: '#222831',
+          600: '#455163',
+          700: '#687a95',
+          800: '#9aa6b9',
+          900: '#ccd3dc',
+        },
+        oxford_blue: {
+          DEFAULT: '#1b263b',
+          100: '#05080c',
+          200: '#0b0f18',
+          300: '#101724',
+          400: '#161f30',
+          500: '#1b263b',
+          600: '#364c75',
+          700: '#5172af',
+          800: '#8ba1ca',
+          900: '#c5d0e4',
+        },
+        yinmn_blue: {
+          DEFAULT: '#415a77',
+          100: '#0d1218',
+          200: '#1a242f',
+          300: '#273647',
+          400: '#34485f',
+          500: '#415a77',
+          600: '#587aa1',
+          700: '#819bb9',
+          800: '#abbcd1',
+          900: '#d5dee8',
+        },
+        silver_lake_blue: {
+          DEFAULT: '#778da9',
+          100: '#161c23',
+          200: '#2c3746',
+          300: '#425369',
+          400: '#586f8d',
+          500: '#778da9',
+          600: '#91a2ba',
+          700: '#acbacb',
+          800: '#c8d1dc',
+          900: '#e3e8ee',
+        },
+        platinum: {
+          DEFAULT: '#e0e1dd',
+          100: '#2e2f2a',
+          200: '#5b5e53',
+          300: '#898c7e',
+          400: '#b4b6ad',
+          500: '#e0e1dd',
+          600: '#e5e6e3',
+          700: '#ececea',
+          800: '#f2f3f1',
+          900: '#f9f9f8',
+        },
+      },
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
       },
@@ -61,6 +99,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('@tailwindcss/typography'), addVariablesForColors, addSvgPatterns],
+  plugins: [require('@tailwindcss/typography')],
 };
 export default config;
