@@ -7,14 +7,13 @@ import RecentBlogs from '@/components/RecentBlogs';
 
 export default function Home() {
   return (
-    <div className='relative flex w-full  text-[#31363F] dark:text-[#EEEEEE]  flex-col items-center gap-3 bg-dot-black/[0.8] dark:bg-dot-white/[0.5] sm:gap-5'>
-      {/* <div className="absolute pointer-events-none inset-0 flex items-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_70%,black)]"></div> */}
+    <div className='relative flex w-11/12 sm:w-3/4 mx-auto text-[#31363F] dark:text-[#EEEEEE]  flex-col items-center gap-3 sm:gap-5'>
       <Hero />
       <h3 className='text-center text-2xl font-bold tracking-tight md:text-4xl'>
         Latest Project
         <hr />
       </h3>
-      <div className='grid w-11/12 sm:w-3/4 grid-cols-1 gap-4 p-5 sm:p-10'>
+      <div className='grid grid-cols-1 gap-4 p-5 sm:p-10'>
         <ProjectCard
           title='Market-hub'
           description="Market-hub is a MERN-powered platform for buying and selling computer items. Vendors can easily manage their products, while users enjoy a smooth shopping experience. It's a user-friendly solution for tech enthusiasts and sellers alike."
@@ -44,8 +43,8 @@ export default function Home() {
           variant='outline'
           className='
           mb-5 cursor-pointer text-lg font-semibold 
-          border-gray-500  bg-gray-300 text-gray-800 hover:bg-gray-600 hover:text-gray-300 
-          dark:border-gray-500 dark:bg-gray-400 dark:text-black dark:hover:bg-gray-200'
+          border-neutral-800 text-neutral-800 hover:underline
+          dark:border-neutral-300 dark:text-neutral-300'
         >
           View all projects &rarr;
         </Button>
@@ -56,7 +55,7 @@ export default function Home() {
         Recent Blog
         <hr />
       </h3>
-      <div className='grid w-11/12 sm:w-3/4 grid-cols-1 gap-4 p-5 sm:p-10'>
+      <div className='grid grid-cols-1 gap-4 p-5 sm:p-10'>
         <RecentBlogs />
       </div>
 
@@ -65,8 +64,8 @@ export default function Home() {
           variant='outline'
           className='
           mb-5 cursor-pointer text-lg font-semibold 
-          border-gray-500  bg-gray-300 text-gray-800 hover:bg-gray-600 hover:text-gray-300 
-          dark:border-gray-500 dark:bg-gray-400 dark:text-black dark:hover:bg-gray-200'
+          border-neutral-800 text-neutral-800 hover:underline
+          dark:border-neutral-300 dark:text-neutral-300'
         >
           View all Blogs &rarr;
         </Button>

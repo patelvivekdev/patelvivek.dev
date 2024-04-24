@@ -24,6 +24,7 @@ export default function RecentBlogs() {
               slug={blog.slug}
               readingTime={blog.readingTime}
               tags={blog.metadata.tags!}
+              views={true}
             />
           </Suspense>
         ))

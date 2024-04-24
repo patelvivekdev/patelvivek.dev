@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className='border-t-2'>
       <div className='flex items-center justify-around py-4'>
         <div>
-          <p className='text-sm font-semibold'>© {year} Vivek Patel | Made with Next js and ❤️</p>
+          <p className='text-base font-semibold'>© {year} Vivek Patel | Made with ❤️ Next js</p>
         </div>
         {/* <div>
 					<Link href="/about" className="text-sm font-semibold">

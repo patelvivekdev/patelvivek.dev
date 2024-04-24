@@ -32,12 +32,12 @@ const ScrollToTopButton = () => {
   return (
     <button
       aria-label='Scroll to top'
-      className={`fixed bottom-20 right-4 md:right-10 rounded-full p-2 outline-none transition-opacity duration-200 ${
+      className={`fixed bottom-20 right-4 md:right-9 p-2 rounded-full bg-neutral-400 dark:bg-neutral-700  outline-none transition-opacity duration-200 ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
       onClick={scrollToTop}
     >
-      <ChevronUp />
+      <ChevronUp className='w-8 h-8' />
     </button>
   );
 };

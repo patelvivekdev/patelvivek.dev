@@ -48,8 +48,8 @@ const BlogPage = async ({
   filteredBlogs.splice(blogsPerPage, filteredBlogs.length);
 
   return (
-    <div className='mt-40 flex flex-col items-center'>
-      <h3 className='text-center text-2xl font-bold tracking-tight text-black dark:text-white md:text-4xl'>
+    <div className='mt-40 w-11/12 sm:w-3/4 mx-auto flex flex-col items-center gap-4'>
+      <h1 className='text-center text-2xl font-bold md:text-4xl'>
         {query ? (
           <span>
             {filteredBlogsLength} blog{filteredBlogs.length === 1 ? '' : 's'} found for query
@@ -59,63 +59,61 @@ const BlogPage = async ({
           'All Blogs'
         )}
         <hr />
+      </h1>
+      <div className='flex flex-col justify-center gap-4'>
+        <Search placeholder='Search blog title' />
+        {/* if query display filteredBlogs else show all blog */}
+        {filteredBlogs.length > 0 ? (
+          filteredBlogs.map((blog) => (
+            <BlogPost
+              key={blog.slug}
+              title={blog.metadata.title!}
+              summary={blog.metadata.summary!}
+              slug={blog.slug}
+              readingTime={blog.readingTime}
+              publishedAt={blog.metadata.publishedAt!}
+              tags={blog.metadata.tags!}
+            />
+          ))
+        ) : (
+          <p className='bg-gradient-to-b from-blue-600 via-green-500 to-indigo-400 bg-clip-text text-center text-xl text-transparent'>
+            No blogs found
+          </p>
+        )}
+        {/* if totalPages > 0 */}
+        {totalPages > 1 && (
+          <div className='mt-5 flex w-full justify-center'>
+            <Pagination totalPages={totalPages} />
+          </div>
+        )}
+      </div>
+      <h3 className='text-center text-2xl font-bold md:text-4xl'>
+        Medium
+        <hr />
       </h3>
-
-      <div className='grid w-11/12 sm:w-3/4 grid-cols-1 gap-4 p-5 sm:p-10'>
-        <div className='flex flex-col justify-center gap-4'>
-          <Search placeholder='Search blog title' />
-          {/* if query display filteredBlogs else show all blog */}
-          {filteredBlogs.length > 0 ? (
-            filteredBlogs.map((blog) => (
-              <BlogPost
-                key={blog.slug}
-                title={blog.metadata.title!}
-                summary={blog.metadata.summary!}
-                slug={blog.slug}
-                readingTime={blog.readingTime}
-                publishedAt={blog.metadata.publishedAt!}
-                tags={blog.metadata.tags!}
-              />
-            ))
-          ) : (
-            <p className='bg-gradient-to-b from-blue-600 via-green-500 to-indigo-400 bg-clip-text text-center text-xl text-transparent'>
-              No blogs found
-            </p>
-          )}
-          {/* if totalPages > 0 */}
-          {totalPages > 1 && (
-            <div className='mt-5 flex w-full justify-center'>
-              <Pagination totalPages={totalPages} />
-            </div>
-          )}
-        </div>
-        <div className='mt-10 flex flex-col justify-center gap-4'>
-          <h3 className='mb-2 bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 bg-clip-text text-center text-2xl font-bold tracking-tight text-transparent md:text-4xl'>
-            Medium
-            <hr />
-          </h3>
-          {/* Medium */}
-          <BlogPost
-            title='End-to-End CNN using TensorFlow'
-            summary='How to create an End-to-End deep learning solution from data gathering to deploy the model into Heroku.'
-            slug='https://towardsdatascience.com/end-to-end-cnn-using-tensorflow-4c7d9af3ca4c'
-            publishedAt='Dec 4, 2020'
-            views={2506}
-            readingTime={'📖 8 min read'}
-            tags='machine learning, deep learning'
-            external
-          />
-          <BlogPost
-            title='Convert Your Jupyter-notebook to Github pages with Github-action'
-            summary='How cool if you convert that notebook into a blog within less than 5 min?'
-            slug='https://medium.com/analytics-vidhya/convert-your-jupyter-notebook-to-github-pages-with-github-action-fa2ce9b4182a'
-            publishedAt='Oct 24, 2020'
-            views={3453}
-            readingTime={'📖 3 min read'}
-            tags='github, github action, jupyter notebook'
-            external
-          />
-          {/* <BlogPost
+      <div className='mb-10 flex flex-col justify-center gap-4'>
+        {/* Medium */}
+        <BlogPost
+          title='End-to-End CNN using TensorFlow'
+          summary='How to create an End-to-End deep learning solution from data gathering to deploy the model into Heroku.'
+          slug='https://towardsdatascience.com/end-to-end-cnn-using-tensorflow-4c7d9af3ca4c'
+          publishedAt='Dec 4, 2020'
+          views={2506}
+          readingTime={'📖 8 min read'}
+          tags='machine learning, deep learning'
+          external
+        />
+        <BlogPost
+          title='Convert Your Jupyter-notebook to Github pages with Github-action'
+          summary='How cool if you convert that notebook into a blog within less than 5 min?'
+          slug='https://medium.com/analytics-vidhya/convert-your-jupyter-notebook-to-github-pages-with-github-action-fa2ce9b4182a'
+          publishedAt='Oct 24, 2020'
+          views={3453}
+          readingTime={'📖 3 min read'}
+          tags='github, github action, jupyter notebook'
+          external
+        />
+        {/* <BlogPost
             title='End to end Mask detection'
             summary='How to create an End-to-End deep learning solution from data gathering to deploy the model into Heroku.'
             slug='https://medium.com/nerd-for-tech/end-to-end-mask-detection-24fb44a52523'
@@ -131,7 +129,6 @@ const BlogPage = async ({
             views={137}
             external
           /> */}
-        </div>
       </div>
     </div>
   );

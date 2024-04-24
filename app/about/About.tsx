@@ -29,7 +29,7 @@ const content = [
     description:
       "Beyond the screen, I'm an avid photographer, capturing the life's beautiful moments through my lens. I also love exploring the great outdoors, seeking inspiration in nature&rsquo;s wonders.",
     content: (
-      <div className='h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white'>
+      <div className='h-full w-full bg-gradient-to-br from-cyan-500 to-emerald-500 flex items-center justify-center text-white'>
         Hobbies
       </div>
     ),
@@ -39,7 +39,7 @@ const content = [
     description:
       "I'm using React, Next.js, and Node.js. With proficiency in databases like MongoDB, MySQL, and PostgreSQL, along with Python and JavaScript, I consistently deliver robust solutions. My dedication to continuous learning and mastery of new technologies ensures I stay at the forefront of web development.",
     content: (
-      <div className='h-full w-full bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] flex items-center justify-center text-white'>
+      <div className='h-full w-full bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center text-white'>
         Skills
       </div>
     ),
@@ -55,8 +55,8 @@ const content = [
       </>
     ),
     content: (
-      <div className='h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white'>
-        <Link className='border px-3 py-2 bg-slate-600 rounded-lg text-white' href='/resume'>
+      <div className='h-full w-full bg-gradient-to-br from-sky-500 to-yellow-500 flex items-center justify-center text-white'>
+        <Link className='border px-5 py-5 bg-slate-600 rounded-lg text-white font-bold hover:underline' href='/resume'>
           Resume
         </Link>
       </div>
