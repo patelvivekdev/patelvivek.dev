@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
 import ViewCounter from '@/app/blog/views';
 import { getViewsCount } from '@/lib/get-views';
 

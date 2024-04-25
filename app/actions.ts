@@ -8,15 +8,7 @@ export async function increment(slug: string) {
   noStore();
 
   if (process.env.APP_ENV !== 'development') {
-    const { error } = await supabase.rpc('increment', { blog_slug: slug });
-
-    if (error) {
-      console.error(error);
-    }
-
-    revalidatePath('/');
-    revalidatePath('/blog');
-    revalidatePath(`/blog/${slug}`);
+    await supabase.rpc('increment', { blog_slug: slug });
   }
 }
 
