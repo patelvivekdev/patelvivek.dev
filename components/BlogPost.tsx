@@ -108,7 +108,7 @@ async function InternalBlogPost({
           {newTags?.map((tag) => (
             <span
               key={tag}
-              className='mr-2 px-3 py-1 text-sm font-semibold rounded-lg border border-neutral-600 text-neutral-900 dark:border-neutral-300 dark:text-white hover:underline cursor-pointer'
+              className='mr-2 px-3 py-1 text-sm font-semibold rounded-lg border border-neutral-600 text-neutral-900 dark:border-neutral-300 dark:text-white hover:underline'
             >
               {tag.toUpperCase()}
             </span>
@@ -169,7 +169,7 @@ function ExternalBlogPost({
           {tags?.split(',').map((tag) => (
             <span
               key={tag}
-              className='mr-2 px-3 py-1 text-sm font-semibold rounded-lg  border border-neutral-600 text-neutral-900 dark:border-neutral-300 dark:text-white hover:underline cursor-pointer'
+              className='mr-2 px-3 py-1 text-sm font-semibold rounded-lg  border border-neutral-600 text-neutral-900 dark:border-neutral-300 dark:text-white hover:underline'
             >
               {tag.toUpperCase()}
             </span>

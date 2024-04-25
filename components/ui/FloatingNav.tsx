@@ -28,7 +28,7 @@ export const FloatingNav = ({
           className={cn('relative flex items-center space-x-1 dark:text-neutral-950 hover:underline text-neutral-50')}
         >
           {pathname === navItem.link && (
-            <span className='relative dark:border-neutral-950 py-2 font-bold dark:text-neutral-950 border-white text-neutral-50 sm:px-1 sm:text-sm lg:rounded-full lg:border lg:px-4'>
+            <span className='relative dark:border-neutral-950 py-2 font-bold dark:text-neutral-950 border-indigo-500 text-neutral-50 sm:px-1 sm:text-sm lg:rounded-full lg:border lg:px-4'>
               {navItem.name}
             </span>
           )}

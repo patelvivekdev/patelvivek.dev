@@ -119,8 +119,8 @@ const mdxComponents: MDXComponents = {
   a: CustomLink as React.ComponentType<any>,
   Link: CustomLink as React.ComponentType<any>,
   Callout,
-  code: Code as React.ComponentType<any>, // Add type assertion here
-  img: NextImage as React.ComponentType<any>, // Add type assertion here
+  code: Code as React.ComponentType<any>,
+  img: NextImage as React.ComponentType<any>,
   pre: Pre,
 };
 

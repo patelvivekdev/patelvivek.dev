@@ -42,10 +42,7 @@ const BlogPage = () => {
 
   return (
     <div className='mt-40 w-11/12 sm:w-3/4 mx-auto flex flex-col items-center gap-4'>
-      <h1 className='text-center text-2xl font-bold md:text-4xl'>
-        All Blogs
-        <hr />
-      </h1>
+      <h1 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>All Blogs</h1>
       <div className='flex flex-col justify-center gap-4'>
         {/* <Search placeholder='Search blog title' /> */}
         {/* if query display filteredBlogs else show all blog */}
@@ -74,10 +71,7 @@ const BlogPage = () => {
           </div>
         )} */}
       </div>
-      <h3 className='text-center text-2xl font-bold md:text-4xl'>
-        Medium
-        <hr />
-      </h3>
+      <h2 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>Medium</h2>
       <div className='mb-10 flex flex-col justify-center gap-4'>
         {/* Medium */}
         <BlogPost
