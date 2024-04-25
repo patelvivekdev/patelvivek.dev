@@ -91,7 +91,7 @@ export default function Blog({ params }: { params: any }) {
               author: {
                 '@type': 'Person',
                 name: 'Vivek Patel',
-                url: 'https://patelvivek.dev/about',
+                url: 'https://patelvivek.dev/',
               },
             }),
           }}
@@ -116,7 +116,16 @@ export default function Blog({ params }: { params: any }) {
         <div className='mb-8 mt-2 flex items-center justify-between'>
           <p className='text-base text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>
-              <Calendar /> {formatDate(blog.metadata.publishedAt!)} | {blog.readingTime}
+              <Suspense
+                fallback={
+                  <>
+                    <Calendar />
+                    <p>---</p>
+                  </>
+                }
+              >
+                <Calendar /> {formatDate(blog.metadata.publishedAt!)} | {blog.readingTime}
+              </Suspense>
             </span>
           </p>
           <Suspense fallback={<p>---</p>}>
@@ -124,7 +133,6 @@ export default function Blog({ params }: { params: any }) {
           </Suspense>
           <IncreaseView slug={blog.slug} published={blog.metadata.published!} />
         </div>
-        <hr />
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
           <CustomMDX
             components={{
