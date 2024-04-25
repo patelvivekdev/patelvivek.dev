@@ -11,11 +11,6 @@ const Footer = () => {
         <div>
           <p className='text-base font-semibold'>© {year} Vivek Patel | Made with ❤️ Next js</p>
         </div>
-        {/* <div>
-					<Link href="/about" className="text-sm font-semibold">
-						About
-					</Link>
-				</div> */}
       </div>
       <ThemeToggle />
     </footer>

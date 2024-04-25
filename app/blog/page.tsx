@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import BlogPost from '@/components/BlogPost';
-import Search from '@/components/Search';
-import Pagination from '@/components/Pagination';
 import { getBlogs } from '@/lib/get-blogs';
 
 export const metadata: Metadata = {
@@ -11,9 +9,6 @@ export const metadata: Metadata = {
 };
 
 const BlogPage = () => {
-  // const query = searchParams?.query?.trim() || '';
-  // const currentPage = Number(searchParams?.page) || 1;
-
   let allBlogs = getBlogs();
 
   allBlogs = allBlogs.filter((blog) => blog.metadata.published);
@@ -25,27 +20,10 @@ const BlogPage = () => {
     return dateB.getTime() - dateA.getTime();
   });
 
-  // const filteredBlogs = allBlogs.filter((blog) => blog.metadata.title!.toLowerCase().includes(query.toLowerCase()));
-
-  // const blogsPerPage = 5;
-  // let totalPages = 0;
-  // let filteredBlogsLength = allBlogs.length;
-
-  // if (query) {
-  //   totalPages = Math.ceil(filteredBlogs.length / blogsPerPage);
-  // } else {
-  //   totalPages = Math.ceil(allBlogs.length / blogsPerPage);
-  // }
-
-  // filteredBlogs.splice(0, (currentPage - 1) * blogsPerPage);
-  // filteredBlogs.splice(blogsPerPage, filteredBlogs.length);
-
   return (
     <div className='mt-40 w-11/12 sm:w-3/4 mx-auto flex flex-col items-center gap-4'>
       <h1 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>All Blogs</h1>
       <div className='flex flex-col justify-center gap-4'>
-        {/* <Search placeholder='Search blog title' /> */}
-        {/* if query display filteredBlogs else show all blog */}
         {allBlogs.length > 0 ? (
           allBlogs.map((blog) => (
             <BlogPost
@@ -56,7 +34,7 @@ const BlogPage = () => {
               readingTime={blog.readingTime}
               publishedAt={blog.metadata.publishedAt!}
               tags={blog.metadata.tags!}
-              views={false}
+              views={true}
             />
           ))
         ) : (
@@ -64,12 +42,6 @@ const BlogPage = () => {
             No blogs found
           </p>
         )}
-        {/* if totalPages > 0 */}
-        {/* {totalPages > 1 && (
-          <div className='mt-5 flex w-full justify-center'>
-            <Pagination totalPages={totalPages} />
-          </div>
-        )} */}
       </div>
       <h2 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>Medium</h2>
       <div className='mb-10 flex flex-col justify-center gap-4'>

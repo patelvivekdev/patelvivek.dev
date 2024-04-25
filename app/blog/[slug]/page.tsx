@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
+import { Suspense, cache } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -13,6 +13,7 @@ import { getViewsCount } from '@/lib/get-views';
 import Progress from '@/components/ui/progress';
 import IncreaseView from './IncreaseView';
 import { Button } from '@/components/ui/button';
+import { increment } from '@/app/actions';
 
 // export function generateStaticParams() {
 //   const blogs = getBlogs();
@@ -20,7 +21,7 @@ import { Button } from '@/components/ui/button';
 // }
 
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
-  const blog = getBlog(params.slug);
+  const blog = getBlogs().find((post) => post.slug === params.slug);
 
   if (!blog) {
     return notFound();
@@ -63,7 +64,7 @@ function getDateTime(date: string) {
 }
 
 export default function Blog({ params }: { params: any }) {
-  const blog = getBlog(params.slug);
+  const blog = getBlogs().find((post) => post.slug === params.slug);
 
   if (!blog) {
     return notFound();
@@ -131,7 +132,7 @@ export default function Blog({ params }: { params: any }) {
           <Suspense fallback={<p>---</p>}>
             <Views slug={blog.slug} />
           </Suspense>
-          <IncreaseView slug={blog.slug} published={blog.metadata.published!} />
+          {/* <IncreaseView slug={blog.slug} published={blog.metadata.published!} /> */}
         </div>
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
           <CustomMDX
@@ -147,9 +148,11 @@ export default function Blog({ params }: { params: any }) {
   );
 }
 
+let incrementViews = cache(increment);
+
 async function Views({ slug }: { slug: string }) {
   let views = await getViewsCount();
-
+  incrementViews(slug);
   return <ViewCounter allViews={views} slug={slug} />;
 }
 
