@@ -5,14 +5,9 @@ import { toast } from 'react-hot-toast';
 
 const Pre = (props: any) => {
   const textInput = useRef<any>(null);
-  const [hovered, setHovered] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const onEnter = () => {
-    setHovered(true);
-  };
   const onExit = () => {
-    setHovered(false);
     setCopied(false);
   };
   const onCopy = () => {
@@ -28,14 +23,12 @@ const Pre = (props: any) => {
   };
 
   return (
-    <div ref={textInput} onMouseEnter={onEnter} onMouseLeave={onExit} className='relative'>
-      {hovered && (
-        <button aria-label='Copy code' type='button' className='absolute right-2 top-2 h-8 w-8' onClick={onCopy}>
-          {copied ? <Clipboard className='text-[#80d1a9]' /> : <Clipboard className='text-white' />}
-        </button>
-      )}
-      <pre>{props.children}</pre>
-    </div>
+    <pre ref={textInput} onMouseLeave={onExit} className='flex flex-row justify-between gap-3'>
+      {props.children}
+      <button aria-label='Copy code' type='button' className='h-4 w-4' onClick={onCopy}>
+        {copied ? <Clipboard className='text-[#80d1a9]' /> : <Clipboard className='text-white' />}
+      </button>
+    </pre>
   );
 };
 

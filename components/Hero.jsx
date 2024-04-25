@@ -1,44 +1,46 @@
 import React from 'react';
+import Image from 'next/image';
+import Me from '@/public/vivek.jpg';
+import Link from 'next/link';
 
 export default function Hero() {
   return (
-    <>
-      <div className='mt-32 sm:mt-40'>
-        <div
-          style={{
-            backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
-          }}
-          className='
-					dark:bg-gradient-conic bg-gradient-conic absolute inset-auto 
-					right-1/2 h-28 w-1/2 overflow-visible
-					from-black
-					via-transparent to-transparent text-black [--conic-position:from_70deg_at_center_top] dark:from-white/65 dark:via-transparent 
-					dark:to-transparent dark:text-white dark:[--conic-position:from_70deg_at_center_top] sm:h-36 md:h-40 lg:h-56'
-        ></div>
-        <div
-          style={{
-            backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
-          }}
-          className='dark:bg-gradient-conic bg-gradient-conic absolute
-		  			inset-auto left-1/2 h-28 w-1/2
-		  			from-transparent 
-					via-transparent to-black text-black [--conic-position:from_290deg_at_center_top] dark:from-transparent dark:via-transparent
-					dark:to-white/65 dark:text-white dark:[--conic-position:from_290deg_at_center_top] sm:h-36 md:h-40 lg:h-56'
-        ></div>
+    <div className='grid grid-cols-1 sm:grid-cols-3 gap-3 place-content-center font-medium'>
+      <div className='flex flex-col gap-4 sm:col-span-2 justify-center'>
+        <h1 className='text-xl text-center sm:text-start sm:text-3xl font-bold dark:text-neutral-50 text-neutral-900'>
+          Hey, I&rsquo;m Vivek Patel
+          <span>👋</span>
+        </h1>
+        <h2 className='text-base sm:text-base md:text-lg lg:text-xl'>
+          <span className='dark:text-neutral-50 text-neutral-900'>A web developer who loves photography.</span>
+        </h2>
+        <h3 className='text-base sm:text-base md:text-lg lg:text-xl'>
+          I am a software engineer from Canada. I am passionate about Javascript, React, Next.js, and Python.
+        </h3>
+        <h3 className='text-base sm:text-base md:text-lg lg:text-xl'>
+          Beyond the screen, I am an avid{' '}
+          <span className='underline decoration-2 underline-offset-4 decoration-sky-500'>photographer</span>, capturing the
+          life&rsquo;s beautiful moments through my lens.
+        </h3>
+        <h3 className='text-base sm:text-base md:text-lg lg:text-xl'>
+          My dedication to continuous learning and mastery of new technologies ensures I stay at the forefront of web development.
+        </h3>
+        <div className='text-center mt-2'>
+          <Link className='border w-min px-3 py-2 bg-indigo-500 rounded-lg text-white font-bold hover:underline' href='/resume'>
+            Resume
+          </Link>
+        </div>
       </div>
-      <h1 className='z-50 mt-3 py-4 text-center font-medium tracking-tight sm:mt-8'>
-        <span className='flex flex-col items-center justify-center'>
-          <p className='text-xl sm:text-3xl md:text-4xl lg:text-7xl '>
-            <span className='text-zinc-200 dark:text-zinc-100'>Hey, I&rsquo;m Vivek Patel</span>
-            <span>👋</span>
-          </p>
-          <p className='text-lg sm:text-2xl md:text-3xl lg:text-5xl'>
-            <span>
-              <span className='text-zinc-200 dark:text-zinc-100'>A web developer who loves photography.</span>
-            </span>
-          </p>
-        </span>
-      </h1>
-    </>
+      <div className='col-span-1 flex flex-row justify-center items-center gap-4'>
+        <Image
+          src={Me}
+          width={300}
+          height={300}
+          priority={true}
+          className='rounded-md object-cover shadow-xl shadow-[#8184f8] dark:shadow-indigo-500'
+          alt='Picture of Vivek Patel'
+        />
+      </div>
+    </div>
   );
 }

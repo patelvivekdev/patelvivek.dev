@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { Calendar } from 'lucide-react';
 
 import { CustomMDX } from '@/components/mdx';
-import { getBlog } from '@/lib/get-blogs';
+import { getBlog, getBlogs } from '@/lib/get-blogs';
 import { formatDate } from '@/lib/utils';
 import ViewCounter from '@/app/blog/views';
 import { getViewsCount } from '@/lib/get-views';
@@ -14,9 +14,9 @@ import Progress from '@/components/ui/progress';
 import IncreaseView from './IncreaseView';
 import { Button } from '@/components/ui/button';
 
-// export async function generateStaticParams() {
-//   const posts = await getBlogs();
-//   return posts.map((blog) => ({ slug: blog.slug }));
+// export function generateStaticParams() {
+//   const blogs = getBlogs();
+//   return blogs.map((blog) => ({ slug: blog.slug }));
 // }
 
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
@@ -101,8 +101,8 @@ export default function Blog({ params }: { params: any }) {
             variant='outline'
             className='
           mb-5 cursor-pointer text-lg font-semibold 
-          border-gray-500  bg-gray-300 text-gray-800 hover:bg-gray-600 hover:text-gray-300 
-          dark:border-gray-500 dark:bg-gray-400 dark:text-black dark:hover:bg-gray-200'
+          border-neutral-800 text-neutral-800 hover:underline
+          dark:border-neutral-300 dark:text-neutral-300'
           >
             &larr; Back to Blogs
           </Button>

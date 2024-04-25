@@ -68,7 +68,7 @@ export default function ContactMeForm() {
           </span>
         )}
       </div>
-      <SubmitButton name='submit' className='mt-4 bg-slate-600 text-white' />
+      <SubmitButton name='submit' className='mt-4 bg-indigo-500 text-white' />
     </form>
   );
 }

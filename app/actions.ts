@@ -3,14 +3,6 @@ import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
 import supabase from '@/lib/supabase/private';
 import { z } from 'zod';
 
-//  Response type
-type Response = {
-  statusCode: number;
-  data: any;
-  message: string;
-  success: boolean;
-};
-
 // =============================== Increment View ===============================
 export async function increment(slug: string) {
   noStore();

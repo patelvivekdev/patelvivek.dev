@@ -3,16 +3,16 @@ import { notFound } from 'next/navigation';
 import { Calendar } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getProject } from '@/lib/get-projects';
+import { getProject, getProjects } from '@/lib/get-projects';
 import { CustomMDX } from '@/components/mdx';
 import { formatDate } from '@/lib/utils';
 import Progress from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 
-// export function generateStaticParams() {
-//   const posts = getProjects();
-//   return posts.map((project) => ({ slug: project.slug }));
-// }
+export function generateStaticParams() {
+  const projects = getProjects();
+  return projects.map((project) => ({ slug: project.slug }));
+}
 
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
   const project = getProject(params.slug);
@@ -66,9 +66,11 @@ export default function Project({ params }: { params: any }) {
           <Button
             variant='outline'
             className='
-          mb-5 cursor-pointer text-lg font-semibold 
-          border-gray-500  bg-gray-300 text-gray-800 hover:bg-gray-600 hover:text-gray-300 
-          dark:border-gray-500 dark:bg-gray-400 dark:text-black dark:hover:bg-gray-200'
+            cursor-pointer text-lg font-semibold border-2 mb-5
+            border-neutral-800 text-neutral-800 hover:underline
+            dark:border-neutral-300 dark:text-neutral-300
+            hover:border-indigo-500 hover:dark:border-indigo-500
+          '
           >
             &larr; Back to Projects
           </Button>
@@ -86,7 +88,6 @@ export default function Project({ params }: { params: any }) {
             </span>
           </p>
         </div>
-        <hr />
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
           <CustomMDX
             components={{

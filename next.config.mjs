@@ -13,9 +13,6 @@ const nextConfig = {
         port: '',
         pathname: '/static/media/**',
       },
-      {
-        hostname: 'firebasestorage.googleapis.com',
-      },
     ],
   },
   transpilePackages: ['next-mdx-remote'],
