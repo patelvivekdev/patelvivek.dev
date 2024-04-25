@@ -7,12 +7,16 @@ import RecentBlogs from '@/components/RecentBlogs';
 
 export default function Home() {
   return (
-    <div className='relative flex w-11/12 sm:w-3/4 mx-auto text-[#31363F] dark:text-[#EEEEEE]  flex-col items-center gap-3 sm:gap-5'>
+    <div className='mt-32 sm:mt-40 relative flex w-11/12 sm:w-3/4 mx-auto text-[#31363F] dark:text-[#EEEEEE]  flex-col items-center gap-3 sm:gap-5'>
+      <h1 className='text-center text-2xl font-bold tracking-tight md:text-4xl'>
+        About
+        <hr />
+      </h1>
       <Hero />
-      <h3 className='text-center text-2xl font-bold tracking-tight md:text-4xl'>
+      <h1 className='text-center text-2xl font-bold tracking-tight md:text-4xl'>
         Latest Project
         <hr />
-      </h3>
+      </h1>
       <div className='grid grid-cols-1 gap-4 p-5 sm:p-10'>
         <ProjectCard
           title='Market-hub'

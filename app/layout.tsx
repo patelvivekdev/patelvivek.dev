@@ -28,6 +28,14 @@ export const metadata: Metadata = {
     description: 'Full Stack Developer, writer, and photographer.',
     url: 'https://patelvivek.dev',
     siteName: 'Vivek Patel',
+    images: [
+      {
+        url: 'https://patelvivek.dev/og?title=Vivek%20Patel',
+        width: 1200,
+        height: 630,
+        alt: 'Vivek Patel',
+      },
+    ],
     locale: 'en_US',
     type: 'website',
   },
