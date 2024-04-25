@@ -1,44 +1,27 @@
 import React from 'react';
+import Image from 'next/image';
+import Me from '@/public/vivek.jpg';
 
 export default function Hero() {
   return (
-    <>
-      <div className='mt-32 sm:mt-40'>
-        <div
-          style={{
-            backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
-          }}
-          className='
-					dark:bg-gradient-conic bg-gradient-conic absolute inset-auto 
-					right-1/2 h-28 w-1/2 overflow-visible
-					from-black
-					via-transparent to-transparent text-black [--conic-position:from_70deg_at_center_top] dark:from-white/65 dark:via-transparent 
-					dark:to-transparent dark:text-white dark:[--conic-position:from_70deg_at_center_top] sm:h-36 md:h-40 lg:h-56'
-        ></div>
-        <div
-          style={{
-            backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
-          }}
-          className='dark:bg-gradient-conic bg-gradient-conic absolute
-		  			inset-auto left-1/2 h-28 w-1/2
-		  			from-transparent 
-					via-transparent to-black text-black [--conic-position:from_290deg_at_center_top] dark:from-transparent dark:via-transparent
-					dark:to-white/65 dark:text-white dark:[--conic-position:from_290deg_at_center_top] sm:h-36 md:h-40 lg:h-56'
-        ></div>
+    <div className='mt-32 sm:mt-40 grid grid-cols-2 place-content-center font-medium'>
+      <div>
+        <h1 className='text-xl sm:text-3xl md:text-4xl lg:text-5xl dark:text-neutral-50 text-neutral-900'>
+          Hey, I&rsquo;m Vivek Patel
+          <span>👋</span>
+        </h1>
+        <h2 className='text-lg sm:text-2xl md:text-3xl lg:text-3xl'>
+          <span className='dark:text-neutral-50 text-neutral-900'>A web developer who loves photography.</span>
+        </h2>
       </div>
-      <h1 className='z-50 mt-3 py-4 text-center font-medium tracking-tight sm:mt-8'>
-        <span className='flex flex-col items-center justify-center'>
-          <p className='text-xl sm:text-3xl md:text-4xl lg:text-7xl '>
-            <span className='text-zinc-200 dark:text-zinc-100'>Hey, I&rsquo;m Vivek Patel</span>
-            <span>👋</span>
-          </p>
-          <p className='text-lg sm:text-2xl md:text-3xl lg:text-5xl'>
-            <span>
-              <span className='text-zinc-200 dark:text-zinc-100'>A web developer who loves photography.</span>
-            </span>
-          </p>
-        </span>
-      </h1>
-    </>
+      <Image
+        src={Me}
+        width={300}
+        height={300}
+        priority={true}
+        className='rounded-md object-cover shadow-2xl shadow-zinc-500 dark:shadow-indigo-500'
+        alt='Picture of Vivek Patel'
+      />
+    </div>
   );
 }
