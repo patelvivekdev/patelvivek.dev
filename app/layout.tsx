@@ -62,7 +62,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='en' className='dark'>
       <head>
         <Script defer src='https://us.umami.is/script.js' data-website-id='aa7603cb-3e5d-474c-b1a5-f92e18751e5c' />
       </head>
