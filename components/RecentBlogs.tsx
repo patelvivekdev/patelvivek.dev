@@ -6,8 +6,6 @@ import { Suspense } from 'react';
 export default function RecentBlogs() {
   let blogs = getLatestBlogs();
 
-  blogs = blogs.filter((blog) => blog.metadata && blog.metadata.published === true);
-
   return (
     <>
       {blogs.length === 0 ? (

@@ -49,13 +49,17 @@ export const getBlogs = cache(() => {
 });
 
 export function getBlog(slug: string) {
-  const blogs = getBlogs();
+  let blogs = getBlogs();
+  if (process.env.APP_ENV !== 'development') {
+    blogs = blogs.filter((blog) => blog.metadata && blog.metadata.published === true);
+  }
   const blog = blogs.find((blog) => blog.slug === slug);
   return blog;
 }
 
 export function getLatestBlogs() {
-  const blogs = getBlogs();
+  let blogs = getBlogs();
+  blogs = blogs.filter((blog) => blog.metadata && blog.metadata.published === true);
 
   // Sort by date
   const allBlogs = blogs.sort((a, b) => {
