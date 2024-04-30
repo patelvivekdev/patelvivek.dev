@@ -1,0 +1,86 @@
+---
+title: 'How to add copy to clipboard button.'
+publishedAt: 'April 25, 2024'
+slug: 'copy-to-clipboard'
+summary: 'Adding copy button in mdx in next js app router'
+tags: mdx, copy, react
+published: false
+---
+
+## Introduction
+
+> This tutorial provides a straightforward method to add a copy-to-clipboard button in an MDX file within a Next.js application.
+
+## Technology
+
+- **MDX:** A powerful markup language that combines the best of Markdown and JSX, allowing you to write content with components and logic.
+- **Next.js (App Router):** A React framework for building server-rendered and static web applications with routing and data fetching.
+- **React:** A popular JavaScript library for building user interfaces.
+- **Tailwind CSS:** A utility-first CSS framework for rapidly building custom designs.
+- **Bright:** A modern React server component for syntax highlighting
+
+## Setup
+
+### Next Mdx Remote
+
+Next Mdx Remote is a library that allows you to load MDX files remotely, making it easy to create dynamic content that can be updated without redeploying your application.
+
+To use Next Mdx Remote, you can install it using the following command:
+
+```
+npm install next-mdx-remote
+```
+
+Once installed, you can import it into your application and use it to load MDX files from a remote URL:
+
+```
+import { MdxRemote } from 'next-mdx-remote';
+
+const MyComponent = () => {
+  return (
+    <MdxRemote
+      src="https://example.com/my-mdx-file.mdx"
+    />
+  );
+};
+
+export default MyComponent;
+```
+
+This will load the MDX file from the specified URL and render it as a React component.
+
+### Custom Components
+
+You can add custom components to your MDX files using the `<MdxRemote.Components>` component. This allows you to define your own components that can be used within your MDX content.
+
+For example, you could define a custom component for a copy-to-clipboard button as follows:
+
+```
+import { MdxRemote } from 'next-mdx-remote';
+
+const CopyButton = () => {
+  // Logic for copying text to clipboard
+};
+
+const MyComponent = () => {
+  return (
+    <MdxRemote
+      src="https://example.com/my-mdx-file.mdx"
+      components={{ CopyButton }}
+    />
+  );
+};
+
+export default MyComponent;
+```
+
+This would allow you to use the `<CopyButton>` component within your MDX file as follows:
+
+```
+<CopyButton />
+```
+
+## Links
+
+- [Github repo](https://www.github.com/patelvivekdev/copy-to-clipboard)
+- [Live demo](https://copy-to-clipboard-patelvivekdev.vercel.app/)

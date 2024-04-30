@@ -17,7 +17,7 @@ const ContactPage = () => {
         {' '}
         Have a question? Fill out my contact form or reach out via social media for a quick response.
       </h2>
-      <div className='w-full grid grid-col-1 sm:grid-cols-2 gap-4 m-10 justify-between'>
+      <div className='w-full grid grid-col-1 sm:grid-cols-2 gap-8 m-10 sm:justify-between'>
         <div className='flex flex-col justify-evenly gap-4'>
           <div className='flex flex-col gap-5'>
             <p className='text-xl'>
@@ -35,13 +35,13 @@ const ContactPage = () => {
           </div>
           <div className='flex flex-row gap-5 place-content-center'>
             <a href='https://www.linkedin.com/in/patelvivekdev' target='_blank' rel='noopener noreferrer'>
-              <Linkedin className='h-8 w-8 hover:text-indigo-400' />
+              <Linkedin className='h-12 w-12 hover:text-indigo-400' />
             </a>
             <a href='https://github.com/patelvivekdev' target='_blank' rel='noopener noreferrer'>
-              <Github className='h-8 w-8 hover:text-indigo-400' />
+              <Github className='h-12 w-12 hover:text-indigo-400' />
             </a>
             <a href='https://www.twitter.com/patelvivekdev' target='_blank' rel='noopener noreferrer'>
-              <Twitter className='h-8 w-8 hover:text-indigo-400' />
+              <Twitter className='h-12 w-12 hover:text-indigo-400' />
             </a>
           </div>
         </div>

@@ -2,9 +2,9 @@ import matter from 'gray-matter';
 import fs from 'fs';
 import path from 'path';
 import { cache } from 'react';
-import readingDuration from 'reading-duration';
+import { getReadingTime } from './utils';
 
-const PROJECTS_FOLDER = path.join(process.cwd(), 'projects');
+const PROJECTS_FOLDER = path.join(process.cwd(), 'content', 'projects');
 
 type Metadata = {
   title: string;
@@ -12,14 +12,6 @@ type Metadata = {
   description: string;
   image?: string;
   tags: string;
-};
-
-export const getReadingTime = (content: string) => {
-  const readingTime = readingDuration(content, {
-    wordsPerMinute: 100,
-    emoji: 'open_book',
-  });
-  return readingTime;
 };
 
 function getProjectFiles(dir: string) {

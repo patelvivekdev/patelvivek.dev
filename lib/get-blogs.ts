@@ -2,9 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { cache } from 'react';
-import readingDuration from 'reading-duration';
+import { getReadingTime } from './utils';
 
-const BLOGS_FOLDER = path.join(process.cwd(), 'blogs');
+// import { getMdxFiles, getReadingTime } from './utils';
+
+const BLOGS_FOLDER = path.join(process.cwd(), 'content', 'blogs');
 
 type Metadata = {
   title: string;
@@ -13,14 +15,6 @@ type Metadata = {
   image?: string;
   tags: string;
   published: boolean;
-};
-
-export const getReadingTime = (content: string) => {
-  const readingTime = readingDuration(content, {
-    wordsPerMinute: 100,
-    emoji: 'open_book',
-  });
-  return readingTime;
 };
 
 function getBlogFiles(dir: string) {
@@ -49,13 +43,17 @@ export const getBlogs = cache(() => {
 });
 
 export function getBlog(slug: string) {
-  const blogs = getBlogs();
+  let blogs = getBlogs();
+  if (process.env.APP_ENV !== 'development') {
+    blogs = blogs.filter((blog) => blog.metadata && blog.metadata.published === true);
+  }
   const blog = blogs.find((blog) => blog.slug === slug);
   return blog;
 }
 
 export function getLatestBlogs() {
-  const blogs = getBlogs();
+  let blogs = getBlogs();
+  blogs = blogs.filter((blog) => blog.metadata && blog.metadata.published === true);
 
   // Sort by date
   const allBlogs = blogs.sort((a, b) => {

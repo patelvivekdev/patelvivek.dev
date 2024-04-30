@@ -16,11 +16,7 @@ export const FloatingNav = ({
   const pathname = usePathname();
 
   return (
-    <div
-      className={
-        'fixed inset-x-0 top-8 z-[5000] mx-auto flex max-w-fit items-center justify-center space-x-4 rounded-full dark:bg-neutral-50 px-4 py-2 bg-neutral-950'
-      }
-    >
+    <div className='hidden md:flex fixed inset-x-0 top-8 z-[5000] mx-auto  max-w-fit items-center justify-center space-x-4 rounded-full dark:bg-neutral-50 px-4 py-2 bg-neutral-950'>
       {navItems.map((navItem: any, idx: number) => (
         <Link
           key={`link=${idx}`}
@@ -28,12 +24,12 @@ export const FloatingNav = ({
           className={cn('relative flex items-center space-x-1 dark:text-neutral-950 hover:underline text-neutral-50')}
         >
           {pathname === navItem.link && (
-            <span className='relative dark:border-neutral-950 py-2 font-bold dark:text-neutral-950 border-indigo-500 text-neutral-50 sm:px-1 sm:text-sm lg:rounded-full lg:border lg:px-4'>
+            <span className='relative dark:border-neutral-950 py-2 font-bold dark:text-neutral-950 border-indigo-500 text-neutral-50 md:rounded-full md:border md:px-4'>
               {navItem.name}
             </span>
           )}
           {pathname !== navItem.link && (
-            <span className='relative rounded-full py-2 text-sm font-bold sm:px-1 lg:px-4'>{navItem.name}</span>
+            <span className='relative rounded-full py-2 text-sm font-bold md:px-4'>{navItem.name}</span>
           )}
         </Link>
       ))}
