@@ -1,0 +1,77 @@
+---
+title: Adding toast
+description: How to add toast in React/Next JS
+slug: toast
+published: true
+publishedAt: April 29, 2024
+tags: 'Next, React, JSX, Markdown, Blog, Toast, React-Hot-Toast'
+---
+
+## Install
+
+```bash
+npm install react-hot-toast
+```
+
+## Add toast
+
+### Adding Toaster To root Layout
+
+```tsx
+import { Toaster } from 'react-hot-toast';
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang='en'>
+      <body className={inter.className}>
+        <div className='container'></div>
+        {children}
+        <Toaster position='top-right' />
+      </body>
+    </html>
+  );
+}
+```
+
+### Using toast in Components
+
+```tsx
+import toast from 'react-hot-toast';
+
+const handleClick = () => {
+  toast.success('This is a success toast');
+};
+
+export default function App() {
+  return (
+    <div>
+      <button onClick={handleClick}>Show Toast</button>
+    </div>
+  );
+}
+```
+
+## Add toast with options
+
+### Types
+
+- Success
+- Error
+- Loading
+
+### Example
+
+```tsx
+toast.success('This is a success toast');
+toast.error('This is an error toast');
+toast.loading('This is a loading toast');
+```
+
+## Link
+
+- Learn More About API at [React-Hot-Toast](https://react-hot-toast.com/docs)
+- Github repo of [react-hot-toast](https://github.com/timolins/react-hot-toast)

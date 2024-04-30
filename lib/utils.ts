@@ -1,6 +1,9 @@
+// import fs from 'fs';
+// import path from 'path';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { unstable_noStore as noStore } from 'next/cache';
+import readingDuration from 'reading-duration';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -59,4 +62,17 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
   // show the first page, an ellipsis, the current page and its neighbors,
   // another ellipsis, and the last page.
   return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
+};
+
+// Get Markdown files
+// export function getMdxFiles(dir: string) {
+//   return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx' || path.extname(file) === '.md');
+// }
+
+export const getReadingTime = (content: string) => {
+  const readingTime = readingDuration(content, {
+    wordsPerMinute: 100,
+    emoji: 'open_book',
+  });
+  return readingTime;
 };

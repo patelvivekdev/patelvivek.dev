@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { Calendar } from 'lucide-react';
 
 import { CustomMDX } from '@/components/mdx';
-import { getBlog, getBlogs } from '@/lib/get-blogs';
+import { getSnippets } from '@/lib/get-snippets';
 import { formatDate } from '@/lib/utils';
 import ViewCounter from '@/app/blog/views';
 import { getViewsCount } from '@/lib/get-views';
@@ -14,19 +14,14 @@ import Progress from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { increment } from '@/app/actions';
 
-// export function generateStaticParams() {
-//   const blogs = getBlogs();
-//   return blogs.map((blog) => ({ slug: blog.slug }));
-// }
-
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
-  const blog = getBlogs().find((post) => post.slug === params.slug);
+  const snippet = getSnippets().find((snippet) => snippet.slug === params.slug);
 
-  if (!blog) {
+  if (!snippet) {
     return notFound();
   }
 
-  let { title, publishedAt: publishedTime, summary: description, image, tags } = blog.metadata;
+  let { title, publishedAt: publishedTime, description, image, tags } = snippet.metadata;
 
   const newTags = tags ? tags.split(',') : [];
 
@@ -41,7 +36,7 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
       description,
       type: 'article',
       publishedTime,
-      url: `https://patelvivek.dev/blog/${blog.slug}`,
+      url: `https://patelvivek.dev/blog/${snippet.slug}`,
       images: [
         {
           url: ogImage,
@@ -63,9 +58,9 @@ function getDateTime(date: string) {
 }
 
 export default function Blog({ params }: { params: any }) {
-  const blog = getBlogs().find((post) => post.slug === params.slug);
+  const snippet = getSnippets().find((snippet) => snippet.slug === params.slug);
 
-  if (!blog) {
+  if (!snippet) {
     return notFound();
   }
 
@@ -80,14 +75,14 @@ export default function Blog({ params }: { params: any }) {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'BlogPosting',
-              headline: blog.metadata.title,
-              datePublished: getDateTime(blog.metadata.publishedAt!),
-              dateModified: getDateTime(blog.metadata.publishedAt!),
-              description: blog.metadata.summary!,
-              image: blog.metadata.image
-                ? `https://patelvivek.dev${blog.metadata.image}`
-                : `https://patelvivek.dev/og?title=${blog.metadata.title}`,
-              url: `https://patelvivek.dev/blog/${blog.slug}`,
+              headline: snippet.metadata.title,
+              datePublished: getDateTime(snippet.metadata.publishedAt!),
+              dateModified: getDateTime(snippet.metadata.publishedAt!),
+              description: snippet.metadata.description!,
+              image: snippet.metadata.image
+                ? `https://patelvivek.dev${snippet.metadata.image}`
+                : `https://patelvivek.dev/og?title=${snippet.metadata.title}`,
+              url: `https://patelvivek.dev/snippet/${snippet.slug}`,
               author: {
                 '@type': 'Person',
                 name: 'Vivek Patel',
@@ -96,7 +91,7 @@ export default function Blog({ params }: { params: any }) {
             }),
           }}
         />
-        <Link href='/blog'>
+        <Link href='/snippet'>
           <Button
             variant='outline'
             className='
@@ -104,13 +99,13 @@ export default function Blog({ params }: { params: any }) {
           border-neutral-800 text-neutral-800 hover:underline
           dark:border-neutral-300 dark:text-neutral-300'
           >
-            &larr; Back to Blogs
+            &larr; Back to Snippets
           </Button>
         </Link>
-        <h1 className='text-start text-xl sm:text-4xl font-bold'>{blog.metadata.title}</h1>
+        <h1 className='text-start text-xl sm:text-4xl font-bold'>{snippet.metadata.title}</h1>
         <div className='mb-4 mt-2 flex items-center justify-between'>
           <p className='text-lg text-neutral-700 dark:text-neutral-300'>
-            <span className='flex flex-row items-center gap-2'>{blog.metadata.summary}</span>
+            <span className='flex flex-row items-center gap-2'>{snippet.metadata.description}</span>
           </p>
         </div>
         <div className='mb-8 mt-2 flex items-center justify-between'>
@@ -124,12 +119,12 @@ export default function Blog({ params }: { params: any }) {
                   </>
                 }
               >
-                <Calendar /> {formatDate(blog.metadata.publishedAt!)} | {blog.readingTime}
+                <Calendar /> {formatDate(snippet.metadata.publishedAt!)} | {snippet.readingTime}
               </Suspense>
             </span>
           </p>
           <Suspense fallback={<p>---</p>}>
-            <Views slug={blog.slug} />
+            <Views slug={snippet.slug} />
           </Suspense>
           {/* <IncreaseView slug={blog.slug} published={blog.metadata.published!} /> */}
         </div>
@@ -139,7 +134,7 @@ export default function Blog({ params }: { params: any }) {
               img: RoundedImage,
             }}
           >
-            {blog.content}
+            {snippet.content}
           </CustomMDX>
         </article>
       </section>
