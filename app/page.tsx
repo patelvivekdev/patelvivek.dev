@@ -2,6 +2,7 @@ import Hero from '@/components/Hero';
 import ProjectCard from '@/components/ProjectCard';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 import RecentBlogs from '@/components/RecentBlogs';
 
@@ -10,6 +11,16 @@ export default function Home() {
     <div className='mt-32 sm:mt-40 relative flex w-11/12 sm:w-3/4 mx-auto text-[#31363F] dark:text-[#EEEEEE] flex-col items-center gap-3 sm:gap-6'>
       <h1 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>About</h1>
       <Hero />
+      {/* <h2 className='mt-2 text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>Github States</h2>
+      <div className='text-center gap-4'>
+        <Image
+          src='http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=patelvivekdev&theme=github'
+          width={500}
+          height={500}
+          alt='Github'
+          className='cursor-pointer'
+        />
+      </div> */}
       <h2 className='mt-2 text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>Latest Project</h2>
       <div className='grid grid-cols-1 gap-4'>
         <ProjectCard

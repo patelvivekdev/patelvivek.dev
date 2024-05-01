@@ -11,12 +11,16 @@ const nextConfig = {
     },
   },
   images: {
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'patelvivek.dev',
         port: '',
         pathname: '/static/media/**',
+      },
+      {
+        hostname: 'github-profile-summary-cards.vercel.app',
       },
     ],
   },
