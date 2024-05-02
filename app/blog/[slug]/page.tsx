@@ -3,7 +3,7 @@ import { Suspense, cache } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Calendar } from 'lucide-react';
+import { Calendar, Eye } from 'lucide-react';
 
 import { CustomMDX } from '@/components/mdx';
 import { getBlog, getBlogs } from '@/lib/get-blogs';
@@ -70,7 +70,7 @@ export default function Blog({ params }: { params: any }) {
   }
 
   return (
-    <div className='mx-auto mt-40 w-11/12 sm:w-3/4'>
+    <div className='mx-auto mt-16 sm:mt-40 w-11/12 sm:w-3/4'>
       <Progress />
       <section>
         <script
@@ -96,42 +96,41 @@ export default function Blog({ params }: { params: any }) {
             }),
           }}
         />
-        <Link href='/blog'>
-          <Button
-            variant='outline'
-            className='
-          mb-5 cursor-pointer text-lg font-semibold 
-          border-neutral-800 text-neutral-800 hover:underline
-          dark:border-neutral-300 dark:text-neutral-300'
-          >
-            &larr; Back to Blogs
-          </Button>
-        </Link>
-        <h1 className='text-start text-xl sm:text-4xl font-bold'>{blog.metadata.title}</h1>
-        <div className='mb-4 mt-2 flex items-center justify-between'>
-          <p className='text-lg text-neutral-700 dark:text-neutral-300'>
-            <span className='flex flex-row items-center gap-2'>{blog.metadata.summary}</span>
-          </p>
-        </div>
-        <div className='mb-8 mt-2 flex items-center justify-between'>
-          <p className='text-base text-neutral-700 dark:text-neutral-300'>
+        <div className='flex flex-col gap-4'>
+          <Link href='/blog'>
+            <Button
+              variant='outline'
+              className='
+            mb-5 cursor-pointer text-lg font-semibold 
+            border-neutral-800 text-neutral-800 hover:underline
+            dark:border-neutral-300 dark:text-neutral-300'
+            >
+              &larr; Back to Blogs
+            </Button>
+          </Link>
+          <h1 className='text-start text-2xl sm:text-4xl font-bold'>{blog.metadata.title}</h1>
+          <h2 className='text-xl text-neutral-700 dark:text-neutral-300'>{blog.metadata.summary}</h2>
+          <div className='flex flex-col gap-2 sm:flex-row sm:items-center justify-between'>
+            <p className='text-base text-neutral-700 dark:text-neutral-300'>
+              <span className='flex flex-row items-center gap-2'>
+                <Suspense
+                  fallback={
+                    <>
+                      <Calendar />
+                      <p>---</p>
+                    </>
+                  }
+                >
+                  <Calendar /> {formatDate(blog.metadata.publishedAt!)} | {blog.readingTime}
+                </Suspense>
+              </span>
+            </p>
             <span className='flex flex-row items-center gap-2'>
-              <Suspense
-                fallback={
-                  <>
-                    <Calendar />
-                    <p>---</p>
-                  </>
-                }
-              >
-                <Calendar /> {formatDate(blog.metadata.publishedAt!)} | {blog.readingTime}
+              <Suspense fallback={<p>----</p>}>
+                <Eye /> <Views slug={blog.slug} />
               </Suspense>
             </span>
-          </p>
-          <Suspense fallback={<p>---</p>}>
-            <Views slug={blog.slug} />
-          </Suspense>
-          {/* <IncreaseView slug={blog.slug} published={blog.metadata.published!} /> */}
+          </div>
         </div>
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
           <CustomMDX

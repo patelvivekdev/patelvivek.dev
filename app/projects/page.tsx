@@ -5,6 +5,20 @@ export const metadata: Metadata = {
   title: 'My Web Development Projects',
   description: 'Explore my portfolio of React, Next.js, and web development projects. See my skills in action.',
   keywords: 'React, Next.js, Projects, work, portfolio, web development, Vivek Patel',
+  openGraph: {
+    title: 'My Web Development Projects',
+    description: 'Explore my portfolio of React, Next.js, and web development projects. See my skills in action.',
+    url: 'https://patelvivek.dev/projects',
+    siteName: 'Vivek Patel',
+    images: [
+      {
+        url: 'https://patelvivek.dev/og?title=My%20Web%20Development%20Projects',
+        width: 1200,
+        height: 630,
+        alt: 'My Web Development Projects',
+      },
+    ],
+  },
 };
 
 const ProjectPage = () => {
@@ -51,7 +65,7 @@ const ProjectPage = () => {
   ];
 
   return (
-    <div className='mx-auto mt-40 mb-5 flex w-11/12 sm:w-3/4 flex-col items-center'>
+    <div className='mx-auto mt-16 sm:mt-40 mb-5 flex w-11/12 sm:w-3/4 flex-col items-center'>
       <h1 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>All Projects</h1>
       <h3 className='mb-8 mt-4 text-base'>Here are some of the projects I have worked on.</h3>
       <div className='grid grid-cols-1 gap-4'>

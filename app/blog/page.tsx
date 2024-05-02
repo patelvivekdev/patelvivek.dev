@@ -6,6 +6,20 @@ export const metadata: Metadata = {
   title: 'Read all the blogs I have written',
   description: 'Get practical tips and insights on React, Next.js, and modern web development techniques from my blog.',
   keywords: 'blogs, writing, articles, nextjs, react, javascript, web development, modern web development',
+  openGraph: {
+    title: 'Read all the blogs I have written',
+    description: 'Get practical tips and insights on React, Next.js, and modern web development techniques from my blog.',
+    url: 'https://patelvivek.dev/blog',
+    siteName: 'Vivek Patel',
+    images: [
+      {
+        url: 'https://patelvivek.dev/og?title=Read%20all%20the%20blogs%20I%20have%20written',
+        width: 1200,
+        height: 630,
+        alt: 'Read all the blogs I have written',
+      },
+    ],
+  },
 };
 
 const BlogPage = () => {
@@ -21,7 +35,7 @@ const BlogPage = () => {
   });
 
   return (
-    <div className='mt-40 w-11/12 sm:w-3/4 mx-auto flex flex-col items-center gap-4'>
+    <div className='mt-16 sm:mt-40 w-11/12 sm:w-3/4 mx-auto flex flex-col items-center gap-4'>
       <h1 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>All Blogs</h1>
       <div className='flex flex-col justify-center gap-4'>
         {allBlogs.length > 0 ? (

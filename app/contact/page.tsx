@@ -5,13 +5,28 @@ import { Linkedin } from 'lucide-react';
 import { Twitter } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Get in Touch | Vivek Patel',
+  title: 'Get in Touch',
   description: 'Want to get in touch? Reach out via social media for a quick response.',
+  keywords: 'contact, social media, email, linkedin, github, twitter',
+  openGraph: {
+    title: 'Get in Touch',
+    description: 'Want to get in touch? Reach out via social media for a quick response.',
+    url: 'https://patelvivek.dev/contact',
+    siteName: 'Vivek Patel',
+    images: [
+      {
+        url: 'https://patelvivek.dev/og?title=Get%20in%20Touch',
+        width: 1200,
+        height: 630,
+        alt: 'Get in Touch',
+      },
+    ],
+  },
 };
 
 const ContactPage = () => {
   return (
-    <div className='mt-32 sm:mt-40 relative flex w-11/12 sm:w-3/4 mx-auto text-[#31363F] dark:text-[#EEEEEE] flex-col items-center gap-3 sm:gap-6'>
+    <div className='mt-16 sm:mt-40 relative flex w-11/12 sm:w-3/4 mx-auto text-[#31363F] dark:text-[#EEEEEE] flex-col items-center gap-3 sm:gap-6'>
       <h1 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>Get in Touch</h1>
       <h2 className='text-2xl text-center font-bold text-gray-800 dark:text-white'>
         {' '}

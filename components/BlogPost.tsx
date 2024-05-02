@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import ViewCounter from '@/app/blog/views';
 import { getViewsCount } from '@/lib/get-views';
+import { Eye } from 'lucide-react';
 
 const BlogPost = ({
   title,
@@ -74,34 +75,36 @@ async function InternalBlogPost({
   return (
     <div className='rounded-md border border-neutral-400 bg-neutral-200 p-4 hover:border-neutral-800 hover:bg-neutral-300 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:border-zinc-100 dark:hover:bg-zinc-700'>
       <div className='flex flex-row justify-between'>
-        <h2 className='mb-2 w-full text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-100'>
+        <h2 className='mb-2 w-full text-2xl font-bold text-neutral-900 dark:text-neutral-100'>
           <Link href={`/blog/${slug}`} className='hover:underline cursor-pointer'>
             {title}
           </Link>
         </h2>
         {views && (
           <div className='mb-4 hidden w-32 text-right sm:block md:mb-0'>
-            <Suspense fallback={<p>--- Views</p>}>
-              <Views slug={slug} />
-            </Suspense>
+            <span className='flex flex-row items-center gap-2'>
+              <Suspense fallback={<p>--- Views</p>}>
+                <Eye /> <Views slug={slug} />
+              </Suspense>
+            </span>
           </div>
         )}
       </div>
       <div className='grid grid-cols-1 items-center gap-2 sm:grid-cols-2'>
         <div className='space-y-2'>
           <div className='flex flex-col justify-between gap-2'>
-            <p className='text-base font-medium text-gray-700 dark:text-gray-300'>
+            <p className='text-base font-medium text-neutral-800 dark:text-gray-300'>
               {publishedAt} | {readingTime}
             </p>
             {views && (
               <div className='mb-4 w-32 text-base sm:hidden md:mb-0'>
                 <Suspense fallback={<p>--- Views</p>}>
-                  <Views slug={slug} />
+                  <Eye /> <Views slug={slug} />
                 </Suspense>
               </div>
             )}
           </div>
-          <p className='text-base font-semibold text-gray-700 dark:text-gray-300'>{summary}</p>
+          <p className='text-xl font-semibold text-neutral-800 dark:text-gray-300'>{summary}</p>
         </div>
         <span className='flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
           {newTags?.map((tag) => (
@@ -143,26 +146,32 @@ function ExternalBlogPost({
   return (
     <div className='rounded-md border border-gray-300 bg-gray-200 p-4 hover:border-gray-300 hover:bg-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600 dark:hover:bg-slate-700'>
       <div className='flex flex-row justify-between'>
-        <h4 className='mb-2 w-full text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-100'>
+        <h4 className='mb-2 w-full text-2xl font-bold text-neutral-900 dark:text-neutral-100'>
           <a href={slug} target='_blank' rel='noopener noreferrer' className='hover:underline cursor-pointer'>
             {title}
           </a>
         </h4>
-        <div className='mb-4 hidden w-32 text-right text-base text-gray-700 dark:text-gray-200/75 sm:block md:mb-0'>
-          <p>{`${views ? views : '---'} views`}</p>
+        <div className='hidden w-32 text-right text-base text-neutral-800 dark:text-gray-200/75 sm:block md:mb-0'>
+          <span className='flex flex-row items-center gap-2'>
+            <Eye />
+            <p>{`${views ? views : '---'} views`}</p>
+          </span>
         </div>
       </div>
       <div className='grid grid-cols-1 items-center gap-2  sm:grid-cols-2'>
         <div className='space-y-2'>
           <div className='flex flex-col justify-between gap-2'>
-            <p className='text-base font-medium text-gray-700 dark:text-gray-200/75'>
+            <p className='text-base font-medium text-neutral-800 dark:text-gray-200/75'>
               {publishedAt} | {readingTime}
             </p>
-            <div className='mb-4 w-32 text-base text-gray-700 dark:text-gray-200/75 sm:hidden md:mb-0'>
-              <p>{`${views ? views : '---'} views`}</p>
+            <div className='w-32 text-base text-neutral-800 dark:text-gray-200/75 sm:hidden md:mb-0'>
+              <span className='flex flex-row items-center gap-2'>
+                <Eye />
+                <p>{`${views ? views : '---'} views`}</p>
+              </span>
             </div>
           </div>
-          <p className=' text-base font-medium text-gray-700 dark:text-gray-200/75'>{summary}</p>
+          <p className='text-xl font-medium text-neutral-800 dark:text-gray-200/75'>{summary}</p>
         </div>
         <span className='mr-2 flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
           {tags?.split(',').map((tag) => (
