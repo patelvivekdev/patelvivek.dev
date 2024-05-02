@@ -3,7 +3,7 @@ import { Suspense, cache } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Calendar } from 'lucide-react';
+import { Calendar, Eye } from 'lucide-react';
 
 import { CustomMDX } from '@/components/mdx';
 import { getSnippets } from '@/lib/get-snippets';
@@ -65,7 +65,7 @@ export default function Blog({ params }: { params: any }) {
   }
 
   return (
-    <div className='mx-auto mt-40 w-11/12 sm:w-3/4'>
+    <div className='mx-auto mt-16 sm:mt-40 w-11/12 sm:w-3/4'>
       <Progress />
       <section>
         <script
@@ -91,42 +91,41 @@ export default function Blog({ params }: { params: any }) {
             }),
           }}
         />
-        <Link href='/snippet'>
-          <Button
-            variant='outline'
-            className='
+        <div className='flex flex-col gap-4'>
+          <Link href='/snippet'>
+            <Button
+              variant='outline'
+              className='
           mb-5 cursor-pointer text-lg font-semibold 
           border-neutral-800 text-neutral-800 hover:underline
           dark:border-neutral-300 dark:text-neutral-300'
-          >
-            &larr; Back to Snippets
-          </Button>
-        </Link>
-        <h1 className='text-start text-xl sm:text-4xl font-bold'>{snippet.metadata.title}</h1>
-        <div className='mb-4 mt-2 flex items-center justify-between'>
-          <p className='text-lg text-neutral-700 dark:text-neutral-300'>
-            <span className='flex flex-row items-center gap-2'>{snippet.metadata.description}</span>
-          </p>
-        </div>
-        <div className='mb-8 mt-2 flex items-center justify-between'>
-          <p className='text-base text-neutral-700 dark:text-neutral-300'>
+            >
+              &larr; Back to Snippets
+            </Button>
+          </Link>
+          <h1 className='text-start text-2xl sm:text-4xl font-bold'>{snippet.metadata.title}</h1>
+          <h2 className='text-xl text-neutral-700 dark:text-neutral-300'>{snippet.metadata.description}</h2>
+          <div className='flex flex-col gap-2 sm:flex-row sm:items-center justify-between'>
+            <p className='text-base text-neutral-700 dark:text-neutral-300'>
+              <span className='flex flex-row items-center gap-2'>
+                <Suspense
+                  fallback={
+                    <>
+                      <Calendar />
+                      <p>---</p>
+                    </>
+                  }
+                >
+                  <Calendar /> {formatDate(snippet.metadata.publishedAt!)} | {snippet.readingTime}
+                </Suspense>
+              </span>
+            </p>
             <span className='flex flex-row items-center gap-2'>
-              <Suspense
-                fallback={
-                  <>
-                    <Calendar />
-                    <p>---</p>
-                  </>
-                }
-              >
-                <Calendar /> {formatDate(snippet.metadata.publishedAt!)} | {snippet.readingTime}
+              <Suspense fallback={<p>----</p>}>
+                <Eye /> <Views slug={snippet.slug} />
               </Suspense>
             </span>
-          </p>
-          <Suspense fallback={<p>---</p>}>
-            <Views slug={snippet.slug} />
-          </Suspense>
-          {/* <IncreaseView slug={blog.slug} published={blog.metadata.published!} /> */}
+          </div>
         </div>
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
           <CustomMDX

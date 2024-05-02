@@ -8,7 +8,7 @@ import RecentBlogs from '@/components/RecentBlogs';
 
 export default function Home() {
   return (
-    <div className='mt-32 sm:mt-40 relative flex w-11/12 sm:w-3/4 mx-auto text-[#31363F] dark:text-[#EEEEEE] flex-col items-center gap-3 sm:gap-6'>
+    <div className='mt-16 sm:mt-40 relative flex w-11/12 sm:w-3/4 mx-auto text-[#31363F] dark:text-[#EEEEEE] flex-col items-center gap-3 sm:gap-6'>
       <h1 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>About</h1>
       <Hero />
       {/* <h2 className='mt-2 text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>Github States</h2>

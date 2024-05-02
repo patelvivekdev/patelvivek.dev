@@ -7,6 +7,20 @@ export const metadata: Metadata = {
   title: 'Reusable Snippets',
   description: 'A collection of reusable snippets for Next.js',
   keywords: 'reusable, snippets, next.js',
+  openGraph: {
+    title: 'Reusable Snippets',
+    description: 'A collection of reusable snippets for Next.js',
+    url: 'https://patelvivek.dev/snippets',
+    siteName: 'Vivek Patel',
+    images: [
+      {
+        url: 'https://patelvivek.dev/og?title=Reusable%20Snippets',
+        width: 1200,
+        height: 630,
+        alt: 'Reusable Snippets',
+      },
+    ],
+  },
 };
 
 const SnippetPage = () => {
@@ -21,7 +35,7 @@ const SnippetPage = () => {
   });
 
   return (
-    <div className='mt-40 mb-8 w-11/12 sm:w-3/4 mx-auto flex flex-col items-center gap-4'>
+    <div className='mt-16 sm:mt-40 h-screen mb-8 w-11/12 sm:w-3/4 mx-auto flex flex-col items-center gap-4'>
       <h1 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'> All Snippets</h1>
       <h3 className='text-base'>Here are some of reusable snippets</h3>
       <div className='flex flex-col justify-center gap-4'>

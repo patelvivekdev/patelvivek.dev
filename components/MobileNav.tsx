@@ -40,14 +40,12 @@ export default function MobileNav({
           </div>
           <nav className='grid gap-4'>
             {navItems.map((item) => (
-              <Link
-                key={item.link}
-                className='flex items-center gap-2 text-lg font-normal text-neutral-800 dark:text-white'
-                href={item.link}
-              >
-                {item.link === pathname && <span className='font-bold'> {item.name}</span>}
-                {item.link !== pathname && <span>{item.name}</span>}
-              </Link>
+              <SheetClose asChild key={item.link}>
+                <Link className='flex items-center gap-2 text-lg font-normal text-neutral-800 dark:text-white' href={item.link}>
+                  {item.link === pathname && <span className='font-bold'> {item.name}</span>}
+                  {item.link !== pathname && <span>{item.name}</span>}
+                </Link>
+              </SheetClose>
             ))}
           </nav>
         </SheetContent>

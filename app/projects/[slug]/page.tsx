@@ -52,6 +52,10 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
   };
 }
 
+function getDateTime(date: string) {
+  return new Date(date);
+}
+
 export default function Project({ params }: { params: any }) {
   const project = getProject(params.slug);
 
@@ -59,9 +63,32 @@ export default function Project({ params }: { params: any }) {
     return notFound();
   }
   return (
-    <div className='mx-auto mt-40 w-11/12 sm:w-3/4'>
+    <div className='mx-auto mt-16 sm:mt-40 w-11/12 sm:w-3/4'>
       <Progress />
       <section>
+        <script
+          type='application/ld+json'
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BlogPosting',
+              headline: project.metadata.title,
+              datePublished: getDateTime(project.metadata.publishedAt!),
+              dateModified: getDateTime(project.metadata.publishedAt!),
+              description: project.metadata.description!,
+              image: project.metadata.image
+                ? `https://patelvivek.dev${project.metadata.image}`
+                : `https://patelvivek.dev/og?title=${project.metadata.title}`,
+              url: `https://patelvivek.dev/projects/${project.slug}`,
+              author: {
+                '@type': 'Person',
+                name: 'Vivek Patel',
+                url: 'https://patelvivek.dev/',
+              },
+            }),
+          }}
+        />
         <Link href='/projects'>
           <Button
             variant='outline'
@@ -84,7 +111,7 @@ export default function Project({ params }: { params: any }) {
         <div className='mb-8 mt-2 flex items-center justify-between'>
           <p className='text-base text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>
-              <Calendar /> {formatDate(project.metadata.publishedAt!)}
+              <Calendar /> {formatDate(project.metadata.publishedAt!)} | {project.readingTime}
             </span>
           </p>
         </div>
