@@ -3,10 +3,10 @@ import { Suspense, cache } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Calendar, Eye } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 import { CustomMDX } from '@/components/mdx';
-import { getBlog, getBlogs } from '@/lib/get-blogs';
+import { getBlogs } from '@/lib/get-blogs';
 import { formatDate } from '@/lib/utils';
 import ViewCounter from '@/app/blog/views';
 import { getViewsCount } from '@/lib/get-views';
@@ -125,11 +125,9 @@ export default function Blog({ params }: { params: any }) {
                 </Suspense>
               </span>
             </p>
-            <span className='flex flex-row items-center gap-2'>
-              <Suspense fallback={<p>----</p>}>
-                <Eye /> <Views slug={blog.slug} />
-              </Suspense>
-            </span>
+            <Suspense fallback={<p>----</p>}>
+              <Views slug={blog.slug} />
+            </Suspense>
           </div>
         </div>
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>

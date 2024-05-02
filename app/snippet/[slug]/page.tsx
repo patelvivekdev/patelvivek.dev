@@ -3,7 +3,7 @@ import { Suspense, cache } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Calendar, Eye } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 import { CustomMDX } from '@/components/mdx';
 import { getSnippets } from '@/lib/get-snippets';
@@ -120,11 +120,9 @@ export default function Blog({ params }: { params: any }) {
                 </Suspense>
               </span>
             </p>
-            <span className='flex flex-row items-center gap-2'>
-              <Suspense fallback={<p>----</p>}>
-                <Eye /> <Views slug={snippet.slug} />
-              </Suspense>
-            </span>
+            <Suspense fallback={<p>----</p>}>
+              <Views slug={snippet.slug} />
+            </Suspense>
           </div>
         </div>
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
