@@ -25,14 +25,14 @@ const SnippetCard = ({
 
   return (
     <div className='rounded-md border border-neutral-400 bg-neutral-200 p-4 hover:border-neutral-800 hover:bg-neutral-300 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:border-zinc-100 dark:hover:bg-zinc-700'>
-      <div className='flex flex-row justify-between'>
-        <h2 className='mb-2 w-full text-2xl font-bold text-neutral-900 dark:text-neutral-100'>
+      <div className='grid grid-cols-1 items-center justify-items-end gap-2 sm:grid-cols-3'>
+        <h2 className='w-full sm:col-span-2 text-2xl font-bold text-neutral-900 dark:text-neutral-100'>
           <Link href={`/snippet/${slug}`} className='hover:underline cursor-pointer'>
             {title}
           </Link>
         </h2>
         {views && (
-          <div className='mb-4 hidden w-32 text-right sm:block md:mb-0'>
+          <div className='hidden sm:flex'>
             <Suspense fallback={<p>--- Views</p>}>
               <Views slug={slug} />
             </Suspense>
@@ -45,7 +45,7 @@ const SnippetCard = ({
             {publishedAt} | {readingTime}
           </p>
           {views && (
-            <div className='mb-4 w-32 text-base sm:hidden md:mb-0'>
+            <div className='sm:hidden'>
               <Suspense fallback={<p>--- Views</p>}>
                 <Views slug={slug} />
               </Suspense>
