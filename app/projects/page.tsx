@@ -51,6 +51,13 @@ const ProjectPage = () => {
       ],
     },
     {
+      slug: 'true-feedback',
+      title: 'True Feedback: Where your identity remains a secret',
+      description: 'Explore a Next.js 14 project that dive into the World of Anonymous Feedback.',
+      link: 'projects/true-feedback',
+      tags: ['NextJs', 'Server Actions', 'Supabase', 'Next-Auth'],
+    },
+    {
       slug: 'nextjs-blog',
       title: 'Next.js 14 Blog with App Router and MDX',
       description:

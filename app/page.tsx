@@ -30,6 +30,12 @@ export default function Home() {
           tags={['MERN', 'React', 'Nodejs', 'Express', 'MongoDB', 'FullStack']}
         />
         <ProjectCard
+          title='True Feedback: Where your identity remains a secret'
+          description='Explore a Next.js 14 project that dive into the World of Anonymous Feedback.'
+          link='projects/true-feedback'
+          tags={['NextJs', 'Server Actions', 'Supabase', 'Next-Auth']}
+        />
+        <ProjectCard
           title='Acme Auth: A Next.js Based Authentication'
           description='Acme Auth is a learning project focused on integrating third-party authentication APIs. It covers registration, login, logout, password recovery, and email verification. With a responsive design and efficient routing, it showcases modern web development practices using Next.js server actions and Tailwind CSS. '
           link='projects/acme-auth'
