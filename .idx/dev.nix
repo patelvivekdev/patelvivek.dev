@@ -3,6 +3,7 @@
   packages = [
     pkgs.bun
     pkgs.nodejs_latest
+    pkgs.vercel-pkg
   ];
   idx.extensions = [
     "bradlc.vscode-tailwindcss"
