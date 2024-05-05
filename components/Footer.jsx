@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { ThemeToggle } from './ThemeToggle';
 
 const Footer = () => {
   // find the current year
@@ -12,7 +11,6 @@ const Footer = () => {
           <p className='text-base font-semibold'>© {year} Vivek Patel | Made with ❤️ Next js</p>
         </div>
       </div>
-      <ThemeToggle />
     </footer>
   );
 };
