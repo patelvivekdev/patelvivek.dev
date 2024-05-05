@@ -10,6 +10,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Toaster } from 'react-hot-toast';
 import Script from 'next/script';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -62,7 +63,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className='dark'>
+    <html lang='en'>
       <head>
         <Script defer src='https://us.umami.is/script.js' data-website-id='aa7603cb-3e5d-474c-b1a5-f92e18751e5c' />
       </head>
@@ -70,11 +71,12 @@ export default function RootLayout({
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem={true}>
           <Navbar />
           <main>{children}</main>
-          <Analytics />
           <SpeedInsights />
-          <Footer />
           <ScrollToTopButton />
+          <ThemeToggle />
           <Toaster position='top-right' />
+          <Footer />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
