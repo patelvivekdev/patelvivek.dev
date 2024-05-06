@@ -71,12 +71,12 @@ export default function RootLayout({
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem={true} disableTransitionOnChange>
           <Navbar />
           <main>{children}</main>
-          <SpeedInsights />
           <ScrollToTopButton />
           <ThemeToggle />
           <Toaster position='top-right' />
           <Footer />
           <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
