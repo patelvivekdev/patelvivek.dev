@@ -127,7 +127,7 @@ export default function Blog({ params }: { params: any }) {
               <Views slug={blog.slug} />
             </Suspense>
           </div>
-          <div className='flex flex-row gap-4 mb-5'>
+          <div className='flex flex-row flex-wrap gap-4 mb-5'>
             {blog.metadata.tags?.map((tag) => (
               <Link key={tag} href={`/tag/${tag}`}>
                 <Button

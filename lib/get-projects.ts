@@ -45,3 +45,14 @@ export function getProject(slug: string) {
   const project = projects.find((post) => post.slug === slug);
   return project;
 }
+
+export function getLatestProjects() {
+  const projects = getProjects();
+  // Sort projects by publishedAt in descending order
+  const sortedProjects = projects.sort((a, b) => {
+    const dateA = new Date(a.metadata.publishedAt!);
+    const dateB = new Date(b.metadata.publishedAt!);
+    return dateB.getTime() - dateA.getTime();
+  });
+  return sortedProjects.slice(0, 4);
+}

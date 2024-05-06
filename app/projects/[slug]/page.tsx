@@ -113,7 +113,7 @@ export default function Project({ params }: { params: any }) {
             </span>
           </p>
         </div>
-        <div className='flex flex-row gap-4 mb-5'>
+        <div className='flex flex-row flex-wrap gap-4 mb-5'>
           {project.metadata.tags?.map((tag) => (
             <Link key={tag} href={`/tag/${tag}`}>
               <Button

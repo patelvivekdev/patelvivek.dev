@@ -69,6 +69,7 @@ async function InternalBlogPost({
   tags: string[];
   views?: number | boolean;
 }) {
+  tags.sort();
   return (
     <div className='rounded-md border border-neutral-400 bg-neutral-200 p-4 hover:border-neutral-800 hover:bg-neutral-300 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:border-zinc-100 dark:hover:bg-zinc-700'>
       <div className='grid grid-cols-1 items-center justify-items-end gap-2 sm:grid-cols-3'>
@@ -138,6 +139,7 @@ function ExternalBlogPost({
   tags: string[];
   views?: number | boolean;
 }) {
+  tags.sort();
   return (
     <div className='rounded-md border border-gray-300 bg-gray-200 p-4 hover:border-gray-300 hover:bg-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600 dark:hover:bg-slate-700'>
       <div className='grid grid-cols-1 items-center justify-items-end gap-2 sm:grid-cols-3'>
