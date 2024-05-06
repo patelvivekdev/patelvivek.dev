@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Calendar } from 'lucide-react';
 
-import { CustomMDX } from '@/components/mdx';
+import { CustomMDX } from '@/components/mdx/mdx';
 import { getSnippets } from '@/lib/get-snippets';
 import { formatDate } from '@/lib/utils';
 import ViewCounter from '@/app/blog/views';

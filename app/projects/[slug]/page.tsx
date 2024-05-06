@@ -4,7 +4,7 @@ import { Calendar } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getProject, getProjects } from '@/lib/get-projects';
-import { CustomMDX } from '@/components/mdx';
+import { CustomMDX } from '@/components/mdx/mdx';
 import { formatDate } from '@/lib/utils';
 import Progress from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';

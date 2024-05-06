@@ -7,47 +7,9 @@ import remarkA11yEmoji from '@fec/remark-a11y-emoji';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { highlight } from 'sugar-high';
 import { cn } from '@/lib/utils';
-import Pre from './pre';
-
-const CustomLink = ({ children, ...props }: { children: any; [x: string]: any }) => {
-  const href = props.href;
-  if (href.startsWith('/')) {
-    return (
-      <Link href={href} {...props}>
-        {children}
-      </Link>
-    );
-  }
-
-  if (href.startsWith('#')) {
-    return (
-      <a href={`#${slugify(props.href as string)}`} id={slugify(props.href as string)} className='anchor' {...props}>
-        {children}
-      </a>
-    );
-  }
-
-  return (
-    <a target='_blank' rel='noopener noreferrer' {...props}>
-      {' '}
-      {children}{' '}
-    </a>
-  );
-};
-
-function Callout(props: any) {
-  return (
-    <div
-      className={cn(
-        'mb-8 flex items-center rounded border border-neutral-200 bg-neutral-50 p-1 px-4 py-3 text-sm text-neutral-900 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100',
-        props.className,
-      )}
-    >
-      <div className='mr-4 flex text-base w-4 h-4 items-center'>{props.emoji}</div>
-      <div className='callout w-full text-base'>{props.children}</div>
-    </div>
-  );
-}
+import Pre from './Pre';
+import { Callout } from './Callout';
+import { CustomLink } from './CustomLink';
 
 function Code({ children, ...props }: { children: any; [x: string]: any }) {
   let codeHTML = highlight(children);

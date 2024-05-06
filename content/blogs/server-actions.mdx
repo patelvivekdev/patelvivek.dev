@@ -330,11 +330,11 @@ With session we will conditionally render different button.
 
 You can check that now our authentication system is working, we are able to login with github as well google.
 
-<Callout emoji='ℹ️'>
-  <span>In development if your Oauth is not redirect back to application add `AUTH_REDIRECT_PROXY_URL` in env.</span>
+<Callout type='note'>
+  In development if your Oauth is not redirect back to application add `AUTH_REDIRECT_PROXY_URL` in env.
 </Callout>
 
-<Callout emoji='❓'>
+<Callout type='tip'>
   If you find any difficulty or have some error you can react out to [me](/contact) or check my source code.
 </Callout>
 
@@ -457,9 +457,7 @@ export function SubmitButton({
 
 ```
 
-<Callout emoji='⚠️' className='!bg-yellow-100 !text-black font-bold'>
-  INFO: This hook might change in new version of react.
-</Callout>
+<Callout type='important'>This hook might change in new version of react.</Callout>
 
 ### 3.Create actions.ts
 
@@ -517,12 +515,9 @@ We will add this action to our form with the help of `useFormState`. It is new h
 
 > As per react `useFormState` is a Hook that allows you to update state based on the result of a form action.
 
-<Callout emoji='⚠️' className='!bg-yellow-100 !text-black font-bold'>
-  INFO: As of now React is changing this hook. If you are interested check this github{' '}
-  <a className='text-black' href='https://github.com/facebook/react/pull/28491'>
-    discussion
-  </a>
-  .
+<Callout type='caution'>
+  As of now React is changing this hook. If you are interested check this github
+  [discussion](https://github.com/facebook/react/pull/28491)
 </Callout>
 
 This means that we will get error message or success message along with boolean to from server action.
