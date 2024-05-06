@@ -67,7 +67,7 @@ const BlogPage = () => {
           publishedAt='Dec 4, 2020'
           views={2506}
           readingTime={'📖 8 min read'}
-          tags='machine learning, deep learning'
+          tags={['machine learning', 'deep learning']}
           external
         />
         <BlogPost
@@ -77,7 +77,7 @@ const BlogPage = () => {
           publishedAt='Oct 24, 2020'
           views={3453}
           readingTime={'📖 3 min read'}
-          tags='github, github action, jupyter notebook'
+          tags={['github', 'github action', 'jupyter notebook']}
           external
         />
         {/* <BlogPost

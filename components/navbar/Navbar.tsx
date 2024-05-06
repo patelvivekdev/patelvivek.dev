@@ -1,5 +1,5 @@
-import { FloatingNav } from '@/components/ui/FloatingNav';
-import MobileNav from './MobileNav';
+import { FloatingNav } from '@/components/navbar/FloatingNav';
+import MobileNav from '@/components/navbar/MobileNav';
 
 const links = [
   { link: '/', name: 'Home' },

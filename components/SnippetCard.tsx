@@ -17,12 +17,9 @@ const SnippetCard = ({
   slug: string;
   readingTime: string;
   publishedAt?: string;
-  tags?: string;
+  tags: string[];
   views?: number | boolean;
 }) => {
-  // here tags is string, so we need to convert it to array
-  let newTags = tags?.split(',');
-
   return (
     <div className='rounded-md border border-neutral-400 bg-neutral-200 p-4 hover:border-neutral-800 hover:bg-neutral-300 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:border-zinc-100 dark:hover:bg-zinc-700'>
       <div className='grid grid-cols-1 items-center justify-items-end gap-2 sm:grid-cols-3'>
@@ -54,7 +51,7 @@ const SnippetCard = ({
           <p className='text-xl font-semibold text-neutral-800 dark:text-gray-300'>{description}</p>
         </div>
         <span className='flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
-          {newTags?.map((tag) => (
+          {tags?.map((tag) => (
             <span
               key={tag}
               className='mr-2 px-3 py-1 text-sm font-semibold rounded-lg border border-neutral-600 text-neutral-900 dark:border-neutral-300 dark:text-white hover:underline'

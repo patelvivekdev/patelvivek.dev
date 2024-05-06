@@ -28,14 +28,12 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
 
   let { title, publishedAt: publishedTime, summary: description, image, tags } = blog.metadata;
 
-  const newTags = tags ? tags.split(',') : [];
-
   let ogImage = image ? `https://patelvivek.dev${image}` : `https://patelvivek.dev/og?title=${title}`;
 
   return {
     title,
     description,
-    keywords: newTags,
+    keywords: tags ? tags : [],
     openGraph: {
       title,
       description,
@@ -108,7 +106,7 @@ export default function Blog({ params }: { params: any }) {
               &larr; Back to Blogs
             </Button>
           </Link>
-          <h1 className='text-start text-2xl sm:text-4xl font-bold'>{blog.metadata.title}</h1>
+          <h1 className='text-start text-indigo-500 text-2xl sm:text-4xl font-bold'>{blog.metadata.title}</h1>
           <h2 className='text-xl text-neutral-700 dark:text-neutral-300'>{blog.metadata.summary}</h2>
           <div className='flex flex-col gap-2 sm:flex-row sm:items-center justify-between'>
             <p className='text-base text-neutral-700 dark:text-neutral-300'>
@@ -128,6 +126,18 @@ export default function Blog({ params }: { params: any }) {
             <Suspense fallback={<p>----</p>}>
               <Views slug={blog.slug} />
             </Suspense>
+          </div>
+          <div className='flex flex-row gap-4 mb-5'>
+            {blog.metadata.tags?.map((tag) => (
+              <Link key={tag} href={`/tag/${tag}`}>
+                <Button
+                  variant='outline'
+                  className='cursor-pointer text-lg font-semibold border border-2 border-indigo-500 hover:underline'
+                >
+                  {tag}
+                </Button>
+              </Link>
+            ))}
           </div>
         </div>
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>

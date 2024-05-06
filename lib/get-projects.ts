@@ -10,8 +10,9 @@ type Metadata = {
   title: string;
   publishedAt: string;
   description: string;
+  tags: string[];
+  published: boolean;
   image?: string;
-  tags: string;
 };
 
 function getProjectFiles(dir: string) {

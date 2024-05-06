@@ -10,9 +10,9 @@ type Metadata = {
   title: string;
   publishedAt: string;
   description: string;
-  image?: string;
-  tags: string;
+  tags: string[];
   published: boolean;
+  image?: string;
 };
 
 function getMdxFiles(dir: string) {
