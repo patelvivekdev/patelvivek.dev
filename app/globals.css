@@ -15,15 +15,22 @@ body {
   --sh-class: #2d5e9d;
   --sh-identifier: #c2cad3;
   --sh-sign: #8996a3;
-  --sh-property: #0550ae;
-  --sh-entity: #249a97;
-  --sh-jsxliterals: #6266d1;
-  --sh-string: #00a99a;
-  --sh-keyword: #f47067;
+  --sh-string: #007f7a;
+  --sh-keyword: #e02518;
   --sh-comment: #a19595;
+  --sh-jsxliterals: #6266d1;
+  --sh-property: #e25a1c;
+  --sh-entity: #e25a1c;
 }
 
-/* pre code {
+.dark {
+  --sh-class: #4c97f8;
+  --sh-identifier: white;
+  --sh-keyword: #f47067;
+  --sh-string: #0fa295;
+}
+
+pre code {
   counter-reset: sh-line-number;
 }
 
@@ -33,7 +40,14 @@ body {
   margin-right: 24px;
   text-align: right;
   color: #a4a4a4;
-} */
+}
+
+.prose p code .sh__line::before {
+  margin-right: 0px;
+  content: '';
+}
+
+/* remove line numbers from p > pre > code blocks */
 
 .progress {
   transform-origin: 0 50%;
@@ -83,6 +97,18 @@ body {
 
 .prose code {
   @apply px-1 py-0.5 rounded-lg;
+}
+
+.prose p code {
+  --sh-class: @apply text-neutral-300 dark: text-neutral-700;
+  --sh-identifier: @apply text-neutral-300 dark: text-neutral-700;
+  --sh-sign: @apply text-neutral-300 dark: text-neutral-700;
+  --sh-string: @apply text-neutral-300 dark: text-neutral-700;
+  --sh-keyword: @apply text-neutral-300 dark: text-neutral-700;
+  --sh-comment: @apply text-neutral-300 dark: text-neutral-700;
+  --sh-jsxliterals: @apply text-neutral-300 dark: text-neutral-700;
+  --sh-property: @apply text-neutral-300 dark: text-neutral-700;
+  --sh-entity: @apply text-neutral-300 dark: text-neutral-700;
 }
 
 .prose pre code {
