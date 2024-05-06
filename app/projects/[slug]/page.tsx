@@ -23,14 +23,12 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
 
   let { title, publishedAt: publishedTime, description: description, image, tags } = project.metadata;
 
-  const newTags = tags ? tags.split(',') : [];
-
   let ogImage = image ? `https://patelvivek.dev${image}` : `https://patelvivek.dev/og?title=${title}`;
 
   return {
     title,
     description,
-    keywords: newTags,
+    keywords: tags ? tags : [],
     openGraph: {
       title,
       description,
@@ -102,7 +100,7 @@ export default function Project({ params }: { params: any }) {
             &larr; Back to Projects
           </Button>
         </Link>
-        <h1 className='text-start text-2xl sm:text-4xl font-bold'>{project.metadata.title}</h1>
+        <h1 className='text-start text-indigo-500 text-2xl sm:text-4xl font-bold'>{project.metadata.title}</h1>
         <div className='mb-4 mt-2 flex items-center justify-between'>
           <p className='text-lg font-normal text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>{project.metadata.description}</span>
@@ -114,6 +112,18 @@ export default function Project({ params }: { params: any }) {
               <Calendar /> {formatDate(project.metadata.publishedAt!)} | {project.readingTime}
             </span>
           </p>
+        </div>
+        <div className='flex flex-row flex-wrap gap-4 mb-5'>
+          {project.metadata.tags?.map((tag) => (
+            <Link key={tag} href={`/tag/${tag}`}>
+              <Button
+                variant='outline'
+                className='cursor-pointer text-lg font-semibold border border-2 border-indigo-500 hover:underline'
+              >
+                {tag}
+              </Button>
+            </Link>
+          ))}
         </div>
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
           <CustomMDX

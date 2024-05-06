@@ -17,10 +17,10 @@ const BlogPost = ({
   title: string;
   summary: string;
   slug: string;
-  external?: boolean;
   readingTime: string;
-  publishedAt?: string;
-  tags?: string;
+  tags: string[];
+  publishedAt: string;
+  external?: boolean;
   views?: number | boolean;
 }) => {
   return (
@@ -65,13 +65,11 @@ async function InternalBlogPost({
   summary: string;
   slug: string;
   readingTime: string;
-  publishedAt?: string;
-  tags?: string;
+  publishedAt: string;
+  tags: string[];
   views?: number | boolean;
 }) {
-  // here tags is string, so we need to convert it to array
-  let newTags = tags?.split(',');
-
+  tags.sort();
   return (
     <div className='rounded-md border border-neutral-400 bg-neutral-200 p-4 hover:border-neutral-800 hover:bg-neutral-300 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:border-zinc-100 dark:hover:bg-zinc-700'>
       <div className='grid grid-cols-1 items-center justify-items-end gap-2 sm:grid-cols-3'>
@@ -105,7 +103,7 @@ async function InternalBlogPost({
           <p className='text-xl font-semibold text-neutral-800 dark:text-gray-300'>{summary}</p>
         </div>
         <span className='flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
-          {newTags?.map((tag) => (
+          {tags?.map((tag) => (
             <span
               key={tag}
               className='mr-2 px-3 py-1 text-sm font-semibold rounded-lg border border-neutral-600 text-neutral-900 dark:border-neutral-300 dark:text-white hover:underline'
@@ -138,9 +136,10 @@ function ExternalBlogPost({
   slug: string;
   readingTime: string;
   publishedAt?: string;
-  tags?: string;
+  tags: string[];
   views?: number | boolean;
 }) {
+  tags.sort();
   return (
     <div className='rounded-md border border-gray-300 bg-gray-200 p-4 hover:border-gray-300 hover:bg-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600 dark:hover:bg-slate-700'>
       <div className='grid grid-cols-1 items-center justify-items-end gap-2 sm:grid-cols-3'>
@@ -174,11 +173,12 @@ function ExternalBlogPost({
                 </Suspense>
               )}
             </div>
+            m
           </div>
           <p className='text-xl font-medium text-neutral-800 dark:text-gray-200/75'>{summary}</p>
         </div>
         <span className='mr-2 flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
-          {tags?.split(',').map((tag) => (
+          {tags?.map((tag) => (
             <span
               key={tag}
               className='mr-2 px-3 py-1 text-sm font-semibold rounded-lg  border border-neutral-600 text-neutral-900 dark:border-neutral-300 dark:text-white hover:underline'

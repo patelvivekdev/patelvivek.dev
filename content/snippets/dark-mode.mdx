@@ -1,0 +1,145 @@
+---
+title: Adding Dark Mode to a Next.js App with TailwindCSS
+description: Discover how to effortlessly implement a dark mode feature in your Next.js application using TailwindCSS.
+slug: 'dark-mode'
+publishedAt: May 05, 2024
+tags: [dark, next-themes, Nextjs, Tailwindcss]
+published: true
+---
+
+## Dark Mode - Introduction
+
+In today's digital world, users often spend extended hours interacting with screens. Dark mode has emerged as a popular solution, offering a more comfortable viewing experience in low-light environments. Beyond user comfort, dark mode has demonstrably positive impacts on battery life and can even contribute to better sleep patterns. This blog will guide you through implementing a user-friendly dark mode feature within your Next.js web application, equipping you with the tools to enhance user experience and cater to modern preferences.
+
+## Why It Matters
+
+- **Reduced Eye Strain:** Dark mode minimizes bright light emission, alleviating eye fatigue, headaches, and dry eyes.
+- **Improved Accessibility:** Dark mode enhances readability and contrast for users with visual impairments or light sensitivity.
+- **Energy Efficiency:** Dark mode extends battery life and reduces energy consumption, especially on devices with OLED displays.
+- **Enhanced Visual Appeal:** Dark mode offers a sleek and immersive aesthetic, making applications more visually appealing.
+- **Reduced Screen Glare:** Dark mode minimizes screen glare in brightly lit environments, improving usability and reducing distractions.
+
+## Installation
+
+### Install the next-themes package:
+
+```bash
+npm install next-themes
+```
+
+## Setup and Usage
+
+### 2. Wrap layout.tsx with ThemeProvider component
+
+```tsx
+// layout.tsx
+import { ThemeProvider } from 'next-themes';
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang='en' suppressHydrationWarning>
+      <body className='bg-neutral-100 dark:bg-neutral-900'>
+        <ThemeProvider attribute='class' defaultTheme='system' enableSystem={true} disableTransitionOnChange>
+          <main>{children}</main>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+### 3. Add darkMode to tailwind.config.js
+
+```tsx
+// tailwind.config.js
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
+  darkMode: 'class',
+};
+export default config;
+```
+
+### 4. Create a switch to toggle themes
+
+```tsx
+// ThemeToggle.tsx
+
+'use client';
+import React, { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
+// import svg icons
+
+export function ThemeToggle() {
+  const { resolvedTheme, setTheme } = useTheme();
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    setLoaded(true);
+  }, [setLoaded]);
+
+  return (
+    <button
+      aria-label='Toggle Dark Mode'
+      type='button'
+      className='fixed bottom-10 right-4 z-50 rounded-xl bg-white p-2 shadow-lg md:right-10'
+      onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
+    >
+        {loaded ? (
+          resolvedTheme === 'dark' ? (
+            // add your dark svg ICON here
+          ) : (
+            // add your light svg ICON here
+          )
+        ) : (
+          <>
+            // add your loading svg ICON here to avoid layout shift
+          </>
+        )}
+      </svg>
+    </button>
+  );
+}
+```
+
+### 5. Add ThemeToggle component to layout.tsx
+
+```tsx
+// layout.tsx
+
+<ThemeToggle />
+```
+
+## Explanation
+
+[next-themes](https://github.com/pacocoursey/next-themes) package provides a simple API for managing dark mode in Next.js applications.
+
+Option for ThemeProvider:
+
+- defaultTheme = 'system' (based on prefers-color-scheme)
+- attribute = 'class' (This will add the dark mode class to the html element)
+- enableSystem = true (Whether to switch between dark and light based on prefers-color-scheme)
+
+Read more on all the available options of [themeprovider](https://github.com/pacocoursey/next-themes?tab=readme-ov-file#themeprovider)
+
+<Callout type='note'>
+  You can add More than light and dark mode. Read more about it on
+  [Gihub](https://github.com/pacocoursey/next-themes?tab=readme-ov-file#more-than-light-and-dark-mode)
+</Callout>
+
+## Conclusion
+
+In this blog post, we have explored the implementation of a user-friendly dark mode feature in a Next.js application using TailwindCSS, leveraging the capabilities of the next-themes package. By following the provided code snippets and explanations, you can seamlessly toggle between light and dark themes, enhancing user experience and catering to modern preferences. Experiment with dark mode and explore its potential benefits for your users.
+
+💕 Happy reading!
+
+## Links
+
+- [Live link](https://next-ppr-dark-mode.vercel.app/)
+- [Next-Themes](https://github.com/pacocoursey/next-themes)
+- [TailwindCSS](https://tailwindcss.com/docs/dark-mode)
+- [My Github Repo](https://github.com/patelvivekdev/next-ppr-dark-mode)
+- [Examples](https://github.com/pacocoursey/next-themes/tree/main/examples)

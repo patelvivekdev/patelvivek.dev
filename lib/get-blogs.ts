@@ -12,9 +12,9 @@ type Metadata = {
   title: string;
   publishedAt: string;
   summary: string;
-  image?: string;
-  tags: string;
+  tags: string[];
   published: boolean;
+  image?: string;
 };
 
 function getBlogFiles(dir: string) {

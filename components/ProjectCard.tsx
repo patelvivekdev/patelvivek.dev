@@ -3,12 +3,12 @@ import Link from 'next/link';
 export default function ProjectCard({
   title,
   description,
-  link,
+  slug,
   tags,
 }: {
   title: string;
   description: string;
-  link: string;
+  slug: string;
   tags: string[];
 }) {
   // short the tags in alphabetical order
@@ -19,7 +19,7 @@ export default function ProjectCard({
       <div className='grid grid-cols-1 items-center gap-2 sm:grid-cols-2'>
         <div className='flex flex-col justify-between'>
           <h2 className='mb-2 w-full text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100'>
-            <Link prefetch={true} href={link} className='hover:underline'>
+            <Link prefetch={true} href={`projects/${slug}`} className='hover:underline'>
               {title}
             </Link>
           </h2>
