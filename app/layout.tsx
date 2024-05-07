@@ -65,7 +65,9 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <head>
-        <Script defer src='https://us.umami.is/script.js' data-website-id='aa7603cb-3e5d-474c-b1a5-f92e18751e5c' />
+        {process.env.APP_ENV !== 'development' && (
+          <Script defer src='https://us.umami.is/script.js' data-website-id='aa7603cb-3e5d-474c-b1a5-f92e18751e5c' />
+        )}
       </head>
       <body className={cn('mx-auto font-sans antialiased bg-neutral-100 dark:bg-neutral-900 ', fontSans.variable)}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem={true} disableTransitionOnChange>
@@ -75,8 +77,12 @@ export default function RootLayout({
           <ThemeToggle />
           <Toaster position='top-right' />
           <Footer />
-          <Analytics />
-          <SpeedInsights />
+          {process.env.APP_ENV !== 'development' && (
+            <>
+              <Analytics />
+              <SpeedInsights />
+            </>
+          )}
         </ThemeProvider>
       </body>
     </html>
