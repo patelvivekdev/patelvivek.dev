@@ -5,6 +5,7 @@ const links = [
   { link: '/', name: 'Home' },
   { link: '/projects', name: 'Projects' },
   { link: '/blog', name: 'Blogs' },
+  { link: '/tag', name: 'Tags' },
   { link: '/snippet', name: 'Snippets' },
   { link: '/contact', name: 'Contact' },
 ];
