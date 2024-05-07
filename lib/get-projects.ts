@@ -58,21 +58,17 @@ export function getLatestProjects() {
 }
 
 export function getAllProjectsTags() {
-  const projects = getProjects();
-
-  const tags: Record<string, { projects: string[]; count: number }> = {};
+  let projects = getProjects();
+  projects = projects.filter((project) => project.metadata && project.metadata.published === true);
+  const tags: Record<string, number> = {};
   projects.forEach((project) => {
     project.metadata.tags!.forEach((tag) => {
       tag = tag.trim();
       tag = tag.toLowerCase();
       if (!tags[tag]) {
-        tags[tag] = {
-          projects: [],
-          count: 0,
-        };
+        tags[tag] = 0;
       }
-      tags[tag].projects.push(project.slug);
-      tags[tag].count++;
+      tags[tag]++;
     });
   });
 

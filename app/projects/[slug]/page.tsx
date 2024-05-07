@@ -1,21 +1,22 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Calendar } from 'lucide-react';
+import { Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getProject, getProjects } from '@/lib/get-projects';
+import { getProjects } from '@/lib/get-projects';
 import { CustomMDX } from '@/components/mdx/mdx';
 import { formatDate } from '@/lib/utils';
 import Progress from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 
-export function generateStaticParams() {
-  const projects = getProjects();
-  return projects.map((project) => ({ slug: project.slug }));
-}
+// export function generateStaticParams() {
+//   const projects = getProjects();
+//   return projects.map((project) => ({ slug: project.slug }));
+// }
 
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
-  const project = getProject(params.slug);
+  const project = getProjects().find((post) => post.slug === params.slug);
 
   if (!project) {
     return notFound();
@@ -55,7 +56,7 @@ function getDateTime(date: string) {
 }
 
 export default function Project({ params }: { params: any }) {
-  const project = getProject(params.slug);
+  const project = getProjects().find((post) => post.slug === params.slug);
 
   if (!project) {
     return notFound();
@@ -109,7 +110,16 @@ export default function Project({ params }: { params: any }) {
         <div className='mb-8 mt-2 flex items-center justify-between'>
           <p className='text-base text-neutral-700 dark:text-neutral-300'>
             <span className='flex flex-row items-center gap-2'>
-              <Calendar /> {formatDate(project.metadata.publishedAt!)} | {project.readingTime}
+              <Suspense
+                fallback={
+                  <>
+                    <Calendar />
+                    <p>---</p>
+                  </>
+                }
+              >
+                <Calendar /> {formatDate(project.metadata.publishedAt!)} | {project.readingTime}
+              </Suspense>
             </span>
           </p>
         </div>

@@ -76,3 +76,21 @@ export function getBlogByTag(tag: string) {
   );
   return filteredBlogs;
 }
+
+export function getAllBlogsTags() {
+  let blogs = getBlogs();
+  blogs = blogs.filter((blog) => blog.metadata && blog.metadata.published === true);
+  const tags: Record<string, number> = {};
+  blogs.forEach((blog) => {
+    blog.metadata.tags!.forEach((tag) => {
+      tag = tag.trim();
+      tag = tag.toLowerCase();
+      if (!tags[tag]) {
+        tags[tag] = 0;
+      }
+      tags[tag]++;
+    });
+  });
+
+  return tags;
+}

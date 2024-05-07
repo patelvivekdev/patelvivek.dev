@@ -42,7 +42,7 @@ export default function Home() {
           cursor-pointer text-lg font-semibold border-2
           border-neutral-800 text-neutral-800 hover:underline
           dark:border-neutral-300 dark:text-neutral-300
-          hover:border-indigo-500 hover:dark:border-indigo-500
+          hover:border-indigo-700 hover:dark:border-indigo-700
           '
         >
           View all projects &rarr;
@@ -62,7 +62,7 @@ export default function Home() {
           cursor-pointer text-lg font-semibold border-2
           border-neutral-800 text-neutral-800 hover:underline
           dark:border-neutral-300 dark:text-neutral-300
-          hover:border-indigo-500 hover:dark:border-indigo-500
+          hover:border-indigo-700 hover:dark:border-indigo-700
           '
         >
           Read all Blogs &rarr;

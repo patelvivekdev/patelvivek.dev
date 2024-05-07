@@ -14,6 +14,11 @@ import Progress from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { increment } from '@/app/actions';
 
+// export function generateStaticParams() {
+//   const snippets = getSnippets();
+//   return snippets.map((snippet) => ({ slug: snippet.slug }));
+// }
+
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
   const snippet = getSnippets().find((snippet) => snippet.slug === params.slug);
 
@@ -94,9 +99,10 @@ export default function Blog({ params }: { params: any }) {
             <Button
               variant='outline'
               className='
-          mb-5 cursor-pointer text-lg font-semibold 
-          border-neutral-800 text-neutral-800 hover:underline
-          dark:border-neutral-300 dark:text-neutral-300'
+                mb-5 cursor-pointer text-lg font-semibold 
+                border-neutral-800 text-neutral-800 hover:underline
+                dark:border-neutral-300 dark:text-neutral-300
+                hover:border-indigo-700 hover:dark:border-indigo-700'
             >
               &larr; Back to Snippets
             </Button>
