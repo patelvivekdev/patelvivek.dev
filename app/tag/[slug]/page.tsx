@@ -22,15 +22,12 @@ export default function TagPage({ params }: { params: any }) {
 
   return (
     <section className='min-h-screen mt-16 sm:mt-40 w-11/12 sm:w-3/4 mx-auto gap-4 mb-5'>
-      <h1 className='text-3xl font-bold text-center border-b-4 pb-4 mb-5'>
-        Found {blogs.length} blogs, {projects.length} projects, and {snippets.length} snippets with tag{' '}
-        <span className='text-indigo-500'>{params.slug}</span>
-      </h1>
+      <h1 className='text-3xl font-bold text-center border-b-4 pb-4 mb-5 text-indigo-500'>{params.slug.toUpperCase()}</h1>
 
       <div className='flex flex-col gap-4'>
         {blogs.length > 0 && (
           <>
-            <h2 className='text-2xl font-bold'>Blogs</h2>
+            <h2 className='text-2xl font-bold'>Blogs {blogs.length}</h2>
             {blogs.map((blog) => (
               <div key={blog.slug} className='flex flex-col gap-2 border rounded-md p-4'>
                 <Link href={`/blog/${blog.slug}`}>
@@ -44,7 +41,7 @@ export default function TagPage({ params }: { params: any }) {
 
         {projects.length > 0 && (
           <>
-            <h2 className='text-2xl font-bold'>Projects</h2>
+            <h2 className='text-2xl font-bold'>Projects {projects.length}</h2>
             {projects.map((project) => (
               <div key={project.slug} className='flex flex-col gap-2 border rounded-md p-4'>
                 <Link href={`/projects/${project.slug}`}>
@@ -58,7 +55,7 @@ export default function TagPage({ params }: { params: any }) {
 
         {snippets.length > 0 && (
           <>
-            <h2 className='text-2xl font-bold'>Snippets</h2>
+            <h2 className='text-2xl font-bold'>Snippets {snippets.length}</h2>
             {snippets.map((snippet) => (
               <div key={snippet.slug} className='flex flex-col gap-2 border rounded-md p-4'>
                 <Link href={`/snippet/${snippet.slug}`}>

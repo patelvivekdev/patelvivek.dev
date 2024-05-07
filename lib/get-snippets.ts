@@ -55,3 +55,22 @@ export function getSnippetsByTag(tag: string) {
   );
   return filteredSnippets;
 }
+
+export function getAllSnippetsTags() {
+  let snippets = getSnippets();
+  snippets = snippets.filter((snippet) => snippet.metadata && snippet.metadata.published === true);
+
+  const tags: Record<string, number> = {};
+  snippets.forEach((snippet) => {
+    snippet.metadata.tags!.forEach((tag) => {
+      tag = tag.trim();
+      tag = tag.toLowerCase();
+      if (!tags[tag]) {
+        tags[tag] = 0;
+      }
+      tags[tag]++;
+    });
+  });
+
+  return tags;
+}
