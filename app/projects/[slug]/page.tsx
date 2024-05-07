@@ -4,19 +4,19 @@ import { Calendar } from 'lucide-react';
 import { Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getProject, getProjects } from '@/lib/get-projects';
+import { getProjects } from '@/lib/get-projects';
 import { CustomMDX } from '@/components/mdx/mdx';
 import { formatDate } from '@/lib/utils';
 import Progress from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 
-export function generateStaticParams() {
-  const projects = getProjects();
-  return projects.map((project) => ({ slug: project.slug }));
-}
+// export function generateStaticParams() {
+//   const projects = getProjects();
+//   return projects.map((project) => ({ slug: project.slug }));
+// }
 
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
-  const project = getProject(params.slug);
+  const project = getProjects().find((post) => post.slug === params.slug);
 
   if (!project) {
     return notFound();
@@ -56,7 +56,7 @@ function getDateTime(date: string) {
 }
 
 export default function Project({ params }: { params: any }) {
-  const project = getProject(params.slug);
+  const project = getProjects().find((post) => post.slug === params.slug);
 
   if (!project) {
     return notFound();

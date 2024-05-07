@@ -14,6 +14,11 @@ import Progress from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { increment } from '@/app/actions';
 
+// export function generateStaticParams() {
+//   const snippets = getSnippets();
+//   return snippets.map((snippet) => ({ slug: snippet.slug }));
+// }
+
 export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
   const snippet = getSnippets().find((snippet) => snippet.slug === params.slug);
 
