@@ -54,7 +54,7 @@ const SnippetCard = ({
           {tags?.map((tag) => (
             <Link
               key={tag}
-              href={`/tags/${tag.toLowerCase()}`}
+              href={`/tag/${tag.toLowerCase()}`}
               className='mr-2 px-3 py-1 text-sm font-semibold rounded-lg border-2 border-indigo-700 text-neutral-900 dark:text-white hover:underline'
             >
               {tag.toUpperCase()}
