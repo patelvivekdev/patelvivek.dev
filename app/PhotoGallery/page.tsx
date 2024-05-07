@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const PhotoGallery = () => {
   return (
-    <section className='mx-auto h-screen flex flex-col items-center justify-center'>
+    <section className='mx-auto min-h-screen flex flex-col items-center justify-center'>
       <h1 className='text-4xl font-bold'>Photo Gallery</h1>
       {/* Show that this page is still in development */}
 

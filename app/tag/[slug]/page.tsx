@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { getBlogByTag } from '@/lib/get-blogs';
 import { getProjectsByTag, getAllProjectsTags } from '@/lib/get-projects';
 import { getSnippetsByTag } from '@/lib/get-snippets';
@@ -22,8 +23,19 @@ export default function TagPage({ params }: { params: any }) {
 
   return (
     <section className='min-h-screen mt-16 sm:mt-40 w-11/12 sm:w-3/4 mx-auto gap-4 mb-5'>
+      <Link href='/tags'>
+        <Button
+          variant='outline'
+          className='
+            mb-5 cursor-pointer text-lg font-semibold 
+            border-neutral-800 text-neutral-800 hover:underline
+            dark:border-neutral-300 dark:text-neutral-300
+            hover:border-indigo-700 hover:dark:border-indigo-700'
+        >
+          &larr; Back to Tags
+        </Button>
+      </Link>
       <h1 className='text-3xl font-bold text-center border-b-4 pb-4 mb-5 text-indigo-500'>{params.slug.toUpperCase()}</h1>
-
       <div className='flex flex-col gap-4'>
         {blogs.length > 0 && (
           <>

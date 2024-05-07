@@ -35,7 +35,7 @@ const SnippetPage = () => {
   });
 
   return (
-    <div className='mt-16 sm:mt-40 h-screen mb-8 w-11/12 sm:w-3/4 mx-auto flex flex-col items-center gap-4'>
+    <div className='mt-16 sm:mt-40 min-h-screen mb-8 w-11/12 sm:w-3/4 mx-auto flex flex-col items-center gap-4'>
       <h1 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'> All Snippets</h1>
       <h3 className='text-base'>Here are some of reusable snippets</h3>
       <div className='flex flex-col justify-center gap-4'>

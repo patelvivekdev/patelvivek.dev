@@ -27,12 +27,13 @@ export default function ProjectCard({
         </div>
         <span className='flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
           {tags.map((tag) => (
-            <span
+            <Link
               key={tag}
-              className='mr-2 px-3 py-1 text-sm font-semibold rounded-lg border border-neutral-600 text-neutral-900 dark:border-neutral-300 dark:text-white hover:underline'
+              href={`/tags/${tag.toLowerCase()}`}
+              className='mr-2 px-3 py-1 text-sm font-semibold rounded-lg border-2 border-indigo-700 text-neutral-900 dark:text-white hover:underline'
             >
               {tag.toUpperCase()}
-            </span>
+            </Link>
           ))}
         </span>
       </div>

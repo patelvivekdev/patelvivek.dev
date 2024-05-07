@@ -94,9 +94,10 @@ export default function Blog({ params }: { params: any }) {
             <Button
               variant='outline'
               className='
-          mb-5 cursor-pointer text-lg font-semibold 
-          border-neutral-800 text-neutral-800 hover:underline
-          dark:border-neutral-300 dark:text-neutral-300'
+                mb-5 cursor-pointer text-lg font-semibold 
+                border-neutral-800 text-neutral-800 hover:underline
+                dark:border-neutral-300 dark:text-neutral-300
+                hover:border-indigo-700 hover:dark:border-indigo-700'
             >
               &larr; Back to Snippets
             </Button>
