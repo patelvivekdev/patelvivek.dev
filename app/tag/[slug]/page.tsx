@@ -23,7 +23,7 @@ export default function TagPage({ params }: { params: any }) {
 
   return (
     <section className='min-h-screen mt-16 sm:mt-40 w-11/12 sm:w-3/4 mx-auto gap-4 mb-5'>
-      <Link href='/tags'>
+      <Link href='/tag'>
         <Button
           variant='outline'
           className='
