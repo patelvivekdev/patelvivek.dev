@@ -56,3 +56,34 @@ export function getLatestProjects() {
   });
   return sortedProjects.slice(0, 4);
 }
+
+export function getAllProjectsTags() {
+  const projects = getProjects();
+
+  const tags: Record<string, { projects: string[]; count: number }> = {};
+  projects.forEach((project) => {
+    project.metadata.tags!.forEach((tag) => {
+      tag = tag.trim();
+      tag = tag.toLowerCase();
+      if (!tags[tag]) {
+        tags[tag] = {
+          projects: [],
+          count: 0,
+        };
+      }
+      tags[tag].projects.push(project.slug);
+      tags[tag].count++;
+    });
+  });
+
+  return tags;
+}
+
+export function getProjectsByTag(tag: string) {
+  let projects = getProjects();
+  projects = projects.filter((project) => project.metadata && project.metadata.published === true);
+  const filteredProjects = projects.filter(
+    (project) => project.metadata.tags!.filter((t) => t.toLowerCase() === tag.toLowerCase()).length > 0,
+  );
+  return filteredProjects;
+}

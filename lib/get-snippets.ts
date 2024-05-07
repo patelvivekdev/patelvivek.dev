@@ -46,3 +46,12 @@ export function getSnippet(slug: string) {
 }
 
 export default getSnippets;
+
+export function getSnippetsByTag(tag: string) {
+  let snippets = getSnippets();
+  snippets = snippets.filter((snippet) => snippet.metadata && snippet.metadata.published === true);
+  const filteredSnippets = snippets.filter(
+    (snippet) => snippet.metadata.tags!.filter((t) => t.toLowerCase() === tag.toLowerCase()).length > 0,
+  );
+  return filteredSnippets;
+}

@@ -67,3 +67,12 @@ export function getLatestBlogs() {
 }
 
 export default getBlogs;
+
+export function getBlogByTag(tag: string) {
+  let blogs = getBlogs();
+  blogs = blogs.filter((blog) => blog.metadata && blog.metadata.published === true);
+  const filteredBlogs = blogs.filter(
+    (blog) => blog.metadata.tags!.filter((t) => t.toLowerCase() === tag.toLowerCase()).length > 0,
+  );
+  return filteredBlogs;
+}

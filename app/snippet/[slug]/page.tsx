@@ -124,10 +124,10 @@ export default function Blog({ params }: { params: any }) {
           </div>
           <div className='flex flex-row flex-wrap gap-4 mb-5'>
             {snippet.metadata.tags?.map((tag) => (
-              <Link key={tag} href={`/tag/${tag}`}>
+              <Link key={tag} href={`/tag/${tag.toLowerCase()}`}>
                 <Button
                   variant='outline'
-                  className='cursor-pointer text-lg font-semibold border border-2 border-indigo-500 hover:underline'
+                  className='cursor-pointer text-lg font-semibold border-2 border-indigo-500 hover:underline'
                 >
                   {tag}
                 </Button>
