@@ -3,13 +3,15 @@ title: 'How to add copy to clipboard button.'
 publishedAt: 'April 25, 2024'
 slug: 'copy-to-clipboard'
 description: 'Adding copy button in mdx in next js app router'
-tags: [mdx, copy, react]
-published: false
+tags: [mdx, copy, nextjs, clipboard, highlighting]
+published: true
 ---
+
+<RoundedImage src='/snippets/copy-to-clipboard.webp' width={800} height={600} alt='Acme Auth' />
 
 ## Introduction
 
-> This tutorial provides a straightforward method to add a copy-to-clipboard button in an MDX file within a Next.js application.
+This tutorial provides a straightforward method to add a copy-to-clipboard button in an MDX file within a Next.js application.
 
 ## Technology
 
@@ -27,60 +29,134 @@ Next Mdx Remote is a library that allows you to load MDX files remotely, making 
 
 To use Next Mdx Remote, you can install it using the following command:
 
-```
+```bash
 npm install next-mdx-remote
 ```
 
-Once installed, you can import it into your application and use it to load MDX files from a remote URL:
+Once installed, you can import it into your application and use it to load MDX files.
 
+### CustomMDX
+
+Create a new file named `mdx.tsx` in the `components` directory.
+
+```tsx
+// components/mdx.tsx
+
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { MDXComponents } from 'mdx/types';
+
+export const mdxComponents: MDXComponents = {};
+
+export function CustomMDX({ children, components }: { children: string; components: MDXComponents }) {
+  return <MDXRemote source={children} components={{ ...mdxComponents, ...(components || {}) }} />;
+}
 ```
-import { MdxRemote } from 'next-mdx-remote';
-
-const MyComponent = () => {
-  return (
-    <MdxRemote
-      src="https://example.com/my-mdx-file.mdx"
-    />
-  );
-};
-
-export default MyComponent;
-```
-
-This will load the MDX file from the specified URL and render it as a React component.
 
 ### Custom Components
 
-You can add custom components to your MDX files using the `<MdxRemote.Components>` component. This allows you to define your own components that can be used within your MDX content.
+You can add custom components to your MDX files using the `mdxComponents` option. This allows you to define your own components that can be used within your MDX content.
 
-For example, you could define a custom component for a copy-to-clipboard button as follows:
+Now let's add a custom component to our MDX file.
 
-```
-import { MdxRemote } from 'next-mdx-remote';
+Create a new file named `Pre.tsx` in the `components` directory.
 
-const CopyButton = () => {
-  // Logic for copying text to clipboard
-};
+```tsx
+// components/Pre.tsx
 
-const MyComponent = () => {
+'use client';
+import { useState, useRef } from 'react';
+import { Copy, Check } from 'lucide-react';
+
+const Pre = (props: any) => {
+  const textInput = useRef<any>(null);
+  const [copied, setCopied] = useState(false);
+
+  const onCopy = () => {
+    setCopied(true);
+    navigator.clipboard.writeText(textInput?.current?.textContent);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
+
   return (
-    <MdxRemote
-      src="https://example.com/my-mdx-file.mdx"
-      components={{ CopyButton }}
-    />
+    <div className='relative top-[20px] right-[20px]'>
+      <span ref={textInput} className='hidden'>
+        {props.children}
+      </span>
+      <button aria-label='Copy code' type='button' className='h-4 w-4' onClick={onCopy}>
+        {copied ? <Check className='text-[#80d1a9]' /> : <Copy className='text-white' />}
+      </button>
+    </div>
   );
 };
 
-export default MyComponent;
+export default Pre;
 ```
 
-This would allow you to use the `<CopyButton>` component within your MDX file as follows:
+## Usage
 
+### Add Pre component
+
+Import Pre component in your MDX file.
+
+```tsx
+// components/mdx.tsx
+import { Code } from 'bright';
+import Pre from './Pre';
+
+Code.theme = {
+  dark: 'github-dark',
+  light: 'github-light',
+};
+
+export const mdxComponents: MDXComponents = {
+  pre: (props) => (
+    <div className='flex flex-row gap-2 bg-[#0d1117]'>
+      <Code className='w-full'>{props.children}</Code>
+      <Pre {...props} />
+    </div>
+  ),
+};
 ```
-<CopyButton />
+
+### Use CustomMDX
+
+Import CustomMDX in page.tsx
+
+```tsx
+// blog/[slug]/page.tsx
+
+import { notFound } from 'next/navigation';
+import getBlogs from '@/db/get-blogs';
+import { CustomMDX } from '@/components/mdx';
+
+export default function Blog({ params }: { params: any }) {
+  const blog = getBlogs().find((post) => post.slug === params.slug);
+
+  if (!blog) {
+    return notFound();
+  }
+  return (
+    <div className='mx-auto mt-40 w-11/12 sm:w-3/4'>
+      <h1 className='text-start text-xl sm:text-4xl font-bold'>{blog.metadata.title}</h1>
+      <div className='mb-4 mt-2 flex items-center justify-between'>
+        <p className='text-lg text-neutral-700 dark:text-neutral-300'>
+          <span className='flex flex-row items-center gap-2'>{blog.metadata.description}</span>
+        </p>
+      </div>
+      <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
+        <CustomMDX components={{}}>{blog.content}</CustomMDX>
+      </article>
+    </div>
+  );
+}
 ```
 
 ## Links
 
 - [Github repo](https://www.github.com/patelvivekdev/copy-to-clipboard)
 - [Live demo](https://copy-to-clipboard-patelvivekdev.vercel.app/)
+- [Bright](https://bright.codehike.org/)
+- [Next Mdx Remote](https://github.com/hashicorp/next-mdx-remote)
+- [MDX](https://mdxjs.com)

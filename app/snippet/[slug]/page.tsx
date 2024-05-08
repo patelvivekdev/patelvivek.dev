@@ -144,7 +144,7 @@ export default function Blog({ params }: { params: any }) {
         <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
           <CustomMDX
             components={{
-              img: RoundedImage,
+              RoundedImage: RoundedImage,
             }}
           >
             {snippet.content}
@@ -164,5 +164,14 @@ async function Views({ slug }: { slug: string }) {
 }
 
 function RoundedImage(props: any) {
-  return <Image alt={props.alt} className={props.className} {...props} priority={true} />;
+  return (
+    <Image
+      alt={props.alt}
+      className='rounded-lg shadow-lg dark:shadow-white shadow-slate-800 mx-auto'
+      {...props}
+      priority={true}
+      width={props.width}
+      height={props.height}
+    />
+  );
 }
