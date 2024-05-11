@@ -3,7 +3,13 @@
 import { useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 
-export function SubmitButton({ name, className }: { name: string; className?: string }) {
+export function SubmitButton({
+  name,
+  className,
+}: {
+  name: string;
+  className?: string;
+}) {
   const { pending } = useFormStatus();
 
   return (

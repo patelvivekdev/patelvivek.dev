@@ -1,5 +1,5 @@
 'use server';
-import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
+import { unstable_noStore as noStore } from 'next/cache';
 import supabase from '@/lib/supabase/private';
 import { z } from 'zod';
 
@@ -36,7 +36,7 @@ export async function sendMessage(prevState: any, formData: FormData) {
     };
   }
   try {
-    const { data, error } = await supabase.from('Message').upsert({
+    const { error } = await supabase.from('Message').upsert({
       email: validatedFields.data.email,
       message: validatedFields.data.message,
       name: validatedFields.data.name,

@@ -29,12 +29,20 @@ export default async function sitemap() {
       : new Date().toISOString().split('T')[0],
   }));
 
-  const routes = ['', '/home', '/projects', '/blog', '/snippet', '/contact', '/resume', '/Vivek-Resume.pdf', '/PhotoGallery'].map(
-    (route) => ({
-      url: `https://patelvivek.dev${route}`,
-      lastModified: new Date().toISOString().split('T')[0],
-    }),
-  );
+  const routes = [
+    '',
+    '/home',
+    '/projects',
+    '/blog',
+    '/snippet',
+    '/contact',
+    '/resume',
+    '/Vivek-Resume.pdf',
+    '/PhotoGallery',
+  ].map((route) => ({
+    url: `https://patelvivek.dev${route}`,
+    lastModified: new Date().toISOString().split('T')[0],
+  }));
 
   return [...routes, ...blogs, ...allProjects, ...allSnippets];
 }

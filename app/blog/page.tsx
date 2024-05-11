@@ -4,11 +4,14 @@ import { getBlogs } from '@/lib/get-blogs';
 
 export const metadata: Metadata = {
   title: 'Read all the blogs I have written',
-  description: 'Get practical tips and insights on React, Next.js, and modern web development techniques from my blog.',
-  keywords: 'blogs, writing, articles, nextjs, react, javascript, web development, modern web development',
+  description:
+    'Get practical tips and insights on React, Next.js, and modern web development techniques from my blog.',
+  keywords:
+    'blogs, writing, articles, nextjs, react, javascript, web development, modern web development',
   openGraph: {
     title: 'Read all the blogs I have written',
-    description: 'Get practical tips and insights on React, Next.js, and modern web development techniques from my blog.',
+    description:
+      'Get practical tips and insights on React, Next.js, and modern web development techniques from my blog.',
     url: 'https://patelvivek.dev/blog',
     siteName: 'Vivek Patel',
     images: [
@@ -35,8 +38,10 @@ const BlogPage = () => {
   });
 
   return (
-    <div className='mt-16 sm:mt-40 w-11/12 sm:w-3/4 mx-auto flex flex-col items-center gap-4'>
-      <h1 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>All Blogs</h1>
+    <div className='mx-auto mt-16 flex w-11/12 flex-col items-center gap-4 sm:mt-40 sm:w-3/4'>
+      <h1 className='border-b-4 border-indigo-500 text-center text-2xl font-bold md:text-4xl'>
+        All Blogs
+      </h1>
       <div className='flex flex-col justify-center gap-4'>
         {allBlogs.length > 0 ? (
           allBlogs.map((blog) => (
@@ -57,7 +62,9 @@ const BlogPage = () => {
           </p>
         )}
       </div>
-      <h2 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'>Medium</h2>
+      <h2 className='border-b-4 border-indigo-500 text-center text-2xl font-bold md:text-4xl'>
+        Medium
+      </h2>
       <div className='mb-10 flex flex-col justify-center gap-4'>
         {/* Medium */}
         <BlogPost

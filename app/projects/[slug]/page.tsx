@@ -15,16 +15,28 @@ import { Button } from '@/components/ui/button';
 //   return projects.map((project) => ({ slug: project.slug }));
 // }
 
-export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
+export async function generateMetadata({
+  params,
+}: {
+  params: any;
+}): Promise<Metadata | undefined> {
   const project = getProjects().find((post) => post.slug === params.slug);
 
   if (!project) {
     return notFound();
   }
 
-  let { title, publishedAt: publishedTime, description: description, image, tags } = project.metadata;
+  let {
+    title,
+    publishedAt: publishedTime,
+    description: description,
+    image,
+    tags,
+  } = project.metadata;
 
-  let ogImage = image ? `https://patelvivek.dev${image}` : `https://patelvivek.dev/og?title=${title}`;
+  let ogImage = image
+    ? `https://patelvivek.dev${image}`
+    : `https://patelvivek.dev/og?title=${title}`;
 
   return {
     title,
@@ -62,7 +74,7 @@ export default function Project({ params }: { params: any }) {
     return notFound();
   }
   return (
-    <div className='mx-auto mt-16 sm:mt-40 w-11/12 sm:w-3/4'>
+    <div className='mx-auto mt-16 w-11/12 sm:mt-40 sm:w-3/4'>
       <Progress />
       <section>
         <script
@@ -92,19 +104,23 @@ export default function Project({ params }: { params: any }) {
           <Button
             variant='outline'
             className='
-            cursor-pointer text-lg font-semibold border-2 mb-5
-            border-neutral-800 text-neutral-800 hover:underline
-            dark:border-neutral-300 dark:text-neutral-300
-            hover:border-indigo-500 hover:dark:border-indigo-500
+            mb-5 cursor-pointer border-2 border-neutral-800 text-lg
+            font-semibold text-neutral-800 hover:border-indigo-500
+            hover:underline dark:border-neutral-300
+            dark:text-neutral-300 hover:dark:border-indigo-500
           '
           >
             &larr; Back to Projects
           </Button>
         </Link>
-        <h1 className='text-start text-indigo-500 text-2xl sm:text-4xl font-bold'>{project.metadata.title}</h1>
+        <h1 className='text-start text-2xl font-bold text-indigo-500 sm:text-4xl'>
+          {project.metadata.title}
+        </h1>
         <div className='mb-4 mt-2 flex items-center justify-between'>
           <p className='text-lg font-normal text-neutral-700 dark:text-neutral-300'>
-            <span className='flex flex-row items-center gap-2'>{project.metadata.description}</span>
+            <span className='flex flex-row items-center gap-2'>
+              {project.metadata.description}
+            </span>
           </p>
         </div>
         <div className='mb-8 mt-2 flex items-center justify-between'>
@@ -118,17 +134,18 @@ export default function Project({ params }: { params: any }) {
                   </>
                 }
               >
-                <Calendar /> {formatDate(project.metadata.publishedAt!)} | {project.readingTime}
+                <Calendar /> {formatDate(project.metadata.publishedAt!)} |{' '}
+                {project.readingTime}
               </Suspense>
             </span>
           </p>
         </div>
-        <div className='flex flex-row flex-wrap gap-4 mb-5'>
+        <div className='mb-5 flex flex-row flex-wrap gap-4'>
           {project.metadata.tags?.map((tag) => (
             <Link key={tag} href={`/tag/${tag.toLowerCase()}`}>
               <Button
                 variant='outline'
-                className='cursor-pointer text-lg font-semibold border-2 border-indigo-500 hover:underline'
+                className='cursor-pointer border-2 border-indigo-500 text-lg font-semibold hover:underline'
               >
                 {tag}
               </Button>
@@ -153,7 +170,7 @@ function RoundedImage(props: any) {
   return (
     <Image
       alt={props.alt}
-      className='rounded-lg shadow-lg dark:shadow-white shadow-slate-800 mx-auto'
+      className='mx-auto rounded-lg shadow-lg shadow-slate-800 dark:shadow-white'
       {...props}
       priority={true}
       width={props.width}

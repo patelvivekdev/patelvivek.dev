@@ -45,7 +45,9 @@ export const getBlogs = cache(() => {
 export function getBlog(slug: string) {
   let blogs = getBlogs();
   if (process.env.APP_ENV !== 'development') {
-    blogs = blogs.filter((blog) => blog.metadata && blog.metadata.published === true);
+    blogs = blogs.filter(
+      (blog) => blog.metadata && blog.metadata.published === true,
+    );
   }
   const blog = blogs.find((blog) => blog.slug === slug);
   return blog;
@@ -53,7 +55,9 @@ export function getBlog(slug: string) {
 
 export function getLatestBlogs() {
   let blogs = getBlogs();
-  blogs = blogs.filter((blog) => blog.metadata && blog.metadata.published === true);
+  blogs = blogs.filter(
+    (blog) => blog.metadata && blog.metadata.published === true,
+  );
 
   // Sort by date
   const allBlogs = blogs.sort((a, b) => {
@@ -70,16 +74,22 @@ export default getBlogs;
 
 export function getBlogByTag(tag: string) {
   let blogs = getBlogs();
-  blogs = blogs.filter((blog) => blog.metadata && blog.metadata.published === true);
+  blogs = blogs.filter(
+    (blog) => blog.metadata && blog.metadata.published === true,
+  );
   const filteredBlogs = blogs.filter(
-    (blog) => blog.metadata.tags!.filter((t) => t.toLowerCase() === tag.toLowerCase()).length > 0,
+    (blog) =>
+      blog.metadata.tags!.filter((t) => t.toLowerCase() === tag.toLowerCase())
+        .length > 0,
   );
   return filteredBlogs;
 }
 
 export function getAllBlogsTags() {
   let blogs = getBlogs();
-  blogs = blogs.filter((blog) => blog.metadata && blog.metadata.published === true);
+  blogs = blogs.filter(
+    (blog) => blog.metadata && blog.metadata.published === true,
+  );
   const tags: Record<string, number> = {};
   blogs.forEach((blog) => {
     blog.metadata.tags!.forEach((tag) => {

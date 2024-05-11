@@ -73,8 +73,11 @@ async function InternalBlogPost({
   return (
     <div className='rounded-md border border-neutral-400 bg-neutral-200 p-4 hover:border-neutral-800 hover:bg-neutral-300 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:border-zinc-100 dark:hover:bg-zinc-700'>
       <div className='grid grid-cols-1 items-center justify-items-end gap-2 sm:grid-cols-3'>
-        <h2 className='sm:col-span-2 w-full text-2xl font-bold text-neutral-900 dark:text-neutral-100'>
-          <Link href={`/blog/${slug}`} className='hover:underline cursor-pointer'>
+        <h2 className='w-full text-2xl font-bold text-neutral-900 dark:text-neutral-100 sm:col-span-2'>
+          <Link
+            href={`/blog/${slug}`}
+            className='cursor-pointer hover:underline'
+          >
             {title}
           </Link>
         </h2>
@@ -100,14 +103,16 @@ async function InternalBlogPost({
               </div>
             )}
           </div>
-          <p className='text-xl font-semibold text-neutral-800 dark:text-gray-300'>{summary}</p>
+          <p className='text-xl font-semibold text-neutral-800 dark:text-gray-300'>
+            {summary}
+          </p>
         </div>
         <span className='flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
           {tags?.map((tag) => (
             <Link
               key={tag}
               href={`/tag/${tag.toLowerCase()}`}
-              className='mr-2 px-3 py-1 text-sm font-semibold rounded-lg border-2 border-indigo-700 text-neutral-900 dark:text-white hover:underline'
+              className='mr-2 rounded-lg border-2 border-indigo-700 px-3 py-1 text-sm font-semibold text-neutral-900 hover:underline dark:text-white'
             >
               {tag.toUpperCase()}
             </Link>
@@ -144,15 +149,20 @@ function ExternalBlogPost({
   return (
     <div className='rounded-md border border-gray-300 bg-gray-200 p-4 hover:border-gray-300 hover:bg-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600 dark:hover:bg-slate-700'>
       <div className='grid grid-cols-1 items-center justify-items-end gap-2 sm:grid-cols-3'>
-        <h4 className='sm:col-span-2  w-full text-2xl font-bold text-neutral-900 dark:text-neutral-100'>
-          <a href={slug} target='_blank' rel='noopener noreferrer' className='hover:underline cursor-pointer'>
+        <h4 className='w-full  text-2xl font-bold text-neutral-900 dark:text-neutral-100 sm:col-span-2'>
+          <a
+            href={slug}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='cursor-pointer hover:underline'
+          >
             {title}
           </a>
         </h4>
         <div className='hidden w-32 text-right text-base text-neutral-800 dark:text-gray-200/75 sm:block md:mb-0'>
           {views && (
             <Suspense fallback={<p>--- Views</p>}>
-              <p className='text-base flex flex-row gap-2 items-center text-neutral-800 dark:text-gray-300'>
+              <p className='flex flex-row items-center gap-2 text-base text-neutral-800 dark:text-gray-300'>
                 <Eye /> {`${views} views`}
               </p>
             </Suspense>
@@ -168,7 +178,7 @@ function ExternalBlogPost({
             <div className='w-32 text-base text-neutral-800 dark:text-gray-200/75 sm:hidden md:mb-0'>
               {views && (
                 <Suspense fallback={<p>--- Views</p>}>
-                  <p className='text-base flex flex-row gap-2 items-center text-neutral-800 dark:text-gray-300'>
+                  <p className='flex flex-row items-center gap-2 text-base text-neutral-800 dark:text-gray-300'>
                     <Eye /> {`${views} views`}
                   </p>
                 </Suspense>
@@ -176,13 +186,15 @@ function ExternalBlogPost({
             </div>
             m
           </div>
-          <p className='text-xl font-medium text-neutral-800 dark:text-gray-200/75'>{summary}</p>
+          <p className='text-xl font-medium text-neutral-800 dark:text-gray-200/75'>
+            {summary}
+          </p>
         </div>
         <span className='mr-2 flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
           {tags?.map((tag) => (
             <span
               key={tag}
-              className='mr-2 px-3 py-1 text-sm font-semibold rounded-lg  border-2 border-indigo-700 text-neutral-900 dark:text-white'
+              className='mr-2 rounded-lg border-2 border-indigo-700 px-3 py-1  text-sm font-semibold text-neutral-900 dark:text-white'
             >
               {tag.toUpperCase()}
             </span>

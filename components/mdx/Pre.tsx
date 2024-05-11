@@ -17,8 +17,17 @@ const Pre = (props: any) => {
   return (
     <pre ref={textInput} className='flex flex-row justify-between gap-3'>
       {props.children}
-      <button aria-label='Copy code' type='button' className='h-4 w-4' onClick={onCopy}>
-        {copied ? <Check className='text-[#80d1a9]' /> : <Copy className='text-white' />}
+      <button
+        aria-label='Copy code'
+        type='button'
+        className='h-4 w-4'
+        onClick={onCopy}
+      >
+        {copied ? (
+          <Check className='text-[#80d1a9]' />
+        ) : (
+          <Copy className='text-white' />
+        )}
       </button>
     </pre>
   );

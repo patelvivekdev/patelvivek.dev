@@ -19,16 +19,28 @@ import { increment } from '@/app/actions';
 //   return snippets.map((snippet) => ({ slug: snippet.slug }));
 // }
 
-export async function generateMetadata({ params }: { params: any }): Promise<Metadata | undefined> {
+export async function generateMetadata({
+  params,
+}: {
+  params: any;
+}): Promise<Metadata | undefined> {
   const snippet = getSnippets().find((snippet) => snippet.slug === params.slug);
 
   if (!snippet) {
     return notFound();
   }
 
-  let { title, publishedAt: publishedTime, description, image, tags } = snippet.metadata;
+  let {
+    title,
+    publishedAt: publishedTime,
+    description,
+    image,
+    tags,
+  } = snippet.metadata;
 
-  let ogImage = image ? `https://patelvivek.dev${image}` : `https://patelvivek.dev/og?title=${title}`;
+  let ogImage = image
+    ? `https://patelvivek.dev${image}`
+    : `https://patelvivek.dev/og?title=${title}`;
 
   return {
     title,
@@ -68,7 +80,7 @@ export default function Blog({ params }: { params: any }) {
   }
 
   return (
-    <div className='mx-auto mt-16 sm:mt-40 w-11/12 sm:w-3/4'>
+    <div className='mx-auto mt-16 w-11/12 sm:mt-40 sm:w-3/4'>
       <Progress />
       <section>
         <script
@@ -99,17 +111,21 @@ export default function Blog({ params }: { params: any }) {
             <Button
               variant='outline'
               className='
-                mb-5 cursor-pointer text-lg font-semibold 
-                border-neutral-800 text-neutral-800 hover:underline
-                dark:border-neutral-300 dark:text-neutral-300
-                hover:border-indigo-700 hover:dark:border-indigo-700'
+                mb-5 cursor-pointer border-neutral-800 text-lg 
+                font-semibold text-neutral-800 hover:border-indigo-700
+                hover:underline dark:border-neutral-300
+                dark:text-neutral-300 hover:dark:border-indigo-700'
             >
               &larr; Back to Snippets
             </Button>
           </Link>
-          <h1 className='text-start text-indigo-500 text-2xl sm:text-4xl font-bold'>{snippet.metadata.title}</h1>
-          <h2 className='text-xl text-neutral-700 dark:text-neutral-300'>{snippet.metadata.description}</h2>
-          <div className='flex flex-col gap-2 sm:flex-row sm:items-center justify-between'>
+          <h1 className='text-start text-2xl font-bold text-indigo-500 sm:text-4xl'>
+            {snippet.metadata.title}
+          </h1>
+          <h2 className='text-xl text-neutral-700 dark:text-neutral-300'>
+            {snippet.metadata.description}
+          </h2>
+          <div className='flex flex-col justify-between gap-2 sm:flex-row sm:items-center'>
             <p className='text-base text-neutral-700 dark:text-neutral-300'>
               <span className='flex flex-row items-center gap-2'>
                 <Suspense
@@ -120,7 +136,8 @@ export default function Blog({ params }: { params: any }) {
                     </>
                   }
                 >
-                  <Calendar /> {formatDate(snippet.metadata.publishedAt!)} | {snippet.readingTime}
+                  <Calendar /> {formatDate(snippet.metadata.publishedAt!)} |{' '}
+                  {snippet.readingTime}
                 </Suspense>
               </span>
             </p>
@@ -128,12 +145,12 @@ export default function Blog({ params }: { params: any }) {
               <Views slug={snippet.slug} />
             </Suspense>
           </div>
-          <div className='flex flex-row flex-wrap gap-4 mb-5'>
+          <div className='mb-5 flex flex-row flex-wrap gap-4'>
             {snippet.metadata.tags?.map((tag) => (
               <Link key={tag} href={`/tag/${tag.toLowerCase()}`}>
                 <Button
                   variant='outline'
-                  className='cursor-pointer text-lg font-semibold border-2 border-indigo-500 hover:underline'
+                  className='cursor-pointer border-2 border-indigo-500 text-lg font-semibold hover:underline'
                 >
                   {tag}
                 </Button>
@@ -167,7 +184,7 @@ function RoundedImage(props: any) {
   return (
     <Image
       alt={props.alt}
-      className='rounded-lg shadow-lg dark:shadow-white shadow-slate-800 mx-auto'
+      className='mx-auto rounded-lg shadow-lg shadow-slate-800 dark:shadow-white'
       {...props}
       priority={true}
       width={props.width}
