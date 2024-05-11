@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import Link from 'next/link';
 import React from 'react';
 
@@ -12,7 +13,13 @@ function slugify(str: string) {
     .replace(/\-\-+/g, '-'); // Replace multiple - with single -
 }
 
-export const CustomLink = ({ children, ...props }: { children: any; [x: string]: any }) => {
+export const CustomLink = ({
+  children,
+  ...props
+}: {
+  children: any;
+  [x: string]: any;
+}) => {
   const href = props.href;
   if (href.startsWith('/')) {
     return (
@@ -24,7 +31,12 @@ export const CustomLink = ({ children, ...props }: { children: any; [x: string]:
 
   if (href.startsWith('#')) {
     return (
-      <a href={`#${slugify(props.href as string)}`} id={slugify(props.href as string)} className='anchor' {...props}>
+      <a
+        href={`#${slugify(props.href as string)}`}
+        id={slugify(props.href as string)}
+        className='anchor'
+        {...props}
+      >
         {children}
       </a>
     );

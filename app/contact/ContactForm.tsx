@@ -16,7 +16,10 @@ const initialState = {
 };
 
 export default function ContactMeForm() {
-  const [state, formAction] = useFormState<any>(sendMessage as any, initialState);
+  const [state, formAction] = useFormState<any>(
+    sendMessage as any,
+    initialState,
+  );
 
   useEffect(() => {
     if (state.type === 'success') {
@@ -27,43 +30,71 @@ export default function ContactMeForm() {
   return (
     <form
       action={formAction}
-      className='form rounded-lg dark:bg-white bg-gray-700 p-4  w-full flex flex-col'
+      className='form flex w-full flex-col rounded-lg  bg-gray-700 p-4 dark:bg-white'
       key={state?.resetKey}
     >
       {state?.type === 'error' && (
-        <p className='text-lg mb-2 bg-green-951 text-red-600 border-2 border-gray-300 rounded-md p-2 my-4'>{state.message}</p>
+        <p className='bg-green-951 my-4 mb-2 rounded-md border-2 border-gray-300 p-2 text-lg text-red-600'>
+          {state.message}
+        </p>
       )}
       <div className='grid gap-2'>
         <div className='flex items-center'>
-          <Label htmlFor='name' className='text-sm text-white dark:text-gray-600 mt-4'>
+          <Label
+            htmlFor='name'
+            className='mt-4 text-sm text-white dark:text-gray-600'
+          >
             Your Name
           </Label>
         </div>
-        <Input id='name' type='input' name='name' placeholder='Enter your name' required />
+        <Input
+          id='name'
+          type='input'
+          name='name'
+          placeholder='Enter your name'
+          required
+        />
         {state?.errors?.name && (
-          <span id='name-error' className='text-red-600 text-sm'>
+          <span id='name-error' className='text-sm text-red-600'>
             {state.errors.name.join(',')}
           </span>
         )}
       </div>
       <div className='grid gap-2'>
-        <Label htmlFor='email' className='text-sm text-white dark:text-gray-600 mt-4'>
+        <Label
+          htmlFor='email'
+          className='mt-4 text-sm text-white dark:text-gray-600'
+        >
           Email
         </Label>
-        <Input id='email' type='email' placeholder='m@example.com' name='email' required />
+        <Input
+          id='email'
+          type='email'
+          placeholder='m@example.com'
+          name='email'
+          required
+        />
         {state?.errors?.email && (
-          <span id='email-error' className='text-red-600 text-sm'>
+          <span id='email-error' className='text-sm text-red-600'>
             {state.errors.email.join(',')}
           </span>
         )}
       </div>
       <div className='grid gap-2'>
-        <Label htmlFor='message' className='text-sm text-white dark:text-gray-600 mt-4'>
+        <Label
+          htmlFor='message'
+          className='mt-4 text-sm text-white dark:text-gray-600'
+        >
           Message
         </Label>
-        <Textarea rows={5} placeholder='Type your message here.' name='message' required />
+        <Textarea
+          rows={5}
+          placeholder='Type your message here.'
+          name='message'
+          required
+        />
         {state?.errors?.message && (
-          <span id='message-error' className='text-red-600 text-sm'>
+          <span id='message-error' className='text-sm text-red-600'>
             {state.errors.message.join(',')}
           </span>
         )}

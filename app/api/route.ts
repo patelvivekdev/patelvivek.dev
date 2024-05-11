@@ -10,14 +10,17 @@ export async function POST(request: Request) {
     negative_prompt: 'deformed, ugly',
   });
 
-  const response = await fetch('https://modal-labs--instant-stable-diffusion-xl.modal.run/v1/inference', {
-    method: 'POST',
-    headers: {
-      Authorization: `Token ${process.env.MODAL_TOKEN_ID}:${process.env.MODAL_TOKEN_SECRET}`,
-      'Content-Type': 'application/json',
+  const response = await fetch(
+    'https://modal-labs--instant-stable-diffusion-xl.modal.run/v1/inference',
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${process.env.MODAL_TOKEN_ID}:${process.env.MODAL_TOKEN_SECRET}`,
+        'Content-Type': 'application/json',
+      },
+      body,
     },
-    body,
-  });
+  );
 
   if (response.status !== 201) {
     const message = await response.text();

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import getSnippets from '@/lib/get-snippets';
 import SnippetCard from '@/components/SnippetCard';
 
@@ -35,8 +34,11 @@ const SnippetPage = () => {
   });
 
   return (
-    <div className='mt-16 sm:mt-40 min-h-screen mb-8 w-11/12 sm:w-3/4 mx-auto flex flex-col items-center gap-4'>
-      <h1 className='text-center text-2xl font-bold md:text-4xl border-b-4 border-indigo-500'> All Snippets</h1>
+    <div className='mx-auto mb-8 mt-16 flex min-h-screen w-11/12 flex-col items-center gap-4 sm:mt-40 sm:w-3/4'>
+      <h1 className='border-b-4 border-indigo-500 text-center text-2xl font-bold md:text-4xl'>
+        {' '}
+        All Snippets
+      </h1>
       <h3 className='text-base'>Here are some of reusable snippets</h3>
       <div className='flex flex-col justify-center gap-4'>
         {allSnippets.length > 0 ? (

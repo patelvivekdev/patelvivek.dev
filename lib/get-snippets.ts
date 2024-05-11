@@ -39,7 +39,9 @@ export const getSnippets = cache(() => {
 export function getSnippet(slug: string) {
   let snippets = getSnippets();
   if (process.env.APP_ENV !== 'development') {
-    snippets = snippets.filter((snippet) => snippet.metadata && snippet.metadata.published === true);
+    snippets = snippets.filter(
+      (snippet) => snippet.metadata && snippet.metadata.published === true,
+    );
   }
   const snippet = snippets.find((snippet) => snippet.slug === slug);
   return snippet;
@@ -49,16 +51,23 @@ export default getSnippets;
 
 export function getSnippetsByTag(tag: string) {
   let snippets = getSnippets();
-  snippets = snippets.filter((snippet) => snippet.metadata && snippet.metadata.published === true);
+  snippets = snippets.filter(
+    (snippet) => snippet.metadata && snippet.metadata.published === true,
+  );
   const filteredSnippets = snippets.filter(
-    (snippet) => snippet.metadata.tags!.filter((t) => t.toLowerCase() === tag.toLowerCase()).length > 0,
+    (snippet) =>
+      snippet.metadata.tags!.filter(
+        (t) => t.toLowerCase() === tag.toLowerCase(),
+      ).length > 0,
   );
   return filteredSnippets;
 }
 
 export function getAllSnippetsTags() {
   let snippets = getSnippets();
-  snippets = snippets.filter((snippet) => snippet.metadata && snippet.metadata.published === true);
+  snippets = snippets.filter(
+    (snippet) => snippet.metadata && snippet.metadata.published === true,
+  );
 
   const tags: Record<string, number> = {};
   snippets.forEach((snippet) => {

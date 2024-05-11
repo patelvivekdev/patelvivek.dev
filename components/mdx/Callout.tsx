@@ -1,5 +1,12 @@
+import React from 'react';
 import { cn } from '@/lib/utils';
-import { BadgeInfo, Lightbulb, CircleAlert, TriangleAlert, OctagonX } from 'lucide-react';
+import {
+  BadgeInfo,
+  Lightbulb,
+  CircleAlert,
+  TriangleAlert,
+  OctagonX,
+} from 'lucide-react';
 
 type CalloutType = 'note' | 'tip' | 'important' | 'warning' | 'caution';
 
@@ -9,7 +16,10 @@ interface CalloutProps {
   typeColor?: string;
 }
 
-const calloutMap: Record<CalloutType, { icon: React.ReactNode; borderColor: string; typeColor: string }> = {
+const calloutMap: Record<
+  CalloutType,
+  { icon: React.ReactNode; borderColor: string; typeColor: string }
+> = {
   note: {
     icon: <BadgeInfo className='mr-2 h-6 w-6 text-blue-500' />,
     borderColor: 'border border-4 !border-blue-500',
@@ -50,7 +60,9 @@ export function Callout({ type, children }: CalloutProps) {
     >
       <div className='flex items-center'>
         {icon}
-        <div className={cn('ml-1 text-base font-bold', typeColor)}>{type.toUpperCase()}</div>
+        <div className={cn('ml-1 text-base font-bold', typeColor)}>
+          {type.toUpperCase()}
+        </div>
       </div>
       <div className='callout w-full text-base'>{children}</div>
     </div>

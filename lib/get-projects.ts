@@ -59,7 +59,9 @@ export function getLatestProjects() {
 
 export function getAllProjectsTags() {
   let projects = getProjects();
-  projects = projects.filter((project) => project.metadata && project.metadata.published === true);
+  projects = projects.filter(
+    (project) => project.metadata && project.metadata.published === true,
+  );
   const tags: Record<string, number> = {};
   projects.forEach((project) => {
     project.metadata.tags!.forEach((tag) => {
@@ -77,9 +79,14 @@ export function getAllProjectsTags() {
 
 export function getProjectsByTag(tag: string) {
   let projects = getProjects();
-  projects = projects.filter((project) => project.metadata && project.metadata.published === true);
+  projects = projects.filter(
+    (project) => project.metadata && project.metadata.published === true,
+  );
   const filteredProjects = projects.filter(
-    (project) => project.metadata.tags!.filter((t) => t.toLowerCase() === tag.toLowerCase()).length > 0,
+    (project) =>
+      project.metadata.tags!.filter(
+        (t) => t.toLowerCase() === tag.toLowerCase(),
+      ).length > 0,
   );
   return filteredProjects;
 }
