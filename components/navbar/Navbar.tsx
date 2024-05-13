@@ -1,5 +1,6 @@
 import { FloatingNav } from '@/components/navbar/FloatingNav';
 import MobileNav from '@/components/navbar/MobileNav';
+import { CommandContainer } from '../Command/CommandContainer';
 
 const links = [
   { link: '/', name: 'Home' },
@@ -15,6 +16,7 @@ const Navbar = () => {
     <nav>
       <FloatingNav navItems={links} />
       <MobileNav navItems={links} />
+      <CommandContainer />
     </nav>
   );
 };

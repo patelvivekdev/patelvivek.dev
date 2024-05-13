@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormState } from 'react-dom';
+import { useActionState } from 'react';
 import { useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -16,7 +16,7 @@ const initialState = {
 };
 
 export default function ContactMeForm() {
-  const [state, formAction] = useFormState<any>(
+  const [state, formAction] = useActionState<any>(
     sendMessage as any,
     initialState,
   );
