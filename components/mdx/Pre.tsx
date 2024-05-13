@@ -16,7 +16,7 @@ const Pre = (props: any) => {
 
   return (
     <pre ref={textInput} className='flex flex-row justify-between gap-3'>
-      {props.children}
+      <div className='overflow-x-auto p-2'>{props.children}</div>
       <button
         aria-label='Copy code'
         type='button'
