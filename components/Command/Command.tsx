@@ -26,7 +26,6 @@ export function CommandMenu({
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const { setTheme } = useTheme();
-  console.log('blogs', blogs);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -56,7 +55,7 @@ export function CommandMenu({
 
   return (
     <>
-      <CommandDialog open={open} onOpenChange={setOpen}>
+      <CommandDialog open={open} onOpenChange={setOpen} className='w-4/5'>
         <CommandInput placeholder='Type a command or search...' />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
