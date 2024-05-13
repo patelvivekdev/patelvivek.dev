@@ -13,15 +13,29 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command';
+import {
+  CircleUserRound,
+  Home,
+  MoonStar,
+  Paperclip,
+  Rss,
+  SquareArrowOutUpRight,
+  SquareBottomDashedScissors,
+  SunMoon,
+  Tag,
+  Target,
+} from 'lucide-react';
 
 export function CommandMenu({
   blogs,
   projects,
   snippets,
+  tags,
 }: {
   blogs: any[];
   projects: any[];
   snippets: any[];
+  tags: any[];
 }) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
@@ -55,83 +69,119 @@ export function CommandMenu({
 
   return (
     <>
-      <CommandDialog open={open} onOpenChange={setOpen} className='w-4/5'>
+      <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder='Type a command or search...' />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandSeparator />
-          <CommandGroup heading='Routes'>
+          <CommandGroup heading='Links'>
             <CommandItem
               onSelect={() => runCommand(() => router.push('/home'))}
             >
+              <Home className='mr-2 h-4 w-4' />
               <span>Home</span>
             </CommandItem>
+            <CommandItem
+              onSelect={() => runCommand(() => router.push('/contact'))}
+            >
+              <CircleUserRound className='mr-2 h-4 w-4' />
+              <span>Contact</span>
+            </CommandItem>
+            <CommandItem
+              onSelect={() => runCommand(() => router.push('/resume'))}
+            >
+              <Paperclip className='mr-2 h-4 w-4' />
+              <span>Resume</span>
+            </CommandItem>
+            <CommandItem
+              onSelect={() => runCommand(() => router.push('/blog'))}
+            >
+              <Rss className='mr-2 h-4 w-4' />
+              <span>Blogs</span>
+            </CommandItem>
+            <CommandItem
+              onSelect={() => runCommand(() => router.push('/projects'))}
+            >
+              <Target className='mr-2 h-4 w-4' />
+              <span>Projects</span>
+            </CommandItem>
+            <CommandItem
+              onSelect={() => runCommand(() => router.push('/snippet'))}
+            >
+              <SquareBottomDashedScissors className='mr-2 h-4 w-4' />
+              <span>Snippets</span>
+            </CommandItem>
             <CommandItem onSelect={() => runCommand(() => router.push('/tag'))}>
+              <Tag className='mr-2 h-4 w-4' />
               <span>Tags</span>
             </CommandItem>
-            <CommandGroup heading='Blogs'>
-              <CommandItem
-                onSelect={() => runCommand(() => router.push('/blog'))}
-              >
-                <span>Blogs</span>
-              </CommandItem>
-              {blogs.map((blog: any) => (
-                <CommandItem
-                  key={blog.id}
-                  onSelect={() =>
-                    runCommand(() => router.push(`/blog/${blog.slug}`))
-                  }
-                >
-                  <span className='mr-2 h-4 w-4' />
-                  <span>{blog.metadata.title}</span>
-                </CommandItem>
-              ))}
-            </CommandGroup>
-            <CommandGroup heading='Projects'>
-              <CommandItem
-                onSelect={() => runCommand(() => router.push('/projects'))}
-              >
-                <span>Projects</span>
-              </CommandItem>
-              {projects.map((project: any) => (
-                <CommandItem
-                  key={project.id}
-                  onSelect={() =>
-                    runCommand(() => router.push(`/projects/${project.slug}`))
-                  }
-                >
-                  <span className='mr-2 h-4 w-4' />
-                  <span>{project.metadata.title}</span>
-                </CommandItem>
-              ))}
-            </CommandGroup>
-            <CommandGroup heading='Snippets'>
-              <CommandItem
-                onSelect={() => runCommand(() => router.push('/snippet'))}
-              >
-                <span>Snippets</span>
-              </CommandItem>
-              {snippets.map((snippet: any) => (
-                <CommandItem
-                  key={snippet.id}
-                  onSelect={() =>
-                    runCommand(() => router.push(`/snippets/${snippet.slug}`))
-                  }
-                >
-                  <span className='mr-2 h-4 w-4' />
-                  <span>{snippet.metadata.title}</span>
-                </CommandItem>
-              ))}
-            </CommandGroup>
           </CommandGroup>
-
+          <CommandSeparator />
+          <CommandGroup heading='Blogs'>
+            {blogs.map((blog: any) => (
+              <CommandItem
+                key={blog.slug}
+                onSelect={() =>
+                  runCommand(() => router.push(`/blog/${blog.slug}`))
+                }
+              >
+                <Rss className='mr-2 h-4 w-4' />
+                <span>{blog.metadata.title}</span>
+                <SquareArrowOutUpRight className='ml-2 h-4 w-4' />
+              </CommandItem>
+            ))}
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading='Projects'>
+            {projects.map((project: any) => (
+              <CommandItem
+                key={project.slug}
+                onSelect={() =>
+                  runCommand(() => router.push(`/projects/${project.slug}`))
+                }
+              >
+                <Target className='mr-2 h-4 w-4' />
+                <span>{project.metadata.title}</span>
+                <SquareArrowOutUpRight className='ml-2 h-4 w-4' />
+              </CommandItem>
+            ))}
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading='Snippets'>
+            {snippets.map((snippet: any) => (
+              <CommandItem
+                key={snippet.slug}
+                onSelect={() =>
+                  runCommand(() => router.push(`/snippets/${snippet.slug}`))
+                }
+              >
+                <SquareBottomDashedScissors className='mr-2 h-4 w-4' />
+                <span>{snippet.metadata.title}</span>
+                <SquareArrowOutUpRight className='ml-2 h-4 w-4' />
+              </CommandItem>
+            ))}
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading='Tags'>
+            {tags.map((tag: any) => (
+              <CommandItem
+                key={tag}
+                onSelect={() => runCommand(() => router.push(`/tag/${tag}`))}
+              >
+                <Tag className='mr-2 h-4 w-4' />
+                <span>{tag}</span>
+                <SquareArrowOutUpRight className='ml-2 h-4 w-4' />
+              </CommandItem>
+            ))}
+          </CommandGroup>
+          <CommandSeparator />
           <CommandGroup heading='Theme'>
             <CommandItem onSelect={() => runCommand(() => setTheme('light'))}>
-              <span className='mr-2 h-4 w-4' />
+              <SunMoon className='mr-2 h-4 w-4' />
               <span>Light</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme('dark'))}>
-              <span className='mr-2 h-4 w-4' />
+              <MoonStar className='mr-2 h-4 w-4' />
               <span>Dark</span>
             </CommandItem>
           </CommandGroup>
