@@ -26,7 +26,13 @@ export const metadata: Metadata = {
 };
 
 const ProjectPage = () => {
-  const projects = getProjects();
+  let projects = getProjects();
+
+  projects = projects.sort((a, b) => {
+    const aDate = new Date(a.metadata.publishedAt!);
+    const bDate = new Date(b.metadata.publishedAt!);
+    return bDate.getTime() - aDate.getTime();
+  });
 
   return (
     <div className='mx-auto mb-5 mt-16 flex w-11/12 flex-col items-center sm:mt-40 sm:w-3/4'>

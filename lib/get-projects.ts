@@ -48,13 +48,13 @@ export function getProject(slug: string) {
 
 export function getLatestProjects() {
   const projects = getProjects();
-  // Sort projects by publishedAt in descending order
-  const sortedProjects = projects.sort((a, b) => {
-    const dateA = new Date(a.metadata.publishedAt!);
-    const dateB = new Date(b.metadata.publishedAt!);
-    return dateB.getTime() - dateA.getTime();
+
+  // Sort projects by publishedAt in descending order - publishedAt: 'May 04, 2024'
+  return projects.sort((a, b) => {
+    const aDate = new Date(a.metadata.publishedAt!);
+    const bDate = new Date(b.metadata.publishedAt!);
+    return bDate.getTime() - aDate.getTime();
   });
-  return sortedProjects.slice(0, 4);
 }
 
 export function getAllProjectsTags() {
