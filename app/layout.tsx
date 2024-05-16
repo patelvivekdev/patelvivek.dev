@@ -76,7 +76,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          'mx-auto max-w-4xl bg-neutral-100 font-sans antialiased dark:bg-neutral-900',
+          'mx-auto bg-neutral-100 font-sans antialiased dark:bg-neutral-900',
           fontSans.variable,
         )}
       >
@@ -87,11 +87,13 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main>{children}</main>
-          <ScrollToTopButton />
-          <ThemeToggle />
-          <Toaster position='top-right' />
-          <Footer />
+          <main className='mx-auto max-w-4xl'>
+            {children}
+            <ScrollToTopButton />
+            <ThemeToggle />
+            <Toaster position='top-right' />
+            <Footer />
+          </main>
           {process.env.APP_ENV !== 'development' && (
             <>
               <Analytics />
