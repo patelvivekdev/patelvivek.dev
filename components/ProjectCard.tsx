@@ -16,22 +16,20 @@ export default function ProjectCard({
 
   return (
     <div className='rounded-md border border-neutral-400 bg-neutral-200 p-4 hover:border-neutral-800 hover:bg-neutral-300 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:border-zinc-100 dark:hover:bg-zinc-700'>
-      <div className='grid grid-cols-1 items-center gap-2 sm:grid-cols-2'>
-        <div className='flex flex-col justify-between'>
-          <h2 className='mb-2 w-full text-xl font-bold text-neutral-900 dark:text-neutral-100 sm:text-2xl'>
-            <Link
-              prefetch={true}
-              href={`projects/${slug}`}
-              className='hover:underline'
-            >
-              {title}
-            </Link>
-          </h2>
-          <p className='text-lg text-gray-700 dark:text-gray-300 sm:text-xl'>
-            {description}
-          </p>
-        </div>
-        <span className='flex flex-row flex-wrap justify-center gap-2 sm:justify-end'>
+      <div className='grid grid-cols-1 items-center gap-2'>
+        <h2 className='mb-2 w-full text-xl font-bold text-neutral-900 dark:text-neutral-100 sm:text-2xl'>
+          <Link
+            prefetch={true}
+            href={`projects/${slug}`}
+            className='hover:underline'
+          >
+            {title}
+          </Link>
+        </h2>
+        <p className='text-lg text-gray-700 dark:text-gray-300 sm:text-xl'>
+          {description}
+        </p>
+        <span className='flex flex-row flex-wrap justify-center gap-2'>
           {tags.map((tag) => (
             <Link
               key={tag}

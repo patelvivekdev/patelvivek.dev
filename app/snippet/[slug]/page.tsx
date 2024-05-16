@@ -80,7 +80,7 @@ export default function Blog({ params }: { params: any }) {
   }
 
   return (
-    <div className='mx-auto mt-16 w-11/12 sm:mt-40 sm:w-3/4'>
+    <div className='mx-auto mt-16 w-11/12 sm:mt-40 '>
       <Progress />
       <section>
         <script

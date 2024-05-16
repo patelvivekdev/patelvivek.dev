@@ -7,7 +7,12 @@ tags: [mdx, copy, nextjs, clipboard, highlighting]
 published: true
 ---
 
-<RoundedImage src='/snippets/copy-to-clipboard.webp' width={800} height={600} alt='Acme Auth' />
+<RoundedImage
+  src='/snippets/copy-to-clipboard.webp'
+  width={800}
+  height={600}
+  alt='Acme Auth'
+/>
 
 ## Introduction
 
@@ -47,8 +52,19 @@ import { MDXComponents } from 'mdx/types';
 
 export const mdxComponents: MDXComponents = {};
 
-export function CustomMDX({ children, components }: { children: string; components: MDXComponents }) {
-  return <MDXRemote source={children} components={{ ...mdxComponents, ...(components || {}) }} />;
+export function CustomMDX({
+  children,
+  components,
+}: {
+  children: string;
+  components: MDXComponents;
+}) {
+  return (
+    <MDXRemote
+      source={children}
+      components={{ ...mdxComponents, ...(components || {}) }}
+    />
+  );
 }
 ```
 
@@ -80,12 +96,21 @@ const Pre = (props: any) => {
   };
 
   return (
-    <div className='relative top-[20px] right-[20px]'>
+    <div className='relative right-[20px] top-[20px]'>
       <span ref={textInput} className='hidden'>
         {props.children}
       </span>
-      <button aria-label='Copy code' type='button' className='h-4 w-4' onClick={onCopy}>
-        {copied ? <Check className='text-[#80d1a9]' /> : <Copy className='text-white' />}
+      <button
+        aria-label='Copy code'
+        type='button'
+        className='h-4 w-4'
+        onClick={onCopy}
+      >
+        {copied ? (
+          <Check className='text-[#80d1a9]' />
+        ) : (
+          <Copy className='text-white' />
+        )}
       </button>
     </div>
   );
@@ -138,11 +163,15 @@ export default function Blog({ params }: { params: any }) {
     return notFound();
   }
   return (
-    <div className='mx-auto mt-40 w-11/12 sm:w-3/4'>
-      <h1 className='text-start text-xl sm:text-4xl font-bold'>{blog.metadata.title}</h1>
+    <div className='mx-auto mt-40 w-11/12 '>
+      <h1 className='text-start text-xl font-bold sm:text-4xl'>
+        {blog.metadata.title}
+      </h1>
       <div className='mb-4 mt-2 flex items-center justify-between'>
         <p className='text-lg text-neutral-700 dark:text-neutral-300'>
-          <span className='flex flex-row items-center gap-2'>{blog.metadata.description}</span>
+          <span className='flex flex-row items-center gap-2'>
+            {blog.metadata.description}
+          </span>
         </p>
       </div>
       <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
