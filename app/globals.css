@@ -65,7 +65,7 @@ pre code {
 }
 
 .prose .anchor {
-  @apply absolute invisible no-underline;
+  @apply invisible absolute no-underline;
 
   margin-left: -1em;
   padding-right: 0.5em;
@@ -79,7 +79,7 @@ pre code {
 }
 
 .prose a {
-  @apply transition-all underline-offset-2 decoration-[0.1em];
+  @apply decoration-[0.1em] underline-offset-2 transition-all;
 }
 
 .prose .anchor:after {
@@ -92,11 +92,11 @@ pre code {
 }
 
 .prose pre {
-  @apply bg-neutral-900 dark:bg-neutral-800 rounded-lg overflow-x-auto border border-neutral-900 dark:border-neutral-300;
+  @apply rounded-lg border-2 border-neutral-900 bg-neutral-800 dark:border-neutral-300 dark:bg-neutral-800;
 }
 
 .prose code {
-  @apply px-1 py-0.5 rounded-lg;
+  @apply rounded-lg px-1 py-0.5;
 }
 
 .prose p code {
