@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 const ContactPage = () => {
   return (
-    <div className='relative mx-auto mt-16 flex w-11/12 flex-col items-center gap-3 text-[#31363F] dark:text-[#EEEEEE] sm:mt-40 sm:w-3/4 sm:gap-6'>
+    <div className='relative mx-auto mt-16 flex min-h-screen w-11/12 flex-col items-center gap-3 text-[#31363F] dark:text-[#EEEEEE] sm:mt-40 sm:gap-6'>
       <h1 className='border-b-4 border-indigo-500 text-center text-2xl font-bold md:text-4xl'>
         Get in Touch
       </h1>

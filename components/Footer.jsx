@@ -3,13 +3,11 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className='border-t-2 border-indigo-500 bg-white text-gray-900 dark:bg-neutral-800 dark:text-white'>
+    <footer className='border-t-2 border-indigo-500 text-gray-900 dark:text-white'>
       <div className='flex items-center justify-around py-4'>
-        <div>
-          <p className='text-base font-semibold'>
-            © {year} Vivek Patel | Made with ❤️ Next js
-          </p>
-        </div>
+        <p className='text-base font-semibold'>
+          © {year} Vivek Patel | Made with ❤️ Next js
+        </p>
       </div>
     </footer>
   );

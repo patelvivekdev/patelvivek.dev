@@ -76,7 +76,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          'mx-auto bg-neutral-100 font-sans antialiased dark:bg-neutral-900 ',
+          'mx-auto max-w-4xl bg-neutral-100 font-sans antialiased dark:bg-neutral-900',
           fontSans.variable,
         )}
       >

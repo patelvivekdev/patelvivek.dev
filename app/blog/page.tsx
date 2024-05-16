@@ -38,7 +38,7 @@ const BlogPage = () => {
   });
 
   return (
-    <div className='mx-auto mt-16 flex w-11/12 flex-col items-center gap-4 sm:mt-40 sm:w-3/4'>
+    <div className='mx-auto mt-16 flex w-11/12 flex-col items-center gap-4 sm:mt-40 '>
       <h1 className='border-b-4 border-indigo-500 text-center text-2xl font-bold md:text-4xl'>
         All Blogs
       </h1>

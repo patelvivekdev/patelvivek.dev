@@ -3,7 +3,17 @@ title: 'A Deep Dive To Next.js 14 Server Actions'
 summary: 'Harness the power of Next.js 14 Server Actions for streamlined data fetching and mutations in your Nextjs applications.'
 slug: 'server-actions'
 publishedAt: 'April 13, 2024'
-tags: [NextJs, React, Server-Actions, Data-Fetching, Mutations, Server-Components, JavaScript, TypeScript]
+tags:
+  [
+    NextJs,
+    React,
+    Server-Actions,
+    Data-Fetching,
+    Mutations,
+    Server-Components,
+    JavaScript,
+    TypeScript,
+  ]
 published: true
 ---
 
@@ -114,11 +124,18 @@ if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
   throw new Error('Missing env vars SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
 }
 
-const privateClient = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+const privateClient = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
+);
 
-export const nextAuthClient = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
-  db: { schema: 'next_auth' },
-});
+export const nextAuthClient = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
+  {
+    db: { schema: 'next_auth' },
+  },
+);
 
 export default privateClient;
 ```
@@ -283,8 +300,8 @@ export default async function Navbar() {
   const session = await auth();
   return (
     <nav className='fixed inset-x-0 top-0 z-50 bg-white shadow-sm dark:bg-gray-950/90'>
-      <div className='w-full max-w-7xl mx-auto px-4'>
-        <div className='flex justify-between h-14 items-center'>
+      <div className='mx-auto w-full max-w-7xl px-4'>
+        <div className='flex h-14 items-center justify-between'>
           <Link className='flex items-center' href='/'>
             <Button size='sm'>
               <span>/</span>
@@ -302,10 +319,13 @@ export default async function Navbar() {
                   <Button size='sm'>Profile</Button>
                 </Link>
                 <SignOut size='sm' variant='destructive' />
-                <Avatar className='w-10 h-10 rounded-full border border-red-500'>
+                <Avatar className='h-10 w-10 rounded-full border border-red-500'>
                   {session.user.image && (
                     <AvatarImage
-                      src={session.user.image ?? 'https://source.boringavatars.com/beam/120'}
+                      src={
+                        session.user.image ??
+                        'https://source.boringavatars.com/beam/120'
+                      }
                       alt={session.user.name ?? ''}
                     />
                   )}
@@ -331,11 +351,13 @@ With session we will conditionally render different button.
 You can check that now our authentication system is working, we are able to login with github as well google.
 
 <Callout type='note'>
-  In development if your Oauth is not redirect back to application add `AUTH_REDIRECT_PROXY_URL` in env.
+  In development if your Oauth is not redirect back to application add
+  `AUTH_REDIRECT_PROXY_URL` in env.
 </Callout>
 
 <Callout type='tip'>
-  If you find any difficulty or have some error you can react out to [me](/contact) or check my source code.
+  If you find any difficulty or have some error you can react out to
+  [me](/contact) or check my source code.
 </Callout>
 
 ```
@@ -368,14 +390,14 @@ export default async function Todo() {
   const session = await auth();
   if (!session?.user)
     return (
-      <div className='flex min-h-screen w-11/12 sm:w-3/4 mx-auto flex-col items-center gap-10 justify-center'>
+      <div className='mx-auto flex min-h-screen  w-11/12 flex-col items-center justify-center gap-10'>
         <h1 className='text-3xl'>You must login to perform this action.</h1>
         <SignIn />
       </div>
     );
 
   return (
-    <div className='flex min-h-screen w-11/12 sm:w-3/4 mx-auto flex-col items-center gap-10 justify-center'>
+    <div className='mx-auto flex min-h-screen  w-11/12 flex-col items-center justify-center gap-10'>
       <AddTodo user={session?.user} />
       <TodoList user={session?.user} />
     </div>
@@ -457,7 +479,9 @@ export function SubmitButton({
 
 ```
 
-<Callout type='important'>This hook might change in new version of react.</Callout>
+<Callout type='important'>
+  This hook might change in new version of react.
+</Callout>
 
 ### 3.Create actions.ts
 
@@ -471,7 +495,11 @@ At start of file write `'use server'`.
 'use server';
 import supabase from '@/lib/supabase/private';
 
-export async function addTodo(email: string, prevState: any, formData: FormData) {
+export async function addTodo(
+  email: string,
+  prevState: any,
+  formData: FormData,
+) {
   try {
     const { data, error } = await supabase.from('todos').upsert({
       title: formData.get('title'),

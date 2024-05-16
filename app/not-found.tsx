@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <section className='mx-auto mt-16 h-screen w-11/12 sm:mt-40 sm:w-3/4'>
+    <section className='mx-auto mt-16 h-screen w-11/12 sm:mt-40 '>
       <h1 className='mb-8 text-center text-2xl font-bold tracking-tighter'>
         Oh no! This page does not exist.
       </h1>
