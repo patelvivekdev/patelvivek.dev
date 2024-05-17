@@ -184,7 +184,6 @@ function ExternalBlogPost({
                 </Suspense>
               )}
             </div>
-            m
           </div>
           <p className='text-xl font-medium text-neutral-800 dark:text-gray-200/75'>
             {summary}
