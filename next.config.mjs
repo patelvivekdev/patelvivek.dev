@@ -4,6 +4,7 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 const nextConfig = {
   experimental: {
     ppr: true,
+    reactCompiler: true,
   },
   logging: {
     fetches: {
