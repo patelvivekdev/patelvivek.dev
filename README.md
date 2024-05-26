@@ -51,6 +51,12 @@ npm run build
     <img src="https://img.shields.io/github/issues/patelvivekdev/patelvivek.dev?style=for-the-badge" alt="Issues" />
 </div> -->
 
+## Open In IDX
+
+<a href="https://idx.google.com/import?url=https%3A%2F%2Fgithub.com%2Fpatelvivekdev%2Fpatelvivek.dev">
+  <img height="32" alt="Open in IDX" src="https://cdn.idx.dev/btn/open_dark_32@2x.png">
+</a>
+
 <div align="center">
     Made with ❤️ by Vivek Patel
 </div>
