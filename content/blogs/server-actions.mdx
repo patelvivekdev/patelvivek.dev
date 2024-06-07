@@ -1,6 +1,6 @@
 ---
-title: 'A Deep Dive To Next.js 14 Server Actions'
-summary: 'Harness the power of Next.js 14 Server Actions for streamlined data fetching and mutations in your Nextjs applications.'
+title: 'A Deep Dive To Server Actions In NextJs'
+summary: 'Harness the power of Server Actions for streamlined data fetching and mutations in your Nextjs applications.'
 slug: 'server-actions'
 publishedAt: 'April 13, 2024'
 tags:
@@ -13,13 +13,14 @@ tags:
     Server-Components,
     JavaScript,
     TypeScript,
+    React-19,
   ]
 published: true
 ---
 
 ## Introduction
 
-If you've ever built web applications that involve **forms** , **real-time updates** , or **complex data interactions**, you know the struggle can be real. Traditionally, these features often required setting up separate `API` endpoints and managing intricate client-side state. Next.js 14 Server Actions come to the rescue! They provide a smooth solution, allowing you to execute server-side logic directly from your React components, just like calling a regular function.
+If you've ever built web applications that involve **forms** , **real-time updates** , or **complex data interactions**, you know the struggle can be real. Traditionally, these features often required setting up separate `API` endpoints and managing intricate client-side state. [Server Actions](https://react.dev/reference/rsc/server-actions) come to the rescue! They provide a smooth solution, allowing you to execute server-side logic directly from your React components, just like calling a regular function.
 
 ## What are Server Actions?
 
@@ -146,11 +147,12 @@ export default privateClient;
 
 **Github**
 
-Follow this [github guide](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) for creating Oauth
+Follow this [github guide](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) for creating Oauth.
 
-```env
-CALLBACK_ENV https://example.com/api/auth/callback/github
-```
+<Callout type='note'>
+  Make sure to add `http://localhost:3000/api/auth/callback/github` as callback
+  url in github Oauth application.
+</Callout>
 
 After creating Oauth in github copy `API` keys from github as it required by AuthJs.
 
@@ -166,7 +168,7 @@ Visit the [Vercel App](https://generate-secret.vercel.app/32) to generate secret
 
 Add all the key to you .env.local.
 
-```.env
+```
 # .env.local
 
 AUTH_SECRET=
@@ -179,9 +181,10 @@ AUTH_GITHUB_SECRET=
 
 [Google OAuth documentation](https://developers.google.com/identity/protocols/oauth2)
 
-```env
-CALLBACK ENV = https://example.com/api/auth/callback/google
-```
+<Callout type='note'>
+  Make sure to add `http://localhost:3000/api/auth/callback/google` as callback
+  url in Oauth application.
+</Callout>
 
 ```.env
 # .env.local
@@ -212,7 +215,6 @@ export const config = {
 } satisfies NextAuthConfig;
 
 export const { handlers, auth } = NextAuth(config);
-
 ```
 
 Here we are using supabase adapter and our choice of providers for auth. You can add more providers from [AuthJs Providers](https://authjs.dev/getting-started#official-providers).
@@ -278,7 +280,6 @@ export function SignOut(props: React.ComponentPropsWithRef<typeof Button>) {
     </Button>
   );
 }
-
 ```
 
 ### 5.Create Navbar
@@ -352,19 +353,14 @@ You can check that now our authentication system is working, we are able to logi
 
 <Callout type='note'>
   In development if your Oauth is not redirect back to application add
-  `AUTH_REDIRECT_PROXY_URL` in env.
+  `AUTH_REDIRECT_PROXY_URL` in .env.local. Only add this in development.
 </Callout>
 
 <Callout type='tip'>
-  If you find any difficulty or have some error you can react out to
-  [me](/contact) or check my source code.
+  If you find any difficulty or have some error you can contact to
+  [me](/contact) or check my source code on
+  [Github](https://github.com/patelvivekdev/server-actions).
 </Callout>
-
-```
-# .env.local
-
-AUTH_REDIRECT_PROXY_URL = <DOMAIN>/api/auth #only add in dev
-```
 
 You can check that our user are now stored in supabase as well.
 
@@ -476,11 +472,12 @@ export function SubmitButton({
     </Button>
   );
 }
-
 ```
 
-<Callout type='important'>
-  This hook might change in new version of react.
+<Callout type='note'>
+  If you are using `useFormStatus` make sure to use it as a child component of
+  parents form. In out case we are using it in `AddForm.tsx`. In react19 you can
+  also use `useActionState` for pending state.
 </Callout>
 
 ### 3.Create actions.ts
@@ -544,11 +541,12 @@ We will add this action to our form with the help of `useFormState`. It is new h
 > As per react `useFormState` is a Hook that allows you to update state based on the result of a form action.
 
 <Callout type='caution'>
-  As of now React is changing this hook. If you are interested check this github
-  [discussion](https://github.com/facebook/react/pull/28491)
+  As of now React19 is changing this hook. If you are interested check this
+  github [discussion](https://github.com/facebook/react/pull/28491). If you are
+  using React19 you can use `useActionState` instead of `useFormState`.
 </Callout>
 
-This means that we will get error message or success message along with boolean to from server action.
+This means that we will get state with out server action such as error message or success message from server action.
 
 We will show that message with [react-hot-toast](https://react-hot-toast.com/docs).
 
@@ -657,7 +655,6 @@ export default function AddTodo({ user }: { user: User }) {
     </div>
   );
 }
-
 ```
 
 ### 5.Add validation
@@ -725,7 +722,6 @@ export async function addTodo(email: string, prevState: any, formData: FormData)
     };
   }
 }
-
 ```
 
 After creating schema we will use `safeParse`.
@@ -742,11 +738,17 @@ By default next caches every routes, so when we add the todo we want to show to 
 
 That means we have to delete the old cache and update the ui.
 
-This is what revalidatePath does for us. Learn more about caching in [NextJS](https://nextjs.org/docs/app/building-your-application/caching)
+This is what revalidatePath does for us.
+
+<Callout type='note'>
+  In current version of NextJs 14, next js caches everything by default, but in
+  future version it will be changed. Learn more about caching in
+  [NextJS](https://nextjs.org/docs/app/building-your-application/caching).
+</Callout>
 
 ### 7.TodoList
 
-now we will show the list pf todos with some actions button.
+now we will show the list of todos with some actions button.
 
 **db.ts**
 
@@ -908,7 +910,6 @@ export default function EditForm({ todo }: { todo: any }) {
 **DeleteForm**
 
 ```
-
 // DeleteForm.tsx
 
 'use client';
@@ -1077,7 +1078,6 @@ export default async function PrivatePage() {
 ```
 // profile/ChangeAvatarForm.tsx
 
-
 import { auth } from '@/app/auth';
 import { SignIn, SignOut } from '@/components/auth-components';
 import Image from 'next/image';
@@ -1105,7 +1105,6 @@ export default async function PrivatePage() {
     </div>
   );
 }
-
 ```
 
 This is same as AddForm, we will change the input type to `file`.
@@ -1113,6 +1112,8 @@ This is same as AddForm, we will change the input type to `file`.
 ### 3.Create action
 
 ```
+// actions.ts
+
 // =============================== Change Avatar ===============================
 export async function changeAvatar(email: string, prevState: any, formData: FormData) {
   const avatar = formData.get('avatar') as File;
@@ -1200,13 +1201,13 @@ Because we have image in two places we have to revalidate two path.
 
 ## Conclusion
 
-Next.js 14 Server Actions offer a powerful and elegant way to manage data interactions in your React applications. By mastering this concept, you'll create more dynamic and performant web experiences for your users.
+React 19 Server Actions offer a powerful and elegant way to manage data interactions in your React applications. By mastering this concept, you'll create more dynamic and performant web experiences for your users.
 
 ## Links
 
 - [Github Repo](https://github.com/patelvivekdev/server-actions/)
 - [Live Demo](https://server-actions-patelvivekdev.vercel.app/)
-- [Next.js 14 Server Actions](https://nextjs.org/docs/app/api-reference/functions/server-actions)
+- [Server Actions](https://nextjs.org/docs/app/api-reference/functions/server-actions)
 - [React server actions](https://react.dev/reference/react/use-server#usage)
 - [React Form](https://react.dev/reference/react-dom/components/form#handle-form-submission-with-a-server-action)
 - [Supabase](https://supabase.com/)
