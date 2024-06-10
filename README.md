@@ -2,7 +2,7 @@
 
 > A personal portfolio website built with Next.js and Tailwind CSS.
 
-![Image](./public/patelvivekdev.jpg)
+![Image](./public/patelvivekdev.png)
 
 ## Features
 
