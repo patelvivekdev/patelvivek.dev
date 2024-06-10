@@ -2,6 +2,8 @@
 
 > A personal portfolio website built with Next.js and Tailwind CSS.
 
+![Image](./public/patelvivekdev.png)
+
 ## Features
 
 - **Next.js** - React framework
@@ -11,7 +13,7 @@
 - **SEO** - Metadata and Open Graph tags
 - **MDX** - Blog posts written with MDX
 - **Syntax Highlighting** - Code blocks with sugar-high
-- **Table of Contents** - Auto-generated for blog posts
+<!-- - **Table of Contents** - Auto-generated for blog posts -->
 
 ## Installation
 
@@ -44,13 +46,6 @@ npm run dev
 npm run build
 ```
 
-<!-- <div align="center">
-    <img src="https://img.shields.io/github/license/patelvivekdev/patelvivek.dev?style=for-the-badge" alt="License" />
-    <img src="https://img.shields.io/github/stars/patelvivekdev/patelvivek.dev?style=for-the-badge" alt="Stars" />
-    <img src="https://img.shields.io/github/forks/patelvivekdev/patelvivek.dev?style=for-the-badge" alt="Forks" />
-    <img src="https://img.shields.io/github/issues/patelvivekdev/patelvivek.dev?style=for-the-badge" alt="Issues" />
-</div> -->
-
 ## Open In IDX
 
 <a href="https://idx.google.com/import?url=https%3A%2F%2Fgithub.com%2Fpatelvivekdev%2Fpatelvivek.dev">
@@ -58,5 +53,10 @@ npm run build
 </a>
 
 <div align="center">
+  <div align="center">
+    <img src="https://img.shields.io/github/stars/patelvivekdev/patelvivek.dev?style=for-the-badge" alt="Stars" />
+    <img src="https://img.shields.io/github/forks/patelvivekdev/patelvivek.dev?style=for-the-badge" alt="Forks" />
+    <img src="https://img.shields.io/github/issues/patelvivekdev/patelvivek.dev?style=for-the-badge" alt="Issues" />
+  </div>
     Made with ❤️ by Vivek Patel
 </div>
