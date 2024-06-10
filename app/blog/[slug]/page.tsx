@@ -185,9 +185,11 @@ function RoundedImage(props: any) {
   return (
     <Image
       alt={props.alt}
-      className={props.className}
+      className='mx-auto max-h-96 w-full rounded-lg object-cover object-left-top shadow-lg shadow-slate-800 dark:shadow-white'
       {...props}
       priority={true}
+      width={props.width}
+      height={props.height}
     />
   );
 }
