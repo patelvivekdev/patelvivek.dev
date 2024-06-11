@@ -80,7 +80,7 @@ export default function Blog({ params }: { params: any }) {
   }
 
   return (
-    <div className='mx-auto mt-16 w-11/12 sm:mt-40 '>
+    <div className='mx-auto mt-16 w-11/12 sm:mt-40'>
       <Progress />
       <section>
         <script
@@ -110,11 +110,7 @@ export default function Blog({ params }: { params: any }) {
           <Link href='/snippet'>
             <Button
               variant='outline'
-              className='
-                mb-5 cursor-pointer border-neutral-800 text-lg 
-                font-semibold text-neutral-800 hover:border-indigo-700
-                hover:underline dark:border-neutral-300
-                dark:text-neutral-300 hover:dark:border-indigo-700'
+              className='mb-5 cursor-pointer border-neutral-800 text-lg font-semibold text-neutral-800 hover:border-indigo-700 hover:underline dark:border-neutral-300 dark:text-neutral-300 hover:dark:border-indigo-700'
             >
               &larr; Back to Snippets
             </Button>

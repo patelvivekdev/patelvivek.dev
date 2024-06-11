@@ -149,7 +149,7 @@ function ExternalBlogPost({
   return (
     <div className='rounded-md border border-gray-300 bg-gray-200 p-4 hover:border-gray-300 hover:bg-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600 dark:hover:bg-slate-700'>
       <div className='grid grid-cols-1 items-center justify-items-end gap-2 sm:grid-cols-3'>
-        <h4 className='w-full  text-2xl font-bold text-neutral-900 dark:text-neutral-100 sm:col-span-2'>
+        <h4 className='w-full text-2xl font-bold text-neutral-900 dark:text-neutral-100 sm:col-span-2'>
           <a
             href={slug}
             target='_blank'
@@ -193,7 +193,7 @@ function ExternalBlogPost({
           {tags?.map((tag) => (
             <span
               key={tag}
-              className='mr-2 rounded-lg border-2 border-indigo-700 px-3 py-1  text-sm font-semibold text-neutral-900 dark:text-white'
+              className='mr-2 rounded-lg border-2 border-indigo-700 px-3 py-1 text-sm font-semibold text-neutral-900 dark:text-white'
             >
               {tag.toUpperCase()}
             </span>

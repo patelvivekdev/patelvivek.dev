@@ -23,15 +23,11 @@ export default function TagPage({ params }: { params: any }) {
     return notFound();
 
   return (
-    <section className='mx-auto mb-5 mt-16 min-h-screen w-11/12 gap-4 sm:mt-40 '>
+    <section className='mx-auto mb-5 mt-16 min-h-screen w-11/12 gap-4 sm:mt-40'>
       <Link href='/tag'>
         <Button
           variant='outline'
-          className='
-            mb-5 cursor-pointer border-neutral-800 text-lg 
-            font-semibold text-neutral-800 hover:border-indigo-700
-            hover:underline dark:border-neutral-300
-            dark:text-neutral-300 hover:dark:border-indigo-700'
+          className='mb-5 cursor-pointer border-neutral-800 text-lg font-semibold text-neutral-800 hover:border-indigo-700 hover:underline dark:border-neutral-300 dark:text-neutral-300 hover:dark:border-indigo-700'
         >
           &larr; Back to Tags
         </Button>

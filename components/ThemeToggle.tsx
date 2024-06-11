@@ -13,7 +13,7 @@ export function ThemeToggle() {
     <button
       aria-label='Toggle Dark Mode'
       type='button'
-      className='fixed bottom-10 right-4 z-50 rounded-xl bg-black/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur  transition hover:bg-black/50 dark:bg-zinc-900/90  dark:ring-sky-500 dark:hover:ring-white/20 md:right-10'
+      className='fixed bottom-10 right-4 z-50 rounded-xl bg-black/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition hover:bg-black/50 dark:bg-zinc-900/90 dark:ring-sky-500 dark:hover:ring-white/20 md:right-10'
       onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
     >
       <svg

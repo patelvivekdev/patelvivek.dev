@@ -26,7 +26,7 @@ export const FloatingNav = ({
   };
 
   return (
-    <div className='fixed inset-x-0 top-8 z-[5000] mx-auto hidden max-w-fit  items-center justify-center space-x-4 rounded-full bg-neutral-950 px-4 py-2 dark:bg-neutral-50 md:flex'>
+    <div className='fixed inset-x-0 top-8 z-[5000] mx-auto hidden max-w-fit items-center justify-center space-x-4 rounded-full bg-neutral-950 px-4 py-2 dark:bg-neutral-50 md:flex'>
       {navItems.map((navItem: any, idx: number) => (
         <Link
           key={`link=${idx}`}
