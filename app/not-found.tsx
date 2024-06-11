@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <section className='mx-auto mt-16 h-screen w-11/12 sm:mt-40 '>
+    <section className='mx-auto mt-16 h-screen w-11/12 sm:mt-40'>
       <h1 className='mb-8 text-center text-2xl font-bold tracking-tighter'>
         Oh no! This page does not exist.
       </h1>
@@ -37,9 +37,7 @@ export default function NotFound() {
         <Link href='/'>
           <Button
             variant='outline'
-            className='mb-5 cursor-pointer border-gray-500 bg-gray-300
-                text-lg  font-semibold text-gray-800 hover:bg-gray-600 hover:text-gray-300
-                dark:border-gray-500 dark:bg-gray-400 dark:text-black dark:hover:bg-gray-200'
+            className='mb-5 cursor-pointer border-gray-500 bg-gray-300 text-lg font-semibold text-gray-800 hover:bg-gray-600 hover:text-gray-300 dark:border-gray-500 dark:bg-gray-400 dark:text-black dark:hover:bg-gray-200'
           >
             Go back home
           </Button>

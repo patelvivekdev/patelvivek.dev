@@ -30,7 +30,7 @@ export default function ContactMeForm() {
   return (
     <form
       action={formAction}
-      className='form flex w-full flex-col rounded-lg  bg-gray-700 p-4 dark:bg-white'
+      className='form flex w-full flex-col rounded-lg bg-gray-700 p-4 dark:bg-white'
       key={state?.resetKey}
     >
       {state?.type === 'error' && (

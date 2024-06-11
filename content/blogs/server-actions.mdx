@@ -386,14 +386,14 @@ export default async function Todo() {
   const session = await auth();
   if (!session?.user)
     return (
-      <div className='mx-auto flex min-h-screen  w-11/12 flex-col items-center justify-center gap-10'>
+      <div className='mx-auto flex min-h-screen w-11/12 flex-col items-center justify-center gap-10'>
         <h1 className='text-3xl'>You must login to perform this action.</h1>
         <SignIn />
       </div>
     );
 
   return (
-    <div className='mx-auto flex min-h-screen  w-11/12 flex-col items-center justify-center gap-10'>
+    <div className='mx-auto flex min-h-screen w-11/12 flex-col items-center justify-center gap-10'>
       <AddTodo user={session?.user} />
       <TodoList user={session?.user} />
     </div>

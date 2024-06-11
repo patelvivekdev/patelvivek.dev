@@ -41,12 +41,7 @@ export default function Home() {
       <Link href='/projects'>
         <Button
           variant='outline'
-          className='
-          cursor-pointer border-2 border-neutral-800 text-lg
-          font-semibold text-neutral-800 hover:border-indigo-700
-          hover:underline dark:border-neutral-300
-          dark:text-neutral-300 hover:dark:border-indigo-700
-          '
+          className='cursor-pointer border-2 border-neutral-800 text-lg font-semibold text-neutral-800 hover:border-indigo-700 hover:underline dark:border-neutral-300 dark:text-neutral-300 hover:dark:border-indigo-700'
         >
           View all projects &rarr;
         </Button>
@@ -63,12 +58,7 @@ export default function Home() {
       <Link href='/blog'>
         <Button
           variant='outline'
-          className='mb-5
-          cursor-pointer border-2 border-neutral-800 text-lg
-          font-semibold text-neutral-800 hover:border-indigo-700
-          hover:underline dark:border-neutral-300
-          dark:text-neutral-300 hover:dark:border-indigo-700
-          '
+          className='mb-5 cursor-pointer border-2 border-neutral-800 text-lg font-semibold text-neutral-800 hover:border-indigo-700 hover:underline dark:border-neutral-300 dark:text-neutral-300 hover:dark:border-indigo-700'
         >
           Read all Blogs &rarr;
         </Button>

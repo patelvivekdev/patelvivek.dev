@@ -47,7 +47,7 @@ const mdxComponents: MDXComponents = {
   h2: ({ className, ...props }) => (
     <h2
       className={cn(
-        ' my-5 scroll-m-20 border-b border-b-gray-800 pb-1 !text-3xl font-semibold text-black first:mt-0 dark:border-b-gray-500 dark:text-white',
+        'my-5 scroll-m-20 border-b border-b-gray-800 pb-1 !text-3xl font-semibold text-black first:mt-0 dark:border-b-gray-500 dark:text-white',
         className,
       )}
     >

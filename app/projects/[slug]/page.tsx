@@ -74,7 +74,7 @@ export default function Project({ params }: { params: any }) {
     return notFound();
   }
   return (
-    <div className='mx-auto mt-16 w-11/12 sm:mt-40 '>
+    <div className='mx-auto mt-16 w-11/12 sm:mt-40'>
       <Progress />
       <section>
         <script
@@ -103,12 +103,7 @@ export default function Project({ params }: { params: any }) {
         <Link href='/projects'>
           <Button
             variant='outline'
-            className='
-            mb-5 cursor-pointer border-2 border-neutral-800 text-lg
-            font-semibold text-neutral-800 hover:border-indigo-500
-            hover:underline dark:border-neutral-300
-            dark:text-neutral-300 hover:dark:border-indigo-500
-          '
+            className='mb-5 cursor-pointer border-2 border-neutral-800 text-lg font-semibold text-neutral-800 hover:border-indigo-500 hover:underline dark:border-neutral-300 dark:text-neutral-300 hover:dark:border-indigo-500'
           >
             &larr; Back to Projects
           </Button>

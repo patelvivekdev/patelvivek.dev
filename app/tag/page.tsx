@@ -8,7 +8,7 @@ export default function TagsPage() {
   tags.sort((a, b) => allTags[b] - allTags[a]);
 
   return (
-    <section className='mx-auto mt-16 flex min-h-screen w-11/12 flex-col items-center gap-4 sm:mt-40 '>
+    <section className='mx-auto mt-16 flex min-h-screen w-11/12 flex-col items-center gap-4 sm:mt-40'>
       <h1 className='border-b-4 border-indigo-500 text-center text-2xl font-bold md:text-4xl'>
         All Tags
       </h1>
