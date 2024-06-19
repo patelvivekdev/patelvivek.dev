@@ -69,7 +69,11 @@ export function CommandMenu({
 
   return (
     <>
-      <CommandDialog open={open} onOpenChange={setOpen}>
+      <CommandDialog
+        className='top-[30%] sm:top-[50%]'
+        open={open}
+        onOpenChange={setOpen}
+      >
         <CommandInput placeholder='Type a command or search...' />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
