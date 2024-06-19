@@ -47,7 +47,9 @@ export function getProject(slug: string) {
 }
 
 export function getLatestProjects() {
-  const projects = getProjects();
+  let projects = getProjects();
+
+  projects = projects.slice(0, 4);
 
   // Sort projects by publishedAt in descending order - publishedAt: 'May 04, 2024'
   return projects.sort((a, b) => {
