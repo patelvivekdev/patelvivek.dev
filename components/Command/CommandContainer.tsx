@@ -5,10 +5,13 @@ import { allTags } from '@/lib/get-tags';
 import { CommandMenu } from './Command';
 
 export function CommandContainer() {
-  const blogs = getBlogs();
-  const projects = getProjects();
-  const snippets = getSnippets();
-  const tags = Object.keys(allTags);
+  let blogs = getBlogs();
+  blogs = blogs.filter((blog) => blog.metadata.published);
+  let projects = getProjects();
+  projects = projects.filter((project) => project.metadata.published);
+  let snippets = getSnippets();
+  snippets = snippets.filter((snippet) => snippet.metadata.published);
+  let tags = Object.keys(allTags);
 
   tags.sort();
 
