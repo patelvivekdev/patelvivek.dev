@@ -46,7 +46,7 @@ export default function Hero() {
           width={300}
           height={300}
           priority={true}
-          className='rounded-md object-cover shadow-xl shadow-[#8184f8] dark:shadow-indigo-500'
+          className='ease rounded-md object-cover shadow-xl shadow-[#8184f8] grayscale filter transition hover:grayscale-0 dark:shadow-indigo-500'
           alt='Picture of Vivek Patel'
         />
       </div>
