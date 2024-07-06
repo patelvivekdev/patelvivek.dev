@@ -10,5 +10,6 @@
     "esbenp.prettier-vscode"
     "streetsidesoftware.code-spell-checker"
     "WakaTime.vscode-wakatime"
+    "unifiedjs.vscode-mdx"
   ];
 }
