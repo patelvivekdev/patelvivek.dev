@@ -1,0 +1,288 @@
+---
+title: 'Mastering React Testing with Vitest 2.0: A Comprehensive Guide Part 1'
+summary: 'Learn how to set up and write tests for your React applications using Vitest 2.0 and React Testing Library.'
+slug: 'testing-react-vitest'
+tags:
+  [
+    React,
+    Vitest-2.0,
+    React-Testing-Library,
+    React-Router,
+    React-Query,
+    Testing,
+    TDD,
+    Unit-Testing,
+    Integration-Testing,
+  ]
+publishedAt: 'August 4, 2024'
+published: true
+---
+
+## Mastering React Testing with Vitest 2.0: A Comprehensive Guide Part 1
+
+As React developers, we understand the critical role testing plays in ensuring our applications' reliability and maintainability. In this comprehensive guide, we'll dive deep into Vitest 2.0, a cutting-edge testing framework, and explore how to leverage it alongside React Testing Library to create robust test suites for your React applications.
+
+## Why Vitest 2.0?
+
+Vitest 2.0 is a fast and lightweight testing framework that's gaining popularity in the React community. It's designed to work seamlessly with Vite, a modern development server, and provides a Jest-like API for writing tests. Vitest 2.0 offers several benefits, including:
+
+- Fast test execution
+- Simple setup
+- Compatibility with Jest tests
+- Improved performance and reliability
+
+## Prerequisites
+
+Before we get started, make sure you have the following installed on your machine:
+
+- Node.js
+- npm or Yarn
+- A code editor (e.g., VS Code)
+
+## Setting Up Vitest 2.0
+
+Let's start by setting up Vitest 2.0 in a new React project. If you already have an existing project, you can skip this step.
+
+### 1. Create a New React Project
+
+To create a new React project, run the following command:
+
+```bash
+npm create vite@latest
+```
+
+Select the React with Typescript template when prompted.
+
+### 2. Install Vitest 2.0 and Dependencies
+
+Next, install Vitest 2.0 and its dependencies in your project:
+
+```bash
+npm install -D vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event
+```
+
+### 3. Configure Vitest 2.0
+
+You can create new config file `vitest.config.ts` in the root of your project.
+
+Or If you are using vite you can add the following configuration in your `vite.config.ts` file:
+
+```typescript
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
+
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./vitest.setup.ts'],
+    include: ['src/**/*.test.tsx'],
+  },
+});
+```
+
+Create a new file `vitest.setup.ts` in the root of your project with the following content:
+
+```typescript
+import '@testing-library/jest-dom/vitest';
+import { cleanup } from '@testing-library/react';
+import { afterEach } from 'vitest';
+
+import * as matchers from '@testing-library/jest-dom/matchers';
+expect.extend(matchers);
+
+afterEach(() => {
+  cleanup();
+});
+```
+
+Update the `tsconfig.json` file in the root of your project to include the following:
+
+```json
+{
+  "compilerOptions": {
+    // other options...
+    "types": ["vitest/globals"]
+  },
+  "include": ["vitest.setup.ts"]
+}
+```
+
+Update `package.json` file to include the following:
+
+```json
+"scripts": {
+  "test": "vitest",
+  "test:ui": "vitest --ui",
+  "test:coverage": "vitest --coverage",
+}
+```
+
+## Write Your First Test
+
+Now that you have Vitest 2.0 set up in your project, let's write a simple test for a React component using React Testing Library.
+
+### 1. Create a New React Component
+
+Create a new React component (e.g., `Button.tsx`) in your project's `src` directory with the following content:
+
+```typescript
+import React from 'react';
+
+interface ButtonProps {
+  text: string;
+}
+
+const Button: React.FC<ButtonProps> = ({ text }) => {
+  return <button>{text}</button>;
+};
+
+export default Button;
+```
+
+### 2. Create a New Test File
+
+Create a new test file (e.g., `Button.test.tsx`) in your project's `src` directory with the following content:
+
+```typescript
+import { render, screen } from '@testing-library/react';
+import Button from './Button';
+
+test('renders a button with the correct text', () => {
+  render(<Button text="Click me" />);
+  const buttonElement = screen.getByText(/click me/i);
+  expect(buttonElement).toBeInTheDocument();
+});
+```
+
+### 3. Run Your Tests
+
+You can now run your tests using the following command:
+
+```bash
+npm test
+```
+
+If everything is set up correctly, you should see the test results in your terminal.
+
+## Writing Comprehensive Tests
+
+Now that you have Vitest 2.0 set up in your project, let's explore how to write comprehensive tests for your React components.
+
+### 1. Testing React Components
+
+When testing React components, you should focus on their behavior and interactions with the user. React Testing Library provides a set of utilities for querying and interacting with your components in a way that simulates how users would interact with them.
+
+Here are some best practices for testing React components:
+
+- Use **render** to render your component and get access to its elements.
+- Use **screen** to query elements by text, role, label, etc.
+- Use **userEvent** to simulate user interactions like clicking, typing, etc.
+- Use **expect** to make assertions about the component's behavior.
+
+### 2. Write test for a App component
+
+This is a `App.tsx` component:
+
+```typescript
+import { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from './assets/vite.svg';
+import './App.css';
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button
+          data-testid="increment" // add data-testid for testing purpose
+          onClick={() => setCount((count) => count + 1)}
+        >
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
+  );
+}
+
+export default App;
+```
+
+And this is a `App.test.tsx` test file:
+
+```typescript
+import { screen, render } from '@testing-library/react';
+import App from './App';
+import userEvent from '@testing-library/user-event';
+
+describe('App tests', () => {
+  it('should render the title', () => {
+    render(<App />);
+    expect(screen.getByText('Vite + React')).toBeInTheDocument();
+  });
+
+  it('should render the counter', () => {
+    render(<App />);
+    expect(screen.getByText('count is 0')).toBeInTheDocument();
+  });
+
+  it('should increment the count on button click', async () => {
+    render(<App />);
+    const button = screen.getByTestId('increment'); // get button by data-testid
+
+    const user = userEvent.setup(); // setup user event
+
+    // make sure to await the user event to finish
+    await user.click(button);
+
+    expect(screen.getByText('count is 1')).toBeInTheDocument();
+  });
+});
+```
+
+Here describe block is used to group tests. The `it` function is used to define individual tests.
+In the first test, we check if the title is rendered correctly.
+In the second test, we check if the counter is rendered correctly.
+In the third test, we simulate a button click and check if the count is incremented.
+
+## Conclusion
+
+In this comprehensive guide, we've explored how to set up and write robust tests for your React applications using Vitest 2.0 and React Testing Library. We've covered everything from initial setup to writing tests for React components.
+
+Key takeaways:
+
+- Vitest 2.0 offers fast, reliable testing with minimal setup.
+- React Testing Library provides powerful tools for testing components from a user's perspective.
+- Writing comprehensive tests helps ensure your React applications are stable, maintainable, and bug-free.
+
+Remember, testing is an ongoing process. As you continue to develop your React applications, regularly update and expand your test suite to maintain code quality and catch potential issues early.
+
+In future articles, we'll dive deeper into advanced testing techniques, including mocking, testing asynchronous code, and integrating with CI/CD pipelines.
+
+Happy testing, and may your applications be forever bug-free!
+
+```typescript
+console.log('Keep calm and test on!');
+```
