@@ -1,0 +1,319 @@
+---
+title: 'Mastering React Testing with Vitest 2.0: A Comprehensive Guide Part 2'
+summary: 'Explore advanced testing techniques for React applications using Vitest 2.0. Learn how to test components with React Router and React Testing Library to ensure your navigation and routes work as expected.'
+slug: 'testing-react-router-vitest'
+tags:
+  [
+    React,
+    Vitest-2.0,
+    React-Testing-Library,
+    React-Router,
+    React-Query,
+    Testing,
+    TDD,
+    Unit-Testing,
+    Integration-Testing,
+    Web-Development,
+    Frontend-Testing,
+  ]
+publishedAt: 'August 11, 2024'
+published: false
+---
+
+## Mastering React Testing with Vitest 2.0: A Comprehensive Guide Part 2
+
+In the first part of this guide, we set up Vitest 2.0 and wrote basic tests for React components. In this second part, we'll delve into testing React applications that utilize React Router. We'll cover how to test routing, navigation, and dynamic routes to ensure that your application's routing logic is functioning correctly.
+
+If you haven't read the first part of this series, I highly recommend checking it out [here](/blog/testing-react-vitest) to get up to speed with the basics of Vitest 2.0 and React component testing.
+
+## Why Test Routing?
+
+Testing routing is crucial for several reasons:
+
+- Ensures components render correctly for specific routes
+- Verifies navigation interactions work as expected
+- Tests dynamic routes and route parameters
+- Handles redirects and conditional rendering based on authentication or other conditions
+
+By thoroughly testing your routing logic, you can catch bugs early and prevent issues related to navigation in your React applications.
+
+## Setting Up React Router in Your Application
+
+First things first, let's make sure React Router is properly set up in your project.
+
+### 1. Install React Router
+
+To install React Router, run the following command in your project directory:
+
+```bash
+npm install react-router-dom
+```
+
+### 2. Create Routes
+
+Next, define the routes in your application. You can create a new file, such as `Routes.tsx`, to manage your routes. Here's an example of how you can set up routes using React Router:
+
+```tsx
+// Routes.tsx
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Home from './Home';
+import About from './About';
+import Contact from './Contact';
+
+const Routes = () => {
+  return (
+    <Router>
+      <Switch>
+        <Route path='/' exact component={Home} />
+        <Route path='/about' component={About} />
+        <Route path='/contact' component={Contact} />
+      </Switch>
+    </Router>
+  );
+};
+
+export default Routes;
+```
+
+### 3. Add Routes to Your App
+
+Finally, import the `Routes` component in your `App.tsx` file and render it within your application:
+
+```tsx
+// App.tsx
+import Routes from './Routes';
+
+const App = () => {
+  return <Routes />;
+};
+
+export default App;
+```
+
+With React Router set up, you can now start writing tests for components that use routing and navigation logic.
+
+## Testing React Router Components with Vitest 2.0
+
+We already have Vitest 2.0 set up in our project from the previous guide. Now, let's write tests for components that use React Router. We'll cover testing routes, navigation, and dynamic routes using Vitest 2.0 and React Testing Library.
+
+### 1. Create a Custom Render Function
+
+Create a `test-utils.tsx` file to define a custom render function that wraps components with the necessary routing context:
+
+```tsx
+// test-utils.tsx
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+
+const renderWithRouter = (ui: React.ReactNode, { route = '/' } = {}) => {
+  return render(<MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter>);
+};
+
+export { renderWithRouter };
+```
+
+### 2. Write Tests for Routes
+
+Create a new test file, such as `Routes.test.tsx`, to test the routes in your application:
+
+```tsx
+// Routes.test.tsx
+import { screen } from '@testing-library/react';
+import { renderWithRouter } from './test-utils';
+import Routes from './Routes';
+
+describe('Routes', () => {
+  test('renders home page at "/"', () => {
+    renderWithRouter(<Routes />);
+    expect(screen.getByText('Home')).toBeInTheDocument();
+  });
+
+  test('renders about page at "/about"', () => {
+    renderWithRouter(<Routes />, { route: '/about' });
+    expect(screen.getByText('About')).toBeInTheDocument();
+  });
+
+  test('renders contact page at "/contact"', () => {
+    renderWithRouter(<Routes />, { route: '/contact' });
+    expect(screen.getByText('Contact')).toBeInTheDocument();
+  });
+});
+```
+
+### 3. Write Tests for Navigation
+
+Create a new test file, as `Navigation.test.tsx`, to test navigation interactions:
+
+```tsx
+// Navigation.test.tsx
+import { screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
+import { renderWithRouter } from './test-utils';
+import App from './App';
+
+describe('Navigation', () => {
+  test('navigates to about page when About link is clicked', async () => {
+    const user = userEvent.setup();
+    renderWithRouter(<App />);
+    const aboutLink = screen.getByText('About');
+    await user.click(aboutLink);
+    expect(screen.getByText('About Page')).toBeInTheDocument();
+  });
+
+  test('navigates to contact page when Contact link is clicked', async () => {
+    const user = userEvent.setup();
+    renderWithRouter(<App />);
+    const contactLink = screen.getByText('Contact');
+    await user.click(contactLink);
+    expect(screen.getByText('Contact Page')).toBeInTheDocument();
+  });
+
+  test('navigates to the home page', async () => {
+    const user = userEvent.setup();
+    renderWithRouter(<App />);
+    const homeLink = screen.getByText('Home');
+    await user.click(homeLink);
+    expect(screen.getByText('Home')).toBeInTheDocument();
+  });
+});
+```
+
+### 4. Write Tests for Dynamic Routes
+
+Create a new test file, such as `DynamicRoute.test.tsx`, to test dynamic routes:
+
+```tsx
+// DynamicRoute.test.tsx
+import { screen } from '@testing-library/react';
+import { renderWithRouter } from './test-utils';
+import { Route } from 'react-router-dom';
+import UserProfile from './UserProfile';
+
+describe('Dynamic Routes', () => {
+  test('renders user profile with correct id', () => {
+    renderWithRouter(
+      <Route path='/user/:id'>
+        <UserProfile />
+      </Route>,
+      { route: '/user/123' },
+    );
+    expect(screen.getByText('User Profile: 123')).toBeInTheDocument();
+  });
+});
+```
+
+### 5. Write Tests for Redirects
+
+Create a new test file, such as `Redirects.test.tsx`, to test redirects:
+
+```tsx
+// Redirects.test.tsx
+import { screen } from '@testing-library/react';
+import { renderWithRouter } from './test-utils';
+import { Route, Redirect } from 'react-router-dom';
+
+describe('Redirects', () => {
+  test('redirects to login page when accessing a protected route', () => {
+    renderWithRouter(
+      <Route path='/protected' render={() => <Redirect to='/login' />} />,
+      { route: '/protected' },
+    );
+    expect(screen.getByText('Login Page')).toBeInTheDocument();
+  });
+});
+```
+
+### 6. Write Tests for Conditional Rendering
+
+Create a new test file, such as `ConditionalRendering.test.tsx`, to test conditional rendering based on authentication or other conditions:
+
+```tsx
+// ConditionalRendering.test.tsx
+import { renderWithRouter } from './test-utils';
+import { MemoryRouter, Route } from 'react-router-dom';
+
+test('renders private component when authenticated', () => {
+  const { getByText } = renderWithRouter(
+    <MemoryRouter initialEntries={['/private']}>
+      <Route path='/private' render={() => <div>Private</div>} />
+    </MemoryRouter>,
+  );
+  expect(getByText('Private')).toBeInTheDocument();
+});
+
+test('redirects to login page when not authenticated', () => {
+  const { getByText } = renderWithRouter(
+    <MemoryRouter initialEntries={['/private']}>
+      <Route path='/private' render={() => <div>Private</div>} />
+    </MemoryRouter>,
+  );
+  expect(getByText('Login')).toBeInTheDocument();
+});
+```
+
+## Advanced Testing Techniques
+
+Now that we've covered the basics, let's explore some advanced techniques to make your tests even more robust.
+
+### Testing with Query Parameters
+
+Query parameters are often used to pass data between routes.
+Query parameters can be a bit tricky to test, but with the right setup, you can make it work.
+
+```tsx
+// QueryParams.test.tsx
+import { screen } from '@testing-library/react';
+import { renderWithRouter } from './test-utils';
+import SearchResults from './SearchResults';
+
+describe('Query Parameters', () => {
+  test('renders search results based on query parameter', () => {
+    renderWithRouter(<SearchResults />, { route: '/search?q=react' });
+    expect(screen.getByText('Search results for: react')).toBeInTheDocument();
+  });
+});
+```
+
+### Testing Route Guards
+
+Route guards are used to protect routes from unauthorized access.
+
+```tsx
+// RouteGuards.test.tsx
+import { screen } from '@testing-library/react';
+import { renderWithRouter } from './test-utils';
+import PrivateRoute from './PrivateRoute';
+
+const mockAuthCheck = jest.fn();
+
+describe('Route Guards', () => {
+  test('allows access to authenticated user', () => {
+    mockAuthCheck.mockReturnValue(true);
+    renderWithRouter(
+      <PrivateRoute path='/dashboard' component={() => <div>Dashboard</div>} />,
+      { route: '/dashboard' },
+    );
+    expect(screen.getByText('Dashboard')).toBeInTheDocument();
+  });
+
+  test('redirects unauthenticated user to login', () => {
+    mockAuthCheck.mockReturnValue(false);
+    renderWithRouter(
+      <PrivateRoute path='/dashboard' component={() => <div>Dashboard</div>} />,
+      { route: '/dashboard' },
+    );
+    expect(screen.getByText('Login Page')).toBeInTheDocument();
+  });
+});
+```
+
+## Conclusion
+
+Testing routing in React applications is essential to ensure that your application's navigation works as expected. By using Vitest 2.0, React Testing Library, and React Router, you can write comprehensive tests for your routing logic.
+
+In this guide, we covered:
+
+- Setting up React Router in your application
+- Writing tests for routes, navigation, dynamic routes, redirects, and conditional rendering
+
+We hope this guide has provided you with a solid foundation for testing routing in React applications using Vitest 2.0, React Testing Library, and React Router. Happy testing!
