@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Me from '@/public/vivek.jpg';
-import Link from 'next/link';
+// import Link from 'next/link';
 
 export default function Hero() {
   return (
@@ -31,14 +31,14 @@ export default function Hero() {
           My dedication to continuous learning and mastery of new technologies
           ensures I stay at the forefront of web development.
         </h3>
-        <div className='mt-2 text-center'>
+        {/* <div className='mt-2 text-center'>
           <Link
             className='w-min rounded-lg border bg-indigo-500 px-3 py-2 font-bold text-white hover:underline'
             href='/resume'
           >
             Resume
           </Link>
-        </div>
+        </div> */}
       </div>
       <div className='col-span-1 flex flex-row items-center justify-center gap-4'>
         <Image
