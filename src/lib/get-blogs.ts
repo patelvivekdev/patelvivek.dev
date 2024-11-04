@@ -67,14 +67,14 @@ export async function getLatestBlogs() {
   );
 
   // Sort by date
-  const allBlogs = blogs.sort((a, b) => {
+  blogs.sort((a, b) => {
     const dateA = new Date(a.metadata.publishedAt!);
     const dateB = new Date(b.metadata.publishedAt!);
     return dateB.getTime() - dateA.getTime();
   });
 
   // Return the latest 3 blogs
-  return allBlogs.slice(0, 3);
+  return blogs.slice(0, 3);
 }
 
 export default getBlogs;

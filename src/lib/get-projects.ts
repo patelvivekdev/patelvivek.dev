@@ -68,14 +68,13 @@ export async function getProject(slug: string) {
 export async function getLatestProjects() {
   let projects = await getProjects();
 
-  projects = projects.slice(0, 4);
-
   // Sort projects by publishedAt in descending order - publishedAt: 'May 04, 2024'
-  return projects.sort((a, b) => {
+  projects.sort((a, b) => {
     const aDate = new Date(a.metadata.publishedAt!);
     const bDate = new Date(b.metadata.publishedAt!);
     return bDate.getTime() - aDate.getTime();
   });
+  return projects.slice(0, 4);
 }
 
 export async function getAllProjectsTags() {
@@ -103,11 +102,11 @@ export async function getProjectsByTag(tag: string) {
   projects = projects.filter(
     (project) => project.metadata && project.metadata.published === true,
   );
-  const filteredProjects = projects.filter(
+  projects = projects.filter(
     (project) =>
       project.metadata.tags!.filter(
         (t) => t.toLowerCase() === tag.toLowerCase(),
       ).length > 0,
   );
-  return filteredProjects;
+  return projects;
 }
