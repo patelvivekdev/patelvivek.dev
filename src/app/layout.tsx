@@ -85,6 +85,7 @@ export default async function RootLayout({
           defaultTheme='system'
           enableSystem={true}
           disableTransitionOnChange
+          scriptProps={{ 'data-cfasync': 'false' }}
         >
           <Navbar />
           <main className='mx-auto max-w-5xl'>

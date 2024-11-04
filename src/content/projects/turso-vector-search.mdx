@@ -1,0 +1,94 @@
+---
+title: 'Turso Vector Search: A RAG-based AI Chatbot'
+description: 'Explore a modern RAG (Retrieval Augmented Generation) implementation using Turso as a vector database, Next.js, and Google AI for creating an intelligent chatbot with memory capabilities.'
+slug: 'turso-vector-search'
+publishedAt: 'October 05, 2024'
+tags:
+  [
+    NextJs,
+    React,
+    Turso,
+    Drizzle-ORM,
+    TypeScript,
+    Google-AI,
+    Vector-Search,
+    Embeddings,
+    AI,
+    RAG,
+    ShadcnUI,
+  ]
+published: true
+---
+
+## Turso Vector Search
+
+## Introduction
+
+In the rapidly evolving world of AI, creating chatbots that can understand and remember conversations is a significant milestone. This project, Turso Vector Search, leverages the power of RAG (Retrieval Augmented Generation) to build an intelligent chatbot. By integrating Turso's vector database, Next.js, and Google AI, we aim to provide a seamless and context-aware conversational experience.
+
+### What is RAG?
+
+RAG (Retrieval Augmented Generation) is an AI architecture that enhances large language models by providing them with relevant context from a knowledge base. Instead of relying solely on the model's training data, RAG allows the AI to access and use specific information stored in a vector database, leading to more accurate and contextual responses.
+
+### What is a Vector Database?
+
+Vector databases are a type of database that store and retrieve data based on vector representations. These databases are particularly useful for similarity search, where the goal is to find items that are similar to a given query. By converting text into vector embeddings, we can efficiently search for relevant information and contextually enhance AI models like RAG.
+
+### Why Turso as a Vector Database?
+
+Turso is a modern vector database that combines the simplicity of SQLite with the power of vector search. It offers a lightweight and efficient solution for storing and retrieving vector embeddings, making it an ideal choice for RAG applications. With Turso, we can seamlessly integrate vector storage into our chatbot and provide context-aware responses to users. Learn more about Turso: [Turso Documentation](https://docs.turso.tech/features/ai-and-embeddings)
+
+## Features
+
+- **Vector-Based Memory:** Store and retrieve conversation context using Turso's vector database.
+- **OAuth Authentication:** Secure login with GitHub and Google authentication.
+- **Context-Aware Responses:** AI responses based on previous conversations and stored knowledge.
+- **Real-time Chat:** Smooth chat interface with streaming responses.
+- **Automatic Memory Storage:** Silent storage of important information from conversations.
+- **User-Specific Knowledge Base:** Separate vector storage for each user.
+- **Responsive Design:** Mobile-friendly interface that works across devices.
+
+## Tech Stack
+
+The project leverages modern technologies for optimal performance and developer experience:
+
+- **Next.js 15:** Utilizing the latest features including server components and APIs.
+- **Turso:** Edge-ready SQLite database with vector search capabilities.
+- **Drizzle ORM:** Type-safe database operations with excellent TypeScript support.
+- **Google AI:** Leveraging Google's generative AI models for intelligent responses.
+- **NextAuth.js:** Robust authentication with multiple provider support.
+- **TypeScript:** Enhanced code reliability and developer experience.
+- **Tailwind CSS:** Utility-first CSS framework for responsive design.
+- **ShadcnUI:** Beautiful and accessible UI components.
+- **Framer Motion:** Smooth animations for better user experience.
+- **Vercel AI SDK:** Simplifies the integration of AI capabilities into the application.
+
+## Implementation Details
+
+- **Vector Storage**:
+
+  - Converts text into numerical representations called embeddings.
+  - These embeddings allow for efficient and accurate similarity searches.
+  - Useful for finding related content or responses based on user input.
+
+- **Memory Management**:
+  - Stores conversation history and relevant context in the vector database.
+  - Retrieves stored information to enhance AI responses and maintain continuity.
+  - Ensures that the chatbot can remember past interactions and provide contextually relevant answers.
+
+## Conclusion
+
+Turso Vector Search showcases the power of combining vector databases with modern AI capabilities. The project serves as a practical example of implementing RAG architecture in a production environment, while maintaining good user experience and code quality.
+
+## Other Project To Explore
+
+- [Mem0](https://mem0.ai/) - Mem0 is a self-improving memory layer for LLM applications, enabling personalized AI experiences that save costs and delight users.
+- [MemGPT/Letta](https://github.com/cpacker/MemGPT) - Letta (fka MemGPT) is a framework for creating stateful LLM services.
+
+## Links
+
+- [GitHub Repository](https://github.com/patelvivekdev/turso-vector-search)
+- [Live Demo](https://turso-vector-search.vercel.app)
+- [Turso Documentation](https://docs.turso.tech)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Google AI Platform](https://ai.google.dev/)
