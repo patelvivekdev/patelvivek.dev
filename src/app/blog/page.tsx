@@ -27,6 +27,7 @@ export const metadata: Metadata = {
 };
 
 const BlogPage = async () => {
+  'use cache';
   let allBlogs = await getBlogs();
 
   allBlogs = allBlogs.filter((blog) => blog.metadata.published);

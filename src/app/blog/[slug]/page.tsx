@@ -12,6 +12,9 @@ import { formatDate } from '@/lib/server-utils';
 // import { getViewsCount } from '@/lib/get-views';
 import Progress from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
+import { getSimilarPosts } from '@/lib/upstash';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+
 // import { increment } from '@/app/actions';
 
 // export async function generateStaticParams() {
@@ -83,62 +86,110 @@ export default async function Blog({
   }
   let publishedDate = await formatDate(blog.metadata.publishedAt!);
 
+  const { relatedBlogs, relatedProjects } = await getSimilarPosts(
+    slug,
+    blog.content,
+    'blog',
+  );
+
   return (
     <Suspense fallback={<p>Loading blog...</p>}>
-      <div className='mx-auto mt-16 w-11/12 sm:mt-40'>
-        <Progress />
-        <div className='flex flex-col gap-4'>
-          <Link href='/blog'>
-            <Button
-              variant='outline'
-              className='mb-5 cursor-pointer border-neutral-800 text-lg font-semibold text-neutral-800 hover:border-indigo-700 hover:underline dark:border-neutral-300 dark:text-neutral-300 hover:dark:border-indigo-700'
-            >
-              &larr; Back to Blogs
-            </Button>
-          </Link>
-          <h1 className='text-start text-2xl font-bold text-indigo-500 sm:text-4xl'>
-            {blog.metadata.title}
-          </h1>
-          <h2 className='text-xl text-neutral-700 dark:text-neutral-300'>
-            {blog.metadata.summary}
-          </h2>
-          <div className='flex flex-col justify-between gap-2 sm:flex-row sm:items-center'>
-            <p className='text-base text-neutral-700 dark:text-neutral-300'>
-              <span className='flex flex-row items-center gap-2'>
-                <Calendar />
-                <Suspense fallback={<p>---</p>}>
-                  {publishedDate}
-                </Suspense> | {blog.readingTime}
-              </span>
-            </p>
-            {/* <Suspense fallback={<p>----</p>}>
+      <div className='flex flex-col gap-4 lg:flex-row'>
+        <div className='mx-auto mt-16 w-11/12 flex-1 overflow-y-auto sm:mt-40'>
+          <Progress />
+          <div className='flex flex-col gap-4'>
+            <Link href='/blog'>
+              <Button
+                variant='outline'
+                className='mb-5 cursor-pointer border-neutral-800 text-lg font-semibold text-neutral-800 hover:border-indigo-700 hover:underline dark:border-neutral-300 dark:text-neutral-300 hover:dark:border-indigo-700'
+              >
+                &larr; Back to Blogs
+              </Button>
+            </Link>
+            <h1 className='text-start text-2xl font-bold text-indigo-500 sm:text-4xl'>
+              {blog.metadata.title}
+            </h1>
+            <h2 className='text-xl text-neutral-700 dark:text-neutral-300'>
+              {blog.metadata.summary}
+            </h2>
+            <div className='flex flex-col justify-between gap-2 sm:flex-row sm:items-center'>
+              <p className='text-base text-neutral-700 dark:text-neutral-300'>
+                <span className='flex flex-row items-center gap-2'>
+                  <Calendar />
+                  <Suspense fallback={<p>---</p>}>
+                    {publishedDate}
+                  </Suspense> | {blog.readingTime}
+                </span>
+              </p>
+              {/* <Suspense fallback={<p>----</p>}>
               <Views slug={blog.slug} />
-            </Suspense> */}
+              </Suspense> */}
+            </div>
+            <div className='mb-5 flex flex-row flex-wrap gap-4'>
+              {blog.metadata.tags?.map((tag) => (
+                <Link key={tag} href={`/tag/${tag.toLowerCase()}`}>
+                  <Button
+                    variant='outline'
+                    className='cursor-pointer border-2 border-indigo-500 text-lg font-semibold hover:underline'
+                  >
+                    {tag}
+                  </Button>
+                </Link>
+              ))}
+            </div>
           </div>
-          <div className='mb-5 flex flex-row flex-wrap gap-4'>
-            {blog.metadata.tags?.map((tag) => (
-              <Link key={tag} href={`/tag/${tag.toLowerCase()}`}>
-                <Button
-                  variant='outline'
-                  className='cursor-pointer border-2 border-indigo-500 text-lg font-semibold hover:underline'
-                >
-                  {tag}
-                </Button>
-              </Link>
-            ))}
-          </div>
+          <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
+            <Suspense fallback={'load'}>
+              <CustomMDX
+                components={{
+                  img: RoundedImage,
+                }}
+              >
+                {blog.content}
+              </CustomMDX>
+            </Suspense>
+          </article>
         </div>
-        <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
-          <Suspense fallback={'load'}>
-            <CustomMDX
-              components={{
-                img: RoundedImage,
-              }}
-            >
-              {blog.content}
-            </CustomMDX>
-          </Suspense>
-        </article>
+        <aside className='sticky top-16 h-screen w-1/4 overflow-y-auto sm:top-40'>
+          <Card className='mb-8'>
+            <CardHeader>
+              <CardTitle>Related Projects</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className='space-y-2'>
+                {relatedProjects.map((relatedProject) => (
+                  <li key={relatedProject.id}>
+                    <Link
+                      href={`/projects/${relatedProject.metadata?.project ?? ''}`}
+                      className='text-indigo-500 hover:underline'
+                    >
+                      {relatedProject.metadata?.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Related Blogs</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className='space-y-2'>
+                {relatedBlogs.map((relatedBlog) => (
+                  <li key={relatedBlog.id}>
+                    <Link
+                      href={`/blog/${relatedBlog.metadata?.blog ?? ''}`}
+                      className='text-indigo-500 hover:underline'
+                    >
+                      {relatedBlog.metadata?.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        </aside>
       </div>
     </Suspense>
   );

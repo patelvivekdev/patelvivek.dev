@@ -18,7 +18,10 @@ export default async function Hero() {
         </h2> */}
         <h2 className='text-base sm:text-base md:text-lg lg:text-xl'>
           I am a software engineer from Canada. I am passionate about
-          Javascript, React, Next.js, Python and AI.
+          <span className='underline decoration-sky-500 decoration-2 underline-offset-4'>
+            {' '}
+            Javascript, React, Next.js, Python and AI.
+          </span>
         </h2>
         <h2 className='text-base sm:text-base md:text-lg lg:text-xl'>
           Beyond the screen, I am an avid{' '}
@@ -28,8 +31,13 @@ export default async function Hero() {
           , capturing the life&rsquo;s beautiful moments through my lens.
         </h2>
         <h2 className='text-base sm:text-base md:text-lg lg:text-xl'>
-          I believe in continuous learning, which helps me stay current with the
-          latest technologies in web development.
+          I believe in
+          <span className='underline decoration-sky-500 decoration-2 underline-offset-4'>
+            {' '}
+            continuous learning
+          </span>
+          , which helps me stay current with the latest technologies in web
+          development.
         </h2>
         {/* <div className='mt-2 text-center'>
           <Link
@@ -46,7 +54,7 @@ export default async function Hero() {
           width={300}
           height={300}
           priority={true}
-          className='ease rounded-md object-cover shadow-xl shadow-[#8184f8] grayscale filter transition hover:grayscale-0 dark:shadow-indigo-500'
+          className='ease rounded-md object-cover shadow-xl shadow-[#8184f8] grayscale-0 filter transition hover:grayscale dark:shadow-indigo-500'
           alt='Picture of Vivek Patel'
         />
       </div>

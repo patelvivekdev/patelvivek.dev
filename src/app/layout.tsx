@@ -88,7 +88,7 @@ export default async function RootLayout({
           scriptProps={{ 'data-cfasync': 'false' }}
         >
           <Navbar />
-          <main className='mx-auto max-w-5xl'>
+          <main className='mx-auto max-w-6xl'>
             {children}
             <ScrollToTopButton />
             <ThemeToggle />
