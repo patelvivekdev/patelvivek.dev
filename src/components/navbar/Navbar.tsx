@@ -1,5 +1,4 @@
 import { FloatingNav } from '@/components/navbar/FloatingNav';
-import { Suspense } from 'react';
 import MobileNav from '@/components/navbar/MobileNav';
 import { CommandContainer } from '../Command/CommandContainer';
 
@@ -14,13 +13,11 @@ const links = [
 
 const Navbar = async () => {
   return (
-    <Suspense fallback={null}>
-      <nav>
-        <FloatingNav navItems={links} />
-        <MobileNav navItems={links} />
-        <CommandContainer />
-      </nav>
-    </Suspense>
+    <nav>
+      <FloatingNav navItems={links} />
+      <MobileNav navItems={links} />
+      <CommandContainer />
+    </nav>
   );
 };
 

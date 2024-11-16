@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -14,10 +13,10 @@ import { Button } from '@/components/ui/button';
 import { formatDate } from '@/lib/server-utils';
 // import { increment } from '@/app/actions';
 
-// export function generateStaticParams() {
-//   const snippets = getSnippets();
-//   return snippets.map((snippet) => ({ slug: snippet.slug }));
-// }
+export async function generateStaticParams() {
+  const snippets = await getSnippets();
+  return snippets.map((snippet) => ({ slug: snippet.slug }));
+}
 
 export async function generateMetadata({
   params,
@@ -94,58 +93,54 @@ export default async function Snippet({
   return (
     <div className='mx-auto mt-16 w-11/12 sm:mt-40'>
       <Progress />
-      <Suspense fallback='loading...'>
-        <div className='flex flex-col gap-4 border-b-4 border-neutral-800 dark:border-neutral-300'>
-          <Link href='/snippet'>
-            <Button
-              variant='outline'
-              className='mb-5 cursor-pointer border-neutral-800 text-lg font-semibold text-neutral-800 hover:border-indigo-700 hover:underline dark:border-neutral-300 dark:text-neutral-300 hover:dark:border-indigo-700'
-            >
-              &larr; Back to Snippets
-            </Button>
-          </Link>
-          <h1 className='text-start text-2xl font-bold text-indigo-500 sm:text-4xl'>
-            {snippet.metadata.title}
-          </h1>
-          <h2 className='text-xl text-neutral-700 dark:text-neutral-300'>
-            {snippet.metadata.description}
-          </h2>
-          <div className='flex flex-col justify-between gap-2 sm:flex-row sm:items-center'>
-            <p className='text-base text-neutral-700 dark:text-neutral-300'>
-              <span className='flex flex-row items-center gap-2'>
-                <Calendar />
-                <Suspense fallback={<p>---</p>}>
-                  {publishedDate}
-                </Suspense> | {snippet.readingTime}
-              </span>
-            </p>
-            {/* <Suspense fallback={<p>----</p>}>
+      <div className='flex flex-col gap-4 border-b-4 border-neutral-800 dark:border-neutral-300'>
+        <Link href='/snippet'>
+          <Button
+            variant='outline'
+            className='mb-5 cursor-pointer border-neutral-800 text-lg font-semibold text-neutral-800 hover:border-indigo-700 hover:underline dark:border-neutral-300 dark:text-neutral-300 hover:dark:border-indigo-700'
+          >
+            &larr; Back to Snippets
+          </Button>
+        </Link>
+        <h1 className='text-start text-2xl font-bold text-indigo-500 sm:text-4xl'>
+          {snippet.metadata.title}
+        </h1>
+        <h2 className='text-xl text-neutral-700 dark:text-neutral-300'>
+          {snippet.metadata.description}
+        </h2>
+        <div className='flex flex-col justify-between gap-2 sm:flex-row sm:items-center'>
+          <p className='text-base text-neutral-700 dark:text-neutral-300'>
+            <span className='flex flex-row items-center gap-2'>
+              <Calendar />
+              {publishedDate} | {snippet.readingTime}
+            </span>
+          </p>
+          {/* <Suspense fallback={<p>----</p>}>
               <Views slug={snippet.slug} />
             </Suspense> */}
-          </div>
-          <div className='mb-5 flex flex-row flex-wrap gap-4'>
-            {snippet.metadata.tags?.map((tag) => (
-              <Link key={tag} href={`/tag/${tag.toLowerCase()}`}>
-                <Button
-                  variant='outline'
-                  className='cursor-pointer border-2 border-indigo-500 text-lg font-semibold hover:underline'
-                >
-                  {tag}
-                </Button>
-              </Link>
-            ))}
-          </div>
         </div>
-        <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
-          <CustomMDX
-            components={{
-              RoundedImage: RoundedImage,
-            }}
-          >
-            {snippet.content}
-          </CustomMDX>
-        </article>
-      </Suspense>
+        <div className='mb-5 flex flex-row flex-wrap gap-4'>
+          {snippet.metadata.tags?.map((tag) => (
+            <Link key={tag} href={`/tag/${tag.toLowerCase()}`}>
+              <Button
+                variant='outline'
+                className='cursor-pointer border-2 border-indigo-500 text-lg font-semibold hover:underline'
+              >
+                {tag}
+              </Button>
+            </Link>
+          ))}
+        </div>
+      </div>
+      <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
+        <CustomMDX
+          components={{
+            RoundedImage: RoundedImage,
+          }}
+        >
+          {snippet.content}
+        </CustomMDX>
+      </article>
     </div>
   );
 }

@@ -1,4 +1,3 @@
-'use cache';
 import type { Metadata } from 'next';
 import BlogPost from '@/components/BlogPost';
 import { getBlogs } from '@/lib/get-blogs';
@@ -27,7 +26,6 @@ export const metadata: Metadata = {
 };
 
 const BlogPage = async () => {
-  'use cache';
   let allBlogs = await getBlogs();
 
   allBlogs = allBlogs.filter((blog) => blog.metadata.published);

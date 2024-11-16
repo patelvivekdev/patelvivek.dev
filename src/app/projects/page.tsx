@@ -1,4 +1,3 @@
-'use cache';
 import type { Metadata } from 'next';
 import ProjectCard from '@/components/ProjectCard';
 import { getProjectByDate } from '@/lib/get-projects';
@@ -27,7 +26,6 @@ export const metadata: Metadata = {
 };
 
 const ProjectPage = async () => {
-  'use cache';
   let projects = await getProjectByDate();
 
   return (

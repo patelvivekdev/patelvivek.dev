@@ -1,5 +1,4 @@
 export async function formatDate(date: string) {
-  'use cache';
   let currentDate = new Date().getTime();
   let targetDate = new Date(date).getTime();
 
