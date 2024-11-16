@@ -1,11 +1,8 @@
-'use cache';
 import Link from 'next/link';
-import { Suspense } from 'react';
 import Hero from '@/components/Hero';
 import { Button } from '@/components/ui/button';
 import RecentBlogs from '@/components/RecentBlogs';
 import LatestProjects from '@/components/LatestProjects';
-import RecentBlogsSkeleton from '@/components/skeletons/RecentBlogsSkeleton';
 
 export default async function Home() {
   return (
@@ -20,9 +17,7 @@ export default async function Home() {
           Latest Project
         </h2>
         <div className='grid grid-cols-1 gap-4'>
-          <Suspense fallback={<RecentBlogsSkeleton />}>
-            <LatestProjects />
-          </Suspense>
+          <LatestProjects />
         </div>
         <Link href='/projects'>
           <Button
@@ -38,9 +33,7 @@ export default async function Home() {
           Recent Blog
         </h3>
         <div className='grid grid-cols-1 gap-4'>
-          <Suspense fallback={<RecentBlogsSkeleton />}>
-            <RecentBlogs />
-          </Suspense>
+          <RecentBlogs />
         </div>
 
         <Link href='/blog'>

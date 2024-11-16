@@ -3,7 +3,6 @@ import { getProjects } from '@/lib/get-projects';
 import getSnippets from '@/lib/get-snippets';
 import { allTags } from '@/lib/get-tags';
 import { CommandMenu } from './Command';
-import { Suspense } from 'react';
 
 export async function CommandContainer() {
   let blogs = await getBlogs();
@@ -19,14 +18,12 @@ export async function CommandContainer() {
 
   return (
     <>
-      <Suspense fallback={'loading'}>
-        <CommandMenu
-          blogs={blogs}
-          projects={projects}
-          snippets={snippets}
-          tags={tags}
-        />
-      </Suspense>
+      <CommandMenu
+        blogs={blogs}
+        projects={projects}
+        snippets={snippets}
+        tags={tags}
+      />
     </>
   );
 }

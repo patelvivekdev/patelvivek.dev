@@ -48,8 +48,6 @@ export const getProjects = cache(async () => {
 // };
 
 export const getProjectByDate = cache(async () => {
-  'use cache';
-
   let projects = await getProjects();
 
   return projects.sort((a, b) => {

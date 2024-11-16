@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Calendar } from 'lucide-react';
-import { Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getProjects } from '@/lib/get-projects';
@@ -9,14 +8,13 @@ import { CustomMDX } from '@/components/mdx/mdx';
 import { formatDate } from '@/lib/server-utils';
 import Progress from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getSimilarPosts } from '@/lib/upstash';
-import SkeletonLoader from '@/components/ui/SkeletonLoader';
+import SimilarPost, { SkeletonSimilarPost } from '@/components/SimilarPost';
+import { Suspense } from 'react';
 
-// export async function generateStaticParams() {
-//   const projects = await getProjects();
-//   return projects.map((project) => ({ slug: project.slug }));
-// }
+export async function generateStaticParams() {
+  const projects = await getProjects();
+  return projects.map((project) => ({ slug: project.slug }));
+}
 
 export async function generateMetadata({
   params,
@@ -79,110 +77,65 @@ export default async function Project({
     return notFound();
   }
 
-  const { relatedBlogs, relatedProjects } = await getSimilarPosts(
-    slug,
-    project.content,
-    'project',
-  );
-
   let publishedDate = await formatDate(project.metadata.publishedAt!);
   return (
-    <Suspense fallback={<SkeletonLoader />}>
-      <div className='flex flex-col gap-4 lg:flex-row'>
-        <div className='mx-auto mt-16 w-11/12 flex-1 overflow-y-auto sm:mt-40'>
-          <Progress />
-          <Link href='/projects'>
-            <Button
-              variant='outline'
-              className='mb-5 cursor-pointer border-2 border-neutral-800 text-lg font-semibold text-neutral-800 hover:border-indigo-500 hover:underline dark:border-neutral-300 dark:text-neutral-300 hover:dark:border-indigo-500'
-            >
-              &larr; Back to Projects
-            </Button>
-          </Link>
-          <h1 className='text-start text-2xl font-bold text-indigo-500 sm:text-4xl'>
-            {project.metadata.title}
-          </h1>
-          <div className='mb-4 mt-2 flex items-center justify-between'>
-            <p className='text-lg font-normal text-neutral-700 dark:text-neutral-300'>
-              <span className='flex flex-row items-center gap-2'>
-                {project.metadata.description}
-              </span>
-            </p>
-          </div>
-          <div className='mb-8 mt-2 flex items-center justify-between'>
-            <p className='text-base text-neutral-700 dark:text-neutral-300'>
-              <span className='flex flex-row items-center gap-2'>
-                <Calendar />
-                <Suspense fallback={<p>---</p>}>
-                  {publishedDate}
-                </Suspense> | {project.readingTime}
-              </span>
-            </p>
-          </div>
-          <div className='mb-5 flex flex-row flex-wrap gap-4'>
-            {project.metadata.tags?.map((tag) => (
-              <Link key={tag} href={`/tag/${tag.toLowerCase()}`}>
-                <Button
-                  variant='outline'
-                  className='cursor-pointer border-2 border-indigo-500 text-lg font-semibold hover:underline'
-                >
-                  {tag}
-                </Button>
-              </Link>
-            ))}
-          </div>
-          <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
-            <CustomMDX
-              components={{
-                RoundedImage: RoundedImage,
-              }}
-            >
-              {project.content}
-            </CustomMDX>
-          </article>
+    <div className='flex flex-col gap-4 lg:flex-row'>
+      <div className='mx-auto mt-16 w-11/12 flex-1 overflow-y-auto sm:mt-40'>
+        <Progress />
+        <Link href='/projects'>
+          <Button
+            variant='outline'
+            className='mb-5 cursor-pointer border-2 border-neutral-800 text-lg font-semibold text-neutral-800 hover:border-indigo-500 hover:underline dark:border-neutral-300 dark:text-neutral-300 hover:dark:border-indigo-500'
+          >
+            &larr; Back to Projects
+          </Button>
+        </Link>
+        <h1 className='text-start text-2xl font-bold text-indigo-500 sm:text-4xl'>
+          {project.metadata.title}
+        </h1>
+        <div className='mb-4 mt-2 flex items-center justify-between'>
+          <p className='text-lg font-normal text-neutral-700 dark:text-neutral-300'>
+            <span className='flex flex-row items-center gap-2'>
+              {project.metadata.description}
+            </span>
+          </p>
         </div>
-        <aside className='sticky top-16 h-screen w-1/4 overflow-y-auto sm:top-40'>
-          <Card className='mb-8'>
-            <CardHeader>
-              <CardTitle>Related Projects</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className='space-y-2'>
-                {relatedProjects.map((relatedProject) => (
-                  <li key={relatedProject.id}>
-                    <Link
-                      href={`/projects/${relatedProject.metadata?.project ?? ''}`}
-                      className='text-indigo-500 hover:underline'
-                    >
-                      {relatedProject.metadata?.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Related Blogs</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className='space-y-2'>
-                {relatedBlogs.map((relatedBlog) => (
-                  <li key={relatedBlog.id}>
-                    <Link
-                      href={`/blog/${relatedBlog.metadata?.blog ?? ''}`}
-                      className='text-indigo-500 hover:underline'
-                    >
-                      {relatedBlog.metadata?.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        </aside>
+        <div className='mb-8 mt-2 flex items-center justify-between'>
+          <p className='text-base text-neutral-700 dark:text-neutral-300'>
+            <span className='flex flex-row items-center gap-2'>
+              <Calendar />
+              {publishedDate} | {project.readingTime}
+            </span>
+          </p>
+        </div>
+        <div className='mb-5 flex flex-row flex-wrap gap-4'>
+          {project.metadata.tags?.map((tag) => (
+            <Link key={tag} href={`/tag/${tag.toLowerCase()}`}>
+              <Button
+                variant='outline'
+                className='cursor-pointer border-2 border-indigo-500 text-lg font-semibold hover:underline'
+              >
+                {tag}
+              </Button>
+            </Link>
+          ))}
+        </div>
+        <article className='prose prose-zinc mx-auto my-10 max-w-none dark:prose-invert md:prose-lg lg:prose-xl'>
+          <CustomMDX
+            components={{
+              RoundedImage: RoundedImage,
+            }}
+          >
+            {project.content}
+          </CustomMDX>
+        </article>
       </div>
-    </Suspense>
+      <aside className='sticky top-16 mx-auto mb-4 h-fit w-11/12 overflow-y-auto sm:top-40 sm:mb-0 sm:h-screen md:w-1/4'>
+        <Suspense fallback={<SkeletonSimilarPost />}>
+          <SimilarPost slug={slug} content={project.content} type='project' />
+        </Suspense>
+      </aside>
+    </div>
   );
 }
 

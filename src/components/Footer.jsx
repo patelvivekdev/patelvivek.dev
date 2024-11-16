@@ -1,6 +1,4 @@
 const Footer = async () => {
-  'use cache';
-
   // find the current year
   const year = new Date().getFullYear();
 

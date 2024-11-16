@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import React, { Suspense } from 'react';
+import React from 'react';
 import './globals.css';
 import Navbar from '@/components/navbar/Navbar';
 import Footer from '@/components/Footer';
@@ -93,9 +93,7 @@ export default async function RootLayout({
             <ScrollToTopButton />
             <ThemeToggle />
             <Toaster position='top-right' />
-            <Suspense fallback={null}>
-              <Footer />
-            </Suspense>
+            <Footer />
           </main>
           {process.env.APP_ENV !== 'development' && (
             <>

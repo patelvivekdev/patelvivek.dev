@@ -17,7 +17,6 @@ export const getSimilarPosts = async (
   blogPost: string,
   type: 'blog' | 'project',
 ) => {
-  'use cache';
   let relatedBlogs = await index.query<Metadata>({
     data: blogPost,
     topK: type === 'blog' ? 3 : 2,

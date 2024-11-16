@@ -1,4 +1,3 @@
-'use cache';
 import type { Metadata } from 'next';
 import getSnippets from '@/lib/get-snippets';
 import SnippetCard from '@/components/SnippetCard';
