@@ -3,6 +3,7 @@ import getSnippets from '@/lib/get-snippets';
 import SnippetCard from '@/components/SnippetCard';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://patelvivek.dev/snippets'),
   title: 'Reusable Snippets',
   description: 'A collection of reusable snippets for Next.js',
   keywords: 'reusable, snippets, next.js',

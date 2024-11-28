@@ -3,6 +3,7 @@ import ProjectCard from '@/components/ProjectCard';
 import { getProjectByDate } from '@/lib/get-projects';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://patelvivek.dev/projects'),
   title: 'My Web Development Projects',
   description:
     'Explore my portfolio of React, Next.js, and web development projects. See my skills in action.',
