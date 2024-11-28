@@ -42,6 +42,7 @@ export async function generateMetadata({
 
   return {
     title,
+    metadataBase: new URL('https://patelvivek.dev/projects'),
     description,
     keywords: tags ? tags : [],
     openGraph: {

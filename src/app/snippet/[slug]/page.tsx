@@ -45,6 +45,7 @@ export async function generateMetadata({
     : `https://patelvivek.dev/og?title=${title}`;
 
   return {
+    metadataBase: new URL('https://patelvivek.dev/snippets'),
     title,
     description,
     keywords: tags ? tags : [],
@@ -53,7 +54,7 @@ export async function generateMetadata({
       description,
       type: 'article',
       publishedTime,
-      url: `https://patelvivek.dev/blog/${snippet.slug}`,
+      url: `https://patelvivek.dev/snippets/${snippet.slug}`,
       images: [
         {
           url: ogImage,

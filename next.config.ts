@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   experimental: {
     ppr: true,
     reactCompiler: true,
+    inlineCss: true,
     // dynamicIO: true,
   },
   logging: {

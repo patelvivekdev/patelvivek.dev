@@ -3,6 +3,7 @@ import BlogPost from '@/components/BlogPost';
 import { getBlogs } from '@/lib/get-blogs';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://patelvivek.dev/blog'),
   title: 'Read all the blogs I have written',
   description:
     'Get practical tips and insights on React, Next.js, and modern web development techniques from my blog.',
