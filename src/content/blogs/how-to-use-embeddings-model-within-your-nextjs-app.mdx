@@ -1,0 +1,225 @@
+---
+title: 'How to Use Embeddings Model Within Your Next.js App'
+summary: 'Learn how to integrate Voyage AI embeddings into your Next.js application using the Vercel AI SDK'
+slug: 'how-to-use-embeddings-model-within-your-nextjs-app'
+publishedAt: 'December 11, 2024'
+tags:
+  ['Voyage AI', 'Vercel AI SDK', 'Next.js', 'AI', 'Embeddings', 'Vector Search']
+published: false
+---
+
+## Introduction
+
+Embeddings are powerful tools in natural language processing, allowing us to represent words, sentences, or documents as dense vectors. In this guide, we'll walk through the process of integrating Voyage AI's embedding models into your Next.js application using the Vercel AI SDK.
+
+## Prerequisites
+
+Before we begin, ensure you have:
+
+- Node.js installed on your machine
+- A Next.js project set up
+- A Voyage AI API key (sign up at [Voyage AI](https://voyageai.com/) to obtain one)
+
+## Installation
+
+First, let's install the necessary dependencies. Open your terminal and run:
+
+```bash
+npm install ai voyage-ai-provider
+```
+
+This installs the Vercel AI SDK and the Voyage AI provider.
+
+## Configuration
+
+Next, set up your environment variables. Create a `.env.local` file in your project root and add your Voyage AI API key:
+
+```env title=".env.local"
+VOYAGE_API_KEY=your_voyage_ai_api_key_here
+```
+
+Remember to add this file to your `.gitignore` to keep your API key secure.
+
+## Setting up the Embedding Model
+
+Now, let's create a utility file to set up our embedding model. Create a new file called `utils/embeddings.ts` and add the following code:
+
+```typescript title="utils/embeddings.ts"
+import { voyage } from 'voyage-ai-provider';
+import { embedMany } from 'ai';
+
+const embeddingModel = voyage.textEmbeddingModel('voyage-3-lite');
+
+export async function generateEmbeddings(
+  value: string,
+): Promise<Array<{ embedding: number[]; content: string }>> {
+  const chunks = value.split('\n');
+  // Chunking the input value into smaller pieces
+  // You can use other methods to split the input value like splitting by comma or using LLM to generate chunks
+  // You can also use recursive chunking to generate embeddings for large text inputs.
+
+  const { embeddings } = await embedMany({
+    model: embeddingModel,
+    values: chunks,
+  });
+
+  return embeddings.map((e, i) => ({ content: chunks[i], embedding: e }));
+}
+```
+
+This utility function splits the input text into chunks and generates embeddings for each chunk using the Voyage AI 'voyage-3-lite' model.
+
+## Creating an API Route for Embeddings
+
+Let's create an API route to handle embedding requests. Create a new file at `app/api/embed/route.ts` (for App Router) or `pages/api/embed.ts` (for Pages Router) and add the following code:
+
+```typescript title="app/api/embed/route.ts"
+import { NextResponse } from 'next/server';
+import { generateEmbeddings } from '@/utils/embeddings';
+
+export const runtime = 'edge';
+
+export async function POST(req: Request) {
+  const { text } = await req.json();
+
+  if (!text) {
+    return NextResponse.json({ error: 'Text is required' }, { status: 400 });
+  }
+
+  try {
+    const embeddings = await generateEmbeddings(text);
+    return NextResponse.json({ embeddings });
+  } catch (error) {
+    console.error('Error generating embeddings:', error);
+    return NextResponse.json(
+      { error: 'Failed to generate embeddings' },
+      { status: 500 },
+    );
+  }
+}
+```
+
+This API route accepts a POST request with a text body, generates embeddings for the text, and returns them.
+
+## Creating a React Component for Embedding Generation
+
+Now, let's create a React component that allows users to input text and view the generated embeddings. Create a new file called `components/EmbeddingGenerator.tsx`:
+
+```tsx title="components/EmbeddingGenerator.tsx"
+'use client';
+
+import { useState } from 'react';
+
+export function EmbeddingGenerator() {
+  const [input, setInput] = useState('');
+  const [embeddings, setEmbeddings] = useState<Array<{
+    content: string;
+    embedding: number[];
+  }> | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/embed', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: input }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate embeddings');
+      }
+
+      const data = await response.json();
+      setEmbeddings(data.embeddings);
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Failed to generate embeddings. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className='mx-auto max-w-2xl p-4'>
+      <form onSubmit={handleSubmit} className='mb-4'>
+        <textarea
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder='Enter text to generate embeddings...'
+          className='w-full rounded border border-gray-300 p-2'
+          rows={4}
+        />
+        <button
+          type='submit'
+          disabled={isLoading}
+          className='mt-2 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:bg-blue-300'
+        >
+          {isLoading ? 'Generating...' : 'Generate Embeddings'}
+        </button>
+      </form>
+
+      {embeddings && (
+        <div>
+          <h2 className='mb-2 text-xl font-bold'>Generated Embeddings:</h2>
+          {embeddings.map((item, index) => (
+            <div key={index} className='mb-4'>
+              <p className='font-semibold'>Content: {item.content}</p>
+              <p className='text-sm text-gray-600'>
+                Embedding: [{item.embedding.slice(0, 5).join(', ')}, ...]
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+This component provides a text input for users to enter content, sends it to our API route for embedding generation, and displays the results.
+
+## Integrating the Embedding Generator
+
+Finally, let's add our EmbeddingGenerator component to a page. In your `app/page.tsx` (for App Router) or `pages/index.tsx` (for Pages Router), add the following code:
+
+```tsx title="app/page.tsx"
+import { EmbeddingGenerator } from '../components/EmbeddingGenerator';
+
+export default function Home() {
+  return (
+    <main className='flex min-h-screen flex-col items-center justify-between p-24'>
+      <h1 className='mb-4 text-4xl font-bold'>Voyage AI Embedding Generator</h1>
+      <EmbeddingGenerator />
+    </main>
+  );
+}
+```
+
+## Running Your Application
+
+Now you're ready to run your application! Use the following command to start your development server:
+
+```bash
+npm run dev
+```
+
+Visit `http://localhost:3000` in your browser, and you should see an interface where you can input text and generate embeddings using Voyage AI's model.
+
+## Conclusion
+
+You've successfully integrated Voyage AI's embedding model into your Next.js application using the Vercel AI SDK. This setup allows you to generate embeddings for text inputs, which can be used for various natural language processing tasks such as semantic search, text classification, or recommendation systems.
+
+Remember to handle API usage responsibly and consider implementing rate limiting and error handling in a production environment.
+
+> Happy coding with Voyage AI embeddings and Vercel AI SDK! 🚀
+
+## Resources
+
+- [Voyage AI Provider](/projects/voyage-ai-provider)
+- [Vercel AI SDK Documentation](https://sdk.vercel.ai/docs)
+- [Voyage AI Documentation](https://docs.voyageai.com/)
+- [Next.js Documentation](https://nextjs.org/docs)

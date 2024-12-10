@@ -90,7 +90,7 @@ turso db tokens create drizzle-turso-db
 
 Update your `.env` file with the connection URL and authentication token:
 
-```plaintext
+```env title=".env"
 TURSO_DATABASE_URL=
 TURSO_AUTH_TOKEN=
 ```
@@ -99,7 +99,7 @@ TURSO_AUTH_TOKEN=
 
 Create a file `src/db/db.ts` and set up your database configuration:
 
-```typescript
+```typescript title="src/db/db.ts"
 import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
 import * as schema from './schema';
@@ -124,7 +124,7 @@ export const db = drizzle(client, { schema });
 
 Create a file `src/db/schema.ts` to define your database schema:
 
-```typescript
+```typescript title="src/db/schema.ts"
 import { sql } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
@@ -161,7 +161,7 @@ export type SelectPost = typeof postsTable.$inferSelect;
 
 Create a `drizzle.config.ts` file in the root of your project:
 
-```typescript
+```typescript title="drizzle.config.ts"
 import type { Config } from 'drizzle-kit';
 import dotenv from 'dotenv';
 
@@ -187,7 +187,7 @@ export default {
 
 Add this script to your `package.json` file:
 
-```json
+```json title="package.json"
     "db:generate": "drizzle-kit generate",
     "db:studio": "drizzle-kit studio",
     "db:migrate": "drizzle-kit migrate"

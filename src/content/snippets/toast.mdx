@@ -1,5 +1,5 @@
 ---
-title: Adding toast
+title: How to add toast
 description: How to add toast in React/Next JS
 slug: toast
 published: true
@@ -7,10 +7,22 @@ publishedAt: April 29, 2024
 tags: [Next, React, JSX, Markdown, Blog, Toast, React-Hot-Toast]
 ---
 
+## Update: Dec 09, 2024
+
+<Callout type="important">
+  The previous version of this article used [react-hot-toast](https://react-hot-toast.com/).
+
+Currently, I am using [Sonner](https://sonner.emilkowal.ski/).
+
+</Callout>
+
 ## Install
 
 ```bash
-npm install react-hot-toast
+# react-hot-toast
+# bun add react-hot-toast
+
+bun add sonner
 ```
 
 ## Add toast
@@ -18,7 +30,8 @@ npm install react-hot-toast
 ### Adding Toaster To root Layout
 
 ```tsx
-import { Toaster } from 'react-hot-toast';
+// import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'sonner';
 
 export default function RootLayout({
   children,
@@ -40,7 +53,8 @@ export default function RootLayout({
 ### Using toast in Components
 
 ```tsx
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 const handleClick = () => {
   toast.success('This is a success toast');
@@ -73,5 +87,7 @@ toast.loading('This is a loading toast');
 
 ## Link
 
-- Learn More About API at [React-Hot-Toast](https://react-hot-toast.com/docs)
+- Learn More About [React-Hot-Toast API ](https://react-hot-toast.com/docs)
+- Learn More About [Sonner API ](https://sonner.emilkowal.ski/getting-started)
 - Github repo of [react-hot-toast](https://github.com/timolins/react-hot-toast)
+- Github repo of [Sonner](https://github.com/emilkowalski/sonner)

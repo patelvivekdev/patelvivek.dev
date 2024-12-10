@@ -67,7 +67,7 @@ You can create new config file `vitest.config.ts` in the root of your project.
 
 Or If you are using vite you can add the following configuration in your `vite.config.ts` file:
 
-```typescript
+```typescript title="vite.config.ts"
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
@@ -88,7 +88,7 @@ export default defineConfig({
 
 Create a new file `vitest.setup.ts` in the root of your project with the following content:
 
-```typescript
+```typescript title="vitest.setup.ts"
 import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/react';
 import { afterEach } from 'vitest';
@@ -103,7 +103,7 @@ afterEach(() => {
 
 Update the `tsconfig.json` file in the root of your project to include the following:
 
-```json
+```json title="tsconfig.json"
 {
   "compilerOptions": {
     // other options...
@@ -115,7 +115,7 @@ Update the `tsconfig.json` file in the root of your project to include the follo
 
 Update `package.json` file to include the following:
 
-```json
+```json title="package.json"
 "scripts": {
   "test": "vitest",
   "test:ui": "vitest --ui",
@@ -131,7 +131,7 @@ Now that you have Vitest 2.0 set up in your project, let's write a simple test f
 
 Create a new React component (e.g., `Button.tsx`) in your project's `src` directory with the following content:
 
-```typescript
+```typescript title="Button.tsx"
 import React from 'react';
 
 interface ButtonProps {
@@ -149,7 +149,7 @@ export default Button;
 
 Create a new test file (e.g., `Button.test.tsx`) in your project's `src` directory with the following content:
 
-```typescript
+```typescript title="Button.test.tsx"
 import { render, screen } from '@testing-library/react';
 import Button from './Button';
 
@@ -189,7 +189,7 @@ Here are some best practices for testing React components:
 
 This is a `App.tsx` component:
 
-```typescript
+```typescript title="App.tsx"
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from './assets/vite.svg';
@@ -232,7 +232,7 @@ export default App;
 
 And this is a `App.test.tsx` test file:
 
-```typescript
+```typescript title="App.test.tsx"
 import { screen, render } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';

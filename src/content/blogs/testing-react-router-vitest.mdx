@@ -53,7 +53,7 @@ npm install react-router-dom
 
 Next, define the routes in your application. You can create a new file, such as `Routes.tsx`, to manage your routes. Here's an example of how you can set up routes using React Router:
 
-```tsx
+```tsx title="Routes.tsx"
 // Routes.tsx
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './Home';
@@ -79,7 +79,7 @@ export default Routes;
 
 Finally, import the `Routes` component in your `App.tsx` file and render it within your application:
 
-```tsx
+```tsx title="App.tsx"
 // App.tsx
 import Routes from './Routes';
 
@@ -100,7 +100,7 @@ We already have Vitest 2.0 set up in our project from the previous guide. Now, l
 
 Create a `test-utils.tsx` file to define a custom render function that wraps components with the necessary routing context:
 
-```tsx
+```tsx title="test-utils.tsx"
 // test-utils.tsx
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
@@ -116,7 +116,7 @@ export { renderWithRouter };
 
 Create a new test file, such as `Routes.test.tsx`, to test the routes in your application:
 
-```tsx
+```tsx title="Routes.test.tsx"
 // Routes.test.tsx
 import { screen } from '@testing-library/react';
 import { renderWithRouter } from './test-utils';
@@ -144,7 +144,7 @@ describe('Routes', () => {
 
 Create a new test file, as `Navigation.test.tsx`, to test navigation interactions:
 
-```tsx
+```tsx title="Navigation.test.tsx"
 // Navigation.test.tsx
 import { screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
@@ -182,7 +182,7 @@ describe('Navigation', () => {
 
 Create a new test file, such as `DynamicRoute.test.tsx`, to test dynamic routes:
 
-```tsx
+```tsx title="DynamicRoute.test.tsx"
 // DynamicRoute.test.tsx
 import { screen } from '@testing-library/react';
 import { renderWithRouter } from './test-utils';
@@ -206,7 +206,7 @@ describe('Dynamic Routes', () => {
 
 Create a new test file, such as `Redirects.test.tsx`, to test redirects:
 
-```tsx
+```tsx title="Redirects.test.tsx"
 // Redirects.test.tsx
 import { screen } from '@testing-library/react';
 import { renderWithRouter } from './test-utils';
@@ -227,7 +227,7 @@ describe('Redirects', () => {
 
 Create a new test file, such as `ConditionalRendering.test.tsx`, to test conditional rendering based on authentication or other conditions:
 
-```tsx
+```tsx title="ConditionalRendering.test.tsx"
 // ConditionalRendering.test.tsx
 import { renderWithRouter } from './test-utils';
 import { MemoryRouter, Route } from 'react-router-dom';
@@ -260,7 +260,7 @@ Now that we've covered the basics, let's explore some advanced techniques to mak
 Query parameters are often used to pass data between routes.
 Query parameters can be a bit tricky to test, but with the right setup, you can make it work.
 
-```tsx
+```tsx title="QueryParams.test.tsx"
 // QueryParams.test.tsx
 import { screen } from '@testing-library/react';
 import { renderWithRouter } from './test-utils';
@@ -278,7 +278,7 @@ describe('Query Parameters', () => {
 
 Route guards are used to protect routes from unauthorized access.
 
-```tsx
+```tsx title="RouteGuards.test.tsx"
 // RouteGuards.test.tsx
 import { screen } from '@testing-library/react';
 import { renderWithRouter } from './test-utils';

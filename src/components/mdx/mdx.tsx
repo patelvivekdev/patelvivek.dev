@@ -4,17 +4,25 @@ import NextImage from 'next/image';
 import { MDXComponents } from 'mdx/types';
 // @ts-expect-error no types
 import remarkA11yEmoji from '@fec/remark-a11y-emoji';
+import remarkGfm from 'remark-gfm';
+import rehypePrettyCode from 'rehype-pretty-code';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { highlight } from 'sugar-high';
+// import { highlight } from 'sugar-high';
 import { cn } from '@/lib/utils';
 import Pre from './Pre';
 import { Callout } from './Callout';
 import { CustomLink } from './CustomLink';
 
-function Code({ children, ...props }: { children: any; [x: string]: any }) {
-  let codeHTML = highlight(children);
-  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
-}
+import { type Options } from 'rehype-pretty-code';
+
+export const rehypePrettyCodeOptions: Partial<Options> = {
+  // use a prepackaged theme
+  grid: false,
+  theme: {
+    dark: 'github-dark',
+    light: 'github-light',
+  },
+};
 
 function slugify(str: string) {
   return str
@@ -144,9 +152,59 @@ const mdxComponents: MDXComponents = {
   a: CustomLink as React.ComponentType<any>,
   Link: CustomLink as React.ComponentType<any>,
   Callout,
-  code: Code as React.ComponentType<any>,
   img: NextImage as React.ComponentType<any>,
   pre: Pre,
+
+  // table
+  table: ({ className, ...props }) => (
+    <div className='overflow-auto'>
+      <table className={cn('w-full', className)} {...props} />
+    </div>
+  ),
+
+  thead: ({ className, ...props }) => (
+    <thead
+      className={cn(
+        'border-b border-gray-300 bg-gray-100 text-center dark:border-gray-500 dark:bg-gray-800',
+        className,
+      )}
+      {...props}
+    />
+  ),
+
+  tbody: ({ className, ...props }) => (
+    <tbody
+      className={cn('divide-y divide-gray-300 dark:divide-gray-500', className)}
+      {...props}
+    />
+  ),
+
+  tr: ({ className, ...props }) => (
+    <tr
+      className={cn('border-b border-gray-300 dark:border-gray-500', className)}
+      {...props}
+    />
+  ),
+
+  th: ({ className, ...props }) => (
+    <th
+      className={cn(
+        'text-center! border-r border-gray-300 px-4 py-2 font-semibold dark:border-gray-500',
+        className,
+      )}
+      {...props}
+    />
+  ),
+
+  td: ({ className, ...props }) => (
+    <td
+      className={cn(
+        'border-r border-gray-300 px-4 py-2 dark:border-gray-500',
+        className,
+      )}
+      {...props}
+    />
+  ),
 };
 
 export function CustomMDX({
@@ -164,7 +222,9 @@ export function CustomMDX({
           remarkPlugins: [
             // Makes emojis more accessible
             remarkA11yEmoji,
+            remarkGfm,
           ],
+          rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
         },
       }}
       components={{ ...mdxComponents, ...(components || {}) }}

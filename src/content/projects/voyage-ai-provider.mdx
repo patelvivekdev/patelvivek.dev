@@ -1,0 +1,144 @@
+---
+title: 'Voyage AI Provider for Vercel AI SDK'
+description: 'Integrate Voyage AI embeddings into your Vercel AI SDK projects with the voyage-ai-provider. This community provider simplifies the use of Voyage AI for generating text embeddings.'
+slug: 'voyage-ai-provider'
+publishedAt: 'November 18, 2024'
+tags:
+  [
+    'AI',
+    'Vercel AI SDK',
+    'Voyage AI',
+    'Embeddings',
+    'Text Embeddings',
+    'Vector Search',
+    'Machine Learning',
+    'npm',
+    'JavaScript',
+    'TypeScript',
+  ]
+published: true
+---
+
+## Voyage AI Provider for Vercel AI SDK
+
+## Introduction
+
+The `voyage-ai-provider` is a community provider for the Vercel AI SDK that enables seamless integration with Voyage AI's powerful embedding models. It simplifies the process of generating text embeddings for various applications, including semantic search, recommendation systems, and clustering.
+
+### What are Embeddings?
+
+Embeddings are numerical representations of text that capture semantic meaning. They are essential for tasks that require understanding the relationships between words and phrases. Voyage AI provides state-of-the-art embedding models that can generate high-quality embeddings for various use cases.
+
+### Why Use Voyage AI with Vercel AI SDK?
+
+The Vercel AI SDK is a popular sdk for building AI-powered applications. By integrating Voyage AI's embedding models, you can enhance your applications with advanced natural language understanding capabilities. The `voyage-ai-provider` makes this integration straightforward and efficient.
+
+## Installation
+
+Install the `voyage-ai-provider` using your preferred package manager:
+
+```bash
+npm install voyage-ai-provider
+# or
+yarn add voyage-ai-provider
+# or
+pnpm add voyage-ai-provider
+# or
+bun add voyage-ai-provider
+```
+
+## Configuration
+
+To use the Voyage AI Provider, you need an API key from Voyage AI. Sign up at [Voyage](https://voyageai.com/) to obtain your key.
+
+Add your API key to your `.env` file:
+
+```env title=".env"
+VOYAGE_API_KEY=your-api-key
+```
+
+## Usage
+
+### Basic Usage
+
+Import the default provider instance `voyage` and use the `.textEmbeddingModel()` method to create an embedding model:
+
+```typescript title="ai.ts"
+import { voyage } from 'voyage-ai-provider';
+import { embedMany } from 'ai';
+
+const embeddingModel = voyage.textEmbeddingModel('voyage-3-lite');
+
+export const generateEmbeddings = async (
+  value: string,
+): Promise<Array<{ embedding: number[]; content: string }>> => {
+  // Generate chunks from the input value
+  const chunks = value.split('\n');
+
+  // Optional: You can also split the input value by comma
+  // const chunks = value.split('.');
+
+  // Or you can use LLM to generate chunks(summarize) from the input value
+
+  const { embeddings } = await embedMany({
+    model: embeddingModel,
+    values: chunks,
+  });
+  return embeddings.map((e, i) => ({ content: chunks[i], embedding: e }));
+};
+```
+
+### Advanced Usage: Customizing the Provider Instance
+
+If you need a customized setup, import `createVoyage` and create a provider instance with your settings:
+
+```typescript title="ai.ts"
+import { createVoyage } from 'voyage-ai-provider';
+
+const voyage = createVoyage({
+  baseURL: 'https://api.voyageai.com/v1', // Optional: Customize the base URL
+  apiKey: process.env.VOYAGE_API_KEY,
+  // Optional: Add custom headers
+});
+```
+
+### Adding Settings to the Model
+
+You can pass additional settings to the embedding model during initialization. Refer to the [Voyage API documentation](https://docs.voyageai.com/reference/embeddings-api) for available settings.
+
+```typescript title="ai.ts"
+const embeddingModel = voyage.textEmbeddingModel('voyage-3-lite', {
+  inputType: 'document',
+  outputDimension: '1024', // For voyage-code-3, you can choose from 256, 512, 1024 (default), 2048
+  outputDtype: 'float',
+});
+```
+
+## Voyage Embedding Models
+
+Voyage AI offers a variety of embedding models, each optimized for different use cases:
+
+| Model                 | Context Length (tokens) | Embedding Dimension            |
+| :-------------------- | :---------------------- | :----------------------------- |
+| voyage-3              | 32,000                  | 1024                           |
+| voyage-3-lite         | 32,000                  | 512                            |
+| voyage-code-3         | 32,000                  | 1024 (default), 256, 512, 2048 |
+| voyage-finance-2      | 32,000                  | 1024                           |
+| voyage-multilingual-2 | 32,000                  | 1024                           |
+| voyage-law-2          | 16,000                  | 1024                           |
+| voyage-code-2         | 16,000                  | 1536                           |
+
+## Community Providers
+
+The `voyage-ai-provider` is a community-maintained provider for the Vercel AI SDK. It is developed and maintained by [patelvivekdev](https://github.com/patelvivekdev).
+
+## Author
+
+- [patelvivekdev](https://github.com/patelvivekdev)
+
+## Links
+
+- [GitHub Repository](https://github.com/patelvivekdev/voyageai-ai-provider)
+- [Voyage AI](https://voyageai.com/)
+- [Voyage AI Documentation](https://docs.voyageai.com/)
+- [Vercel AI SDK](https://sdk.vercel.ai/docs)
