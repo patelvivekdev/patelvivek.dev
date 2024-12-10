@@ -1,0 +1,142 @@
+---
+title: 'How to Use Google Gemini API with Vercel AI SDK'
+summary: 'Learn how to integrate Google Gemini AI model in your Next.js application using Vercel AI SDK'
+slug: 'how-to-use-google-gemini-api-with-vercel-ai-sdk'
+publishedAt: 'December 10, 2024'
+tags: ['Google Gemini', 'Vercel AI SDK', 'Next.js', 'AI', 'API']
+published: false
+---
+
+## Introduction
+
+Google's Gemini is a powerful AI model that can be easily integrated into your Next.js applications using the Vercel AI SDK. In this guide, we'll walk through the setup and implementation of Gemini in your project.
+
+## Prerequisites
+
+Before we begin, make sure you have the following:
+
+- Node.js installed on your machine
+- A Next.js project set up
+- A Google AI Studio API key (you can obtain this from the [Google AI Studio](https://aistudio.google.com/app/apikey))
+
+## Installation
+
+First, let's install the required dependencies. Open your terminal and run the following command:
+
+```bash
+npm install ai @ai-sdk/google
+```
+
+This will install the Vercel AI SDK and the Google AI provider.
+
+## Configuration
+
+Next, we need to set up our environment variables. Create a `.env.local` file in the root of your project and add your Google AI API key:
+
+```env title=".env.local"
+GOOGLE_API_KEY=your_google_ai_api_key_here
+```
+
+Make sure to add this file to your `.gitignore` to keep your API key secure.
+
+## Setting up the API Route
+
+Now, let's create an API route to handle our Gemini requests. Create a new file at `app/api/chat/route.ts` (for App Router) or `pages/api/chat.ts` (for Pages Router) and add the following code:
+
+```typescript title="app/api/chat/route.ts"
+import { google } from '@ai-sdk/google';
+import { streamText } from 'ai';
+
+export const runtime = 'edge';
+
+export async function POST(req: Request) {
+  const { prompt } = await req.json();
+
+  return streamText({
+    model: google('gemini-pro'),
+    prompt,
+    temperature: 0.7,
+    maxTokens: 500,
+  });
+}
+```
+
+This sets up an API route that uses the Gemini Pro model to generate responses based on the provided prompt.
+
+## Creating the Chat Component
+
+Now, let's create a React component to interact with our Gemini API. Create a new file called `Chat.tsx` in your components directory:
+
+```tsx title="components/Chat.tsx"
+'use client';
+
+import { useState } from 'react';
+import { useChat } from 'ai/react';
+
+export function Chat() {
+  const { messages, input, handleInputChange, handleSubmit } = useChat();
+
+  return (
+    <div className='stretch mx-auto flex w-full max-w-md flex-col py-24'>
+      {messages.map((m) => (
+        <div key={m.id} className='whitespace-pre-wrap'>
+          {m.role === 'user' ? 'Human: ' : 'AI: '}
+          {m.content}
+        </div>
+      ))}
+
+      <form onSubmit={handleSubmit}>
+        <input
+          className='fixed bottom-0 mb-8 w-full max-w-md rounded border border-gray-300 p-2 shadow-xl'
+          value={input}
+          placeholder='Say something...'
+          onChange={handleInputChange}
+        />
+      </form>
+    </div>
+  );
+}
+```
+
+This component uses the `useChat` hook from the Vercel AI SDK to manage the chat state and interactions.
+
+## Integrating the Chat Component
+
+Finally, let's add our Chat component to a page. In your `app/page.tsx` (for App Router) or `pages/index.tsx` (for Pages Router), add the following code:
+
+```tsx title="app/page.tsx"
+import { Chat } from '../components/Chat';
+
+export default function Home() {
+  return (
+    <main className='flex min-h-screen flex-col items-center justify-between p-24'>
+      <h1 className='mb-4 text-4xl font-bold'>Chat with Gemini</h1>
+      <Chat />
+    </main>
+  );
+}
+```
+
+## Running Your Application
+
+Now you're ready to run your application! Use the following command to start your development server:
+
+```bash
+npm run dev
+```
+
+Visit `http://localhost:3000` in your browser, and you should see a chat interface where you can interact with the Gemini model.
+
+## Conclusion
+
+You've successfully integrated the Google Gemini API into your Next.js application using the Vercel AI SDK. This setup allows you to leverage the power of Gemini for various AI tasks in your project.
+
+Remember to handle API usage responsibly and consider implementing rate limiting and error handling in a production environment.
+
+> Happy coding with Google Gemini and Vercel AI SDK! 🚀
+
+## Resources
+
+- [Vercel AI SDK Documentation](https://sdk.vercel.ai/docs)
+- [Google AI Studio](https://makersuite.google.com/)
+- [Next.js Documentation](https://nextjs.org/docs)

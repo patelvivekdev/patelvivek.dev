@@ -11,42 +11,6 @@ body {
   color: #22d2a0;
 }
 
-:root {
-  --sh-class: #2d5e9d;
-  --sh-identifier: #c2cad3;
-  --sh-sign: #8996a3;
-  --sh-string: #007f7a;
-  --sh-keyword: #e02518;
-  --sh-comment: #a19595;
-  --sh-jsxliterals: #6266d1;
-  --sh-property: #e25a1c;
-  --sh-entity: #e25a1c;
-}
-
-.dark {
-  --sh-class: #4c97f8;
-  --sh-identifier: white;
-  --sh-keyword: #f47067;
-  --sh-string: #0fa295;
-}
-
-pre code {
-  counter-reset: sh-line-number;
-}
-
-.sh__line::before {
-  counter-increment: sh-line-number 1;
-  content: counter(sh-line-number);
-  margin-right: 24px;
-  text-align: right;
-  color: #a4a4a4;
-}
-
-.prose p code .sh__line::before {
-  margin-right: 0px;
-  content: '';
-}
-
 /* remove line numbers from p > pre > code blocks */
 
 .progress {
@@ -91,38 +55,84 @@ pre code {
   @apply visible;
 }
 
-.prose pre {
-  @apply rounded-lg border-2 border-neutral-900 bg-neutral-800 dark:border-neutral-300 dark:bg-neutral-800;
-}
-
-.prose code {
-  @apply rounded-lg px-1 py-0.5;
-}
-
-.prose p code {
-  --sh-class: @apply text-neutral-300 dark: text-neutral-700;
-  --sh-identifier: @apply text-neutral-300 dark: text-neutral-700;
-  --sh-sign: @apply text-neutral-300 dark: text-neutral-700;
-  --sh-string: @apply text-neutral-300 dark: text-neutral-700;
-  --sh-keyword: @apply text-neutral-300 dark: text-neutral-700;
-  --sh-comment: @apply text-neutral-300 dark: text-neutral-700;
-  --sh-jsxliterals: @apply text-neutral-300 dark: text-neutral-700;
-  --sh-property: @apply text-neutral-300 dark: text-neutral-700;
-  --sh-entity: @apply text-neutral-300 dark: text-neutral-700;
-}
-
-.prose pre code {
-  @apply p-0;
-  border: initial;
-  line-height: 1.5;
-}
-
-.prose code span {
-  @apply font-medium;
-}
-
 .prose > :first-child {
   /* Override removing top margin, causing layout shift */
   margin-top: 1.25em !important;
   margin-bottom: 1.25em !important;
+}
+
+code[data-theme*=' '],
+code[data-theme*=' '] span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  code[data-theme*=' '],
+  code[data-theme*=' '] span {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
+}
+
+[data-rehype-pretty-code-title] {
+  @apply rounded-t-lg bg-zinc-700 px-3 py-2 text-sm font-semibold text-zinc-200;
+}
+
+figure[data-rehype-pretty-code-figure]:has(> [data-rehype-pretty-code-title])
+  pre {
+  @apply !rounded-t-none;
+}
+
+[data-highlighted-line] {
+  background: rgba(200, 200, 255, 0.1);
+  @apply border-l-blue-400;
+}
+
+div[data-rehype-pretty-code-fragment] {
+  overflow: hidden;
+
+  /* stylist preferences */
+  background-color: rgb(255 255 255 / 0.1);
+  border-radius: 0.5rem;
+}
+
+div[data-rehype-pretty-code-fragment] pre {
+  overflow-x: auto;
+
+  /* stylist preferences */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+div[data-rehype-pretty-code-title] {
+  /* stylistic preferences */
+  margin-bottom: 0.125rem;
+  border-radius: 0.375rem;
+  background-color: rgb(255 228 230 / 0.1);
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(255 228 230 / 0.7);
+}
+
+div[data-rehype-pretty-code-fragment] .line {
+  /* stylistic preferences */
+  padding-left: 0.5rem;
+  padding-right: 0.75rem;
+
+  border-left-width: 4px;
+  border-left-color: transparent;
+}
+
+div[data-rehype-pretty-code-fragment] .data-highlighted-line {
+  border-left-color: rgb(253 164 175 / 0.7);
+  background-color: rgb(254 205 211 / 0.1);
 }

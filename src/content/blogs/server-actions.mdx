@@ -93,7 +93,7 @@ npm install @supabase/supabase-js
   />
 - Make sure to add api keys from supabase to .env.local
 
-```.env
+```.env title=".env.local"
 # .env.local
 
 SUPABASE_URL=_Project_URL
@@ -116,7 +116,7 @@ Create file name `/lib/supabase/private.ts`
 
 In this file we will be creating a supabase client and call that clients wherever we need.
 
-```jsx
+```tsx title="/lib/supabase/private.ts"
 // /lib/supabase/private.ts
 
 import { createClient } from '@supabase/supabase-js';
@@ -168,7 +168,7 @@ Visit the [Vercel App](https://generate-secret.vercel.app/32) to generate secret
 
 Add all the key to you .env.local.
 
-```
+```bash title=".env.local"
 # .env.local
 
 AUTH_SECRET=
@@ -186,7 +186,7 @@ AUTH_GITHUB_SECRET=
   url in Oauth application.
 </Callout>
 
-```.env
+```.env title=".env.local"
 # .env.local
 
 AUTH_GOOGLE_ID=
@@ -197,21 +197,21 @@ AUTH_GOOGLE_SECRET=
 
 Crate auth.ts in route of your project.
 
-```jsx
-// app.ts
+```tsx title="/app/auth.ts"
+// app/auth.ts
 
 import NextAuth from 'next-auth';
 import { SupabaseAdapter } from '@auth/supabase-adapter';
 import GitHub from 'next-auth/providers/github';
-import Google from "next-auth/providers/google"
+import Google from 'next-auth/providers/google';
 import type { NextAuthConfig } from 'next-auth';
 
 export const config = {
-  providers: [GitHub,Google],
+  providers: [GitHub, Google],
   adapter: SupabaseAdapter({
     url: process.env.SUPABASE_URL as string,
     secret: process.env.SUPABASE_SERVICE_ROLE_KEY as string,
-  })
+  }),
 } satisfies NextAuthConfig;
 
 export const { handlers, auth } = NextAuth(config);
@@ -225,7 +225,7 @@ If you adding more provider make sure to add Oauth API keys in the .env.
 
 create file in `/api/auth/[...nextauth]/route.ts`
 
-```
+```ts title="/api/auth/[...nextauth]/route.ts"
 // /api/auth/[...nextauth]/route.ts
 
 import { handlers } from '@/app/auth'; // check your auth.ts route
@@ -236,7 +236,7 @@ Crate a file name as `middleware.ts`
 
 Make sure to add this as same level as App or inside src if you use src as your root.
 
-```ts
+```ts title="middleware.ts"
 // middleware.ts
 
 export { auth as middleware } from '@/app/auth';
@@ -259,7 +259,7 @@ export const config = {
 
 Create signIn and signOut button
 
-```jsx
+```tsx title="components/auth-components.tsx"
 // components/auth-components.tsx
 'use client';
 
@@ -288,7 +288,7 @@ Create navbar where we will show Sign In button.
 
 Inside components create file `Navbar.tsx`.
 
-```jsx
+```tsx title="Navbar.tsx"
 // Navbar.tsx
 
 import Link from 'next/link';
@@ -374,7 +374,7 @@ We will learn how to use server actions in CRUD (Create, Read, Update, Delete).
 
 Let's create a new page as 'todos/page.tsx'
 
-```jsx
+```tsx title="app/todos/page.tsx"
 // app/todos/page.tsx
 
 import AddTodo from './AddForm';
@@ -407,7 +407,7 @@ As this route is protected, we will check if user is authenticated or not with `
 
 Create new file name `AddForm.tsx`.
 
-```
+```tsx title="app/todos/AddForm.tsx"
 // todos/AddForm.tsx
 
 import { SubmitButton } from '@/components/submit-button';
@@ -448,7 +448,7 @@ You can learn more about that hook in [React docs](https://react.dev/reference/r
 
 Create new client component.
 
-```
+```tsx title="components/submit-button.tsx"
 // components/submit-button.tsx
 'use client';
 
@@ -462,12 +462,25 @@ export function SubmitButton({
 }: {
   name: string;
   className: string;
-  variant: 'link' | 'outline' | 'default' | 'destructive' | 'secondary' | 'ghost' | null | undefined;
+  variant:
+    | 'link'
+    | 'outline'
+    | 'default'
+    | 'destructive'
+    | 'secondary'
+    | 'ghost'
+    | null
+    | undefined;
 }) {
   const { pending } = useFormStatus();
 
   return (
-    <Button type='submit' disabled={pending} className={className} variant={variant}>
+    <Button
+      type='submit'
+      disabled={pending}
+      className={className}
+      variant={variant}
+    >
       {pending ? 'Submitting...' : name}
     </Button>
   );
@@ -486,7 +499,7 @@ Crate a file name `actions.ts`
 
 At start of file write `'use server'`.
 
-```ts
+```ts title="app/actions.ts"
 // app/actions.ts
 
 'use server';
@@ -558,7 +571,7 @@ npm install react-hot-toast
 
 In `layout.tsx`
 
-```
+```tsx title="layout.tsx"
 // layout.tsx
 
 import type { Metadata } from 'next';
@@ -593,7 +606,7 @@ export default function RootLayout({
 
 Updated AddFrom.tsx
 
-```jsx
+```tsx title="todos/AddForm.tsx"
 // todos/AddForm.tsx
 'use client';
 import { toast } from 'react-hot-toast';
@@ -615,7 +628,10 @@ export default function AddTodo({ user }: { user: User }) {
   const addTodoWithEmail = addTodo.bind(null, user?.email as string);
   // Here we are bind user email with action. We can get that email in the server action as a argument.
 
-  const [state, formAction] = useFormState<any>(addTodoWithEmail as any, initialState);
+  const [state, formAction] = useFormState<any>(
+    addTodoWithEmail as any,
+    initialState,
+  );
 
   useEffect(() => {
     if (state.type === 'success') {
@@ -635,15 +651,21 @@ export default function AddTodo({ user }: { user: User }) {
         <form action={formAction} key={state?.resetKey}>
           <div className='grid gap-4'>
             {state?.type === 'error' && (
-              <p className='text-lg mb-2 bg-green-951 text-red-600 border-2 border-gray-300 rounded-md p-2 my-4'>
+              <p className='bg-green-951 my-4 mb-2 rounded-md border-2 border-gray-300 p-2 text-lg text-red-600'>
                 {state.message}
               </p>
             )}
             <div className='grid gap-2'>
               <Label htmlFor='title'>Todo</Label>
-              <Input id='title' type='text' placeholder='Write your task here' name='title' required />
+              <Input
+                id='title'
+                type='text'
+                placeholder='Write your task here'
+                name='title'
+                required
+              />
               {state?.errors?.title && (
-                <span id='title-error' className='text-red-600 text-sm'>
+                <span id='title-error' className='text-sm text-red-600'>
                   {state.errors.title.join(',')}
                 </span>
               )}
@@ -665,7 +687,7 @@ We will using [zod](https://zod.dev/) with TypeScript.
 
 Update `action.ts`
 
-```
+```ts title="app/actions.ts"
 import { z } from 'zod';
 
 // =============================== addTodo ===============================
@@ -673,7 +695,11 @@ const addTodoSchema = z.object({
   title: z.string().min(3, { message: 'Must be 3 or more characters long' }),
 });
 
-export async function addTodo(email: string, prevState: any, formData: FormData) {
+export async function addTodo(
+  email: string,
+  prevState: any,
+  formData: FormData,
+) {
   const validatedFields = addTodoSchema.safeParse({
     title: formData.get('title'),
   });
@@ -752,7 +778,7 @@ now we will show the list of todos with some actions button.
 
 **db.ts**
 
-```
+```ts title="app/db.ts"
 // app/db.ts
 
 import supabase from '@/lib/supabase/private';
@@ -773,11 +799,17 @@ This is the function for getting all the todo from database for current user.
 
 **TodoList.tsx**
 
-```jsx
+```tsx title="app/todos/TodoList.tsx"
 // TodoList.tsx
 
 import { getTodos } from '@/app/db';
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import EditForm from './EditForm';
 import DeleteForm from './DeleteForm';
 import ChangeStatus from './ChangeStatus';
@@ -801,7 +833,9 @@ export default async function TodoList({ user }: { user: User }) {
         <Card key={todo.id}>
           <CardHeader>
             <CardTitle>{todo.title}</CardTitle>
-            <CardDescription>Status: {todo.isCompleted ? ' Completed' : ' Not Completed'}</CardDescription>
+            <CardDescription>
+              Status: {todo.isCompleted ? ' Completed' : ' Not Completed'}
+            </CardDescription>
           </CardHeader>
           <CardFooter>
             <EditForm todo={todo} />
@@ -823,7 +857,7 @@ Using same concept from AddForm, we will create EditForm and DeleteForm.
 
 **EditForm**
 
-```
+```tsx title="app/todos/EditForm.tsx"
 // EditForm.tsx
 
 'use client';
@@ -857,7 +891,10 @@ export default function EditForm({ todo }: { todo: any }) {
   const [open, setOpen] = useState(false);
   const id: number = todo?.id;
   const editTodoWithId = editTodo.bind(null, id);
-  const [state, formAction] = useFormState<any>(editTodoWithId as any, initialState);
+  const [state, formAction] = useFormState<any>(
+    editTodoWithId as any,
+    initialState,
+  );
 
   useEffect(() => {
     if (state.type === 'success') {
@@ -874,27 +911,40 @@ export default function EditForm({ todo }: { todo: any }) {
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
           <DialogTitle>Edit Todo</DialogTitle>
-          <DialogDescription>Make changes to your todo here. Click save when you are done.</DialogDescription>
+          <DialogDescription>
+            Make changes to your todo here. Click save when you are done.
+          </DialogDescription>
         </DialogHeader>
         <form action={formAction} key={state?.resetKey}>
           <div className='grid gap-4 py-4'>
             {state?.type === 'error' && (
-              <p className='text-lg mb-2 bg-green-951 text-red-600 border-2 border-gray-300 rounded-md p-2 my-4'>
+              <p className='bg-green-951 my-4 mb-2 rounded-md border-2 border-gray-300 p-2 text-lg text-red-600'>
                 {state.message}
               </p>
             )}
             <div className='grid gap-2'>
               <Label htmlFor='title'>Todo</Label>
-              <Input id='title' defaultValue={todo.title} type='text' placeholder='Write your task here' name='title' required />
+              <Input
+                id='title'
+                defaultValue={todo.title}
+                type='text'
+                placeholder='Write your task here'
+                name='title'
+                required
+              />
               {state?.errors?.title && (
-                <span id='title-error' className='text-red-600 text-sm'>
+                <span id='title-error' className='text-sm text-red-600'>
                   {state.errors.title.join(',')}
                 </span>
               )}
             </div>
             <div className='flex items-center space-x-2'>
               <Label htmlFor='isCompleted'>Statues</Label>
-              <Switch id='isCompleted' name='isCompleted' defaultChecked={todo.isCompleted} />
+              <Switch
+                id='isCompleted'
+                name='isCompleted'
+                defaultChecked={todo.isCompleted}
+              />
             </div>
           </div>
           <DialogFooter>
@@ -909,7 +959,7 @@ export default function EditForm({ todo }: { todo: any }) {
 
 **DeleteForm**
 
-```
+```tsx title="app/todos/DeleteForm.tsx"
 // DeleteForm.tsx
 
 'use client';
@@ -927,7 +977,10 @@ const initialState = {
 
 export default function DeleteForm({ todo }: { todo: any }) {
   let deleteTodoWithId = deleteTodo.bind(null, todo.id);
-  const [state, formAction] = useFormState<any>(deleteTodoWithId as any, initialState);
+  const [state, formAction] = useFormState<any>(
+    deleteTodoWithId as any,
+    initialState,
+  );
 
   useEffect(() => {
     if (state.type === 'success') {
@@ -949,7 +1002,7 @@ export default function DeleteForm({ todo }: { todo: any }) {
 
 **Actions**
 
-```
+```ts title="app/actions.ts"
 // actions.ts
 
 // =============================== editTodo ===============================
@@ -1045,7 +1098,7 @@ For this we will using supabase Storage for saving user avatar, get the url and 
 
 ### 1.Create a profile page.
 
-```
+```tsx title="app/profile/page.tsx"
 // app/profile/page.tsx
 
 import { auth } from '@/app/auth';
@@ -1056,14 +1109,14 @@ export default async function PrivatePage() {
   const session = await auth();
   if (!session?.user)
     return (
-      <div className='flex min-h-screen w-4/5 mx-auto flex-col items-center gap-10 justify-center'>
+      <div className='mx-auto flex min-h-screen w-4/5 flex-col items-center justify-center gap-10'>
         <h1 className='text-3xl'>You need to login to perfom this action.</h1>
         <SignIn />
       </div>
     );
 
   return (
-    <div className='mt-20 flex flex-col min-h-screen justify-center items-center'>
+    <div className='mt-20 flex min-h-screen flex-col items-center justify-center'>
       <p>Hello {session.user.name}</p>
       <SignOut className='' />
 
@@ -1075,7 +1128,7 @@ export default async function PrivatePage() {
 
 ### 2.Create A Change Avatar Form
 
-```
+```tsx title="app/profile/ChangeAvatarForm.tsx"
 // profile/ChangeAvatarForm.tsx
 
 import { auth } from '@/app/auth';
@@ -1087,17 +1140,22 @@ export default async function PrivatePage() {
   const session = await auth();
   if (!session?.user)
     return (
-      <div className='flex min-h-screen w-4/5 mx-auto flex-col items-center gap-10 justify-center'>
+      <div className='mx-auto flex min-h-screen w-4/5 flex-col items-center justify-center gap-10'>
         <h1 className='text-3xl'>You need to login to perform this action.</h1>
         <SignIn />
       </div>
     );
 
   return (
-    <div className='mt-20 flex flex-col space-y-5 min-h-screen justify-center items-center'>
+    <div className='mt-20 flex min-h-screen flex-col items-center justify-center space-y-5'>
       <p>Hello {session.user.name}</p>
       <div className='space-y-5'>
-        <Image src={session.user.image!} alt={session.user.name!} width={100} height={100} />
+        <Image
+          src={session.user.image!}
+          alt={session.user.name!}
+          width={100}
+          height={100}
+        />
         <SignOut />
       </div>
 
@@ -1111,11 +1169,15 @@ This is same as AddForm, we will change the input type to `file`.
 
 ### 3.Create action
 
-```
+```ts title="app/actions.ts"
 // actions.ts
 
 // =============================== Change Avatar ===============================
-export async function changeAvatar(email: string, prevState: any, formData: FormData) {
+export async function changeAvatar(
+  email: string,
+  prevState: any,
+  formData: FormData,
+) {
   const avatar = formData.get('avatar') as File;
 
   if (!avatar) {
@@ -1142,9 +1204,11 @@ export async function changeAvatar(email: string, prevState: any, formData: Form
   }
 
   try {
-    const { data, error } = await supabase.storage.from('profile').upload(`public/${email}/${avatar.name}`, avatar, {
-      upsert: true,
-    });
+    const { data, error } = await supabase.storage
+      .from('profile')
+      .upload(`public/${email}/${avatar.name}`, avatar, {
+        upsert: true,
+      });
     if (error) {
       console.log('Error', error.message);
       return {
@@ -1153,10 +1217,15 @@ export async function changeAvatar(email: string, prevState: any, formData: Form
       };
     }
     if (data.path) {
-      const { data: avatar } = supabase.storage.from('profile').getPublicUrl(data.path);
+      const { data: avatar } = supabase.storage
+        .from('profile')
+        .getPublicUrl(data.path);
 
       // change the url in User table in next-auth schema
-      const { error: userDataError } = await nextAuthClient.from('users').update({ image: avatar.publicUrl }).eq('email', email);
+      const { error: userDataError } = await nextAuthClient
+        .from('users')
+        .update({ image: avatar.publicUrl })
+        .eq('email', email);
 
       if (userDataError) {
         console.log('Error', userDataError);
@@ -1192,9 +1261,9 @@ Next we update the users table from next-auth schema.
 
 After update we revalidate the cache
 
-```
-  revalidatePath('/');
-  revalidatePath('/profile');
+```ts title="app/actions.ts"
+revalidatePath('/');
+revalidatePath('/profile');
 ```
 
 Because we have image in two places we have to revalidate two path.
