@@ -55,6 +55,7 @@ export async function generateMetadata({
       title,
       description,
       type: 'article',
+      siteName: 'Vivek Patel | patelvivek.dev',
       publishedTime,
       url: `https://patelvivek.dev/blog/${blog.slug}`,
       images: [

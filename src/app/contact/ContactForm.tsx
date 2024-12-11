@@ -5,19 +5,25 @@ import { useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { SubmitButton } from '@/components/submit-button';
-import { toast } from 'react-hot-toast';
+import { toast } from 'sonner';
 
 import { sendMessage } from '@/app/actions';
+import { Button } from '@/components/ui/button';
 
 const initialState = {
+  type: '',
+  data: {
+    name: '',
+    email: '',
+    message: '',
+  },
   message: '',
-  errors: null,
+  errors: undefined,
 };
 
 export default function ContactMeForm() {
-  const [state, formAction] = useActionState<any>(
-    sendMessage as any,
+  const [state, formAction, isPending] = useActionState(
+    sendMessage,
     initialState,
   );
 
@@ -31,9 +37,8 @@ export default function ContactMeForm() {
     <form
       action={formAction}
       className='form flex w-full flex-col rounded-lg bg-gray-700 p-4 dark:bg-white'
-      key={state?.resetKey}
     >
-      {state?.type === 'error' && (
+      {state.type === 'error' && (
         <p className='bg-green-951 my-4 mb-2 rounded-md border-2 border-gray-300 p-2 text-lg text-red-600'>
           {state.message}
         </p>
@@ -51,6 +56,7 @@ export default function ContactMeForm() {
           id='name'
           type='input'
           name='name'
+          defaultValue={state.data.name}
           placeholder='Enter your name'
           required
         />
@@ -70,7 +76,8 @@ export default function ContactMeForm() {
         <Input
           id='email'
           type='email'
-          placeholder='m@example.com'
+          placeholder='email@example.com'
+          defaultValue={state.data.email}
           name='email'
           required
         />
@@ -90,6 +97,7 @@ export default function ContactMeForm() {
         <Textarea
           rows={5}
           placeholder='Type your message here.'
+          defaultValue={state.data.message}
           name='message'
           required
         />
@@ -99,7 +107,13 @@ export default function ContactMeForm() {
           </span>
         )}
       </div>
-      <SubmitButton name='submit' className='mt-4 bg-indigo-500 text-white' />
+      <Button
+        type='submit'
+        disabled={isPending}
+        className='mt-4 bg-indigo-500 text-white'
+      >
+        {isPending ? 'Submitting...' : 'Submit'}
+      </Button>
     </form>
   );
 }

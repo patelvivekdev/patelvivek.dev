@@ -8,11 +8,11 @@ import { Inter as FontSans } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Toaster } from 'react-hot-toast';
 import Script from 'next/script';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { ViewTransitions } from 'next-view-transitions';
+import { Toaster } from '@/components/ui/sonner';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -94,7 +94,7 @@ export default async function RootLayout({
               {children}
               <ScrollToTopButton />
               <ThemeToggle />
-              <Toaster position='top-right' />
+              <Toaster />
               <Footer />
             </main>
             {process.env.APP_ENV !== 'development' && (

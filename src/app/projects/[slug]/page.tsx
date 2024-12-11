@@ -47,6 +47,7 @@ export async function generateMetadata({
     keywords: tags ? tags : [],
     openGraph: {
       title,
+      siteName: 'Vivek Patel | patelvivek.dev',
       description,
       type: 'article',
       publishedTime,

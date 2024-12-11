@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description:
       'Get practical tips and insights on React, Next.js, and modern web development techniques from my blog.',
     url: 'https://patelvivek.dev/blog',
-    siteName: 'Vivek Patel',
+    siteName: 'Vivek Patel | patelvivek.dev',
     images: [
       {
         url: 'https://patelvivek.dev/og?title=Read%20all%20the%20blogs%20I%20have%20written',

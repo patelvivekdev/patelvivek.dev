@@ -52,6 +52,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
+      siteName: 'Vivek Patel | patelvivek.dev',
       type: 'article',
       publishedTime,
       url: `https://patelvivek.dev/snippets/${snippet.slug}`,

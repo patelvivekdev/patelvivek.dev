@@ -1,18 +1,8 @@
 'use server';
-import supabase from '@/lib/supabase/private';
-// import { revalidateTag } from 'next/cache';
+import { saveMessage } from '@/db/query/message';
 import { z } from 'zod';
 
-// =============================== Increment View ===============================
-export async function increment(slug: string) {
-  if (process.env.APP_ENV !== 'development') {
-    // revalidateTag('blog-views');
-    await supabase.rpc('increment', { blog_slug: slug });
-  }
-}
-
 // =============================== Send Message ===============================
-
 const contactMessageSchema = z.object({
   name: z.string().min(3, { message: 'Must be 3 or more characters long' }),
   email: z.string().email('Please enter valid message').min(5),
@@ -29,40 +19,37 @@ export async function sendMessage(prevState: any, formData: FormData) {
   if (!validatedFields.success) {
     return {
       type: 'error',
+      data: {
+        name: formData.get('name') as string,
+        email: formData.get('email') as string,
+        message: formData.get('message') as string,
+      },
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to register.',
+      message: 'Missing Fields. Please fill all the fields.',
     };
   }
   try {
-    const { error } = await supabase.from('Message').upsert({
-      email: validatedFields.data.email,
-      message: validatedFields.data.message,
-      name: validatedFields.data.name,
-    });
+    await saveMessage(validatedFields.data);
 
-    if (error) {
-      console.log('Error', error);
-      return {
-        type: 'error',
-        message: 'Database Error: Failed to send message.',
-      };
-    }
     return {
       type: 'success',
+      data: {
+        name: '',
+        email: '',
+        message: '',
+      },
       message: 'Message sent successfully.',
-      resetKey: Date.now().toString(),
     };
   } catch (error: any) {
     console.log('Error', error.message);
     return {
       type: 'error',
-      message: 'Database Error: Failed to send message.',
+      data: {
+        name: validatedFields.data.name,
+        email: validatedFields.data.email,
+        message: validatedFields.data.message,
+      },
+      message: error.message || 'Failed to send message. Please try again.',
     };
   }
-
-  // const { data, error } = await supabase.from('Message').upsert({ email: validatedFields.email, message: validatedFields.data.message, name: 'Albania' }).select();
-
-  // if (error) {
-  //   console.error(error);
-  // }
 }
