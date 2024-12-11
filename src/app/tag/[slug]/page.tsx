@@ -3,7 +3,7 @@ import { getBlogByTag } from '@/lib/get-blogs';
 import { getProjectsByTag } from '@/lib/get-projects';
 import { getSnippetsByTag } from '@/lib/get-snippets';
 import { allTags } from '@/lib/get-tags';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {

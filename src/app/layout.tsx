@@ -12,6 +12,7 @@ import { Toaster } from 'react-hot-toast';
 import Script from 'next/script';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { ViewTransitions } from 'next-view-transitions';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -64,45 +65,47 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
-      <head>
-        {process.env.APP_ENV !== 'development' && (
-          <Script
-            defer
-            src='https://us.umami.is/script.js'
-            data-website-id='aa7603cb-3e5d-474c-b1a5-f92e18751e5c'
-          />
-        )}
-      </head>
-      <body
-        className={cn(
-          'mx-auto bg-neutral-100 font-sans antialiased dark:bg-neutral-900',
-          fontSans.variable,
-        )}
-      >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem={true}
-          disableTransitionOnChange
-          scriptProps={{ 'data-cfasync': 'false' }}
-        >
-          <Navbar />
-          <main className='mx-auto max-w-6xl'>
-            {children}
-            <ScrollToTopButton />
-            <ThemeToggle />
-            <Toaster position='top-right' />
-            <Footer />
-          </main>
+    <ViewTransitions>
+      <html lang='en' suppressHydrationWarning>
+        <head>
           {process.env.APP_ENV !== 'development' && (
-            <>
-              <Analytics />
-              <SpeedInsights />
-            </>
+            <Script
+              defer
+              src='https://us.umami.is/script.js'
+              data-website-id='aa7603cb-3e5d-474c-b1a5-f92e18751e5c'
+            />
           )}
-        </ThemeProvider>
-      </body>
-    </html>
+        </head>
+        <body
+          className={cn(
+            'mx-auto bg-neutral-100 font-sans antialiased dark:bg-neutral-900',
+            fontSans.variable,
+          )}
+        >
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem={true}
+            disableTransitionOnChange
+            scriptProps={{ 'data-cfasync': 'false' }}
+          >
+            <Navbar />
+            <main className='mx-auto max-w-6xl'>
+              {children}
+              <ScrollToTopButton />
+              <ThemeToggle />
+              <Toaster position='top-right' />
+              <Footer />
+            </main>
+            {process.env.APP_ENV !== 'development' && (
+              <>
+                <Analytics />
+                <SpeedInsights />
+              </>
+            )}
+          </ThemeProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
