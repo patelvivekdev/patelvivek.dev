@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Calendar } from 'lucide-react';
@@ -52,6 +52,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
+      siteName: 'Vivek Patel | patelvivek.dev',
       type: 'article',
       publishedTime,
       url: `https://patelvivek.dev/snippets/${snippet.slug}`,

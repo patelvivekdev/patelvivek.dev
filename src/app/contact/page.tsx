@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description:
       'Want to get in touch? Reach out via social media for a quick response.',
     url: 'https://patelvivek.dev/contact',
-    siteName: 'Vivek Patel',
+    siteName: 'Vivek Patel | patelvivek.dev',
     images: [
       {
         url: 'https://patelvivek.dev/og?title=Get%20in%20Touch',

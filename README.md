@@ -12,7 +12,8 @@
 - **Dark Mode** - Toggle between light and dark mode
 - **SEO** - Metadata and Open Graph tags
 - **MDX** - Blog posts written with MDX
-- **Syntax Highlighting** - Code blocks with sugar-high
+- **Syntax Highlighting** - Syntax highlighting in blog posts with shiki
+- **Related Posts** - Display related posts using AI (Embeddings Model)
 <!-- - **Table of Contents** - Auto-generated for blog posts -->
 
 ## Installation

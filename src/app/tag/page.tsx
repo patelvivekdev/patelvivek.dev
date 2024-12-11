@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { allTags } from '@/lib/get-tags';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 
 export default async function TagsPage() {
   const tags = Object.keys(allTags);

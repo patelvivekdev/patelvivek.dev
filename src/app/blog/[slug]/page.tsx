@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Calendar } from 'lucide-react';
@@ -55,6 +55,7 @@ export async function generateMetadata({
       title,
       description,
       type: 'article',
+      siteName: 'Vivek Patel | patelvivek.dev',
       publishedTime,
       url: `https://patelvivek.dev/blog/${blog.slug}`,
       images: [
