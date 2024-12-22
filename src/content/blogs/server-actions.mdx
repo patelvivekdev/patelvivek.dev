@@ -149,7 +149,7 @@ export default privateClient;
 
 Follow this [github guide](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) for creating Oauth.
 
-<Callout type='note'>
+<Callout variant='note' title='note'>
   Make sure to add `http://localhost:3000/api/auth/callback/github` as callback
   url in github Oauth application.
 </Callout>
@@ -181,7 +181,7 @@ AUTH_GITHUB_SECRET=
 
 [Google OAuth documentation](https://developers.google.com/identity/protocols/oauth2)
 
-<Callout type='note'>
+<Callout variant='note' title='note'>
   Make sure to add `http://localhost:3000/api/auth/callback/google` as callback
   url in Oauth application.
 </Callout>
@@ -351,12 +351,12 @@ With session we will conditionally render different button.
 
 You can check that now our authentication system is working, we are able to login with github as well google.
 
-<Callout type='note'>
+<Callout variant='note' title='note'>
   In development if your Oauth is not redirect back to application add
   `AUTH_REDIRECT_PROXY_URL` in .env.local. Only add this in development.
 </Callout>
 
-<Callout type='tip'>
+<Callout variant='tip' title='tip'>
   If you find any difficulty or have some error you can contact to
   [me](/contact) or check my source code on
   [Github](https://github.com/patelvivekdev/server-actions).
@@ -487,9 +487,9 @@ export function SubmitButton({
 }
 ```
 
-<Callout type='note'>
+<Callout variant='note' title='note'>
   If you are using `useFormStatus` make sure to use it as a child component of
-  parents form. In out case we are using it in `AddForm.tsx`. In react19 you can
+  parents form. In our case we are using it in `AddForm.tsx`. In react19 you can
   also use `useActionState` for pending state.
 </Callout>
 
@@ -553,7 +553,7 @@ We will add this action to our form with the help of `useFormState`. It is new h
 
 > As per react `useFormState` is a Hook that allows you to update state based on the result of a form action.
 
-<Callout type='caution'>
+<Callout variant='caution' title='caution'>
   As of now React19 is changing this hook. If you are interested check this
   github [discussion](https://github.com/facebook/react/pull/28491). If you are
   using React19 you can use `useActionState` instead of `useFormState`.
@@ -766,7 +766,7 @@ That means we have to delete the old cache and update the ui.
 
 This is what revalidatePath does for us.
 
-<Callout type='note'>
+<Callout variant='note' title='note'>
   In current version of NextJs 14, next js caches everything by default, but in
   future version it will be changed. Learn more about caching in
   [NextJS](https://nextjs.org/docs/app/building-your-application/caching).

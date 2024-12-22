@@ -1,70 +1,79 @@
 import React from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import {
-  BadgeInfo,
+  AlertCircle,
+  Info,
+  XOctagon,
   Lightbulb,
-  CircleAlert,
-  TriangleAlert,
-  OctagonX,
+  AlertTriangle,
 } from 'lucide-react';
 
-type CalloutType = 'note' | 'tip' | 'important' | 'warning' | 'caution';
+const calloutVariants = cva(
+  'relative mb-2 w-full rounded-lg p-4 [&>svg~*]:pl-11 [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground',
+  {
+    variants: {
+      variant: {
+        default: 'bg-muted/50 border-l-4 border-l-primary text-foreground',
+        note: 'bg-blue-50 dark:bg-blue-950/30 border-l-4 border-l-blue-500 text-blue-900 dark:text-blue-100 [&>svg]:text-blue-500',
+        tip: 'bg-green-50 dark:bg-green-950/30 border-l-4 border-l-green-500 text-green-900 dark:text-green-100 [&>svg]:text-green-500',
+        important:
+          'bg-orange-50 dark:bg-orange-950/30 border-l-4 border-l-orange-500 text-orange-900 dark:text-orange-100 [&>svg]:text-orange-500',
+        warning:
+          'bg-yellow-50 dark:bg-yellow-950/30 border-l-4 border-l-yellow-500 text-yellow-900 dark:text-yellow-100 [&>svg]:text-yellow-500',
+        caution:
+          'bg-red-50 dark:bg-red-950/30 border-l-4 border-l-red-500 text-red-900 dark:text-red-100 [&>svg]:text-red-500',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+);
 
-interface CalloutProps {
-  type: CalloutType;
-  children: React.ReactNode;
-  typeColor?: string;
-}
-
-const calloutMap: Record<
-  CalloutType,
-  { icon: React.ReactNode; borderColor: string; typeColor: string }
-> = {
-  note: {
-    icon: <BadgeInfo className='mr-2 h-6 w-6 text-blue-500' />,
-    borderColor: 'border border-4 !border-blue-500',
-    typeColor: 'text-blue-500',
-  },
-  tip: {
-    icon: <Lightbulb className='mr-2 h-6 w-6 text-green-500' />,
-    borderColor: 'border border-4 !border-green-500',
-    typeColor: 'text-green-500',
-  },
-  important: {
-    icon: <CircleAlert className='mr-2 h-6 w-6 text-orange-500' />,
-    borderColor: 'border border-4 !border-orange-500',
-    typeColor: 'text-orange-500',
-  },
-  warning: {
-    icon: <TriangleAlert className='mr-2 h-6 w-6 text-yellow-500' />,
-    borderColor: 'border border-4 !border-yellow-500',
-    typeColor: 'text-yellow-500',
-  },
-  caution: {
-    icon: <OctagonX className='mr-2 h-6 w-6 text-red-500' />,
-    borderColor: 'border border-4 !border-red-500',
-    typeColor: 'text-red-500',
-  },
+const icons = {
+  default: Info,
+  note: Info,
+  tip: Lightbulb,
+  important: AlertCircle,
+  warning: AlertTriangle,
+  caution: XOctagon,
 };
 
-export function Callout({ type, children }: CalloutProps) {
-  const { icon, borderColor, typeColor } = calloutMap[type];
+export interface CalloutProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'>,
+    VariantProps<typeof calloutVariants> {
+  icon?: keyof typeof icons;
+  title?: string | React.ReactNode;
+}
 
-  return (
-    <div
-      className={cn(
-        'mb-8 flex flex-col items-start rounded',
-        borderColor,
-        'bg-neutral-100 px-4 py-3 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100',
-      )}
-    >
-      <div className='flex items-center'>
-        {icon}
-        <div className={cn('ml-1 text-base font-bold', typeColor)}>
-          {type.toUpperCase()}
+const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
+  ({ className, variant, icon, title, children, ...props }, ref) => {
+    const Icon = icons[icon || variant || 'default'];
+
+    return (
+      <div
+        ref={ref}
+        role='alert'
+        className={cn(calloutVariants({ variant }), className)}
+        {...props}
+      >
+        <Icon className='h-6 w-6' />
+        <div className='space-y-2'>
+          {title && (
+            <h4 className='font-medium leading-none tracking-tight'>
+              {typeof title === 'string' ? title.toUpperCase() : title}
+            </h4>
+          )}
+          <div className='overflow-x-auto text-[0.925rem] leading-relaxed [&>*:first-child]:mt-0 [&>*]:mt-4 [&>code]:overflow-x-auto [&>pre]:overflow-x-auto'>
+            {children}
+          </div>
         </div>
       </div>
-      <div className='callout w-full text-base'>{children}</div>
-    </div>
-  );
-}
+    );
+  },
+);
+Callout.displayName = 'Callout';
+
+export default Callout;
+export { calloutVariants };

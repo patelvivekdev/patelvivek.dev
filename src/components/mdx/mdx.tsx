@@ -10,7 +10,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 // import { highlight } from 'sugar-high';
 import { cn } from '@/lib/utils';
 import Pre from './Pre';
-import { Callout } from './Callout';
+import Callout from './Callout';
 import { CustomLink } from './CustomLink';
 
 import { type Options } from 'rehype-pretty-code';
