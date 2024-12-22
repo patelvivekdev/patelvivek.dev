@@ -1,4 +1,5 @@
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
+// import { Link } from 'next-view-transitions';
 import { Suspense } from 'react';
 import ViewCounter from '@/components/views';
 import { getViewsCount } from '@/lib/get-views';
@@ -139,7 +140,7 @@ async function InternalBlogPost({
 }
 
 async function Views({ slug }: { slug: string }) {
-  let views = await getViewsCount();
+  const views = await getViewsCount();
   return <ViewCounter allViews={views} slug={slug} />;
 }
 

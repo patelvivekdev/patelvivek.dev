@@ -1,7 +1,8 @@
 'use client';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import clsx from 'clsx';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
+// import { Link } from 'next-view-transitions';
 import { generatePagination } from '@/lib/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
 

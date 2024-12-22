@@ -1,5 +1,6 @@
-/* eslint-disable no-useless-escape */
-import { Link } from 'next-view-transitions';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import Link from 'next/link';
+// import { Link } from 'next-view-transitions';
 import React from 'react';
 
 function slugify(str: string) {

@@ -1,7 +1,9 @@
 //create a custom 404 page
 
 import { Button } from '@/components/ui/button';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
+// import Link from 'next/link';
+// import { Link } from 'next-view-transitions';
 
 export default function NotFound() {
   return (

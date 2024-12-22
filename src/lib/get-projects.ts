@@ -48,7 +48,7 @@ export const getProjects = cache(async () => {
 // };
 
 export const getProjectByDate = cache(async () => {
-  let projects = await getProjects();
+  const projects = await getProjects();
 
   return projects.sort((a, b) => {
     const aDate = new Date(a.metadata.publishedAt!);
@@ -64,7 +64,7 @@ export async function getProject(slug: string) {
 }
 
 export async function getLatestProjects() {
-  let projects = await getProjects();
+  const projects = await getProjects();
 
   // Sort projects by publishedAt in descending order - publishedAt: 'May 04, 2024'
   projects.sort((a, b) => {

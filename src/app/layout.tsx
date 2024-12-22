@@ -11,7 +11,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import Script from 'next/script';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { ViewTransitions } from 'next-view-transitions';
+// import { ViewTransitions } from 'next-view-transitions';
 import { Toaster } from '@/components/ui/sonner';
 
 const fontSans = FontSans({
@@ -65,47 +65,47 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ViewTransitions>
-      <html lang='en' suppressHydrationWarning>
-        <head>
-          {process.env.APP_ENV !== 'development' && (
-            <Script
-              defer
-              src='https://us.umami.is/script.js'
-              data-website-id='aa7603cb-3e5d-474c-b1a5-f92e18751e5c'
-            />
-          )}
-        </head>
-        <body
-          className={cn(
-            'mx-auto bg-neutral-100 font-sans antialiased dark:bg-neutral-900',
-            fontSans.variable,
-          )}
+    // <ViewTransitions>
+    <html lang='en' suppressHydrationWarning>
+      <head>
+        {process.env.APP_ENV !== 'development' && (
+          <Script
+            defer
+            src='https://us.umami.is/script.js'
+            data-website-id='aa7603cb-3e5d-474c-b1a5-f92e18751e5c'
+          />
+        )}
+      </head>
+      <body
+        className={cn(
+          'mx-auto bg-neutral-100 font-sans antialiased dark:bg-neutral-900',
+          fontSans.variable,
+        )}
+      >
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem={true}
+          disableTransitionOnChange
+          scriptProps={{ 'data-cfasync': 'false' }}
         >
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='system'
-            enableSystem={true}
-            disableTransitionOnChange
-            scriptProps={{ 'data-cfasync': 'false' }}
-          >
-            <Navbar />
-            <main className='mx-auto max-w-6xl'>
-              {children}
-              <ScrollToTopButton />
-              <ThemeToggle />
-              <Toaster />
-              <Footer />
-            </main>
-            {process.env.APP_ENV !== 'development' && (
-              <>
-                <Analytics />
-                <SpeedInsights />
-              </>
-            )}
-          </ThemeProvider>
-        </body>
-      </html>
-    </ViewTransitions>
+          <Navbar />
+          <main className='mx-auto max-w-6xl'>
+            {children}
+            <ScrollToTopButton />
+            <ThemeToggle />
+            <Toaster />
+            <Footer />
+          </main>
+          {process.env.APP_ENV !== 'development' && (
+            <>
+              <Analytics />
+              <SpeedInsights />
+            </>
+          )}
+        </ThemeProvider>
+      </body>
+    </html>
+    // </ViewTransitions>
   );
 }

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 const ProjectPage = async () => {
-  let projects = await getProjectByDate();
+  const projects = await getProjectByDate();
 
   return (
     <div className='mx-auto mb-5 mt-16 flex w-11/12 flex-col items-center sm:mt-40'>

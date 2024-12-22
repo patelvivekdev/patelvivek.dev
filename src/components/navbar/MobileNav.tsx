@@ -1,6 +1,7 @@
 'use client';
 
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
+// import { Link } from 'next-view-transitions';
 import { usePathname } from 'next/navigation';
 import { MenuIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';

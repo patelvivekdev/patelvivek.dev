@@ -1,6 +1,31 @@
 import { Button } from '@/components/ui/button';
 import { allTags } from '@/lib/get-tags';
-import { Link } from 'next-view-transitions';
+import { Metadata } from 'next';
+import Link from 'next/link';
+// import { Link } from 'next-view-transitions';
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://patelvivek.dev/tag'),
+  title: 'Tag',
+  description:
+    'All tags used in my blog posts, snippets, and projects. Click on a tag to view all posts related to that tag.',
+  keywords: 'tags, blog tags, project tags, snippet tags',
+  openGraph: {
+    title: 'Tag',
+    description:
+      'All tags used in my blog posts, snippets, and projects. Click on a tag to view all posts related to that tag.',
+    url: 'https://patelvivek.dev/tag',
+    siteName: 'Vivek Patel | patelvivek.dev',
+    images: [
+      {
+        url: 'https://patelvivek.dev/og?title=Tag',
+        width: 1200,
+        height: 630,
+        alt: 'Tag',
+      },
+    ],
+  },
+};
 
 export default async function TagsPage() {
   const tags = Object.keys(allTags);

@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Metadata } from 'next';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
+// import { Link } from 'next-view-transitions';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Calendar } from 'lucide-react';
@@ -32,7 +34,7 @@ export async function generateMetadata({
     return notFound();
   }
 
-  let {
+  const {
     title,
     publishedAt: publishedTime,
     description,
@@ -40,7 +42,7 @@ export async function generateMetadata({
     tags,
   } = snippet.metadata;
 
-  let ogImage = image
+  const ogImage = image
     ? `https://patelvivek.dev${image}`
     : `https://patelvivek.dev/og?title=${title}`;
 
@@ -90,7 +92,7 @@ export default async function Snippet({
     return notFound();
   }
 
-  let publishedDate = await formatDate(snippet.metadata.publishedAt!);
+  const publishedDate = await formatDate(snippet.metadata.publishedAt!);
 
   return (
     <div className='mx-auto mt-16 w-11/12 sm:mt-40'>
