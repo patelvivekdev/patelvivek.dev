@@ -12,7 +12,7 @@ export async function CommandContainer() {
   let snippets = await getSnippets();
   snippets = snippets.filter((snippet) => snippet.metadata.published);
 
-  let tags = Object.keys(allTags);
+  const tags = Object.keys(allTags);
 
   tags.sort();
 

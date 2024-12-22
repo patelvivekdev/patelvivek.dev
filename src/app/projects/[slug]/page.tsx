@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Calendar } from 'lucide-react';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
+// import { Link } from 'next-view-transitions';
 import Image from 'next/image';
 import { getProjects } from '@/lib/get-projects';
 import { CustomMDX } from '@/components/mdx/mdx';
@@ -28,7 +30,7 @@ export async function generateMetadata({
     return notFound();
   }
 
-  let {
+  const {
     title,
     publishedAt: publishedTime,
     description: description,
@@ -36,7 +38,7 @@ export async function generateMetadata({
     tags,
   } = project.metadata;
 
-  let ogImage = image
+  const ogImage = image
     ? `https://patelvivek.dev${image}`
     : `https://patelvivek.dev/og?title=${title}`;
 
@@ -79,7 +81,7 @@ export default async function Project({
     return notFound();
   }
 
-  let publishedDate = await formatDate(project.metadata.publishedAt!);
+  const publishedDate = await formatDate(project.metadata.publishedAt!);
   return (
     <div className='flex flex-col gap-4 lg:flex-row'>
       <div className='mx-auto mt-16 w-11/12 flex-1 overflow-y-auto sm:mt-40'>

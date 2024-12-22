@@ -5,6 +5,7 @@ import { Linkedin } from 'lucide-react';
 import { Twitter } from 'lucide-react';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://patelvivek.dev/contact'),
   title: 'Get in Touch',
   description:
     'Want to get in touch? Reach out via social media for a quick response.',

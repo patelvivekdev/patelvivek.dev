@@ -1,7 +1,8 @@
 import { getSimilarPosts } from '@/lib/upstash';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
+// import { Link } from 'next-view-transitions';
 
 export default async function SimilarPost({
   slug,

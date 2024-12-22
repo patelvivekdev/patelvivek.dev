@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 import { saveMessage } from '@/db/query/message';
 import { z } from 'zod';

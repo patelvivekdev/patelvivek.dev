@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Metadata } from 'next';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
+// import { Link } from 'next-view-transitions';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Calendar } from 'lucide-react';
@@ -27,14 +29,14 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata | undefined> {
   const slug = (await params).slug;
-  let blogs = await getBlogs();
+  const blogs = await getBlogs();
   const blog = blogs.find((post) => post.slug === slug);
 
   if (!blog) {
     return notFound();
   }
 
-  let {
+  const {
     title,
     publishedAt: publishedTime,
     summary: description,
@@ -42,7 +44,7 @@ export async function generateMetadata({
     tags,
   } = blog.metadata;
 
-  let ogImage = image
+  const ogImage = image
     ? `https://patelvivek.dev${image}`
     : `https://patelvivek.dev/og?title=${title}`;
 
@@ -79,13 +81,13 @@ export default async function Blog({
   params: Promise<{ slug: string }>;
 }) {
   const slug = (await params).slug;
-  let blogs = await getBlogs();
+  const blogs = await getBlogs();
   const blog = blogs.find((post) => post.slug === slug);
 
   if (!blog) {
     return notFound();
   }
-  let publishedDate = await formatDate(blog.metadata.publishedAt!);
+  const publishedDate = await formatDate(blog.metadata.publishedAt!);
 
   return (
     <div className='flex flex-col gap-4 lg:flex-row'>

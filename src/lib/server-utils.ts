@@ -1,11 +1,11 @@
 export async function formatDate(date: string) {
-  let currentDate = new Date().getTime();
-  let targetDate = new Date(date).getTime();
+  const currentDate = new Date().getTime();
+  const targetDate = new Date(date).getTime();
 
-  let timeDifference = Math.abs(currentDate - targetDate);
-  let daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  const timeDifference = Math.abs(currentDate - targetDate);
+  const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
 
-  let fullDate = new Date(date).toLocaleString('en-us', {
+  const fullDate = new Date(date).toLocaleString('en-us', {
     month: 'long',
     day: 'numeric',
     year: 'numeric',

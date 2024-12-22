@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import React from 'react';
 import NextImage from 'next/image';
 import { MDXComponents } from 'mdx/types';
@@ -7,7 +6,6 @@ import remarkA11yEmoji from '@fec/remark-a11y-emoji';
 import remarkGfm from 'remark-gfm';
 import rehypePrettyCode from 'rehype-pretty-code';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-// import { highlight } from 'sugar-high';
 import { cn } from '@/lib/utils';
 import Pre from './Pre';
 import Callout from './Callout';
@@ -149,12 +147,20 @@ const mdxComponents: MDXComponents = {
       {...props}
     />
   ),
-  a: CustomLink as React.ComponentType<any>,
-  Link: CustomLink as React.ComponentType<any>,
+  a: CustomLink as React.ComponentType<
+    React.AnchorHTMLAttributes<HTMLAnchorElement>
+  >,
+  Link: CustomLink as React.ComponentType<
+    React.AnchorHTMLAttributes<HTMLAnchorElement>
+  >,
   Callout,
-  img: NextImage as React.ComponentType<any>,
+  img: NextImage as React.ComponentType<
+    React.DetailedHTMLProps<
+      React.ImgHTMLAttributes<HTMLImageElement>,
+      HTMLImageElement
+    >
+  >,
   pre: Pre,
-
   // table
   table: ({ className, ...props }) => (
     <div className='overflow-auto'>
