@@ -65,7 +65,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
               {typeof title === 'string' ? title.toUpperCase() : title}
             </h4>
           )}
-          <div className='text-[0.925rem] leading-relaxed [&>*:first-child]:mt-0 [&>*]:mt-4'>
+          <div className='overflow-x-auto text-[0.925rem] leading-relaxed [&>*:first-child]:mt-0 [&>*]:mt-4 [&>code]:overflow-x-auto [&>pre]:overflow-x-auto'>
             {children}
           </div>
         </div>
