@@ -25,18 +25,22 @@ export default async function SimilarPost({
           <CardTitle>Related Projects</CardTitle>
         </CardHeader>
         <CardContent>
-          <ul className='space-y-2'>
-            {relatedProjects.map((relatedProject) => (
-              <li key={relatedProject.id}>
-                <Link
-                  href={`/projects/${relatedProject.metadata?.project ?? ''}`}
-                  className='text-indigo-500 hover:underline'
-                >
-                  {relatedProject.metadata?.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {relatedProjects.length > 0 ? (
+            <ul className='space-y-2'>
+              {relatedProjects.map((relatedProject) => (
+                <li key={relatedProject.id}>
+                  <Link
+                    href={`/projects/${relatedProject.metadata?.project ?? ''}`}
+                    className='text-indigo-500 hover:underline'
+                  >
+                    {relatedProject.metadata?.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No related projects found</p>
+          )}
         </CardContent>
       </Card>
       <Card>
@@ -44,18 +48,22 @@ export default async function SimilarPost({
           <CardTitle>Related Blogs</CardTitle>
         </CardHeader>
         <CardContent>
-          <ul className='space-y-2'>
-            {relatedBlogs.map((relatedBlog) => (
-              <li key={relatedBlog.id}>
-                <Link
-                  href={`/blog/${relatedBlog.metadata?.blog ?? ''}`}
-                  className='text-indigo-500 hover:underline'
-                >
-                  {relatedBlog.metadata?.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {relatedBlogs.length > 0 ? (
+            <ul className='space-y-2'>
+              {relatedBlogs.map((relatedBlog) => (
+                <li key={relatedBlog.id}>
+                  <Link
+                    href={`/blog/${relatedBlog.metadata?.blog ?? ''}`}
+                    className='text-indigo-500 hover:underline'
+                  >
+                    {relatedBlog.metadata?.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No related blogs found</p>
+          )}
         </CardContent>
       </Card>
     </>
