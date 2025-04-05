@@ -1,6 +1,6 @@
-import type { Metadata } from 'next';
-import BlogPost from '@/components/BlogPost';
-import { getBlogs } from '@/lib/get-blogs';
+import type { Metadata } from 'next'
+import BlogPost from '@/components/BlogPost'
+import { getBlogs } from '@/lib/get-blogs'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://patelvivek.dev/blog'),
@@ -24,19 +24,19 @@ export const metadata: Metadata = {
       },
     ],
   },
-};
+}
 
 const BlogPage = async () => {
-  let allBlogs = await getBlogs();
+  let allBlogs = await getBlogs()
 
-  allBlogs = allBlogs.filter((blog) => blog.metadata.published);
+  allBlogs = allBlogs.filter((blog) => blog.metadata.published)
 
   // sort by date
   allBlogs = allBlogs.sort((a, b) => {
-    const dateA = new Date(a.metadata.publishedAt!);
-    const dateB = new Date(b.metadata.publishedAt!);
-    return dateB.getTime() - dateA.getTime();
-  });
+    const dateA = new Date(a.metadata.publishedAt!)
+    const dateB = new Date(b.metadata.publishedAt!)
+    return dateB.getTime() - dateA.getTime()
+  })
 
   return (
     <div className='mx-auto mt-16 flex w-11/12 flex-col items-center gap-4 sm:mt-40'>
@@ -106,7 +106,7 @@ const BlogPage = async () => {
           /> */}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BlogPage;
+export default BlogPage

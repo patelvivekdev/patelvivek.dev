@@ -1,13 +1,13 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { useTheme } from 'next-themes';
+'use client'
+import React, { useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
 
 export function ThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme();
-  const [loaded, setLoaded] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme()
+  const [loaded, setLoaded] = useState(false)
   useEffect(() => {
-    setLoaded(true);
-  }, [setLoaded]);
+    setLoaded(true)
+  }, [setLoaded])
 
   return (
     <button
@@ -44,5 +44,5 @@ export function ThemeToggle() {
         )}
       </svg>
     </button>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import type { Metadata } from 'next';
-import getSnippets from '@/lib/get-snippets';
-import SnippetCard from '@/components/SnippetCard';
+import type { Metadata } from 'next'
+import getSnippets from '@/lib/get-snippets'
+import SnippetCard from '@/components/SnippetCard'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://patelvivek.dev/snippets'),
@@ -21,18 +21,18 @@ export const metadata: Metadata = {
       },
     ],
   },
-};
+}
 
 const SnippetPage = async () => {
-  let allSnippets = await getSnippets();
+  let allSnippets = await getSnippets()
 
-  allSnippets = allSnippets.filter((snippet) => snippet.metadata.published);
+  allSnippets = allSnippets.filter((snippet) => snippet.metadata.published)
 
   allSnippets = allSnippets.sort((a, b) => {
-    const dateA = new Date(a.metadata.publishedAt!);
-    const dateB = new Date(b.metadata.publishedAt!);
-    return dateB.getTime() - dateA.getTime();
-  });
+    const dateA = new Date(a.metadata.publishedAt!)
+    const dateB = new Date(b.metadata.publishedAt!)
+    return dateB.getTime() - dateA.getTime()
+  })
 
   return (
     <div className='mx-auto mb-8 mt-16 flex min-h-screen w-11/12 flex-col items-center gap-4 sm:mt-40'>
@@ -61,7 +61,7 @@ const SnippetPage = async () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SnippetPage;
+export default SnippetPage

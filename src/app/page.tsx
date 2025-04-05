@@ -1,9 +1,9 @@
-import Link from 'next/link';
+import Link from 'next/link'
 // import { Link } from 'next-view-transitions';
-import Hero from '@/components/Hero';
-import { Button } from '@/components/ui/button';
-import RecentBlogs from '@/components/RecentBlogs';
-import LatestProjects from '@/components/LatestProjects';
+import Hero from '@/components/Hero'
+import { Button } from '@/components/ui/button'
+import RecentBlogs from '@/components/RecentBlogs'
+import LatestProjects from '@/components/LatestProjects'
 
 export default async function Home() {
   return (
@@ -47,5 +47,5 @@ export default async function Home() {
         </Link>
       </div>
     </main>
-  );
+  )
 }

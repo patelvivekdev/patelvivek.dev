@@ -1,30 +1,30 @@
-import { Button } from '@/components/ui/button';
-import { getBlogByTag } from '@/lib/get-blogs';
-import { getProjectsByTag } from '@/lib/get-projects';
-import { getSnippetsByTag } from '@/lib/get-snippets';
-import { allTags } from '@/lib/get-tags';
-import { Metadata } from 'next';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button'
+import { getBlogByTag } from '@/lib/get-blogs'
+import { getProjectsByTag } from '@/lib/get-projects'
+import { getSnippetsByTag } from '@/lib/get-snippets'
+import { allTags } from '@/lib/get-tags'
+import { Metadata } from 'next'
+import Link from 'next/link'
 // import { Link } from 'next-view-transitions';
-import { notFound } from 'next/navigation';
+import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
-  const tags = Object.keys(allTags);
-  return tags.map((tag) => ({ slug: tag }));
+  const tags = Object.keys(allTags)
+  return tags.map((tag) => ({ slug: tag }))
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }): Promise<Metadata | undefined> {
-  const slug = (await params).slug;
-  const title = `Posts tagged with ${slug}`;
-  const description = `All posts tagged with ${slug}.`;
+  const slug = (await params).slug
+  const title = `Posts tagged with ${slug}`
+  const description = `All posts tagged with ${slug}.`
 
-  const ogImage = `https://patelvivek.dev/og?title=${title}`;
+  const ogImage = `https://patelvivek.dev/og?title=${title}`
 
-  const publishedTime = new Date().toISOString();
+  const publishedTime = new Date().toISOString()
 
   return {
     metadataBase: new URL('https://patelvivek.dev/tag'),
@@ -50,23 +50,23 @@ export async function generateMetadata({
       description,
       images: [ogImage],
     },
-  };
+  }
 }
 
 export default async function TagPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }) {
-  const slug = (await params).slug;
-  const blogs = await getBlogByTag(slug);
+  const slug = (await params).slug
+  const blogs = await getBlogByTag(slug)
 
-  const projects = await getProjectsByTag(slug);
+  const projects = await getProjectsByTag(slug)
 
-  const snippets = await getSnippetsByTag(slug);
+  const snippets = await getSnippetsByTag(slug)
 
   if (blogs.length === 0 && projects.length === 0 && snippets.length === 0) {
-    return notFound();
+    return notFound()
   }
 
   return (
@@ -139,5 +139,5 @@ export default async function TagPage({
         </div>
       </section>
     </div>
-  );
+  )
 }

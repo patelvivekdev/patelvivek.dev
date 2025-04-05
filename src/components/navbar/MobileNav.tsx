@@ -1,36 +1,36 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
+import Link from 'next/link'
 // import { Link } from 'next-view-transitions';
-import { usePathname } from 'next/navigation';
-import { MenuIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { usePathname } from 'next/navigation'
+import { MenuIcon } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import {
   Sheet,
   SheetContent,
   SheetClose,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { cn } from '@/lib/utils';
+} from '@/components/ui/sheet'
+import { cn } from '@/lib/utils'
 
 export default function MobileNav({
   navItems,
 }: {
   navItems: {
-    name: string;
-    link: string;
-  }[];
+    name: string
+    link: string
+  }[]
 }) {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   const handleClick = () => {
     // fire KeyboardEvent command + k
     const event = new KeyboardEvent('keydown', {
       key: 'k',
       ctrlKey: true,
-    });
-    document.dispatchEvent(event);
-  };
+    })
+    document.dispatchEvent(event)
+  }
 
   return (
     <header className='flex h-16 items-center justify-between bg-white px-4 text-gray-900 shadow-md shadow-gray-300 dark:bg-neutral-800 dark:text-white md:hidden md:px-6'>
@@ -85,5 +85,5 @@ export default function MobileNav({
         </SheetContent>
       </Sheet>
     </header>
-  );
+  )
 }

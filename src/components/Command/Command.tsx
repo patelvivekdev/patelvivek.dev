@@ -1,9 +1,9 @@
-'use client';
+'use client'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import * as React from 'react';
-import { useTheme } from 'next-themes';
-import { useRouter } from 'next/navigation';
+import * as React from 'react'
+import { useTheme } from 'next-themes'
+import { useRouter } from 'next/navigation'
 
 import {
   CommandDialog,
@@ -13,7 +13,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/command';
+} from '@/components/ui/command'
 import {
   CircleUserRound,
   Home,
@@ -24,7 +24,7 @@ import {
   SunMoon,
   Tag,
   Target,
-} from 'lucide-react';
+} from 'lucide-react'
 
 export function CommandMenu({
   blogs,
@@ -32,14 +32,14 @@ export function CommandMenu({
   snippets,
   tags,
 }: {
-  blogs: any[];
-  projects: any[];
-  snippets: any[];
-  tags: any[];
+  blogs: any[]
+  projects: any[]
+  snippets: any[]
+  tags: any[]
 }) {
-  const router = useRouter();
-  const [open, setOpen] = React.useState(false);
-  const { setTheme } = useTheme();
+  const router = useRouter()
+  const [open, setOpen] = React.useState(false)
+  const { setTheme } = useTheme()
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -50,22 +50,22 @@ export function CommandMenu({
           e.target instanceof HTMLTextAreaElement ||
           e.target instanceof HTMLSelectElement
         ) {
-          return;
+          return
         }
 
-        e.preventDefault();
-        setOpen((open) => !open);
+        e.preventDefault()
+        setOpen((open) => !open)
       }
-    };
+    }
 
-    document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
-  }, []);
+    document.addEventListener('keydown', down)
+    return () => document.removeEventListener('keydown', down)
+  }, [])
 
   const runCommand = React.useCallback((command: () => unknown) => {
-    setOpen(false);
-    command();
-  }, []);
+    setOpen(false)
+    command()
+  }, [])
 
   return (
     <>
@@ -192,5 +192,5 @@ export function CommandMenu({
         </CommandList>
       </CommandDialog>
     </>
-  );
+  )
 }

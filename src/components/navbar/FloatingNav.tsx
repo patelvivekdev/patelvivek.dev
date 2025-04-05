@@ -1,30 +1,30 @@
-'use client';
+'use client'
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
-import { cn } from '@/lib/utils';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
+import React from 'react'
+import { cn } from '@/lib/utils'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 // import { Link } from 'next-view-transitions';
-import { Button } from '../ui/button';
+import { Button } from '../ui/button'
 
 export const FloatingNav = ({
   navItems,
 }: {
   navItems: {
-    name: string;
-    link: string;
-  }[];
+    name: string
+    link: string
+  }[]
 }) => {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   const handleClick = () => {
     // fire KeyboardEvent command + k
     const event = new KeyboardEvent('keydown', {
       key: 'k',
       ctrlKey: true,
-    });
-    document.dispatchEvent(event);
-  };
+    })
+    document.dispatchEvent(event)
+  }
 
   return (
     <div className='fixed inset-x-0 top-8 z-[5000] mx-auto hidden max-w-fit items-center justify-center space-x-4 rounded-full bg-neutral-950 px-4 py-2 dark:bg-neutral-50 md:flex'>
@@ -58,5 +58,5 @@ export const FloatingNav = ({
         <span>K</span>
       </Button>
     </div>
-  );
-};
+  )
+}

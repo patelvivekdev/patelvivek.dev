@@ -1,13 +1,13 @@
-import React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
+import React from 'react'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { cn } from '@/lib/utils'
 import {
   AlertCircle,
   Info,
   XOctagon,
   Lightbulb,
   AlertTriangle,
-} from 'lucide-react';
+} from 'lucide-react'
 
 const calloutVariants = cva(
   'relative mb-2 w-full rounded-lg p-4 [&>svg~*]:pl-11 [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground',
@@ -29,7 +29,7 @@ const calloutVariants = cva(
       variant: 'default',
     },
   },
-);
+)
 
 const icons = {
   default: Info,
@@ -38,18 +38,18 @@ const icons = {
   important: AlertCircle,
   warning: AlertTriangle,
   caution: XOctagon,
-};
+}
 
 export interface CalloutProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'>,
     VariantProps<typeof calloutVariants> {
-  icon?: keyof typeof icons;
-  title?: string | React.ReactNode;
+  icon?: keyof typeof icons
+  title?: string | React.ReactNode
 }
 
 const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
   ({ className, variant, icon, title, children, ...props }, ref) => {
-    const Icon = icons[icon || variant || 'default'];
+    const Icon = icons[icon || variant || 'default']
 
     return (
       <div
@@ -70,10 +70,10 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
           </div>
         </div>
       </div>
-    );
+    )
   },
-);
-Callout.displayName = 'Callout';
+)
+Callout.displayName = 'Callout'
 
-export default Callout;
-export { calloutVariants };
+export default Callout
+export { calloutVariants }

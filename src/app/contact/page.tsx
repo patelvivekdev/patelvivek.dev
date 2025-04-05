@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
-import ContactMeForm from './ContactForm';
-import { Github } from 'lucide-react';
-import { Linkedin } from 'lucide-react';
-import { Twitter } from 'lucide-react';
+import type { Metadata } from 'next'
+import ContactMeForm from './ContactForm'
+import { Github } from 'lucide-react'
+import { Linkedin } from 'lucide-react'
+import { Twitter } from 'lucide-react'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://patelvivek.dev/contact'),
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-};
+}
 
 const ContactPage = () => {
   return (
@@ -83,7 +83,7 @@ const ContactPage = () => {
         <ContactMeForm />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ContactPage;
+export default ContactPage

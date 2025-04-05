@@ -1,28 +1,28 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { ChevronUp } from 'lucide-react';
+import { useEffect, useState } from 'react'
+import { ChevronUp } from 'lucide-react'
 
 const ScrollToTopButton = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     const toggleVisibility = () => {
       // if the user scrolls down, show the button
       if (window.scrollY > 500) {
-        setIsVisible(true);
+        setIsVisible(true)
       } else {
-        setIsVisible(false);
+        setIsVisible(false)
       }
-    };
+    }
     // listen for scroll events
-    window.addEventListener('scroll', toggleVisibility);
+    window.addEventListener('scroll', toggleVisibility)
 
     // clear the listener on component unmount
     return () => {
-      window.removeEventListener('scroll', toggleVisibility);
-    };
-  }, []);
+      window.removeEventListener('scroll', toggleVisibility)
+    }
+  }, [])
 
   // handles the animation when scrolling to the top
   const scrollToTop = () => {
@@ -30,9 +30,9 @@ const ScrollToTopButton = () => {
       window.scrollTo({
         top: 0,
         behavior: 'auto',
-      });
+      })
     }
-  };
+  }
 
   return (
     <button
@@ -44,7 +44,7 @@ const ScrollToTopButton = () => {
     >
       <ChevronUp className='h-6 w-6' />
     </button>
-  );
-};
+  )
+}
 
-export default ScrollToTopButton;
+export default ScrollToTopButton

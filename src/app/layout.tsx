@@ -1,23 +1,23 @@
-import type { Metadata } from 'next';
-import React from 'react';
-import './globals.css';
-import Navbar from '@/components/navbar/Navbar';
-import Footer from '@/components/Footer';
-import { ThemeProvider } from 'next-themes';
-import { Inter as FontSans } from 'next/font/google';
-import { cn } from '@/lib/utils';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import Script from 'next/script';
-import ScrollToTopButton from '@/components/ScrollToTopButton';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import type { Metadata } from 'next'
+import React from 'react'
+import './globals.css'
+import Navbar from '@/components/navbar/Navbar'
+import Footer from '@/components/Footer'
+import { ThemeProvider } from 'next-themes'
+import { Inter as FontSans } from 'next/font/google'
+import { cn } from '@/lib/utils'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import Script from 'next/script'
+import ScrollToTopButton from '@/components/ScrollToTopButton'
+import { ThemeToggle } from '@/components/ThemeToggle'
 // import { ViewTransitions } from 'next-view-transitions';
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from '@/components/ui/sonner'
 
 const fontSans = FontSans({
   subsets: ['latin'],
   variable: '--font-sans',
-});
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://patelvivek.dev'),
@@ -57,12 +57,12 @@ export const metadata: Metadata = {
     title: 'Vivek Patel',
     card: 'summary_large_image',
   },
-};
+}
 
 export default async function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     // <ViewTransitions>
@@ -107,5 +107,5 @@ export default async function RootLayout({
       </body>
     </html>
     // </ViewTransitions>
-  );
+  )
 }

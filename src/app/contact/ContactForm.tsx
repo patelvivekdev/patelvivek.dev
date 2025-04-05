@@ -1,14 +1,14 @@
-'use client';
+'use client'
 
-import { useActionState } from 'react';
-import { useEffect } from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { toast } from 'sonner';
+import { useActionState } from 'react'
+import { useEffect } from 'react'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { toast } from 'sonner'
 
-import { sendMessage } from '@/app/actions';
-import { Button } from '@/components/ui/button';
+import { sendMessage } from '@/app/actions'
+import { Button } from '@/components/ui/button'
 
 const initialState = {
   type: '',
@@ -19,19 +19,19 @@ const initialState = {
   },
   message: '',
   errors: undefined,
-};
+}
 
 export default function ContactMeForm() {
   const [state, formAction, isPending] = useActionState(
     sendMessage,
     initialState,
-  );
+  )
 
   useEffect(() => {
     if (state.type === 'success') {
-      toast.success(state.message);
+      toast.success(state.message)
     }
-  }, [state]);
+  }, [state])
 
   return (
     <form
@@ -115,5 +115,5 @@ export default function ContactMeForm() {
         {isPending ? 'Submitting...' : 'Submit'}
       </Button>
     </form>
-  );
+  )
 }

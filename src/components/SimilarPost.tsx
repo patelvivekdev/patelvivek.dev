@@ -1,7 +1,7 @@
-import { getSimilarPosts } from '@/lib/upstash';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import Link from 'next/link';
+import { getSimilarPosts } from '@/lib/upstash'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
+import Link from 'next/link'
 // import { Link } from 'next-view-transitions';
 
 export default async function SimilarPost({
@@ -9,15 +9,15 @@ export default async function SimilarPost({
   content,
   type,
 }: {
-  slug: string;
-  content: string;
-  type: 'blog' | 'project';
+  slug: string
+  content: string
+  type: 'blog' | 'project'
 }) {
   const { relatedBlogs, relatedProjects } = await getSimilarPosts(
     slug,
     content,
     type,
-  );
+  )
   return (
     <>
       <Card className='mb-8'>
@@ -67,7 +67,7 @@ export default async function SimilarPost({
         </CardContent>
       </Card>
     </>
-  );
+  )
 }
 
 export function SkeletonSimilarPost() {
@@ -102,5 +102,5 @@ export function SkeletonSimilarPost() {
         </CardContent>
       </Card>
     </>
-  );
+  )
 }

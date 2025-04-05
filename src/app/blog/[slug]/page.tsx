@@ -1,39 +1,39 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Metadata } from 'next';
-import Link from 'next/link';
+import type { Metadata } from 'next'
+import Link from 'next/link'
 // import { Link } from 'next-view-transitions';
-import Image from 'next/image';
-import { notFound } from 'next/navigation';
-import { Calendar } from 'lucide-react';
+import Image from 'next/image'
+import { notFound } from 'next/navigation'
+import { Calendar } from 'lucide-react'
 
-import { CustomMDX } from '@/components/mdx/mdx';
-import { getBlogs } from '@/lib/get-blogs';
-import { formatDate } from '@/lib/server-utils';
+import { CustomMDX } from '@/components/mdx/mdx'
+import { getBlogs } from '@/lib/get-blogs'
+import { formatDate } from '@/lib/server-utils'
 // import ViewCounter from '@/components/views';
 // import { getViewsCount } from '@/lib/get-views';
-import Progress from '@/components/ui/progress';
-import { Button } from '@/components/ui/button';
-import SimilarPost, { SkeletonSimilarPost } from '@/components/SimilarPost';
-import { Suspense } from 'react';
+import Progress from '@/components/ui/progress'
+import { Button } from '@/components/ui/button'
+import SimilarPost, { SkeletonSimilarPost } from '@/components/SimilarPost'
+import { Suspense } from 'react'
 
 // import { increment } from '@/app/actions';
 
 export async function generateStaticParams() {
-  const blogs = await getBlogs();
-  return blogs.map((blog) => ({ slug: blog.slug }));
+  const blogs = await getBlogs()
+  return blogs.map((blog) => ({ slug: blog.slug }))
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }): Promise<Metadata | undefined> {
-  const slug = (await params).slug;
-  const blogs = await getBlogs();
-  const blog = blogs.find((post) => post.slug === slug);
+  const slug = (await params).slug
+  const blogs = await getBlogs()
+  const blog = blogs.find((post) => post.slug === slug)
 
   if (!blog) {
-    return notFound();
+    return notFound()
   }
 
   const {
@@ -42,11 +42,11 @@ export async function generateMetadata({
     summary: description,
     image,
     tags,
-  } = blog.metadata;
+  } = blog.metadata
 
   const ogImage = image
     ? `https://patelvivek.dev${image}`
-    : `https://patelvivek.dev/og?title=${title}`;
+    : `https://patelvivek.dev/og?title=${title}`
 
   return {
     title,
@@ -72,22 +72,22 @@ export async function generateMetadata({
       description,
       images: [ogImage],
     },
-  };
+  }
 }
 
 export default async function Blog({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }) {
-  const slug = (await params).slug;
-  const blogs = await getBlogs();
-  const blog = blogs.find((post) => post.slug === slug);
+  const slug = (await params).slug
+  const blogs = await getBlogs()
+  const blog = blogs.find((post) => post.slug === slug)
 
   if (!blog) {
-    return notFound();
+    return notFound()
   }
-  const publishedDate = await formatDate(blog.metadata.publishedAt!);
+  const publishedDate = await formatDate(blog.metadata.publishedAt!)
 
   return (
     <div className='flex flex-col gap-4 lg:flex-row'>
@@ -148,7 +148,7 @@ export default async function Blog({
         </Suspense>
       </aside>
     </div>
-  );
+  )
 }
 
 // let incrementViews = cache(increment);
@@ -169,5 +169,5 @@ function RoundedImage(props: any) {
       width={props.width}
       height={props.height}
     />
-  );
+  )
 }

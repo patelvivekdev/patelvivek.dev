@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
-import { allTags } from '@/lib/get-tags';
-import { Metadata } from 'next';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button'
+import { allTags } from '@/lib/get-tags'
+import { Metadata } from 'next'
+import Link from 'next/link'
 // import { Link } from 'next-view-transitions';
 
 export const metadata: Metadata = {
@@ -25,12 +25,12 @@ export const metadata: Metadata = {
       },
     ],
   },
-};
+}
 
 export default async function TagsPage() {
-  const tags = Object.keys(allTags);
+  const tags = Object.keys(allTags)
 
-  tags.sort((a, b) => allTags[b] - allTags[a]);
+  tags.sort((a, b) => allTags[b] - allTags[a])
 
   return (
     <>
@@ -52,5 +52,5 @@ export default async function TagsPage() {
         </div>
       </section>
     </>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import { getLatestBlogs } from '@/lib/get-blogs';
-import BlogPost from '@/components/BlogPost';
+import { getLatestBlogs } from '@/lib/get-blogs'
+import BlogPost from '@/components/BlogPost'
 
 export default async function RecentBlogs() {
-  const blogs = await getLatestBlogs();
+  const blogs = await getLatestBlogs()
 
   return (
     <>
@@ -19,5 +19,5 @@ export default async function RecentBlogs() {
         />
       ))}
     </>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { Skeleton } from '@/components/ui/skeleton';
+import { Skeleton } from '@/components/ui/skeleton'
 
 export function BlogSkeleton() {
   return (
@@ -29,7 +29,7 @@ export function BlogSkeleton() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default function RecentBlogsSkeleton() {
@@ -39,5 +39,5 @@ export default function RecentBlogsSkeleton() {
       <BlogSkeleton />
       <BlogSkeleton />
     </div>
-  );
+  )
 }

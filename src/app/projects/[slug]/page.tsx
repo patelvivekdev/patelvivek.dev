@@ -1,33 +1,33 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { Calendar } from 'lucide-react';
-import Link from 'next/link';
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { Calendar } from 'lucide-react'
+import Link from 'next/link'
 // import { Link } from 'next-view-transitions';
-import Image from 'next/image';
-import { getProjects } from '@/lib/get-projects';
-import { CustomMDX } from '@/components/mdx/mdx';
-import { formatDate } from '@/lib/server-utils';
-import Progress from '@/components/ui/progress';
-import { Button } from '@/components/ui/button';
-import SimilarPost, { SkeletonSimilarPost } from '@/components/SimilarPost';
-import { Suspense } from 'react';
+import Image from 'next/image'
+import { getProjects } from '@/lib/get-projects'
+import { CustomMDX } from '@/components/mdx/mdx'
+import { formatDate } from '@/lib/server-utils'
+import Progress from '@/components/ui/progress'
+import { Button } from '@/components/ui/button'
+import SimilarPost, { SkeletonSimilarPost } from '@/components/SimilarPost'
+import { Suspense } from 'react'
 
 export async function generateStaticParams() {
-  const projects = await getProjects();
-  return projects.map((project) => ({ slug: project.slug }));
+  const projects = await getProjects()
+  return projects.map((project) => ({ slug: project.slug }))
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }): Promise<Metadata | undefined> {
-  const slug = (await params).slug;
-  const project = (await getProjects()).find((post) => post.slug === slug);
+  const slug = (await params).slug
+  const project = (await getProjects()).find((post) => post.slug === slug)
 
   if (!project) {
-    return notFound();
+    return notFound()
   }
 
   const {
@@ -36,11 +36,11 @@ export async function generateMetadata({
     description: description,
     image,
     tags,
-  } = project.metadata;
+  } = project.metadata
 
   const ogImage = image
     ? `https://patelvivek.dev${image}`
-    : `https://patelvivek.dev/og?title=${title}`;
+    : `https://patelvivek.dev/og?title=${title}`
 
   return {
     title,
@@ -66,22 +66,22 @@ export async function generateMetadata({
       description,
       images: [ogImage],
     },
-  };
+  }
 }
 
 export default async function Project({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }) {
-  const slug = (await params).slug;
-  const project = (await getProjects()).find((post) => post.slug === slug);
+  const slug = (await params).slug
+  const project = (await getProjects()).find((post) => post.slug === slug)
 
   if (!project) {
-    return notFound();
+    return notFound()
   }
 
-  const publishedDate = await formatDate(project.metadata.publishedAt!);
+  const publishedDate = await formatDate(project.metadata.publishedAt!)
   return (
     <div className='flex flex-col gap-4 lg:flex-row'>
       <div className='mx-auto mt-16 w-11/12 flex-1 overflow-y-auto sm:mt-40'>
@@ -140,7 +140,7 @@ export default async function Project({
         </Suspense>
       </aside>
     </div>
-  );
+  )
 }
 
 function RoundedImage(props: any) {
@@ -153,5 +153,5 @@ function RoundedImage(props: any) {
       width={props.width}
       height={props.height}
     />
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import { getLatestProjects } from '@/lib/get-projects';
-import ProjectCard from './ProjectCard';
+import { getLatestProjects } from '@/lib/get-projects'
+import ProjectCard from './ProjectCard'
 
 export default async function LatestProjects() {
-  const projects = await getLatestProjects();
+  const projects = await getLatestProjects()
   return (
     <>
       {projects.map((project) => (
@@ -15,5 +15,5 @@ export default async function LatestProjects() {
         />
       ))}
     </>
-  );
+  )
 }

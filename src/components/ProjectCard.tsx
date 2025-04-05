@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from 'next/link'
 // import { Link } from 'next-view-transitions';
 
 export default function ProjectCard({
@@ -7,13 +7,13 @@ export default function ProjectCard({
   slug,
   tags,
 }: {
-  title: string;
-  description: string;
-  slug: string;
-  tags: string[];
+  title: string
+  description: string
+  slug: string
+  tags: string[]
 }) {
   // short the tags in alphabetical order
-  tags.sort();
+  tags.sort()
 
   return (
     <div className='rounded-md border border-neutral-400 bg-neutral-200 p-4 hover:border-neutral-800 hover:bg-neutral-300 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:border-zinc-100 dark:hover:bg-zinc-700'>
@@ -43,5 +43,5 @@ export default function ProjectCard({
         </span>
       </div>
     </div>
-  );
+  )
 }

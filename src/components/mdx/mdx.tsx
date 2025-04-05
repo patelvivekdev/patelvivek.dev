@@ -1,17 +1,17 @@
-import React from 'react';
-import NextImage from 'next/image';
-import { MDXComponents } from 'mdx/types';
+import React from 'react'
+import NextImage from 'next/image'
+import { MDXComponents } from 'mdx/types'
 // @ts-expect-error no types
-import remarkA11yEmoji from '@fec/remark-a11y-emoji';
-import remarkGfm from 'remark-gfm';
-import rehypePrettyCode from 'rehype-pretty-code';
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import { cn } from '@/lib/utils';
-import Pre from './Pre';
-import Callout from './Callout';
-import { CustomLink } from './CustomLink';
+import remarkA11yEmoji from '@fec/remark-a11y-emoji'
+import remarkGfm from 'remark-gfm'
+import rehypePrettyCode from 'rehype-pretty-code'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import { cn } from '@/lib/utils'
+import Pre from './Pre'
+import Callout from './Callout'
+import { CustomLink } from './CustomLink'
 
-import { type Options } from 'rehype-pretty-code';
+import { type Options } from 'rehype-pretty-code'
 
 export const rehypePrettyCodeOptions: Partial<Options> = {
   // use a prepackaged theme
@@ -20,7 +20,7 @@ export const rehypePrettyCodeOptions: Partial<Options> = {
     dark: 'github-dark',
     light: 'github-light',
   },
-};
+}
 
 function slugify(str: string) {
   return str
@@ -30,7 +30,7 @@ function slugify(str: string) {
     .replace(/\s+/g, '-') // Replace spaces with -
     .replace(/&/g, '-and-') // Replace & with 'and'
     .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-    .replace(/\-\-+/g, '-'); // Replace multiple - with single -
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
 }
 
 const mdxComponents: MDXComponents = {
@@ -211,14 +211,14 @@ const mdxComponents: MDXComponents = {
       {...props}
     />
   ),
-};
+}
 
 export function CustomMDX({
   children,
   components,
 }: {
-  children: string;
-  components: MDXComponents;
+  children: string
+  components: MDXComponents
 }) {
   return (
     <MDXRemote
@@ -235,5 +235,5 @@ export function CustomMDX({
       }}
       components={{ ...mdxComponents, ...(components || {}) }}
     />
-  );
+  )
 }

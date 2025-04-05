@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Link from 'next/link';
+import Link from 'next/link'
 // import { Link } from 'next-view-transitions';
-import React from 'react';
+import React from 'react'
 
 function slugify(str: string) {
   return str
@@ -11,23 +11,23 @@ function slugify(str: string) {
     .replace(/\s+/g, '-') // Replace spaces with -
     .replace(/&/g, '-and-') // Replace & with 'and'
     .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-    .replace(/\-\-+/g, '-'); // Replace multiple - with single -
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
 }
 
 export const CustomLink = ({
   children,
   ...props
 }: {
-  children: any;
-  [x: string]: any;
+  children: any
+  [x: string]: any
 }) => {
-  const href = props.href;
+  const href = props.href
   if (href.startsWith('/')) {
     return (
       <Link href={href} {...props}>
         {children}
       </Link>
-    );
+    )
   }
 
   if (href.startsWith('#')) {
@@ -40,7 +40,7 @@ export const CustomLink = ({
       >
         {children}
       </a>
-    );
+    )
   }
 
   return (
@@ -48,5 +48,5 @@ export const CustomLink = ({
       {' '}
       {children}{' '}
     </a>
-  );
-};
+  )
+}

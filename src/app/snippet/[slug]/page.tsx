@@ -1,37 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Metadata } from 'next';
-import Link from 'next/link';
+import type { Metadata } from 'next'
+import Link from 'next/link'
 // import { Link } from 'next-view-transitions';
-import Image from 'next/image';
-import { notFound } from 'next/navigation';
-import { Calendar } from 'lucide-react';
+import Image from 'next/image'
+import { notFound } from 'next/navigation'
+import { Calendar } from 'lucide-react'
 
-import { CustomMDX } from '@/components/mdx/mdx';
-import { getSnippets } from '@/lib/get-snippets';
+import { CustomMDX } from '@/components/mdx/mdx'
+import { getSnippets } from '@/lib/get-snippets'
 // import ViewCounter from '@/components/views';
 // import { getViewsCount } from '@/lib/get-views';
-import Progress from '@/components/ui/progress';
-import { Button } from '@/components/ui/button';
-import { formatDate } from '@/lib/server-utils';
+import Progress from '@/components/ui/progress'
+import { Button } from '@/components/ui/button'
+import { formatDate } from '@/lib/server-utils'
 // import { increment } from '@/app/actions';
 
 export async function generateStaticParams() {
-  const snippets = await getSnippets();
-  return snippets.map((snippet) => ({ slug: snippet.slug }));
+  const snippets = await getSnippets()
+  return snippets.map((snippet) => ({ slug: snippet.slug }))
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }): Promise<Metadata | undefined> {
-  const slug = (await params).slug;
-  const snippet = (await getSnippets()).find(
-    (snippet) => snippet.slug === slug,
-  );
+  const slug = (await params).slug
+  const snippet = (await getSnippets()).find((snippet) => snippet.slug === slug)
 
   if (!snippet) {
-    return notFound();
+    return notFound()
   }
 
   const {
@@ -40,11 +38,11 @@ export async function generateMetadata({
     description,
     image,
     tags,
-  } = snippet.metadata;
+  } = snippet.metadata
 
   const ogImage = image
     ? `https://patelvivek.dev${image}`
-    : `https://patelvivek.dev/og?title=${title}`;
+    : `https://patelvivek.dev/og?title=${title}`
 
   return {
     metadataBase: new URL('https://patelvivek.dev/snippets'),
@@ -70,7 +68,7 @@ export async function generateMetadata({
       description,
       images: [ogImage],
     },
-  };
+  }
 }
 
 // function to convert date from April 6, 2024 dateTime - 2024-04-06T08:00:00+08:00
@@ -81,18 +79,16 @@ export async function generateMetadata({
 export default async function Snippet({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }) {
-  const slug = (await params).slug;
-  const snippet = (await getSnippets()).find(
-    (snippet) => snippet.slug === slug,
-  );
+  const slug = (await params).slug
+  const snippet = (await getSnippets()).find((snippet) => snippet.slug === slug)
 
   if (!snippet) {
-    return notFound();
+    return notFound()
   }
 
-  const publishedDate = await formatDate(snippet.metadata.publishedAt!);
+  const publishedDate = await formatDate(snippet.metadata.publishedAt!)
 
   return (
     <div className='mx-auto mt-16 w-11/12 sm:mt-40'>
@@ -146,7 +142,7 @@ export default async function Snippet({
         </CustomMDX>
       </article>
     </div>
-  );
+  )
 }
 
 // let incrementViews = cache(increment);
@@ -167,5 +163,5 @@ function RoundedImage(props: any) {
       width={props.width}
       height={props.height}
     />
-  );
+  )
 }

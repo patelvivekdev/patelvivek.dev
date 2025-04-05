@@ -1,8 +1,8 @@
-import Link from 'next/link';
+import Link from 'next/link'
 // import { Link } from 'next-view-transitions';
-import { Suspense } from 'react';
-import ViewCounter from '@/components/views';
-import { getViewsCount } from '@/lib/get-views';
+import { Suspense } from 'react'
+import ViewCounter from '@/components/views'
+import { getViewsCount } from '@/lib/get-views'
 
 const SnippetCard = ({
   title,
@@ -13,13 +13,13 @@ const SnippetCard = ({
   tags,
   views,
 }: {
-  title: string;
-  description: string;
-  slug: string;
-  readingTime: string;
-  publishedAt?: string;
-  tags: string[];
-  views?: number | boolean;
+  title: string
+  description: string
+  slug: string
+  readingTime: string
+  publishedAt?: string
+  tags: string[]
+  views?: number | boolean
 }) => {
   return (
     <div className='rounded-md border border-neutral-400 bg-neutral-200 p-4 hover:border-neutral-800 hover:bg-neutral-300 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:border-zinc-100 dark:hover:bg-zinc-700'>
@@ -69,12 +69,12 @@ const SnippetCard = ({
         </span>
       </div>
     </div>
-  );
-};
-
-async function Views({ slug }: { slug: string }) {
-  const views = await getViewsCount();
-  return <ViewCounter allViews={views} slug={slug} />;
+  )
 }
 
-export default SnippetCard;
+async function Views({ slug }: { slug: string }) {
+  const views = await getViewsCount()
+  return <ViewCounter allViews={views} slug={slug} />
+}
+
+export default SnippetCard

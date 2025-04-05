@@ -1,20 +1,20 @@
-'use client';
+'use client'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useState, useRef } from 'react';
-import { Copy, Check } from 'lucide-react';
+import { useState, useRef } from 'react'
+import { Copy, Check } from 'lucide-react'
 
 const Pre = (props: any) => {
-  const textInput = useRef<any>(null);
-  const [copied, setCopied] = useState(false);
+  const textInput = useRef<any>(null)
+  const [copied, setCopied] = useState(false)
 
   const onCopy = () => {
-    setCopied(true);
-    navigator.clipboard.writeText(textInput?.current?.textContent);
+    setCopied(true)
+    navigator.clipboard.writeText(textInput?.current?.textContent)
     setTimeout(() => {
-      setCopied(false);
-    }, 2500);
-  };
+      setCopied(false)
+    }, 2500)
+  }
 
   return (
     <pre ref={textInput} className='flex flex-row justify-between gap-3'>
@@ -32,7 +32,7 @@ const Pre = (props: any) => {
         )}
       </button>
     </pre>
-  );
-};
+  )
+}
 
-export default Pre;
+export default Pre

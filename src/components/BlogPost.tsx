@@ -1,9 +1,9 @@
-import Link from 'next/link';
+import Link from 'next/link'
 // import { Link } from 'next-view-transitions';
-import { Suspense } from 'react';
-import ViewCounter from '@/components/views';
-import { getViewsCount } from '@/lib/get-views';
-import { Eye } from 'lucide-react';
+import { Suspense } from 'react'
+import ViewCounter from '@/components/views'
+import { getViewsCount } from '@/lib/get-views'
+import { Eye } from 'lucide-react'
 
 const BlogPost = ({
   title,
@@ -15,14 +15,14 @@ const BlogPost = ({
   tags,
   views,
 }: {
-  title: string;
-  summary: string;
-  slug: string;
-  readingTime: string;
-  tags: string[];
-  publishedAt: string;
-  external?: boolean;
-  views?: number | boolean;
+  title: string
+  summary: string
+  slug: string
+  readingTime: string
+  tags: string[]
+  publishedAt: string
+  external?: boolean
+  views?: number | boolean
 }) => {
   return (
     <>
@@ -48,10 +48,10 @@ const BlogPost = ({
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default BlogPost;
+export default BlogPost
 
 async function InternalBlogPost({
   title,
@@ -62,15 +62,15 @@ async function InternalBlogPost({
   tags,
   views,
 }: {
-  title: string;
-  summary: string;
-  slug: string;
-  readingTime: string;
-  publishedAt: string;
-  tags: string[];
-  views?: number | boolean;
+  title: string
+  summary: string
+  slug: string
+  readingTime: string
+  publishedAt: string
+  tags: string[]
+  views?: number | boolean
 }) {
-  tags.sort();
+  tags.sort()
   return (
     <div className='rounded-md border border-neutral-400 bg-neutral-200 p-4 hover:border-neutral-800 hover:bg-neutral-300 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:border-zinc-100 dark:hover:bg-zinc-700'>
       <div className='grid grid-cols-1 items-center justify-items-end gap-2 sm:grid-cols-3'>
@@ -136,12 +136,12 @@ async function InternalBlogPost({
         </span>
       </div>
     </div>
-  );
+  )
 }
 
 async function Views({ slug }: { slug: string }) {
-  const views = await getViewsCount();
-  return <ViewCounter allViews={views} slug={slug} />;
+  const views = await getViewsCount()
+  return <ViewCounter allViews={views} slug={slug} />
 }
 
 function ExternalBlogPost({
@@ -153,15 +153,15 @@ function ExternalBlogPost({
   tags,
   views,
 }: {
-  title: string;
-  summary: string;
-  slug: string;
-  readingTime: string;
-  publishedAt?: string;
-  tags: string[];
-  views?: number | boolean;
+  title: string
+  summary: string
+  slug: string
+  readingTime: string
+  publishedAt?: string
+  tags: string[]
+  views?: number | boolean
 }) {
-  tags.sort();
+  tags.sort()
   return (
     <div className='rounded-md border border-gray-300 bg-gray-200 p-4 hover:border-gray-300 hover:bg-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600 dark:hover:bg-slate-700'>
       <div className='grid grid-cols-1 items-center justify-items-end gap-2 sm:grid-cols-3'>
@@ -213,5 +213,5 @@ function ExternalBlogPost({
         </span>
       </div>
     </div>
-  );
+  )
 }

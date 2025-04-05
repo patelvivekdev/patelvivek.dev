@@ -1,6 +1,6 @@
-import { FloatingNav } from '@/components/navbar/FloatingNav';
-import MobileNav from '@/components/navbar/MobileNav';
-import { CommandContainer } from '../Command/CommandContainer';
+import { FloatingNav } from '@/components/navbar/FloatingNav'
+import MobileNav from '@/components/navbar/MobileNav'
+import { CommandContainer } from '../Command/CommandContainer'
 
 const links = [
   { link: '/', name: 'Home' },
@@ -9,7 +9,7 @@ const links = [
   { link: '/snippet', name: 'Snippets' },
   { link: '/tag', name: 'Tags' },
   { link: '/contact', name: 'Contact' },
-];
+]
 
 const Navbar = async () => {
   return (
@@ -18,7 +18,7 @@ const Navbar = async () => {
       <MobileNav navItems={links} />
       <CommandContainer />
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

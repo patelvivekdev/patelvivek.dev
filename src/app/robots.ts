@@ -7,5 +7,5 @@ export default function robots() {
       },
     ],
     sitemap: 'https://patelvivek.dev/sitemap.xml',
-  };
+  }
 }
