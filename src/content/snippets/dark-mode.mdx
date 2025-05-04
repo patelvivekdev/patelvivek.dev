@@ -33,12 +33,12 @@ npm install next-themes
 
 ```tsx
 // layout.tsx
-import { ThemeProvider } from 'next-themes';
+import { ThemeProvider } from 'next-themes'
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
@@ -53,7 +53,7 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
 ```
 
@@ -61,12 +61,12 @@ export default function RootLayout({
 
 ```tsx
 // tailwind.config.js
-import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
   darkMode: 'class',
-};
-export default config;
+}
+export default config
 ```
 
 ### 4. Create a switch to toggle themes

@@ -31,12 +31,12 @@ bun add sonner
 
 ```tsx
 // import { Toaster } from 'react-hot-toast';
-import { Toaster } from 'sonner';
+import { Toaster } from 'sonner'
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang='en'>
@@ -46,7 +46,7 @@ export default function RootLayout({
         <Toaster position='top-right' />
       </body>
     </html>
-  );
+  )
 }
 ```
 
@@ -54,18 +54,18 @@ export default function RootLayout({
 
 ```tsx
 // import toast from 'react-hot-toast';
-import { toast } from 'sonner';
+import { toast } from 'sonner'
 
 const handleClick = () => {
-  toast.success('This is a success toast');
-};
+  toast.success('This is a success toast')
+}
 
 export default function App() {
   return (
     <div>
       <button onClick={handleClick}>Show Toast</button>
     </div>
-  );
+  )
 }
 ```
 
@@ -80,9 +80,9 @@ export default function App() {
 ### Example
 
 ```tsx
-toast.success('This is a success toast');
-toast.error('This is an error toast');
-toast.loading('This is a loading toast');
+toast.success('This is a success toast')
+toast.error('This is an error toast')
+toast.loading('This is a loading toast')
 ```
 
 ## Link

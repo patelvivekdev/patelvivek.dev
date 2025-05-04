@@ -100,24 +100,24 @@ TURSO_AUTH_TOKEN=
 Create a file `src/db/db.ts` and set up your database configuration:
 
 ```typescript title="src/db/db.ts"
-import { drizzle } from 'drizzle-orm/libsql';
-import { createClient } from '@libsql/client';
-import * as schema from './schema';
+import { drizzle } from 'drizzle-orm/libsql'
+import { createClient } from '@libsql/client'
+import * as schema from './schema'
 
 if (!process.env.TURSO_DATABASE_URL) {
-  throw new Error('TURSO_DATABASE_URL is not defined');
+  throw new Error('TURSO_DATABASE_URL is not defined')
 }
 
 if (!process.env.TURSO_AUTH_TOKEN) {
-  throw new Error('TURSO_AUTH_TOKEN is not defined');
+  throw new Error('TURSO_AUTH_TOKEN is not defined')
 }
 
 const client = createClient({
   url: process.env.TURSO_DATABASE_URL!,
   authToken: process.env.TURSO_AUTH_TOKEN,
-});
+})
 
-export const db = drizzle(client, { schema });
+export const db = drizzle(client, { schema })
 ```
 
 ### 6. Define Database Schema
@@ -125,18 +125,18 @@ export const db = drizzle(client, { schema });
 Create a file `src/db/schema.ts` to define your database schema:
 
 ```typescript title="src/db/schema.ts"
-import { sql } from 'drizzle-orm';
-import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { sql } from 'drizzle-orm'
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 export const usersTable = sqliteTable('users', {
   id: integer('id').primaryKey(),
   name: text('name').notNull(),
   age: integer('age').notNull(),
   email: text('email').unique().notNull(),
-});
+})
 
-export type InsertUser = typeof usersTable.$inferInsert;
-export type SelectUser = typeof usersTable.$inferSelect;
+export type InsertUser = typeof usersTable.$inferInsert
+export type SelectUser = typeof usersTable.$inferSelect
 
 export const postsTable = sqliteTable('posts', {
   id: integer('id').primaryKey(),
@@ -151,10 +151,10 @@ export const postsTable = sqliteTable('posts', {
   updateAt: integer('updated_at', { mode: 'timestamp' }).$onUpdate(
     () => new Date(),
   ),
-});
+})
 
-export type InsertPost = typeof postsTable.$inferInsert;
-export type SelectPost = typeof postsTable.$inferSelect;
+export type InsertPost = typeof postsTable.$inferInsert
+export type SelectPost = typeof postsTable.$inferSelect
 ```
 
 ### 7. Setup Drizzle Configuration
@@ -162,12 +162,12 @@ export type SelectPost = typeof postsTable.$inferSelect;
 Create a `drizzle.config.ts` file in the root of your project:
 
 ```typescript title="drizzle.config.ts"
-import type { Config } from 'drizzle-kit';
-import dotenv from 'dotenv';
+import type { Config } from 'drizzle-kit'
+import dotenv from 'dotenv'
 
 dotenv.config({
   path: '.env.local',
-});
+})
 
 export default {
   schema: './src/db/schema.ts',
@@ -180,7 +180,7 @@ export default {
   out: './drizzle',
   verbose: true,
   strict: true,
-} satisfies Config;
+} satisfies Config
 ```
 
 ### 8. Generate and Apply Migrations

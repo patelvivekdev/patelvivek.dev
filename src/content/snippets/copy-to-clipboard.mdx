@@ -47,24 +47,24 @@ Create a new file named `mdx.tsx` in the `components` directory.
 ```tsx
 // components/mdx.tsx
 
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import { MDXComponents } from 'mdx/types';
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import { MDXComponents } from 'mdx/types'
 
-export const mdxComponents: MDXComponents = {};
+export const mdxComponents: MDXComponents = {}
 
 export function CustomMDX({
   children,
   components,
 }: {
-  children: string;
-  components: MDXComponents;
+  children: string
+  components: MDXComponents
 }) {
   return (
     <MDXRemote
       source={children}
       components={{ ...mdxComponents, ...(components || {}) }}
     />
-  );
+  )
 }
 ```
 
@@ -79,21 +79,21 @@ Create a new file named `Pre.tsx` in the `components` directory.
 ```tsx
 // components/Pre.tsx
 
-'use client';
-import { useState, useRef } from 'react';
-import { Copy, Check } from 'lucide-react';
+'use client'
+import { useState, useRef } from 'react'
+import { Copy, Check } from 'lucide-react'
 
 const Pre = (props: any) => {
-  const textInput = useRef<any>(null);
-  const [copied, setCopied] = useState(false);
+  const textInput = useRef<any>(null)
+  const [copied, setCopied] = useState(false)
 
   const onCopy = () => {
-    setCopied(true);
-    navigator.clipboard.writeText(textInput?.current?.textContent);
+    setCopied(true)
+    navigator.clipboard.writeText(textInput?.current?.textContent)
     setTimeout(() => {
-      setCopied(false);
-    }, 2000);
-  };
+      setCopied(false)
+    }, 2000)
+  }
 
   return (
     <div className='relative right-[20px] top-[20px]'>
@@ -113,10 +113,10 @@ const Pre = (props: any) => {
         )}
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default Pre;
+export default Pre
 ```
 
 ## Usage
@@ -127,13 +127,13 @@ Import Pre component in your MDX file.
 
 ```tsx
 // components/mdx.tsx
-import { Code } from 'bright';
-import Pre from './Pre';
+import { Code } from 'bright'
+import Pre from './Pre'
 
 Code.theme = {
   dark: 'github-dark',
   light: 'github-light',
-};
+}
 
 export const mdxComponents: MDXComponents = {
   pre: (props) => (
@@ -142,7 +142,7 @@ export const mdxComponents: MDXComponents = {
       <Pre {...props} />
     </div>
   ),
-};
+}
 ```
 
 ### Use CustomMDX
@@ -152,15 +152,15 @@ Import CustomMDX in page.tsx
 ```tsx
 // blog/[slug]/page.tsx
 
-import { notFound } from 'next/navigation';
-import getBlogs from '@/db/get-blogs';
-import { CustomMDX } from '@/components/mdx';
+import { notFound } from 'next/navigation'
+import getBlogs from '@/db/get-blogs'
+import { CustomMDX } from '@/components/mdx'
 
 export default function Blog({ params }: { params: any }) {
-  const blog = getBlogs().find((post) => post.slug === params.slug);
+  const blog = getBlogs().find((post) => post.slug === params.slug)
 
   if (!blog) {
-    return notFound();
+    return notFound()
   }
   return (
     <div className='mx-auto mt-40 w-11/12'>
@@ -178,7 +178,7 @@ export default function Blog({ params }: { params: any }) {
         <CustomMDX components={{}}>{blog.content}</CustomMDX>
       </article>
     </div>
-  );
+  )
 }
 ```
 

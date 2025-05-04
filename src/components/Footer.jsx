@@ -1,6 +1,6 @@
 const Footer = async () => {
   // find the current year
-  const year = new Date().getFullYear();
+  const year = new Date().getFullYear()
 
   return (
     <footer className='border-t-2 border-indigo-500 text-gray-900 dark:text-white'>
@@ -10,7 +10,7 @@ const Footer = async () => {
         </p>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

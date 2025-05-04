@@ -119,16 +119,16 @@ In this file we will be creating a supabase client and call that clients whereve
 ```tsx title="/lib/supabase/private.ts"
 // /lib/supabase/private.ts
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js'
 
 if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-  throw new Error('Missing env vars SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
+  throw new Error('Missing env vars SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
 }
 
 const privateClient = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY,
-);
+)
 
 export const nextAuthClient = createClient(
   process.env.SUPABASE_URL,
@@ -136,9 +136,9 @@ export const nextAuthClient = createClient(
   {
     db: { schema: 'next_auth' },
   },
-);
+)
 
-export default privateClient;
+export default privateClient
 ```
 
 ## Start with Authentication
@@ -200,11 +200,11 @@ Crate auth.ts in route of your project.
 ```tsx title="/app/auth.ts"
 // app/auth.ts
 
-import NextAuth from 'next-auth';
-import { SupabaseAdapter } from '@auth/supabase-adapter';
-import GitHub from 'next-auth/providers/github';
-import Google from 'next-auth/providers/google';
-import type { NextAuthConfig } from 'next-auth';
+import NextAuth from 'next-auth'
+import { SupabaseAdapter } from '@auth/supabase-adapter'
+import GitHub from 'next-auth/providers/github'
+import Google from 'next-auth/providers/google'
+import type { NextAuthConfig } from 'next-auth'
 
 export const config = {
   providers: [GitHub, Google],
@@ -212,9 +212,9 @@ export const config = {
     url: process.env.SUPABASE_URL as string,
     secret: process.env.SUPABASE_SERVICE_ROLE_KEY as string,
   }),
-} satisfies NextAuthConfig;
+} satisfies NextAuthConfig
 
-export const { handlers, auth } = NextAuth(config);
+export const { handlers, auth } = NextAuth(config)
 ```
 
 Here we are using supabase adapter and our choice of providers for auth. You can add more providers from [AuthJs Providers](https://authjs.dev/getting-started#official-providers).
@@ -228,8 +228,8 @@ create file in `/api/auth/[...nextauth]/route.ts`
 ```ts title="/api/auth/[...nextauth]/route.ts"
 // /api/auth/[...nextauth]/route.ts
 
-import { handlers } from '@/app/auth'; // check your auth.ts route
-export const { GET, POST } = handlers;
+import { handlers } from '@/app/auth' // check your auth.ts route
+export const { GET, POST } = handlers
 ```
 
 Crate a file name as `middleware.ts`
@@ -239,7 +239,7 @@ Make sure to add this as same level as App or inside src if you use src as your 
 ```ts title="middleware.ts"
 // middleware.ts
 
-export { auth as middleware } from '@/app/auth';
+export { auth as middleware } from '@/app/auth'
 
 export const config = {
   matcher: [
@@ -252,7 +252,7 @@ export const config = {
      */
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
-};
+}
 ```
 
 ### 4.Create Sign In And Sign Out
@@ -291,14 +291,14 @@ Inside components create file `Navbar.tsx`.
 ```tsx title="Navbar.tsx"
 // Navbar.tsx
 
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { SignIn, SignOut } from './auth-components';
-import { auth } from '@/app/auth';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { SignIn, SignOut } from './auth-components'
+import { auth } from '@/app/auth'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 export default async function Navbar() {
-  const session = await auth();
+  const session = await auth()
   return (
     <nav className='fixed inset-x-0 top-0 z-50 bg-white shadow-sm dark:bg-gray-950/90'>
       <div className='mx-auto w-full max-w-7xl px-4'>
@@ -338,7 +338,7 @@ export default async function Navbar() {
         </div>
       </div>
     </nav>
-  );
+  )
 }
 ```
 
@@ -377,27 +377,27 @@ Let's create a new page as 'todos/page.tsx'
 ```tsx title="app/todos/page.tsx"
 // app/todos/page.tsx
 
-import AddTodo from './AddForm';
-import TodoList from './TodoList';
-import { auth } from '@/app/auth';
-import { SignIn } from '@/components/auth-components';
+import AddTodo from './AddForm'
+import TodoList from './TodoList'
+import { auth } from '@/app/auth'
+import { SignIn } from '@/components/auth-components'
 
 export default async function Todo() {
-  const session = await auth();
+  const session = await auth()
   if (!session?.user)
     return (
       <div className='mx-auto flex min-h-screen w-11/12 flex-col items-center justify-center gap-10'>
         <h1 className='text-3xl'>You must login to perform this action.</h1>
         <SignIn />
       </div>
-    );
+    )
 
   return (
     <div className='mx-auto flex min-h-screen w-11/12 flex-col items-center justify-center gap-10'>
       <AddTodo user={session?.user} />
       <TodoList user={session?.user} />
     </div>
-  );
+  )
 }
 ```
 
@@ -450,18 +450,18 @@ Create new client component.
 
 ```tsx title="components/submit-button.tsx"
 // components/submit-button.tsx
-'use client';
+'use client'
 
-import { useFormStatus } from 'react-dom';
-import { Button } from '@/components/ui/button';
+import { useFormStatus } from 'react-dom'
+import { Button } from '@/components/ui/button'
 
 export function SubmitButton({
   name,
   className,
   variant,
 }: {
-  name: string;
-  className: string;
+  name: string
+  className: string
   variant:
     | 'link'
     | 'outline'
@@ -470,9 +470,9 @@ export function SubmitButton({
     | 'secondary'
     | 'ghost'
     | null
-    | undefined;
+    | undefined
 }) {
-  const { pending } = useFormStatus();
+  const { pending } = useFormStatus()
 
   return (
     <Button
@@ -483,7 +483,7 @@ export function SubmitButton({
     >
       {pending ? 'Submitting...' : name}
     </Button>
-  );
+  )
 }
 ```
 
@@ -502,8 +502,8 @@ At start of file write `'use server'`.
 ```ts title="app/actions.ts"
 // app/actions.ts
 
-'use server';
-import supabase from '@/lib/supabase/private';
+'use server'
+import supabase from '@/lib/supabase/private'
 
 export async function addTodo(
   email: string,
@@ -514,27 +514,27 @@ export async function addTodo(
     const { data, error } = await supabase.from('todos').upsert({
       title: formData.get('title'),
       email: email,
-    });
+    })
 
     if (error) {
-      console.log('Error', error);
+      console.log('Error', error)
       return {
         type: 'error',
         message: 'Database Error: Failed to add todo.',
-      };
+      }
     }
-    revalidatePath('/todos');
+    revalidatePath('/todos')
     return {
       type: 'success',
       message: `${validatedFields.data.title} added successfully.`,
       resetKey: Date.now().toString(),
-    };
+    }
   } catch (error: any) {
-    console.log('Error', error.message);
+    console.log('Error', error.message)
     return {
       type: 'error',
       message: 'Database Error: Failed to add todo.',
-    };
+    }
   }
 }
 ```
@@ -574,23 +574,23 @@ In `layout.tsx`
 ```tsx title="layout.tsx"
 // layout.tsx
 
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import { Toaster } from 'react-hot-toast';
-import Navbar from '@/components/Navbar';
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import { Toaster } from 'react-hot-toast'
+import Navbar from '@/components/Navbar'
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Server Actions by patelvivek.dev',
   description: 'Learn server actions with patelvivek.dev',
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang='en'>
@@ -600,7 +600,7 @@ export default function RootLayout({
         <Toaster position='bottom-left' />
       </body>
     </html>
-  );
+  )
 }
 ```
 
@@ -608,39 +608,39 @@ Updated AddFrom.tsx
 
 ```tsx title="todos/AddForm.tsx"
 // todos/AddForm.tsx
-'use client';
-import { toast } from 'react-hot-toast';
-import { useEffect } from 'react';
-import { useFormState } from 'react-dom';
+'use client'
+import { toast } from 'react-hot-toast'
+import { useEffect } from 'react'
+import { useFormState } from 'react-dom'
 
-import { SubmitButton } from '@/components/submit-button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { addTodo } from '@/app/actions';
-import { User } from 'next-auth';
+import { SubmitButton } from '@/components/submit-button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { addTodo } from '@/app/actions'
+import { User } from 'next-auth'
 
 const initialState = {
   message: '',
   errors: null,
-};
+}
 
 export default function AddTodo({ user }: { user: User }) {
-  const addTodoWithEmail = addTodo.bind(null, user?.email as string);
+  const addTodoWithEmail = addTodo.bind(null, user?.email as string)
   // Here we are bind user email with action. We can get that email in the server action as a argument.
 
   const [state, formAction] = useFormState<any>(
     addTodoWithEmail as any,
     initialState,
-  );
+  )
 
   useEffect(() => {
     if (state.type === 'success') {
-      toast.success(state.message);
+      toast.success(state.message)
     }
     if (state.type === 'redirect') {
-      toast.success(state.message);
+      toast.success(state.message)
     }
-  }, [state]);
+  }, [state])
 
   return (
     <div className='flex items-center justify-center'>
@@ -675,7 +675,7 @@ export default function AddTodo({ user }: { user: User }) {
         </form>
       </div>
     </div>
-  );
+  )
 }
 ```
 
@@ -688,12 +688,12 @@ We will using [zod](https://zod.dev/) with TypeScript.
 Update `action.ts`
 
 ```ts title="app/actions.ts"
-import { z } from 'zod';
+import { z } from 'zod'
 
 // =============================== addTodo ===============================
 const addTodoSchema = z.object({
   title: z.string().min(3, { message: 'Must be 3 or more characters long' }),
-});
+})
 
 export async function addTodo(
   email: string,
@@ -702,7 +702,7 @@ export async function addTodo(
 ) {
   const validatedFields = addTodoSchema.safeParse({
     title: formData.get('title'),
-  });
+  })
 
   // Return early if the form data is invalid
   if (!validatedFields.success) {
@@ -710,7 +710,7 @@ export async function addTodo(
       type: 'error',
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Missing Fields. Failed to add todo.',
-    };
+    }
   }
 
   // if not email user is not authenticated
@@ -718,34 +718,34 @@ export async function addTodo(
     return {
       type: 'redirect',
       message: 'Please Login again!.',
-    };
+    }
   }
 
   try {
     const { data, error } = await supabase.from('todos').upsert({
       title: validatedFields.data.title,
       email: email,
-    });
+    })
 
     if (error) {
-      console.log('Error', error);
+      console.log('Error', error)
       return {
         type: 'error',
         message: 'Database Error: Failed to add todo.',
-      };
+      }
     }
-    revalidatePath('/todos');
+    revalidatePath('/todos')
     return {
       type: 'success',
       message: `${validatedFields.data.title} added successfully.`,
       resetKey: Date.now().toString(),
-    };
+    }
   } catch (error: any) {
-    console.log('Error', error.message);
+    console.log('Error', error.message)
     return {
       type: 'error',
       message: 'Database Error: Failed to add todo.',
-    };
+    }
   }
 }
 ```
@@ -781,8 +781,8 @@ now we will show the list of todos with some actions button.
 ```ts title="app/db.ts"
 // app/db.ts
 
-import supabase from '@/lib/supabase/private';
-import { User } from 'next-auth';
+import supabase from '@/lib/supabase/private'
+import { User } from 'next-auth'
 
 export async function getTodos(user: User) {
   let { data: todos, error } = await supabase
@@ -790,8 +790,8 @@ export async function getTodos(user: User) {
     .select('*')
 
     // Filters
-    .eq('email', user.email);
-  return todos;
+    .eq('email', user.email)
+  return todos
 }
 ```
 
@@ -802,29 +802,29 @@ This is the function for getting all the todo from database for current user.
 ```tsx title="app/todos/TodoList.tsx"
 // TodoList.tsx
 
-import { getTodos } from '@/app/db';
+import { getTodos } from '@/app/db'
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import EditForm from './EditForm';
-import DeleteForm from './DeleteForm';
-import ChangeStatus from './ChangeStatus';
-import { User } from 'next-auth';
+} from '@/components/ui/card'
+import EditForm from './EditForm'
+import DeleteForm from './DeleteForm'
+import ChangeStatus from './ChangeStatus'
+import { User } from 'next-auth'
 
 export default async function TodoList({ user }: { user: User }) {
-  let todos = await getTodos(user);
+  let todos = await getTodos(user)
 
   // sort todos with id
   if (todos != null) {
-    todos = todos.sort((a, b) => a.id - b.id);
+    todos = todos.sort((a, b) => a.id - b.id)
   }
 
   if (todos?.length === 0) {
-    return <h1>No todos yet! Please add with above form.</h1>;
+    return <h1>No todos yet! Please add with above form.</h1>
   }
 
   return (
@@ -845,7 +845,7 @@ export default async function TodoList({ user }: { user: User }) {
         </Card>
       ))}
     </div>
-  );
+  )
 }
 ```
 
@@ -860,16 +860,16 @@ Using same concept from AddForm, we will create EditForm and DeleteForm.
 ```tsx title="app/todos/EditForm.tsx"
 // EditForm.tsx
 
-'use client';
-import { toast } from 'react-hot-toast';
-import { useEffect, useState } from 'react';
-import { useFormState } from 'react-dom';
+'use client'
+import { toast } from 'react-hot-toast'
+import { useEffect, useState } from 'react'
+import { useFormState } from 'react-dom'
 
-import { SubmitButton } from '@/components/submit-button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
+import { SubmitButton } from '@/components/submit-button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Button } from '@/components/ui/button'
+import { Switch } from '@/components/ui/switch'
 import {
   Dialog,
   DialogContent,
@@ -878,30 +878,30 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
-} from '@/components/ui/dialog';
+} from '@/components/ui/dialog'
 
-import { editTodo } from '@/app/actions';
+import { editTodo } from '@/app/actions'
 
 const initialState = {
   message: '',
   errors: null,
-};
+}
 
 export default function EditForm({ todo }: { todo: any }) {
-  const [open, setOpen] = useState(false);
-  const id: number = todo?.id;
-  const editTodoWithId = editTodo.bind(null, id);
+  const [open, setOpen] = useState(false)
+  const id: number = todo?.id
+  const editTodoWithId = editTodo.bind(null, id)
   const [state, formAction] = useFormState<any>(
     editTodoWithId as any,
     initialState,
-  );
+  )
 
   useEffect(() => {
     if (state.type === 'success') {
-      setOpen(false);
-      toast.success(state.message);
+      setOpen(false)
+      toast.success(state.message)
     }
-  }, [state]);
+  }, [state])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -953,7 +953,7 @@ export default function EditForm({ todo }: { todo: any }) {
         </form>
       </DialogContent>
     </Dialog>
-  );
+  )
 }
 ```
 
@@ -962,41 +962,41 @@ export default function EditForm({ todo }: { todo: any }) {
 ```tsx title="app/todos/DeleteForm.tsx"
 // DeleteForm.tsx
 
-'use client';
-import { toast } from 'react-hot-toast';
-import { useEffect } from 'react';
-import { useFormState } from 'react-dom';
+'use client'
+import { toast } from 'react-hot-toast'
+import { useEffect } from 'react'
+import { useFormState } from 'react-dom'
 
-import { SubmitButton } from '@/components/submit-button';
-import { deleteTodo } from '@/app/actions';
+import { SubmitButton } from '@/components/submit-button'
+import { deleteTodo } from '@/app/actions'
 
 const initialState = {
   message: '',
   errors: null,
-};
+}
 
 export default function DeleteForm({ todo }: { todo: any }) {
-  let deleteTodoWithId = deleteTodo.bind(null, todo.id);
+  let deleteTodoWithId = deleteTodo.bind(null, todo.id)
   const [state, formAction] = useFormState<any>(
     deleteTodoWithId as any,
     initialState,
-  );
+  )
 
   useEffect(() => {
     if (state.type === 'success') {
-      toast.success(state.message);
+      toast.success(state.message)
     }
 
     if (state.type === 'error') {
-      toast.error(state.message);
+      toast.error(state.message)
     }
-  }, [state]);
+  }, [state])
 
   return (
     <form action={formAction}>
       <SubmitButton name='Delete' variant='destructive' className='ml-2' />
     </form>
-  );
+  )
 }
 ```
 
@@ -1008,17 +1008,17 @@ export default function DeleteForm({ todo }: { todo: any }) {
 // =============================== editTodo ===============================
 const editTodoSchema = z.object({
   title: z.string().min(3, { message: 'Must be 3 or more characters long' }),
-});
+})
 
 export async function editTodo(id: number, prevState: any, formData: FormData) {
-  const isCompleted = formData.get('isCompleted');
+  const isCompleted = formData.get('isCompleted')
   const validatedFields = editTodoSchema.safeParse({
     title: formData.get('title'),
-  });
+  })
 
-  let status = false;
+  let status = false
   if (isCompleted === 'on') {
-    status = true;
+    status = true
   }
 
   // Return early if the form data is invalid
@@ -1027,7 +1027,7 @@ export async function editTodo(id: number, prevState: any, formData: FormData) {
       type: 'error',
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Missing Fields. Failed to edit todo.',
-    };
+    }
   }
 
   try {
@@ -1035,27 +1035,27 @@ export async function editTodo(id: number, prevState: any, formData: FormData) {
       .from('todos')
       .update({ title: validatedFields.data.title, isCompleted: status })
       .eq('id', id)
-      .select();
+      .select()
 
     if (error) {
-      console.log('Error', error);
+      console.log('Error', error)
       return {
         type: 'error',
         message: 'Database Error: Failed to edit todo.',
-      };
+      }
     }
-    revalidatePath('/todos');
+    revalidatePath('/todos')
     return {
       type: 'success',
       message: `${validatedFields.data.title} updated successfully.`,
       resetKey: Date.now().toString(),
-    };
+    }
   } catch (error: any) {
-    console.log('Error', error.message);
+    console.log('Error', error.message)
     return {
       type: 'error',
       message: 'Database Error: Failed to edit todo.',
-    };
+    }
   }
 }
 
@@ -1063,27 +1063,27 @@ export async function editTodo(id: number, prevState: any, formData: FormData) {
 
 export async function deleteTodo(id: number) {
   try {
-    const { error } = await supabase.from('todos').delete().eq('id', id);
+    const { error } = await supabase.from('todos').delete().eq('id', id)
 
     if (error) {
-      console.log('Error', error);
+      console.log('Error', error)
       return {
         type: 'error',
         message: 'Database Error: Failed to delete todo.',
-      };
+      }
     }
-    revalidatePath('/todos');
+    revalidatePath('/todos')
     return {
       type: 'success',
       message: `Todo deleted successfully.`,
       resetKey: Date.now().toString(),
-    };
+    }
   } catch (error: any) {
-    console.log('Error', error.message);
+    console.log('Error', error.message)
     return {
       type: 'error',
       message: 'Database Error: Failed to delete todo.',
-    };
+    }
   }
 }
 ```
@@ -1101,19 +1101,19 @@ For this we will using supabase Storage for saving user avatar, get the url and 
 ```tsx title="app/profile/page.tsx"
 // app/profile/page.tsx
 
-import { auth } from '@/app/auth';
-import { SignIn, SignOut } from '@/components/auth-components';
-import ChangeAvatarForm from './ChangeAvatarForm';
+import { auth } from '@/app/auth'
+import { SignIn, SignOut } from '@/components/auth-components'
+import ChangeAvatarForm from './ChangeAvatarForm'
 
 export default async function PrivatePage() {
-  const session = await auth();
+  const session = await auth()
   if (!session?.user)
     return (
       <div className='mx-auto flex min-h-screen w-4/5 flex-col items-center justify-center gap-10'>
         <h1 className='text-3xl'>You need to login to perfom this action.</h1>
         <SignIn />
       </div>
-    );
+    )
 
   return (
     <div className='mt-20 flex min-h-screen flex-col items-center justify-center'>
@@ -1122,7 +1122,7 @@ export default async function PrivatePage() {
 
       <ChangeAvatarForm user={session?.user} />
     </div>
-  );
+  )
 }
 ```
 
@@ -1131,20 +1131,20 @@ export default async function PrivatePage() {
 ```tsx title="app/profile/ChangeAvatarForm.tsx"
 // profile/ChangeAvatarForm.tsx
 
-import { auth } from '@/app/auth';
-import { SignIn, SignOut } from '@/components/auth-components';
-import Image from 'next/image';
-import ChangeAvatarForm from './ChangeAvatarForm';
+import { auth } from '@/app/auth'
+import { SignIn, SignOut } from '@/components/auth-components'
+import Image from 'next/image'
+import ChangeAvatarForm from './ChangeAvatarForm'
 
 export default async function PrivatePage() {
-  const session = await auth();
+  const session = await auth()
   if (!session?.user)
     return (
       <div className='mx-auto flex min-h-screen w-4/5 flex-col items-center justify-center gap-10'>
         <h1 className='text-3xl'>You need to login to perform this action.</h1>
         <SignIn />
       </div>
-    );
+    )
 
   return (
     <div className='mt-20 flex min-h-screen flex-col items-center justify-center space-y-5'>
@@ -1161,7 +1161,7 @@ export default async function PrivatePage() {
 
       <ChangeAvatarForm user={session?.user} />
     </div>
-  );
+  )
 }
 ```
 
@@ -1178,13 +1178,13 @@ export async function changeAvatar(
   prevState: any,
   formData: FormData,
 ) {
-  const avatar = formData.get('avatar') as File;
+  const avatar = formData.get('avatar') as File
 
   if (!avatar) {
     return {
       type: 'error',
       message: 'Please select an avatar',
-    };
+    }
   }
 
   // Only images are allowed
@@ -1192,7 +1192,7 @@ export async function changeAvatar(
     return {
       type: 'error',
       message: 'Only images are allowed',
-    };
+    }
   }
 
   // make sure file is less than 2MB
@@ -1200,7 +1200,7 @@ export async function changeAvatar(
     return {
       type: 'error',
       message: 'File size must be less than 2MB',
-    };
+    }
   }
 
   try {
@@ -1208,47 +1208,47 @@ export async function changeAvatar(
       .from('profile')
       .upload(`public/${email}/${avatar.name}`, avatar, {
         upsert: true,
-      });
+      })
     if (error) {
-      console.log('Error', error.message);
+      console.log('Error', error.message)
       return {
         type: 'error',
         message: `${error.message}`,
-      };
+      }
     }
     if (data.path) {
       const { data: avatar } = supabase.storage
         .from('profile')
-        .getPublicUrl(data.path);
+        .getPublicUrl(data.path)
 
       // change the url in User table in next-auth schema
       const { error: userDataError } = await nextAuthClient
         .from('users')
         .update({ image: avatar.publicUrl })
-        .eq('email', email);
+        .eq('email', email)
 
       if (userDataError) {
-        console.log('Error', userDataError);
+        console.log('Error', userDataError)
         return {
           type: 'error',
           message: `${userDataError.message}`,
-        };
+        }
       }
 
-      revalidatePath('/');
-      revalidatePath('/profile');
+      revalidatePath('/')
+      revalidatePath('/profile')
       return {
         type: 'success',
         message: 'Avatar changed!',
         resetKey: Date.now().toString(),
-      };
+      }
     }
   } catch (error: any) {
-    console.log('error', error);
+    console.log('error', error)
     return {
       type: 'error',
       message: 'Database Error: Failed to change avatar.',
-    };
+    }
   }
 }
 ```
@@ -1262,8 +1262,8 @@ Next we update the users table from next-auth schema.
 After update we revalidate the cache
 
 ```ts title="app/actions.ts"
-revalidatePath('/');
-revalidatePath('/profile');
+revalidatePath('/')
+revalidatePath('/profile')
 ```
 
 Because we have image in two places we have to revalidate two path.

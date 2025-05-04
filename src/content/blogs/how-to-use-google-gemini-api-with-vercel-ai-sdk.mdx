@@ -44,20 +44,20 @@ Make sure to add this file to your `.gitignore` to keep your API key secure.
 Now, let's create an API route to handle our Gemini requests. Create a new file at `app/api/chat/route.ts` (for App Router) or `pages/api/chat.ts` (for Pages Router) and add the following code:
 
 ```typescript title="app/api/chat/route.ts"
-import { google } from '@ai-sdk/google';
-import { streamText } from 'ai';
+import { google } from '@ai-sdk/google'
+import { streamText } from 'ai'
 
-export const runtime = 'edge';
+export const runtime = 'edge'
 
 export async function POST(req: Request) {
-  const { prompt } = await req.json();
+  const { prompt } = await req.json()
 
   return streamText({
     model: google('gemini-pro'),
     prompt,
     temperature: 0.7,
     maxTokens: 500,
-  });
+  })
 }
 ```
 
@@ -68,13 +68,13 @@ This sets up an API route that uses the Gemini Pro model to generate responses b
 Now, let's create a React component to interact with our Gemini API. Create a new file called `Chat.tsx` in your components directory:
 
 ```tsx title="components/Chat.tsx"
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useChat } from 'ai/react';
+import { useState } from 'react'
+import { useChat } from 'ai/react'
 
 export function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  const { messages, input, handleInputChange, handleSubmit } = useChat()
 
   return (
     <div className='stretch mx-auto flex w-full max-w-md flex-col py-24'>
@@ -94,7 +94,7 @@ export function Chat() {
         />
       </form>
     </div>
-  );
+  )
 }
 ```
 
@@ -105,7 +105,7 @@ This component uses the `useChat` hook from the Vercel AI SDK to manage the chat
 Finally, let's add our Chat component to a page. In your `app/page.tsx` (for App Router) or `pages/index.tsx` (for Pages Router), add the following code:
 
 ```tsx title="app/page.tsx"
-import { Chat } from '../components/Chat';
+import { Chat } from '../components/Chat'
 
 export default function Home() {
   return (
@@ -113,7 +113,7 @@ export default function Home() {
       <h1 className='mb-4 text-4xl font-bold'>Chat with Gemini</h1>
       <Chat />
     </main>
-  );
+  )
 }
 ```
 

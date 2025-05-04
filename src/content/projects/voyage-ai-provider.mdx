@@ -64,16 +64,16 @@ VOYAGE_API_KEY=your-api-key
 Import the default provider instance `voyage` and use the `.textEmbeddingModel()` method to create an embedding model:
 
 ```typescript title="ai.ts"
-import { voyage } from 'voyage-ai-provider';
-import { embedMany } from 'ai';
+import { voyage } from 'voyage-ai-provider'
+import { embedMany } from 'ai'
 
-const embeddingModel = voyage.textEmbeddingModel('voyage-3-lite');
+const embeddingModel = voyage.textEmbeddingModel('voyage-3-lite')
 
 export const generateEmbeddings = async (
   value: string,
 ): Promise<Array<{ embedding: number[]; content: string }>> => {
   // Generate chunks from the input value
-  const chunks = value.split('\n');
+  const chunks = value.split('\n')
 
   // Optional: You can also split the input value by comma
   // const chunks = value.split('.');
@@ -83,9 +83,9 @@ export const generateEmbeddings = async (
   const { embeddings } = await embedMany({
     model: embeddingModel,
     values: chunks,
-  });
-  return embeddings.map((e, i) => ({ content: chunks[i], embedding: e }));
-};
+  })
+  return embeddings.map((e, i) => ({ content: chunks[i], embedding: e }))
+}
 ```
 
 ### Advanced Usage: Customizing the Provider Instance
@@ -93,13 +93,13 @@ export const generateEmbeddings = async (
 If you need a customized setup, import `createVoyage` and create a provider instance with your settings:
 
 ```typescript title="ai.ts"
-import { createVoyage } from 'voyage-ai-provider';
+import { createVoyage } from 'voyage-ai-provider'
 
 const voyage = createVoyage({
   baseURL: 'https://api.voyageai.com/v1', // Optional: Customize the base URL
   apiKey: process.env.VOYAGE_API_KEY,
   // Optional: Add custom headers
-});
+})
 ```
 
 ### Adding Settings to the Model
@@ -111,7 +111,7 @@ const embeddingModel = voyage.textEmbeddingModel('voyage-3-lite', {
   inputType: 'document',
   outputDimension: '1024', // For voyage-code-3, you can choose from 256, 512, 1024 (default), 2048
   outputDtype: 'float',
-});
+})
 ```
 
 ## Voyage Embedding Models

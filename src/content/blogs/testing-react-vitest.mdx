@@ -71,8 +71,8 @@ Or If you are using vite you can add the following configuration in your `vite.c
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -83,22 +83,22 @@ export default defineConfig({
     setupFiles: ['./vitest.setup.ts'],
     include: ['src/**/*.test.tsx'],
   },
-});
+})
 ```
 
 Create a new file `vitest.setup.ts` in the root of your project with the following content:
 
 ```typescript title="vitest.setup.ts"
-import '@testing-library/jest-dom/vitest';
-import { cleanup } from '@testing-library/react';
-import { afterEach } from 'vitest';
+import '@testing-library/jest-dom/vitest'
+import { cleanup } from '@testing-library/react'
+import { afterEach } from 'vitest'
 
-import * as matchers from '@testing-library/jest-dom/matchers';
-expect.extend(matchers);
+import * as matchers from '@testing-library/jest-dom/matchers'
+expect.extend(matchers)
 
 afterEach(() => {
-  cleanup();
-});
+  cleanup()
+})
 ```
 
 Update the `tsconfig.json` file in the root of your project to include the following:
@@ -284,7 +284,7 @@ In future articles, we'll dive deeper into advanced testing techniques, includin
 Happy testing, and may your applications be forever bug-free!
 
 ```typescript
-console.log('Keep calm and test on!');
+console.log('Keep calm and test on!')
 ```
 
 ## Links
