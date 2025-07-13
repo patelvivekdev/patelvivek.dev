@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { Link } from 'react-transition-progress/next'
 // import { Link } from 'next-view-transitions';
 import { usePathname } from 'next/navigation'
 import { MenuIcon } from 'lucide-react'

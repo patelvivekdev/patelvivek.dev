@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Link from 'next/link'
+import { Link } from 'react-transition-progress/next'
 // import { Link } from 'next-view-transitions';
 import React from 'react'
 
