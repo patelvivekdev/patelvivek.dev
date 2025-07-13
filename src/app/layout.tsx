@@ -12,6 +12,7 @@ import Script from 'next/script'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
 import { ThemeToggle } from '@/components/ThemeToggle'
 // import { ViewTransitions } from 'next-view-transitions';
+import { ProgressBar, ProgressBarProvider } from 'react-transition-progress'
 import { Toaster } from '@/components/ui/sonner'
 
 const fontSans = FontSans({
@@ -82,28 +83,31 @@ export default async function RootLayout({
           fontSans.variable,
         )}
       >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem={true}
-          disableTransitionOnChange
-          scriptProps={{ 'data-cfasync': 'false' }}
-        >
-          <Navbar />
-          <main className='mx-auto max-w-6xl'>
-            {children}
-            <ScrollToTopButton />
-            <ThemeToggle />
-            <Toaster />
-            <Footer />
-          </main>
-          {process.env.APP_ENV !== 'development' && (
-            <>
-              <Analytics />
-              <SpeedInsights />
-            </>
-          )}
-        </ThemeProvider>
+        <ProgressBarProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem={true}
+            disableTransitionOnChange
+            scriptProps={{ 'data-cfasync': 'false' }}
+          >
+            <ProgressBar className='fixed top-0 h-1 bg-sky-500 shadow-lg shadow-sky-500/20' />
+            <Navbar />
+            <main className='mx-auto max-w-6xl'>
+              {children}
+              <ScrollToTopButton />
+              <ThemeToggle />
+              <Toaster />
+              <Footer />
+            </main>
+            {process.env.APP_ENV !== 'development' && (
+              <>
+                <Analytics />
+                <SpeedInsights />
+              </>
+            )}
+          </ThemeProvider>
+        </ProgressBarProvider>
       </body>
     </html>
     // </ViewTransitions>

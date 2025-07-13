@@ -4,7 +4,7 @@ import { getProjectsByTag } from '@/lib/get-projects'
 import { getSnippetsByTag } from '@/lib/get-snippets'
 import { allTags } from '@/lib/get-tags'
 import { Metadata } from 'next'
-import Link from 'next/link'
+import { Link } from 'react-transition-progress/next'
 // import { Link } from 'next-view-transitions';
 import { notFound } from 'next/navigation'
 

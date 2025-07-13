@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from 'react-transition-progress/next'
 // import { Link } from 'next-view-transitions';
 import { Suspense } from 'react'
 import ViewCounter from '@/components/views'

@@ -2,7 +2,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Calendar } from 'lucide-react'
-import Link from 'next/link'
+import { Link } from 'react-transition-progress/next'
 // import { Link } from 'next-view-transitions';
 import Image from 'next/image'
 import { getProjects } from '@/lib/get-projects'
